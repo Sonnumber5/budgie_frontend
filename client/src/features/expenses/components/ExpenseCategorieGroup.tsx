@@ -10,10 +10,7 @@ interface ExpenseCategoryGroupProps {
 export const ExpenseCategoryGroup = ({categoryName, expenses}: ExpenseCategoryGroupProps) => {
     const [isOpen, setIsOpen] = useState(false);
 
-    let total = 0;
-    for (const e of expenses){
-        total += e.amount;
-    }
+    const total = expenses.reduce((sum, e) => sum + Number(e.amount), 0);
 
     return (
         <div className="border rounded-lg mb-3">
