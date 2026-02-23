@@ -1,4 +1,4 @@
-import type { ExpenseDTO } from "../../account-balances/types";
+import type { ExpenseDTO } from "../../../types/index"
 import api from "../../../data/axios";
 
 export const createExpense = (data: ExpenseDTO) => {
