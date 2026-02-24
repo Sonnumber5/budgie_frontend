@@ -1,4 +1,3 @@
-import type { ExpenseDTO } from "../../../types/index"
 import api from "../../../data/axios";
 
 export const login = (email: string, password: string) => {

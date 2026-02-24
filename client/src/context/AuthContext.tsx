@@ -5,7 +5,8 @@ import React from "react";
 interface User{
     userId: number,
     email: string,
-    password: string
+    password: string,
+    name: string
 }
 
 interface AuthContextType{

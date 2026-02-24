@@ -1,0 +1,26 @@
+.navbar {
+    position: fixed;
+    top: 15px;
+    left: 15px;
+    right: 15px;
+    background-color: lightgreen;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 5px 15px;
+}
+
+.logo{
+    background-color: aliceblue;
+    display: flex;
+}
+
+.nav-buttons{
+    display: flex;
+    gap: 5px;
+}
+
+.auth-buttons{
+
+}
