@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { register } from '../features/auth/api/auth';
+import './RegisterPage.css';
 
 export const RegisterPage = () => {
     const [email, setEmail] = useState('');
@@ -17,7 +18,6 @@ export const RegisterPage = () => {
         setError(null);
 
         try {
-            // your auth API call here
             await register(email, password, name);
             navigate('/login');
         } catch (error: any) {
@@ -28,57 +28,53 @@ export const RegisterPage = () => {
     };
 
     return (
-        <div className="min-h-screen flex items-center justify-center bg-gray-50">
-            <div className="bg-white p-8 rounded-lg shadow-md w-full max-w-md">
-                <h1 className="text-2xl font-bold mb-6 text-center">Register</h1>
+        <div className="register-page">
+            <div className="register-card">
+                <h1 className="register-title">Register</h1>
 
-                {error && <p className="text-red-500 text-sm mb-4">{error}</p>}
+                {error && <p className="register-error">{error}</p>}
 
-                <form onSubmit={handleSubmit} className="flex flex-col gap-4">
-                    <div>
-                        <label className="block text-sm font-medium text-gray-700 mb-1">Name</label>
+                <form onSubmit={handleSubmit} className="register-form">
+                    <div className="register-field">
+                        <label className="register-label">Name</label>
                         <input
                             type="text"
                             value={name}
                             onChange={(e) => setName(e.target.value)}
-                            className="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                            className="register-input"
                             placeholder="John Doe"
                             required
                         />
                     </div>
-                    
-                    <div>
-                        <label className="block text-sm font-medium text-gray-700 mb-1">Email</label>
+
+                    <div className="register-field">
+                        <label className="register-label">Email</label>
                         <input
                             type="email"
                             value={email}
                             onChange={(e) => setEmail(e.target.value)}
-                            className="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                            className="register-input"
                             placeholder="you@example.com"
                             required
                         />
                     </div>
 
-                    <div>
-                        <label className="block text-sm font-medium text-gray-700 mb-1">Password</label>
+                    <div className="register-field">
+                        <label className="register-label">Password</label>
                         <input
                             type="password"
                             value={password}
                             onChange={(e) => setPassword(e.target.value)}
-                            className="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                            className="register-input"
                             placeholder="••••••••"
                             required
                         />
                     </div>
 
-                    <button
-                        type="submit"
-                        disabled={isLoading}
-                        className="w-full bg-blue-500 text-white py-2 rounded hover:bg-blue-600 disabled:opacity-50"
-                    >
+                    <button type="submit" disabled={isLoading} className="register-btn">
                         {isLoading ? 'Registering...' : 'Register'}
                     </button>
-                    <button onClick={() => {navigate('/login')}}>
+                    <button type="button" onClick={() => navigate('/login')} className="register-login-btn">
                         Login
                     </button>
                 </form>

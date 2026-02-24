@@ -1,0 +1,39 @@
+.register-page{
+    background-color: lightpink;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.register-card{
+    background-color: lightblue;
+    padding: 32px;
+    width: 100%;
+    max-width: 448px;
+}
+
+.login-title{
+
+}
+
+.login-error{
+
+}
+
+.register-form{
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    background-color: lightgreen;
+}
+
+.register-field{
+    display: flex;
+    gap: 
+    4px;
+}
+
+.register-label{
+    font-size: 0.875rem;
+}

@@ -1,6 +1,7 @@
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Navigate, useNavigate } from 'react-router-dom';
 import { login } from '../features/auth/api/auth';
+import './LoginPage.css';
 
 export const LoginPage = () => {
     const [email, setEmail] = useState('');
@@ -16,7 +17,6 @@ export const LoginPage = () => {
         setError(null);
 
         try {
-            // your auth API call here
             await login(email, password);
             navigate('/expenses');
         } catch (error: any) {
@@ -27,45 +27,41 @@ export const LoginPage = () => {
     };
 
     return (
-        <div className="min-h-screen flex items-center justify-center bg-gray-50">
-            <div className="bg-white p-8 rounded-lg shadow-md w-full max-w-md">
-                <h1 className="text-2xl font-bold mb-6 text-center">Login</h1>
+        <div className="login-page">
+            <div className="login-card">
+                <h1 className="login-title">Login</h1>
 
-                {error && <p className="text-red-500 text-sm mb-4">{error}</p>}
+                {error && <p className="login-error">{error}</p>}
 
-                <form onSubmit={handleSubmit} className="flex flex-col gap-4">
-                    <div>
-                        <label className="block text-sm font-medium text-gray-700 mb-1">Email</label>
+                <form onSubmit={handleSubmit} className="login-form">
+                    <div className="login-field">
+                        <label className="login-label">Email</label>
                         <input
                             type="email"
                             value={email}
                             onChange={(e) => setEmail(e.target.value)}
-                            className="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                            className="login-input"
                             placeholder="you@example.com"
                             required
                         />
                     </div>
 
-                    <div>
-                        <label className="block text-sm font-medium text-gray-700 mb-1">Password</label>
+                    <div className="login-field">
+                        <label className="login-label">Password</label>
                         <input
                             type="password"
                             value={password}
                             onChange={(e) => setPassword(e.target.value)}
-                            className="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                            className="login-input"
                             placeholder="••••••••"
                             required
                         />
                     </div>
 
-                    <button
-                        type="submit"
-                        disabled={isLoading}
-                        className="w-full bg-blue-500 text-white py-2 rounded hover:bg-blue-600 disabled:opacity-50"
-                    >
+                    <button type="submit" disabled={isLoading} className="login-btn">
                         {isLoading ? 'Logging in...' : 'Login'}
                     </button>
-                    <button onClick={() => {navigate('/register')}}>
+                    <button type="button" onClick={() => navigate('/register')} className="login-register-btn">
                         Register
                     </button>
                 </form>

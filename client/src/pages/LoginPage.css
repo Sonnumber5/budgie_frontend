@@ -1,0 +1,39 @@
+.login-page{
+    background-color: lightpink;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.login-card{
+    background-color: lightblue;
+    padding: 32px;
+    width: 100%;
+    max-width: 448px;
+}
+
+.login-title{
+
+}
+
+.login-error{
+
+}
+
+.login-form{
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    background-color: lightgreen;
+}
+
+.login-field{
+    display: flex;
+    gap: 
+    4px;
+}
+
+.login-label{
+    font-size: 0.875rem;
+}

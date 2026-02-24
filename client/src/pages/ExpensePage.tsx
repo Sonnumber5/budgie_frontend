@@ -9,9 +9,7 @@ export const ExpensesPage = () => {
     const { expenses, isLoading, error } = useExpenseContext();
     
     if (isLoading) return <p>Loading...</p>;
-    if (error) return <p className="text-red-500">{error}</p>;
-
-
+    if (error) return <p>{error}</p>;
 
     const groupedExpenses: { categoryId: number; categoryName: string; expenses: Expense[] }[] = [];
     
@@ -34,17 +32,16 @@ export const ExpensesPage = () => {
         navigate('/login');
     }
 
-
     return (
-        <div className="p-6">
+        <div>
             <button onClick={onLogout}>
                 Logout
             </button>
-            <div className="flex justify-between items-center mb-4">
-            <h1 className="text-2xl font-bold">Expenses</h1>
-            <button className="px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600">
-                + Add Expense
-            </button>
+            <div>
+                <h1>Expenses</h1>
+                <button>
+                    + Add Expense
+                </button>
             </div>
             
             {groupedExpenses.map(group => (

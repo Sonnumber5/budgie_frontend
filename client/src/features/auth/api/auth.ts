@@ -12,3 +12,7 @@ export const register = (email: string, password: string, name: string) => {
 export const logout = () => {
     return api.post(`/auth/logout`);
 }
+
+export const me = () => {
+    return api.get(`/auth/me`)
+}
