@@ -9,6 +9,7 @@ import { AuthProvider } from './context/AuthContext'
 import { DashboardProvider } from './context/DashboardContext'
 import { Dashboard } from './pages/Dashboard'
 import { Navbar } from './components/navbar'
+import { ExpensesPage } from './pages/ExpensesPage'
 
 function App() {
   return (
@@ -19,7 +20,6 @@ function App() {
           <Routes>
           <Route path="/login" element={<LoginPage/>}/>
           <Route path="/register" element={<RegisterPage/>}/>
-          {/*
             <Route path="/expenses" element={
               <ProtectedRoute>
                 <ExpenseProvider>
@@ -27,7 +27,6 @@ function App() {
                 </ExpenseProvider>
               </ProtectedRoute>
             }/>
-            */} 
             <Route path="/dashboard" element={
               <ProtectedRoute>
                 <DashboardProvider>
