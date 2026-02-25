@@ -50,8 +50,8 @@ export const MonthPicker = () => {
 
     return (
         <div className="month-picker">
-            <button onClick={goToPreviousMonth}>&lt;</button>
             <span>{displayMonth}</span>
+            <button onClick={goToPreviousMonth}>&lt;</button>
             <button onClick={goToNextMonth}>&gt;</button>
         </div>
     );
