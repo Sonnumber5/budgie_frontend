@@ -17,7 +17,10 @@ export const Navbar = () => {
         Logo
             </div>
             <div className="nav-buttons">
-            <button>
+            <button onClick={() => {navigate('/dashboard')}}>
+                Dashboard
+            </button>
+            <button onClick={() => {navigate('/income')}}>
                 Income
             </button>
             <button onClick={() => {navigate('/expenses')}}>

@@ -2,7 +2,8 @@ import './Dashboard.css';
 import { useDashboardContext } from '../context/DashboardContext';
 
 export const Dashboard = () => {
-    const { incomeTotal, expenseTotal, currentRemaining  } = useDashboardContext();
+    const { incomeTotal, expenseTotal, currentRemaining, isLoading  } = useDashboardContext();
+
     return (
         <div className="dashboard">
             <div className='month-section'>
@@ -10,7 +11,7 @@ export const Dashboard = () => {
             </div>
             <div className='totals-section'>
                 <div className='income-total'>
-                    Total income: ${incomeTotal}
+                    {isLoading ? 'Loading...' : `Total income: ${incomeTotal}`}
                 </div>
                 <div className='expenses-total'>
                     Total expenses: ${expenseTotal}

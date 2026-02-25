@@ -10,6 +10,8 @@ import { DashboardProvider } from './context/DashboardContext'
 import { Dashboard } from './pages/Dashboard'
 import { Navbar } from './components/navbar'
 import { ExpensesPage } from './pages/ExpensesPage'
+import { IncomeProvider } from './context/IncomeContext'
+import { IncomePage } from './pages/IncomePage'
 
 function App() {
   return (
@@ -27,6 +29,13 @@ function App() {
                 </ExpenseProvider>
               </ProtectedRoute>
             }/>
+            <Route path="/income" element={
+              <ProtectedRoute>
+                <IncomeProvider>
+                  <IncomePage/>
+                </IncomeProvider>
+              </ProtectedRoute>
+            }/> 
             <Route path="/dashboard" element={
               <ProtectedRoute>
                 <DashboardProvider>

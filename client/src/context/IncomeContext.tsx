@@ -4,17 +4,18 @@ import React from "react";
 import { useIncome } from "../features/income/hooks/useIncome";
 
 interface IncomeContextType{
-    income: Income[];
+    incomeList: Income[];
     isLoading: boolean;
-    error: string | null,
+    error: string | null;
+    incomeSum: number;
     addIncome: (data: IncomeDTO) => Promise<Income>;
     editIncome: (id: number, data: IncomeDTO) => Promise<Income>;
-    removeIncome: (id: number) => Promise<void>
+    removeIncome: (id: number) => Promise<void>;
 }
 
 const IncomeContext = createContext<IncomeContextType | null>(null);
 
-export const incomeProvider = ({ children }: { children: React.ReactNode }) => {
+export const IncomeProvider = ({ children }: { children: React.ReactNode }) => {
     const income = useIncome();
     return (
         <IncomeContext.Provider value={income}>

@@ -5,9 +5,10 @@ import { createIncome, getIncome, getIncomeById, updateIncome, deleteIncome } fr
 
 export const useIncome = () => {
     const { currentMonth } = useDate();
-    const [ income, setIncome ] = useState<Income[]>([]);
+    const [ incomeList, setIncomeList ] = useState<Income[]>([]);
     const [ isLoading, setIsLoading ] = useState(false);
     const [ error, setError ] = useState<string | null>(null);
+    const [ incomeSum, setIncomeSum ] = useState(0);
 
     useEffect(() => {
         const fetchIncome = async () => {
@@ -15,7 +16,11 @@ export const useIncome = () => {
             setError(null);
             try{
                 const response = await getIncome(currentMonth);
-                setIncome(response.data.income);
+                setIncomeList(response.data.income);
+                const total = response.data.income.reduce((sum: number, item: Income) => {
+                    return sum + Number(item.amount);
+                }, 0);
+                setIncomeSum(total);
             } catch(error: any){
                 setError(error.message || 'Failed to fetch income')
             } finally{
@@ -28,7 +33,8 @@ export const useIncome = () => {
     const addIncome = async (data: IncomeDTO): Promise<Income> => {
         try{
             const response = await createIncome(data);
-            setIncome(prev => [...prev, response.data.income]);
+            setIncomeList(prev => [...prev, response.data.income]);
+            setIncomeSum((prev) => prev + Number(response.data.income.amount))
             return response.data.income;
         } catch(error: any){
             setError(error.message || 'Failed to create income');
@@ -39,7 +45,12 @@ export const useIncome = () => {
     const removeIncome = async (id: number): Promise<void> => {
         try{
             await deleteIncome(id);
-            setIncome(prev => prev.filter(i => i.id !== id));
+            const incomeToRemove = incomeList.find(i => i.id === id);
+            setIncomeList(prev => prev.filter(i => i.id !== id));
+            
+            if (incomeToRemove){
+                setIncomeSum(prev => prev - Number(incomeToRemove.amount));
+            }
         } catch(error: any){
             setError(error.message || 'Failed to delete income');
             throw error;
@@ -48,9 +59,16 @@ export const useIncome = () => {
 
     const editIncome = async (id: number, data: IncomeDTO): Promise<Income> => {
         try{
+            const originalIncome = incomeList.find(i => i.id === id);
             const response = await updateIncome(id, data);
-            setIncome(prev => prev.map(i => i.id === id ? response.data.income : i));
-            return response.data.income;
+            const updatedIncome = response.data.income;
+            
+            setIncomeList(prev => prev.map(i => i.id === id ? updatedIncome : i));
+            if (originalIncome){
+                setIncomeSum(prev => prev - Number(originalIncome.amount) + Number(updatedIncome.amount));
+            }
+            
+            return updatedIncome;
         } catch(error: any){
             setError(error.message || 'Failed to update income');
             throw error;
@@ -58,6 +76,6 @@ export const useIncome = () => {
     }
 
     return {
-        income, isLoading, error, addIncome, editIncome, removeIncome
+        incomeSum, incomeList, isLoading, error, addIncome, editIncome, removeIncome
     }
 }

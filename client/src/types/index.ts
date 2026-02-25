@@ -68,12 +68,10 @@ export interface Income {
 
 export interface IncomeDTO{
     id?: number,
-    userId: number,
     amount: number,
     source: string,
     description: string,
     incomeDate: string,
-    month: string
 }
 
 //---------EXPENSE---------//
