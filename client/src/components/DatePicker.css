@@ -1,0 +1,26 @@
+/* MonthPicker.css */
+.month-picker {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.month-picker button {
+    background-color: white;
+    border: 1px solid #ccc;
+    padding: 8px 16px;
+    cursor: pointer;
+    border-radius: 4px;
+    font-size: 18px;
+}
+
+.month-picker button:hover {
+    background-color: #f0f0f0;
+}
+
+.month-picker span {
+    font-size: 20px;
+    font-weight: bold;
+    min-width: 180px;
+    text-align: center;
+}

@@ -1,5 +1,6 @@
 import './Dashboard.css';
 import { useDashboardContext } from '../context/DashboardContext';
+import { MonthPicker } from '../components/DatePicker';
 
 export const Dashboard = () => {
     const { incomeTotal, expenseTotal, currentRemaining, isLoading  } = useDashboardContext();
@@ -7,7 +8,7 @@ export const Dashboard = () => {
     return (
         <div className="dashboard">
             <div className='month-section'>
-                month picker
+                <MonthPicker/>
             </div>
             <div className='totals-section'>
                 <div className='income-total'>
