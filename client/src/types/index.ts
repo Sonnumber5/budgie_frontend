@@ -131,7 +131,7 @@ export interface CategoryBudget{
 export interface CategoryBudgetDTO{
     id?: number,
     monthlyBudgetId?: number,
-    categoryId: number,
+    categoryId?: number,
     categoryName?: string,
     budgetedAmount: number
 }

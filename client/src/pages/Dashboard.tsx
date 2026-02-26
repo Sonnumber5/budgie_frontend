@@ -2,9 +2,16 @@ import './Dashboard.css';
 import { useDashboardContext } from '../context/DashboardContext';
 import { MonthPicker } from '../components/DatePicker';
 import { BudgetOverview } from '../features/budget/components/BudgetOverview';
+import { Modal } from '../components/modal';
+import { BudgetManagementForm } from '../features/budget/components/BudgetManagementForm';
+import { useState } from 'react';
+import { useBudgetContext } from '../context/BudgetContext';
 
 export const Dashboard = () => {
     const { incomeTotal, expenseTotal, currentRemaining, isLoading  } = useDashboardContext();
+    const { monthlyBudget } = useBudgetContext();
+    const [ isModalOpen, setIsModalOpen ] = useState(false);
+    
 
     return (
         <div className="dashboard">
@@ -27,8 +34,11 @@ export const Dashboard = () => {
             </div>
             <div className='budget-funds-balance-sections'>
                 <div className='budget-section'>
-                    <button>Edit</button>
+                    <button onClick={() => {setIsModalOpen(true)}}>Edit</button>
                     <BudgetOverview/>
+                    <Modal isOpen={isModalOpen} onClose={() => {setIsModalOpen(false)}} title="Save">
+                        <BudgetManagementForm budgetToEdit={monthlyBudget ? monthlyBudget : null} onSuccess={() => {setIsModalOpen(false)}}/>
+                    </Modal>
                 </div>
                 <div className='balances-categories-section'>
                     <div className='balances-section'>

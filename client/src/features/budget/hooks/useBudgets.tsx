@@ -15,41 +15,44 @@ export const useBudgets = () => {
         const fetchBudget = async () => {
             setIsLoading(true);
             setError(null);
-            try{
+            try {
                 const response = await getBudgetByMonthAPI(currentMonth);
                 const fetchedBudget: MonthlyBudget = response.data.budget;
-                if (fetchedBudget){
+                
+                if (fetchedBudget) {
                     const fetchedCategoryBudgets: CategoryBudget[] = fetchedBudget.categoryBudgets;
-                    const fetchedCategories: Category[] = fetchedCategoryBudgets.map((prev) => ({
-                        id: prev.categoryId,
-                        name: prev.categoryName
+                    const fetchedCategories: Category[] = fetchedCategoryBudgets.map((cb) => ({
+                        id: cb.categoryId,
+                        name: cb.categoryName
                     }));
                     
                     setCategoryBudgets(fetchedCategoryBudgets);
                     setMonthlyBudget(fetchedBudget);
                     setAvailableCategories(fetchedCategories);
-                } else{
-                    setCategoryBudgets([]);
-                    setMonthlyBudget(null);
-                    setAvailableCategories([]);
-                }
-            }catch(error: any){
-                if (error.response?.status !== 404) {
-                    setError(error.message || 'Failed to fetch budget');
-                    console.error('Failed to fetch budget:', error);
                 } else {
                     setCategoryBudgets([]);
                     setMonthlyBudget(null);
                     setAvailableCategories([]);
                 }
-            }finally{
+            } catch(error: any) {
+                if (error.response?.status === 404) {
+                    setCategoryBudgets([]);
+                    setMonthlyBudget(null);
+                    setAvailableCategories([]);
+                    setError(null); 
+                } else {
+                    setError(error.message || 'Failed to fetch budget');
+                    console.error('Failed to fetch budget:', error);
+                }
+            } finally {
                 setIsLoading(false);
             }
         }
+        
         fetchBudget();
     }, [currentMonth]);
 
-    const createMonthlyBudget = async (data: MonthlyBudgetDTO): Promise<MonthlyBudget> => {
+    const addMonthlyBudget = async (data: MonthlyBudgetDTO): Promise<MonthlyBudget> => {
         setIsLoading(true);
         setError(null);
         try {
@@ -76,7 +79,7 @@ export const useBudgets = () => {
         }
     }
 
-    const updateMonthlyBudget = async (id: number, data: MonthlyBudgetDTO): Promise<MonthlyBudget> => {
+    const editMonthlyBudget = async (id: number, data: MonthlyBudgetDTO): Promise<MonthlyBudget> => {
         setIsLoading(true);
         setError(null);
         try {
@@ -103,7 +106,7 @@ export const useBudgets = () => {
         }
     }
 
-    const updateCategoryBudget = async (id: number, data: CategoryBudgetDTO): Promise<CategoryBudget> => {
+    const editCategoryBudget = async (id: number, data: CategoryBudgetDTO): Promise<CategoryBudget> => {
         setIsLoading(true);
         setError(null);
         try{
@@ -132,13 +135,13 @@ export const useBudgets = () => {
         }
     }
 
-    const deleteCategoryBudget = async (id: number) => {
+    const removeCategoryBudget = async (id: number) => {
         setIsLoading(true);
         setError(null);
         try{
             await deleteCategoryBudgetAPI(id);
 
-            const updatedCategoryBudgets = categoryBudgets.filter((prev) => prev.categoryId !== id);
+            const updatedCategoryBudgets = categoryBudgets.filter((prev) => prev.id !== id);
             
             setCategoryBudgets(updatedCategoryBudgets);
 
@@ -161,7 +164,7 @@ export const useBudgets = () => {
         }
     }
 
-    const deleteMonthlyBudget = async (id: number) => {
+    const removeMonthlyBudget = async (id: number) => {
         setIsLoading(true);
         setError(null);
         try{
@@ -178,5 +181,5 @@ export const useBudgets = () => {
         }
     }
 
-    return {monthlyBudget, categoryBudgets, availableCategories, isLoading, error, createMonthlyBudget, updateMonthlyBudget, updateCategoryBudget, deleteCategoryBudget, deleteMonthlyBudget}
+    return {monthlyBudget, categoryBudgets, availableCategories, isLoading, error, addMonthlyBudget, editMonthlyBudget, editCategoryBudget, removeCategoryBudget, removeMonthlyBudget}
 }

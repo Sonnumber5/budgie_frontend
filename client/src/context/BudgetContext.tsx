@@ -9,11 +9,11 @@ interface BudgetContextType{
     availableCategories: Category[];
     isLoading: boolean;
     error: string | null;
-    createMonthlyBudget: (data: MonthlyBudgetDTO) => Promise<MonthlyBudget>;
-    updateMonthlyBudget: (id: number, data: MonthlyBudgetDTO) => Promise<MonthlyBudget>;
-    updateCategoryBudget: (id: number, data: CategoryBudgetDTO) => Promise<CategoryBudget>;
-    deleteMonthlyBudget: (id: number) => void;
-    deleteCategoryBudget: (id: number) => void;
+    addMonthlyBudget: (data: MonthlyBudgetDTO) => Promise<MonthlyBudget>;
+    editMonthlyBudget: (id: number, data: MonthlyBudgetDTO) => Promise<MonthlyBudget>;
+    editCategoryBudget: (id: number, data: CategoryBudgetDTO) => Promise<CategoryBudget>;
+    removeMonthlyBudget: (id: number) => void;
+    removeCategoryBudget: (id: number) => void;
 }
 
 const BudgetContext = createContext<BudgetContextType | null>(null);
