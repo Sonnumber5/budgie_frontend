@@ -132,5 +132,51 @@ export const useBudgets = () => {
         }
     }
 
-    return {monthlyBudget, categoryBudgets, availableCategories, isLoading, error, createMonthlyBudget, updateMonthlyBudget, updateCategoryBudget}
+    const deleteCategoryBudget = async (id: number) => {
+        setIsLoading(true);
+        setError(null);
+        try{
+            await deleteCategoryBudgetAPI(id);
+
+            const updatedCategoryBudgets = categoryBudgets.filter((prev) => prev.categoryId !== id);
+            
+            setCategoryBudgets(updatedCategoryBudgets);
+
+            setMonthlyBudget(prev => prev ? {
+                ...prev,
+                categoryBudgets: updatedCategoryBudgets
+            } : null)
+
+            const updatedCategories: Category[] = updatedCategoryBudgets.map((cb) => ({
+                id: cb.categoryId,
+                name: cb.categoryName
+            }));
+            setAvailableCategories(updatedCategories);
+        } catch(error: any){
+            console.error('Failed to delete category budget', error);
+            setError(error.message || 'Failed to delete category budget');
+            throw error;
+        }finally{
+            setIsLoading(false);
+        }
+    }
+
+    const deleteMonthlyBudget = async (id: number) => {
+        setIsLoading(true);
+        setError(null);
+        try{
+            await deleteMonthlyBudgetAPI(id);
+            setAvailableCategories([]);
+            setCategoryBudgets([]);
+            setMonthlyBudget(null);
+        }catch(error: any){
+            console.error('Failed to delete monthly budget', error);
+            setError(error.message || 'Failed to delete monthly budget');
+            throw error;
+        }finally{
+            setIsLoading(false);
+        }
+    }
+
+    return {monthlyBudget, categoryBudgets, availableCategories, isLoading, error, createMonthlyBudget, updateMonthlyBudget, updateCategoryBudget, deleteCategoryBudget, deleteMonthlyBudget}
 }
