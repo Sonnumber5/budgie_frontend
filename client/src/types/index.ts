@@ -133,7 +133,6 @@ export interface CategoryBudget{
 
 export interface CategoryBudgetDTO{
     id?: number,
-    userId: number,
     monthlyBudgetId?: number,
     categoryId: number,
     categoryName?: string,
