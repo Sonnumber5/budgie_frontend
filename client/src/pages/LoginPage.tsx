@@ -1,13 +1,14 @@
 import { useState } from 'react';
 import { Navigate, useNavigate } from 'react-router-dom';
-import { login } from '../features/auth/api/auth';
 import './LoginPage.css';
+import { useAuth } from '../context/AuthContext';
 
 export const LoginPage = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [error, setError] = useState<string | null>(null);
     const [isLoading, setIsLoading] = useState(false);
+    const { login } = useAuth();
 
     const navigate = useNavigate();
 
