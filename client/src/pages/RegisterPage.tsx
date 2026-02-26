@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { register } from '../features/auth/api/auth';
+import { registerAPI } from '../features/auth/api/auth';
 import './RegisterPage.css';
 
 export const RegisterPage = () => {
@@ -18,7 +18,7 @@ export const RegisterPage = () => {
         setError(null);
 
         try {
-            await register(email, password, name);
+            await registerAPI(email, password, name);
             navigate('/login');
         } catch (error: any) {
             setError(error.message || 'Failed to register');

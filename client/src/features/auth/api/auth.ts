@@ -1,14 +1,14 @@
 import api from "../../../data/axios";
 
-export const login = (email: string, password: string) => {
+export const loginAPI = (email: string, password: string) => {
     return api.post(`/auth/login`, {email, password});
 }
 
-export const register = (email: string, password: string, name: string) => {
+export const registerAPI = (email: string, password: string, name: string) => {
     return api.post(`/auth/register`, {email, password, name});
 }
 
-export const logout = () => {
+export const logoutAPI = () => {
     return api.post(`/auth/logout`);
 }
 

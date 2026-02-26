@@ -1,6 +1,7 @@
 import { createContext, useContext, useState, useEffect } from "react";
-import { me } from'../features/auth/api/auth';
+import { loginAPI, me } from'../features/auth/api/auth';
 import React from "react";
+import { logoutAPI } from "../features/auth/api/auth";
 
 interface User{
     userId: number,
@@ -13,7 +14,9 @@ interface AuthContextType{
     user: User | null;
     isAuthenticated: boolean;
     isLoading: boolean;
-    setUser: (user: User | null) => void
+    setUser: (user: User | null) => void;
+    logout: () => void;
+    login: (email: string, password: string) => void;
 }
 
 const AuthContext = createContext<AuthContextType | null>(null);
@@ -36,8 +39,30 @@ export const AuthProvider = ({ children }: {children: React.ReactNode}) => {
         checkAuth();
     }, []);
 
+    const logout = async () => {
+        try {
+            await logoutAPI();
+        } catch (error) {
+            console.error('Logout failed:', error);
+        } finally {
+            setUser(null);
+        }
+    };
+
+    const login = async (email: string, password: string) => {
+        try{
+            const response = await loginAPI(email, password);
+            const userResponse = response.data.user;
+            setUser(userResponse);
+        } catch(error){
+            console.error('Login failed', error);
+            setUser(null);
+            throw error;
+        }
+    }
+
     return (
-        <AuthContext.Provider value={{ user, isAuthenticated: !!user, isLoading, setUser }}>
+        <AuthContext.Provider value={{ user, isAuthenticated: !!user, isLoading, setUser, logout, login }}>
             {children}
         </AuthContext.Provider>
     );
