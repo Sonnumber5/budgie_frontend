@@ -1,6 +1,7 @@
 import './Dashboard.css';
 import { useDashboardContext } from '../context/DashboardContext';
 import { MonthPicker } from '../components/DatePicker';
+import { BudgetOverview } from '../features/budget/components/BudgetOverview';
 
 export const Dashboard = () => {
     const { incomeTotal, expenseTotal, currentRemaining, isLoading  } = useDashboardContext();
@@ -26,7 +27,8 @@ export const Dashboard = () => {
             </div>
             <div className='budget-funds-balance-sections'>
                 <div className='budget-section'>
-
+                    <button>Edit</button>
+                    <BudgetOverview/>
                 </div>
                 <div className='balances-categories-section'>
                     <div className='balances-section'>

@@ -14,6 +14,8 @@ import { IncomeProvider } from './context/IncomeContext';
 import { IncomePage } from './pages/IncomePage';
 import { Navigate } from 'react-router-dom';
 import { useAuth } from './context/AuthContext';
+import { BudgetProvider } from './context/BudgetContext';
+import { BudgetOverview } from './features/budget/components/BudgetOverview';
 
 function App() {
   const DefaultRoute = () => {
@@ -45,9 +47,11 @@ function App() {
             }/> 
             <Route path="/dashboard" element={
               <ProtectedRoute>
-                <DashboardProvider>
-                  <Dashboard/>
-                </DashboardProvider>
+                <BudgetProvider>
+                  <DashboardProvider>
+                    <Dashboard/>
+                  </DashboardProvider>
+                </BudgetProvider>
               </ProtectedRoute>
             }/>
           </Routes>
