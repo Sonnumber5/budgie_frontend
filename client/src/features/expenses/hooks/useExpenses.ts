@@ -1,10 +1,10 @@
 import { useState, useEffect } from "react";
 import { getExpenses, getExpenseById, createExpense, updateExpense, deleteExpense } from '../api/expenses';
 import type { Expense, ExpenseDTO } from "../../../types";
-import { useDate } from '../../../context/DateContext';
+import { useDateContext } from '../../../context/DateContext';
 
 export const useExpenses = () => {
-    const { currentMonth } = useDate();
+    const { currentMonth } = useDateContext();
     const [ expenses, setExpenses ] = useState<Expense[]>([]);
     const [ isLoading, setIsLoading ] = useState(false);
     const [ error, setError ] = useState<string | null>(null);

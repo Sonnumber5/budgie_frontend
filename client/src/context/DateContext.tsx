@@ -21,7 +21,7 @@ export const DateProvider = ({ children }: { children: React.ReactNode }) => {
     );
 };
 
-export const useDate = () => {
+export const useDateContext = () => {
     const context = useContext(DateContext);
     if (!context) {
         throw new Error('useDate must be used within a DateProvider');

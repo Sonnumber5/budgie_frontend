@@ -1,10 +1,10 @@
 import { useState, useEffect } from "react";
 import type { Income, IncomeDTO } from "../../../types";
-import { useDate } from "../../../context/DateContext";
+import { useDateContext } from "../../../context/DateContext";
 import { createIncome, getIncome, getIncomeById, updateIncome, deleteIncome } from './../api/income';
 
 export const useIncome = () => {
-    const { currentMonth } = useDate();
+    const { currentMonth } = useDateContext();
     const [ incomeList, setIncomeList ] = useState<Income[]>([]);
     const [ isLoading, setIsLoading ] = useState(false);
     const [ error, setError ] = useState<string | null>(null);

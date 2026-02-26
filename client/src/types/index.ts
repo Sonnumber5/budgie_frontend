@@ -44,12 +44,10 @@ export interface AuthResponse {
 export interface Category {
     id: number,
     name: string,
-    createdAt: string
 }
 
 export interface CategoryDTO{
     id?: number,
-    userId: number,
     name: string
 }
 
@@ -112,7 +110,6 @@ export interface MonthlyBudget{
 
 export interface MonthlyBudgetDTO{
     id?: number, 
-    userId: number,
     month?: string,
     expectedIncome: number,
     categoryBudgetDTOs: CategoryBudgetDTO[],

@@ -1,9 +1,9 @@
 // components/MonthPicker.tsx
-import { useDate } from '../context/DateContext';
+import { useDateContext } from '../context/DateContext';
 import './DatePicker.css'
 
 export const MonthPicker = () => {
-    const { currentMonth, setCurrentMonth } = useDate();
+    const { currentMonth, setCurrentMonth } = useDateContext();
 
     const goToPreviousMonth = () => {
         const parts = currentMonth.split('-');

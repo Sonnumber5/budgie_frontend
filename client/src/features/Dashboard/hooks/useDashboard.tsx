@@ -1,9 +1,9 @@
 import { useState, useEffect } from "react";
 import { getIncomeTotal, getExpenseTotal } from "../api/dashboard";
-import { useDate } from "../../../context/DateContext";
+import { useDateContext } from "../../../context/DateContext";
 
 export const useDashboard = () => {
-    const { currentMonth, setCurrentMonth } = useDate();
+    const { currentMonth, setCurrentMonth } = useDateContext();
     const [ incomeTotal, setIncomeTotal ] = useState(0);
     const [ expenseTotal, setExpenseTotal ] = useState(0);
     const [ currentRemaining, setCurrentRemaining ] = useState(0);
