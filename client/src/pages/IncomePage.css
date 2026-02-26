@@ -17,5 +17,5 @@
     flex-direction: column;
     border-collapse: collapse;
     gap: 10px;
-
+    overflow-y: scroll;
 }
