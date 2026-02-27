@@ -1,5 +1,6 @@
 import { useExpenseContext } from "../../../context/ExpenseContext";
 import type { Expense } from "../../../types";
+import './ExpenseItem.css'
 
 interface ExpenseItemProps{
     expense: Expense;
@@ -7,20 +8,21 @@ interface ExpenseItemProps{
 
 export const ExpenseItem = ({ expense }: ExpenseItemProps) => {
     const { removeExpense } = useExpenseContext();
+    
     return (
-        <tr>
-            <td>{expense.vendor}</td>
-            <td>{expense.description}</td>
-            <td>${Number(expense.amount).toFixed(2)}</td>
-            <td>{new Date(expense.expenseDate).toLocaleDateString()}</td>
-            <td>
+        <div className="expense-item">
+            <div>{expense.vendor}</div>
+            <div>{expense.description}</div>
+            <div>${Number(expense.amount).toFixed(2)}</div>
+            <div>{new Date(expense.expenseDate).toLocaleDateString()}</div>
+            <div>
                 <button onClick={() => {}}>
                     Edit
                 </button>
                 <button onClick={() => removeExpense(expense.id)}>
                     Delete
                 </button>
-            </td>
-        </tr>
+            </div>
+        </div>
     );
 };

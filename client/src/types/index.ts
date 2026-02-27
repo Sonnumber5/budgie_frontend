@@ -87,13 +87,11 @@ export interface Expense {
 }
 
 export interface ExpenseDTO{
-    categoryId: number,
-    userId: number,
+    existingCategoryId: number,
     vendor: string,
     amount: number,
     description: string,
     expenseDate: string,
-    month: string
 }
 
 

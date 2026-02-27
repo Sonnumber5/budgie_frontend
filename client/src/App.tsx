@@ -26,35 +26,35 @@ function App() {
     <BrowserRouter>
       <AuthProvider>
         <DateProvider>
-        <Navbar/>
-          <Routes>
-          <Route path="/" element={<DefaultRoute/>}/>
-          <Route path="/login" element={<LoginPage/>}/>
-          <Route path="/register" element={<RegisterPage/>}/>
-            <Route path="/expenses" element={
-              <ProtectedRoute>
-                <ExpenseProvider>
-                  <ExpensesPage/>
-                </ExpenseProvider>
-              </ProtectedRoute>
-            }/>
-            <Route path="/income" element={
-              <ProtectedRoute>
-                <IncomeProvider>
-                  <IncomePage/>
-                </IncomeProvider>
-              </ProtectedRoute>
-            }/> 
-            <Route path="/dashboard" element={
-              <ProtectedRoute>
-                <BudgetProvider>
-                  <DashboardProvider>
-                    <Dashboard/>
-                  </DashboardProvider>
-                </BudgetProvider>
-              </ProtectedRoute>
-            }/>
-          </Routes>
+          <BudgetProvider>
+          <Navbar/>
+            <Routes>
+            <Route path="/" element={<DefaultRoute/>}/>
+            <Route path="/login" element={<LoginPage/>}/>
+            <Route path="/register" element={<RegisterPage/>}/>
+              <Route path="/expenses" element={
+                <ProtectedRoute>
+                  <ExpenseProvider>
+                    <ExpensesPage/>
+                  </ExpenseProvider>
+                </ProtectedRoute>
+              }/>
+              <Route path="/income" element={
+                <ProtectedRoute>
+                  <IncomeProvider>
+                    <IncomePage/>
+                  </IncomeProvider>
+                </ProtectedRoute>
+              }/> 
+              <Route path="/dashboard" element={
+                <ProtectedRoute>
+                    <DashboardProvider>
+                      <Dashboard/>
+                    </DashboardProvider>
+                </ProtectedRoute>
+              }/>
+            </Routes>
+          </BudgetProvider>
         </DateProvider>
       </AuthProvider>
     </BrowserRouter>

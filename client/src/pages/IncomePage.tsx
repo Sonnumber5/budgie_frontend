@@ -10,8 +10,6 @@ export const IncomePage = () => {
     const { incomeSum, incomeList, isLoading, error } = useIncomeContext();
     const [ isModalOpen, setIsModalOpen ] = useState(false);
 
-    const incomeTotal = incomeList.map
-
     return(
         <div className="income-page">
             <div className="income-aggregates">
@@ -24,8 +22,8 @@ export const IncomePage = () => {
                 <IncomeForm onSuccess={() => {setIsModalOpen(false)}}/>
             </Modal>
             <div className="income-list">
-                {incomeList.map((income, index) => (
-                    <IncomeItem key={index} income={income}/>
+                {incomeList.map((income) => (
+                    <IncomeItem key={income.id} income={income}/>
                 ))}
             </div>
         </div>
