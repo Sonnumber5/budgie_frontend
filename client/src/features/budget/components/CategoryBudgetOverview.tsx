@@ -1,4 +1,5 @@
-import type { CategoryBudget } from "../../../types"
+import type { CategoryBudget } from "../../../types";
+import './CategoryBudgetOverview.css';
 
 interface CategoryBudgetOverviewProps {
     categoryBudget: CategoryBudget,
@@ -11,10 +12,10 @@ export const CategoryBudgetOverview = ({ categoryBudget }: CategoryBudgetOvervie
                 {categoryBudget.categoryName}
             </div>
             <div className="progress-bar">
-                {categoryBudget.budgetedAmount}
+                
             </div>
             <div className="sub-info">
-                
+                {categoryBudget.budgetedAmount}
             </div>
         </div>
     )
