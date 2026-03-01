@@ -2,11 +2,15 @@ import './ExpensesPage.css';
 import { useExpenseContext } from "../context/ExpenseContext";
 import { useBudgetContext } from "../context/BudgetContext";
 import { CategorizedExpenses } from "../features/expenses/components/CategorizedExpenses";
+import { useState } from 'react';
+import { Modal } from '../components/modal';
+import { ExpenseForm } from '../features/expenses/components/ExpenseForm';
 
 
 export const ExpensesPage = () => {
     const { expenses, isLoading, error } = useExpenseContext();
     const { categoryBudgets } = useBudgetContext();
+    const [ isModalOpen, setIsModalOpen ] = useState(false);
 
     const categorizedExpenses = categoryBudgets.map(categoryBudget => {
         const categoryExpenses = expenses.filter(expense => 
@@ -33,8 +37,14 @@ export const ExpensesPage = () => {
     return(
         <div className="expense-page">
             <div className="expense-aggregates">
-            Total: ${totalExpenses.toFixed(2)}
+                Total: ${totalExpenses.toFixed(2)}
             </div>
+            <Modal isOpen={isModalOpen} onClose={() => {setIsModalOpen(false)}} title="Add Expense">
+                <ExpenseForm onSuccess={() => {setIsModalOpen(false)}}/>
+            </Modal>
+            <button onClick={() => {setIsModalOpen(true)}}>
+                +
+            </button>
             <div className="category-list">
                 {categorizedExpenses.map((expenseGroup) => {
                     return (

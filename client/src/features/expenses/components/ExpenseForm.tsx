@@ -30,7 +30,7 @@ export const ExpenseForm = ({ onSuccess, expenseToEdit, categoryId }: ExpenseFor
                 vendor: expenseToEdit.vendor,
                 amount: expenseToEdit.amount,
                 description: expenseToEdit.description,
-                expenseDate: expenseToEdit.expenseDate,
+                expenseDate: new Date(expenseToEdit.expenseDate).toISOString().split('T')[0],
             });
         }
     }, [expenseToEdit]);
