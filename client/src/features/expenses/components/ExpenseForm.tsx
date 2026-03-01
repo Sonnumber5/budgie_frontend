@@ -5,21 +5,23 @@ import { useBudgetContext } from "../../../context/BudgetContext";
 
 interface ExpenseFormProps{
     onSuccess: () => void;
-    expenseToEdit?: Expense;
-    categoryId: number;
+    expenseToEdit?: Expense; //will be automatically passed here when an expense is edited with the edit form
+    categoryId?: number; //will be automatically passed here when creating an expense for a specific budget category
 }
 
 export const ExpenseForm = ({ onSuccess, expenseToEdit, categoryId }: ExpenseFormProps) => {
     const { addExpense, editExpense } = useExpenseContext();
     const { availableCategories } = useBudgetContext();
     const [formData, setFormData] = useState<ExpenseDTO>({
-        existingCategoryId: categoryId,
+        existingCategoryId: categoryId || null,
         vendor: '',
         amount: 0,
         description: '',
         expenseDate: new Date().toISOString().split('T')[0],
     })
     const isEditMode = !!expenseToEdit;
+
+
 
     useEffect(() => {
         if (expenseToEdit){
@@ -49,6 +51,27 @@ export const ExpenseForm = ({ onSuccess, expenseToEdit, categoryId }: ExpenseFor
         }
     }
 
+    const selectCategory = () => {
+        if (!categoryId){
+            return (
+                <div>
+                    <label>Category</label>
+                    <select
+                        value={formData.existingCategoryId ?? ""}
+                        onChange={(e) => setFormData({...formData, existingCategoryId: Number(e.target.value)})}>
+                            <option value="" disabled>Select a category</option>
+                            {availableCategories.map((category) => (
+                                <option key={category.id} value={category.id}>
+                                    {category.name}
+                                </option>
+                            ))}
+                    </select>
+                </div>
+            )
+        }
+        return null;
+    }
+
     return (
         <form onSubmit={handleSubmit}>
             <div>
@@ -69,6 +92,7 @@ export const ExpenseForm = ({ onSuccess, expenseToEdit, categoryId }: ExpenseFor
                     required
                 />
             </div>
+            {selectCategory()}
             <div>
                 <label>Description</label>
                 <input

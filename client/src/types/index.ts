@@ -87,7 +87,7 @@ export interface Expense {
 }
 
 export interface ExpenseDTO{
-    existingCategoryId: number,
+    existingCategoryId: number | null,
     vendor: string,
     amount: number,
     description: string,
