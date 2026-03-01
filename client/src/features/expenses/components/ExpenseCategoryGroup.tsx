@@ -25,22 +25,18 @@ export const ExpenseCategoryGroup = ({categoryName, expenses}: ExpenseCategoryGr
             </button>
             {isOpen && (
                 <div>
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>Vendor</th>
-                                <th>Description</th>
-                                <th>Amount</th>
-                                <th>Date</th>
-                                <th>Actions</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {expenses.map(expense => (
-                                <ExpenseItem key={expense.id} expense={expense} />
-                            ))}
-                        </tbody>
-                    </table>
+                    <div>
+                        <div>Vendor</div>
+                        <div>Description</div>
+                        <div>Amount</div>
+                        <div>Date</div>
+                        <div>Actions</div>
+                    </div>
+                    <div>
+                        {expenses.map(expense => (
+                            <ExpenseItem key={expense.id} expense={expense} />
+                        ))}
+                    </div>
                 </div>
             )}
         </div>

@@ -1,4 +1,4 @@
-import { createMonthlyBudgetAPI, getBudgetByMonthAPI, updateCategoryBudgetAPI, updateMonthlyBudgetAPI, deleteCategoryBudgetAPI, deleteMonthlyBudgetAPI } from './../api/budget';
+import { getCategoriesAPI, createMonthlyBudgetAPI, getBudgetByMonthAPI, updateCategoryBudgetAPI, updateMonthlyBudgetAPI, deleteCategoryBudgetAPI, deleteMonthlyBudgetAPI } from './../api/budget';
 import { useState, useEffect } from 'react';
 import { useDateContext } from '../../../context/DateContext';
 import type { CategoryBudget, MonthlyBudget, Category, MonthlyBudgetDTO, CategoryBudgetDTO } from '../../../types';
@@ -16,8 +16,11 @@ export const useBudgets = () => {
             setIsLoading(true);
             setError(null);
             try {
-                const response = await getBudgetByMonthAPI(currentMonth);
-                const fetchedBudget: MonthlyBudget = response.data.budget;
+                const responseBudget = await getBudgetByMonthAPI(currentMonth);
+                const fetchedBudget: MonthlyBudget = responseBudget.data.budget;
+                const responseCategories = await getCategoriesAPI();
+                const allCategories: Category[] = responseCategories.data.categories;
+                const defaultCategory = allCategories.find(c => c.name === "Uncategorized");
                 
                 if (fetchedBudget) {
                     const fetchedCategoryBudgets: CategoryBudget[] = fetchedBudget.categoryBudgets;
@@ -25,14 +28,19 @@ export const useBudgets = () => {
                         id: cb.categoryId,
                         name: cb.categoryName
                     }));
-                    
+    
                     setCategoryBudgets(fetchedCategoryBudgets);
                     setMonthlyBudget(fetchedBudget);
-                    setAvailableCategories(fetchedCategories);
+                    
+                    if (defaultCategory) {
+                        setAvailableCategories([...fetchedCategories, defaultCategory]);
+                    } else {
+                        setAvailableCategories(fetchedCategories);
+                    }
                 } else {
                     setCategoryBudgets([]);
                     setMonthlyBudget(null);
-                    setAvailableCategories([]);
+                    setAvailableCategories(defaultCategory ? [defaultCategory] : []); 
                 }
             } catch(error: any) {
                 if (error.response?.status === 404) {
@@ -148,13 +156,14 @@ export const useBudgets = () => {
             setMonthlyBudget(prev => prev ? {
                 ...prev,
                 categoryBudgets: updatedCategoryBudgets
-            } : null)
+            } : null);
 
             const updatedCategories: Category[] = updatedCategoryBudgets.map((cb) => ({
                 id: cb.categoryId,
                 name: cb.categoryName
             }));
             setAvailableCategories(updatedCategories);
+
         } catch(error: any){
             console.error('Failed to delete category budget', error);
             setError(error.message || 'Failed to delete category budget');

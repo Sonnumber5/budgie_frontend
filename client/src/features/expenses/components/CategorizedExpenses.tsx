@@ -6,10 +6,10 @@ import { Modal } from "../../../components/modal";
 import { ExpenseForm } from "./ExpenseForm";
 
 interface CategorizedExpensesProps{
-    categoryBudget: CategoryBudget;
+    categoryBudget?: CategoryBudget;
     expenses: Expense[];
     totalSpent: number;
-    remaining: number;
+    remaining?: number;
 }
 
 export const CategorizedExpenses = ({ categoryBudget, expenses, totalSpent, remaining }:CategorizedExpensesProps) => {
@@ -19,13 +19,13 @@ export const CategorizedExpenses = ({ categoryBudget, expenses, totalSpent, rema
     return (
         <div className="budget-category">
             <div className="category-info" onClick={() => {setIsOpen(!isOpen)}}>
-                <h3 >{categoryBudget.categoryName}</h3>
-                <p>Budget: ${Number(categoryBudget.budgetedAmount).toFixed(2)}</p>
+                <h3 >{categoryBudget ? categoryBudget.categoryName : "Uncategorized"}</h3>
+                <p>{categoryBudget ? `Budget: $${Number(categoryBudget.budgetedAmount).toFixed(2)}` : ""}</p>
                 <p>Total Spent: ${totalSpent.toFixed(2)}</p>
-                <p>Remaining: ${remaining.toFixed(2)}</p>
+                <p>{remaining || remaining === 0 ? `Remaining: $${remaining.toFixed(2)}` : ""}</p>
                 <button onClick={() => {setIsModalOpen(true)}} className="add-btn">+</button>
                 <Modal isOpen={isModalOpen} onClose={() => {setIsModalOpen(false)}} title={'Expense Form'}>
-                    <ExpenseForm categoryId={categoryBudget.categoryId} onSuccess={() => {setIsModalOpen(false)}}/>
+                    <ExpenseForm categoryId={categoryBudget ? categoryBudget.categoryId : undefined} onSuccess={() => {setIsModalOpen(false)}}/>
                 </Modal>
             </div>
             {isOpen && (

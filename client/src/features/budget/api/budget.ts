@@ -24,3 +24,7 @@ export const deleteCategoryBudgetAPI = (id: number) => {
 export const deleteMonthlyBudgetAPI = (id: number) => {
     return api.delete(`/budgets/monthly/${id}`);
 }
+
+export const getCategoriesAPI = () => {
+    return api.get(`/categories`);
+}

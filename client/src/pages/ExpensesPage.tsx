@@ -12,6 +12,7 @@ export const ExpensesPage = () => {
     const { categoryBudgets } = useBudgetContext();
     const [ isModalOpen, setIsModalOpen ] = useState(false);
 
+    
     const categorizedExpenses = categoryBudgets.map(categoryBudget => {
         const categoryExpenses = expenses.filter(expense => 
             expense.categoryId === categoryBudget.categoryId
@@ -29,10 +30,16 @@ export const ExpensesPage = () => {
         }
     });
 
-    const totalExpenses = expenses.reduce((sum, expense) => sum + Number(expense.amount), 0);
 
-    if (isLoading) return <p>Loading...</p>;
-    if (error) return <p>Error: {error}</p>;
+    const uncategorizedExpenses = expenses.filter(expense => 
+        expense.categoryName === "Uncategorized"
+    );
+
+    const totalSpentUncategorized = uncategorizedExpenses.reduce(
+        (sum, expense) => sum + Number(expense.amount), 0
+    );
+
+    const totalExpenses = expenses.reduce((sum, expense) => sum + Number(expense.amount), 0);
 
     return(
         <div className="expense-page">
@@ -57,6 +64,9 @@ export const ExpensesPage = () => {
                         />
                     )
                 })}
+                {
+                    <CategorizedExpenses expenses={uncategorizedExpenses} totalSpent={totalSpentUncategorized} />
+                }
             </div>
         </div>
     )
