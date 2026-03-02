@@ -1,3 +1,8 @@
+// App.tsx - Root application component
+// Sets up global context providers and client-side routing.
+// Context provider nesting order: AuthProvider > DateProvider > BudgetProvider.
+// ExpenseProvider and IncomeProvider are scoped to their respective routes
+// so their data only loads when those pages are visited.
 import './App.css';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { DateProvider } from './context/DateContext';;
@@ -18,6 +23,8 @@ import { BudgetProvider } from './context/BudgetContext';
 import { BudgetOverview } from './features/budget/components/BudgetOverview';
 
 function App() {
+  // DefaultRoute redirects the root "/" path based on authentication status.
+  // Authenticated users go to /dashboard; guests are sent to /login.
   const DefaultRoute = () => {
     const { isAuthenticated } = useAuth();
     return <Navigate to={isAuthenticated ? "/dashboard" : "/login"} replace />;

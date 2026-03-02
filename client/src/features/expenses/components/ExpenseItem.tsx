@@ -1,3 +1,5 @@
+// ExpenseItem.tsx - Displays a single expense row with Edit and Delete actions.
+// The edit form is shown inside a Modal to keep the user on the same page.
 import { useState } from "react";
 import { useExpenseContext } from "../../../context/ExpenseContext";
 import type { Expense } from "../../../types";

@@ -1,3 +1,8 @@
+// BudgetManagementForm.tsx - Form for creating or editing a monthly budget.
+// Handles two separate lists of category budgets:
+//   existingCategoryBudgets: already-saved entries shown as read-only (can only be deleted).
+//   newCategoryBudgets: rows added during the current editing session that will be submitted.
+// When budgetToEdit is provided the form operates in edit mode; otherwise it creates a new budget.
 import { useEffect, useState } from "react";
 import type { Category, CategoryBudget, CategoryBudgetDTO, MonthlyBudget } from "../../../types";
 import { useBudgetContext } from "../../../context/BudgetContext";
@@ -43,6 +48,7 @@ export const BudgetManagementForm = ({ onSuccess, budgetToEdit }: BudgetManageme
         }
     }
 
+    // addNewCategoryBudget appends a blank category budget row to the new-budgets list.
     const addNewCategoryBudget = () => {
         setNewCategoryBudgets([
             ...newCategoryBudgets, 
@@ -62,6 +68,8 @@ export const BudgetManagementForm = ({ onSuccess, budgetToEdit }: BudgetManageme
         );
     };
 
+    // handleDeleteExisting deletes a saved category budget immediately via the API
+    // and removes it from the local existingCategoryBudgets list.
     const handleDeleteExisting = async (categoryBudgetId: number) => {
         if (window.confirm('Are you sure you want to delete this category budget?')) {
             try {

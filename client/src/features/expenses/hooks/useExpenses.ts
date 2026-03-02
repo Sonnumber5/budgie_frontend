@@ -1,3 +1,5 @@
+// useExpenses.ts - Custom hook managing expense list state and CRUD operations.
+// Re-fetches expenses automatically whenever the selected month changes.
 import { useState, useEffect } from "react";
 import { getExpenses, getExpenseById, createExpense, updateExpense, deleteExpense } from '../api/expenses';
 import type { Expense, ExpenseDTO } from "../../../types";
@@ -25,6 +27,7 @@ export const useExpenses = () => {
         fetchExpenses(); 
     }, [currentMonth]);
 
+    // addExpense posts a new expense and appends it to local state optimistically.
     const addExpense = async (data: ExpenseDTO): Promise<Expense> => {
         try{
             const response = await createExpense(data);
@@ -36,6 +39,7 @@ export const useExpenses = () => {
         }
     };
 
+    // editExpense updates an expense and replaces the stale entry in local state.
     const editExpense = async (id: number, data: ExpenseDTO): Promise<Expense> => {
         try{
             const response = await updateExpense(id, data);
@@ -47,6 +51,7 @@ export const useExpenses = () => {
         }
     }
 
+    // removeExpense deletes the expense from the server and filters it out of local state.
     const removeExpense = async (id: number) => {
         try{
             await deleteExpense(id);

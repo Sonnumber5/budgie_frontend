@@ -1,3 +1,6 @@
+// IncomeContext.tsx - Provides income list state and CRUD actions for the income feature.
+// Also exposes incomeSum (pre-computed total) to avoid redundant recalculations in components.
+// Scoped to the /income route via IncomeProvider in App.tsx.
 import { createContext, useContext } from "react";
 import type { Income, IncomeDTO } from "../types";
 import React from "react";
@@ -24,6 +27,8 @@ export const IncomeProvider = ({ children }: { children: React.ReactNode }) => {
     )
 }
 
+// useIncomeContext is the public hook for consuming income state and CRUD actions.
+// Throws if used outside of an IncomeProvider.
 export const useIncomeContext = () => {
     const context = useContext(IncomeContext);
     if (!context){

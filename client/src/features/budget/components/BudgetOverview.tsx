@@ -1,3 +1,6 @@
+// BudgetOverview.tsx - Renders the list of category budget cards on the Dashboard.
+// Each category budget is displayed as a CategoryBudgetOverview card.
+// The progress bar inside each card is a placeholder for future spend-vs-budget visualization.
 import { useBudgetContext } from "../../../context/BudgetContext";
 import { CategoryBudgetOverview } from "./CategoryBudgetOverview";
 import './BudgetOverview.css';

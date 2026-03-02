@@ -1,3 +1,6 @@
+// ExpenseContext.tsx - Provides expense list state and CRUD actions for the expenses feature.
+// Scoped to the /expenses route via ExpenseProvider in App.tsx so data only loads when needed.
+// The actual data-fetching and mutation logic lives in useExpenses.
 import { createContext, useContext } from "react";
 import type { Expense, ExpenseDTO } from "../types";
 import React from "react";
@@ -24,6 +27,8 @@ export const ExpenseProvider = ({ children }: { children: React.ReactNode }) => 
     );
 };
 
+// useExpenseContext is the public hook for consuming expense state and CRUD actions.
+// Throws if used outside of an ExpenseProvider.
 export const useExpenseContext = () => {
     const context = useContext(ExpenseContext);
     if (!context){

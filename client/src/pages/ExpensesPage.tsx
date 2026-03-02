@@ -1,3 +1,7 @@
+// ExpensesPage.tsx - Lists all expenses for the current month, grouped by budget category.
+// Derives categorizedExpenses by joining the expense list against categoryBudgets from context,
+// computing totalSpent and remaining for each category group.
+// Expenses with no matching category are collected into a separate "Uncategorized" group.
 import './ExpensesPage.css';
 import { useExpenseContext } from "../context/ExpenseContext";
 import { useBudgetContext } from "../context/BudgetContext";
@@ -13,6 +17,7 @@ export const ExpensesPage = () => {
     const [ isModalOpen, setIsModalOpen ] = useState(false);
 
     
+    // Build one group per category budget, attaching only expenses that belong to that category.
     const categorizedExpenses = categoryBudgets.map(categoryBudget => {
         const categoryExpenses = expenses.filter(expense => 
             expense.categoryId === categoryBudget.categoryId
@@ -31,7 +36,8 @@ export const ExpensesPage = () => {
     });
 
 
-    const uncategorizedExpenses = expenses.filter(expense => 
+    // Collect expenses that were assigned to the "Uncategorized" category.
+    const uncategorizedExpenses = expenses.filter(expense =>
         expense.categoryName === "Uncategorized"
     );
 

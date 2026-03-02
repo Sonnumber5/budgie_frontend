@@ -1,3 +1,7 @@
+// CategorizedExpenses.tsx - Collapsible section grouping expenses under a budget category.
+// When categoryBudget is undefined the group is treated as "Uncategorized".
+// remaining is only shown when a categoryBudget exists (uncategorized has no budget limit).
+// The "+" button opens a modal to add a new expense directly into this category.
 import type { CategoryBudget, Expense } from "../../../types";
 import { ExpenseItem } from "./ExpenseItem";
 import './CategorizedExpenses.css';

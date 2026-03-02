@@ -1,3 +1,7 @@
+// Dashboard.tsx - Main overview page showing the user's financial summary for the selected month.
+// Displays total income, total expenses, and remaining balance fetched from DashboardContext.
+// The budget section shows a BudgetOverview and an Edit button that opens BudgetManagementForm.
+// The balances and categories sections are placeholders for future functionality.
 import './Dashboard.css';
 import { useDashboardContext } from '../context/DashboardContext';
 import { MonthPicker } from '../components/DatePicker';

@@ -1,3 +1,7 @@
+// BudgetContext.tsx - Provides monthly budget and category budget state application-wide.
+// BudgetProvider is placed at the root (in App.tsx) so budget data is available on all
+// protected pages, including the Dashboard and ExpensesPage.
+// The actual data-fetching logic lives in useBudgets; this file just wires it into context.
 import { createContext, useContext } from "react";
 import type { MonthlyBudget, MonthlyBudgetDTO, CategoryBudget, CategoryBudgetDTO, Category } from '../types';
 import React from "react";
@@ -27,6 +31,8 @@ export const BudgetProvider = ({ children }: { children: React.ReactNode }) => {
     )
 }
 
+// useBudgetContext is the public hook for consuming budget state and CRUD actions.
+// Throws if used outside of a BudgetProvider.
 export const useBudgetContext = () => {
     const context = useContext(BudgetContext);
     if (!context){

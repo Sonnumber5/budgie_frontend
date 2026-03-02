@@ -1,3 +1,7 @@
+// useBudgets.tsx - Custom hook encapsulating all budget state and CRUD operations.
+// Fetches the monthly budget and all available categories whenever currentMonth changes.
+// availableCategories is derived from the active budget's category budgets plus the default
+// "Uncategorized" category, so the expense form always has at least one option.
 import { getCategoriesAPI, createMonthlyBudgetAPI, getBudgetByMonthAPI, updateCategoryBudgetAPI, updateMonthlyBudgetAPI, deleteCategoryBudgetAPI, deleteMonthlyBudgetAPI } from './../api/budget';
 import { useState, useEffect } from 'react';
 import { useDateContext } from '../../../context/DateContext';
@@ -43,11 +47,12 @@ export const useBudgets = () => {
                     setAvailableCategories(defaultCategory ? [defaultCategory] : []); 
                 }
             } catch(error: any) {
+                // A 404 simply means no budget exists for this month yet — not an error condition.
                 if (error.response?.status === 404) {
                     setCategoryBudgets([]);
                     setMonthlyBudget(null);
                     setAvailableCategories([]);
-                    setError(null); 
+                    setError(null);
                 } else {
                     setError(error.message || 'Failed to fetch budget');
                     console.error('Failed to fetch budget:', error);
@@ -60,6 +65,8 @@ export const useBudgets = () => {
         fetchBudget();
     }, [currentMonth]);
 
+    // addMonthlyBudget creates a new budget for the currently selected month.
+    // Automatically sets data.month before sending so the caller doesn't need to.
     const addMonthlyBudget = async (data: MonthlyBudgetDTO): Promise<MonthlyBudget> => {
         setIsLoading(true);
         setError(null);
@@ -87,6 +94,8 @@ export const useBudgets = () => {
         }
     }
 
+    // editMonthlyBudget updates an existing monthly budget's expected income
+    // and syncs the derived category lists in state after the update.
     const editMonthlyBudget = async (id: number, data: MonthlyBudgetDTO): Promise<MonthlyBudget> => {
         setIsLoading(true);
         setError(null);
@@ -114,6 +123,8 @@ export const useBudgets = () => {
         }
     }
 
+    // editCategoryBudget updates a single category budget and reconciles the updated
+    // entry into both the categoryBudgets array and the nested monthlyBudget state.
     const editCategoryBudget = async (id: number, data: CategoryBudgetDTO): Promise<CategoryBudget> => {
         setIsLoading(true);
         setError(null);
@@ -143,6 +154,8 @@ export const useBudgets = () => {
         }
     }
 
+    // removeCategoryBudget deletes a category budget and removes it from all
+    // relevant state slices (categoryBudgets, monthlyBudget, availableCategories).
     const removeCategoryBudget = async (id: number) => {
         setIsLoading(true);
         setError(null);
@@ -173,6 +186,7 @@ export const useBudgets = () => {
         }
     }
 
+    // removeMonthlyBudget deletes the entire monthly budget and resets all budget state.
     const removeMonthlyBudget = async (id: number) => {
         setIsLoading(true);
         setError(null);

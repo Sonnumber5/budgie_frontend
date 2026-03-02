@@ -1,3 +1,6 @@
+// IncomeForm.tsx - Form for creating or editing an income entry.
+// When incomeToEdit is provided the form pre-fills and submits an update;
+// otherwise it creates a new income record.
 import { useEffect, useState } from "react";
 import type { Income, IncomeDTO } from "../../../types";
 import { useIncomeContext } from "../../../context/IncomeContext";

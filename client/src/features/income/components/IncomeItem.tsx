@@ -1,3 +1,5 @@
+// IncomeItem.tsx - Displays a single income row with Edit and Delete actions.
+// The edit form opens in a Modal; the date is formatted using the shared formatDate utility.
 import type { Income } from "../../../types"
 import { useIncomeContext } from "../../../context/IncomeContext";
 import './IncomeItem.css';

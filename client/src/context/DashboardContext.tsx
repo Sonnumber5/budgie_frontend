@@ -1,3 +1,6 @@
+// DashboardContext.tsx - Provides high-level financial summary totals for the Dashboard page.
+// Exposes monthly income total, expense total, and net remaining balance.
+// Scoped to the /dashboard route via DashboardProvider in App.tsx.
 import { createContext, useContext } from "react";
 import React from "react";
 import { useDashboard } from "../features/Dashboard/hooks/useDashboard";
@@ -21,6 +24,8 @@ export const DashboardProvider = ({ children } : { children: React.ReactNode }) 
     );
 }
 
+// useDashboardContext is the public hook for consuming dashboard summary data.
+// Throws if used outside of a DashboardProvider.
 export const useDashboardContext = () => {
     const context = useContext(DashboardContext);
     if (!context){

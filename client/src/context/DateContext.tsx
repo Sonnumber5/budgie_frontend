@@ -1,3 +1,6 @@
+// DateContext.tsx - Global month selection state shared across all pages.
+// currentMonth is stored as "YYYY-MM-01" and used as a filter parameter
+// when fetching expenses, income, and budget data from the API.
 import { createContext, useContext, useState } from 'react';
 import React from 'react';
 
@@ -21,6 +24,8 @@ export const DateProvider = ({ children }: { children: React.ReactNode }) => {
     );
 };
 
+// useDateContext is the public hook for reading and updating the selected month.
+// Throws if used outside of a DateProvider.
 export const useDateContext = () => {
     const context = useContext(DateContext);
     if (!context) {

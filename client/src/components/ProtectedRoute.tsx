@@ -1,3 +1,6 @@
+// blocks unauthenticated access to protected pages.
+// Shows a loading state while the auth check is loading,
+// then redirects to /login if the user is not authenticated.
 import { Navigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 

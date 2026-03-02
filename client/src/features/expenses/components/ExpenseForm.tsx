@@ -1,3 +1,7 @@
+// ExpenseForm.tsx - Form for creating or editing an expense.
+// When categoryId is provided (e.g. from CategorizedExpenses), the category dropdown is hidden
+// and the expense is pre-assigned to that category. When expenseToEdit is provided
+// the form pre-fills with the existing data and submits an update instead of a create.
 import { useEffect, useState } from "react";
 import type { Expense, ExpenseDTO } from "../../../types";
 import { useExpenseContext } from "../../../context/ExpenseContext";
@@ -51,6 +55,8 @@ export const ExpenseForm = ({ onSuccess, expenseToEdit, categoryId }: ExpenseFor
         }
     }
 
+    // selectCategory renders the category dropdown only when no categoryId was pre-assigned.
+    // This keeps the UI clean when adding an expense directly within a budget category group.
     const selectCategory = () => {
         if (!categoryId){
             return (

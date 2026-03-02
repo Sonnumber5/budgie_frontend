@@ -1,3 +1,6 @@
+// LoginPage.tsx - User login page.
+// On successful login the user is redirected to /dashboard.
+// Error messages are displayed inline below the form title.
 import { useState } from 'react';
 import { Navigate, useNavigate } from 'react-router-dom';
 import './LoginPage.css';

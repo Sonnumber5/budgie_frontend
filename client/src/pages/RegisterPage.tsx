@@ -1,3 +1,6 @@
+// RegisterPage.tsx - New user registration page.
+// Calls the register API directly (not through AuthContext) since registration
+// does not automatically log the user in — they are redirected to /login afterward.
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { registerAPI } from '../features/auth/api/auth';

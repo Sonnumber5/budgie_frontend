@@ -1,3 +1,6 @@
+// useDashboard.tsx - Custom hook that fetches aggregate totals for the Dashboard.
+// Both API calls are made in parallel with Promise.all for better performance.
+// currentRemaining is derived as income - expenses after each fetch.
 import { useState, useEffect } from "react";
 import { getIncomeTotal, getExpenseTotal } from "../api/dashboard";
 import { useDateContext } from "../../../context/DateContext";

@@ -1,3 +1,7 @@
+// ExpenseCategoryGroup.tsx - Collapsible group showing all expenses for a category.
+// Calculates and displays the category total inline.
+// Note: this component is an alternative grouping view; CategorizedExpenses is the
+// primary component used on ExpensesPage.
 import { ExpenseItem } from "./ExpenseItem";
 import type { Expense } from "../../../types";
 import { useState } from "react";

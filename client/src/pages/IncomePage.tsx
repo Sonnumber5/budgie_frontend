@@ -1,3 +1,6 @@
+// IncomePage.tsx - Lists all income entries for the current month.
+// Displays the running monthly income total from IncomeContext.
+// The "Add Income" button opens a modal with the IncomeForm for quick entry.
 import { IncomeItem } from "../features/income/components/IncomeItem";
 import { useIncomeContext } from "../context/IncomeContext";
 import './IncomePage.css';

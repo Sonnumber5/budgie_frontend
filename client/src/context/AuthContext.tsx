@@ -1,3 +1,6 @@
+// AuthContext.tsx - Global authentication state management.
+// Provides the current user object, authentication status, and auth actions (login/logout)
+// to any component in the tree wrapped by AuthProvider.
 import { createContext, useContext, useState, useEffect } from "react";
 import { loginAPI, me } from'../features/auth/api/auth';
 import React from "react";
@@ -25,12 +28,15 @@ export const AuthProvider = ({ children }: {children: React.ReactNode}) => {
     const [user, setUser] = useState<User | null>(null);
     const [isLoading, setIsLoading] = useState(false);
 
+    // On mount, call /auth/me to restore the session from an existing HTTP-only cookie.
+    // This keeps the user logged in across page refreshes without storing tokens in localStorage.
     useEffect(() => {
         const checkAuth = async () => {
             try{
                 const response = await me();
                 setUser(response.data.user);
             } catch{
+                // Cookie is absent or expired; user is not authenticated.
                 setUser(null);
             } finally{
                 setIsLoading(false);
@@ -39,6 +45,7 @@ export const AuthProvider = ({ children }: {children: React.ReactNode}) => {
         checkAuth();
     }, []);
 
+    // logout clears the server session and resets local user state regardless of API success.
     const logout = async () => {
         try {
             await logoutAPI();
@@ -49,6 +56,8 @@ export const AuthProvider = ({ children }: {children: React.ReactNode}) => {
         }
     };
 
+    // login calls the API, stores the returned user in state, and re-throws errors
+    // so the caller (LoginPage) can display an appropriate error message.
     const login = async (email: string, password: string) => {
         try{
             const response = await loginAPI(email, password);
@@ -68,6 +77,8 @@ export const AuthProvider = ({ children }: {children: React.ReactNode}) => {
     );
 };
 
+// useAuth is the public hook for consuming auth state and actions.
+// Throws if used outside of an AuthProvider.
 export const useAuth = () => {
     const context = useContext(AuthContext);
     if (!context){

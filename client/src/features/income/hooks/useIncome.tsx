@@ -1,3 +1,6 @@
+// useIncome.tsx - Custom hook managing income list state, running total, and CRUD operations.
+// incomeSum is kept in sync locally to avoid recalculating from the array on every render.
+// Re-fetches income and recomputes the total whenever the selected month changes.
 import { useState, useEffect } from "react";
 import type { Income, IncomeDTO } from "../../../types";
 import { useDateContext } from "../../../context/DateContext";
@@ -30,6 +33,7 @@ export const useIncome = () => {
         fetchIncome();
     }, [currentMonth]);
 
+    // addIncome posts a new income entry and adds its amount to the running incomeSum.
     const addIncome = async (data: IncomeDTO): Promise<Income> => {
         try{
             const response = await createIncome(data);
@@ -42,6 +46,7 @@ export const useIncome = () => {
         }
     }
 
+    // removeIncome deletes the entry and subtracts its amount from incomeSum.
     const removeIncome = async (id: number): Promise<void> => {
         try{
             await deleteIncome(id);
@@ -57,6 +62,8 @@ export const useIncome = () => {
         }
     }
 
+    // editIncome updates the income record and adjusts incomeSum by the delta
+    // between the old and new amounts so the total stays accurate.
     const editIncome = async (id: number, data: IncomeDTO): Promise<Income> => {
         try{
             const originalIncome = incomeList.find(i => i.id === id);

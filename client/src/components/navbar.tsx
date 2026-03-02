@@ -1,3 +1,6 @@
+// Global navigation bar rendered on every page.
+// The navbar is hidden when the user is not authenticated so it doesn't
+// appear on the Login or Register pages.
 import { useAuth } from "../context/AuthContext";
 import './navbar.css';
 import { Navigate, useNavigate } from "react-router-dom";
@@ -7,6 +10,7 @@ export const Navbar = () => {
 
     const navigate = useNavigate();
 
+    // onLogout clears auth state then redirects the user to the login page.
     const onLogout = () => {
         logout();
         navigate('/login');
