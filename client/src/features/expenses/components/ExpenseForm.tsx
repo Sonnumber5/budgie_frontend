@@ -6,6 +6,7 @@ import { useEffect, useState } from "react";
 import type { Expense, ExpenseDTO } from "../../../types";
 import { useExpenseContext } from "../../../context/ExpenseContext";
 import { useBudgetContext } from "../../../context/BudgetContext";
+import { useDateContext } from "../../../context/DateContext";
 
 interface ExpenseFormProps{
     onSuccess: () => void;
@@ -16,12 +17,14 @@ interface ExpenseFormProps{
 export const ExpenseForm = ({ onSuccess, expenseToEdit, categoryId }: ExpenseFormProps) => {
     const { addExpense, editExpense } = useExpenseContext();
     const { availableCategories } = useBudgetContext();
+    const { currentMonth } = useDateContext();
     const [formData, setFormData] = useState<ExpenseDTO>({
         existingCategoryId: categoryId || null,
         vendor: '',
         amount: 0,
         description: '',
         expenseDate: new Date().toISOString().split('T')[0],
+        month: currentMonth
     })
     const isEditMode = !!expenseToEdit;
 
@@ -35,6 +38,7 @@ export const ExpenseForm = ({ onSuccess, expenseToEdit, categoryId }: ExpenseFor
                 amount: expenseToEdit.amount,
                 description: expenseToEdit.description,
                 expenseDate: new Date(expenseToEdit.expenseDate).toISOString().split('T')[0],
+                month: currentMonth
             });
         }
     }, [expenseToEdit]);

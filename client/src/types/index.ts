@@ -107,6 +107,7 @@ export interface ExpenseDTO{
     amount: number,
     description: string,
     expenseDate: string,
+    month: string
 }
 
 

@@ -13,7 +13,7 @@ interface ExpenseContextType {
     error: string | null;
     addExpense: (data: ExpenseDTO) => Promise<Expense>;
     editExpense: (id: number, data: ExpenseDTO) => Promise<Expense>;
-    removeExpense: (id: number) => Promise<void>
+    removeExpense: (id: number) => Promise<void>;
 }
 
 const ExpenseContext = createContext<ExpenseContextType | null>(null);

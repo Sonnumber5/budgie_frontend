@@ -70,9 +70,13 @@ export const ExpensesPage = () => {
                         />
                     )
                 })}
-                {
-                    <CategorizedExpenses expenses={uncategorizedExpenses} totalSpent={totalSpentUncategorized} />
-                }
+                {uncategorizedExpenses.length > 0 && (
+                    <CategorizedExpenses 
+                        key="uncategorized"
+                        expenses={uncategorizedExpenses} 
+                        totalSpent={totalSpentUncategorized} 
+                    />
+                )}
             </div>
         </div>
     )

@@ -22,7 +22,7 @@ export const CategorizedExpenses = ({ categoryBudget, expenses, totalSpent, rema
 
     return (
         <div className="budget-category">
-            <div className="category-info" onClick={() => {setIsOpen(!isOpen)}}>
+            <div className="category-info">
                 <h3 >{categoryBudget ? categoryBudget.categoryName : "Uncategorized"}</h3>
                 <p>{categoryBudget ? `Budget: $${Number(categoryBudget.budgetedAmount).toFixed(2)}` : ""}</p>
                 <p>Total Spent: ${totalSpent.toFixed(2)}</p>
