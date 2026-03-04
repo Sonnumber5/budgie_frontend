@@ -75,6 +75,7 @@ export const useBudgets = () => {
             const response = await createMonthlyBudgetAPI(data);
             const newBudget: MonthlyBudget = response.data.monthlyBudget;
             const newCategoryBudgets: CategoryBudget[] = newBudget.categoryBudgets;
+            
             const newCategories: Category[] = newCategoryBudgets.map((cb) => ({
                 id: cb.categoryId,
                 name: cb.categoryName
@@ -82,7 +83,12 @@ export const useBudgets = () => {
             
             setMonthlyBudget(newBudget);
             setCategoryBudgets(newCategoryBudgets);
-            setAvailableCategories(newCategories);
+
+            setAvailableCategories(prev => {
+                const existingIds = prev.map(c => c.id);
+                const categoriesToAdd = newCategories.filter(c => !existingIds.includes(c.id));
+                return [...prev, ...categoriesToAdd];
+            });
             
             return newBudget;
         } catch(error: any) {
@@ -111,7 +117,12 @@ export const useBudgets = () => {
             
             setMonthlyBudget(updatedBudget);
             setCategoryBudgets(updatedCategoryBudgets);
-            setAvailableCategories(updatedCategories);
+
+            setAvailableCategories(prev => {
+                const existingIds = prev.map(c => c.id);
+                const categoriesToAdd = updatedCategories.filter(c => !existingIds.includes(c.id));
+                return [...prev, ...categoriesToAdd];
+            });
             
             return updatedBudget;
         } catch(error: any) {
