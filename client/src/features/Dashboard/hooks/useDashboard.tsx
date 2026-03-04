@@ -4,12 +4,13 @@
 import { useState, useEffect } from "react";
 import { getIncomeTotal, getExpenseTotal } from "../api/dashboard";
 import { useDateContext } from "../../../context/DateContext";
+import { useExpenseContext } from "../../../context/ExpenseContext";
 
 export const useDashboard = () => {
     const { currentMonth, setCurrentMonth } = useDateContext();
+    const { expenses } = useExpenseContext();    
     const [ incomeTotal, setIncomeTotal ] = useState(0);
     const [ expenseTotal, setExpenseTotal ] = useState(0);
-    const [ currentRemaining, setCurrentRemaining ] = useState(0);
     const [ isLoading, setIsLoading ] = useState(false);
     const [ error, setError ] = useState<string | null>(null);
 
@@ -26,15 +27,21 @@ export const useDashboard = () => {
                 const income = incomeResponse.data.incomeSum;
                 setExpenseTotal(expenses);
                 setIncomeTotal(income);
-                setCurrentRemaining(income - expenses);
             } catch(error: any){
-                setError(error.message || 'Failed to fetch totlas for the month')
+                setError(error.message || 'Failed to fetch totals for the month')
             } finally{
                 setIsLoading(false);
             }
         }
         fetchTotals();
     }, [currentMonth]);
+
+    useEffect(() => {
+        const total = expenses.reduce((sum, expense) => sum + Number(expense.amount), 0);
+        setExpenseTotal(total);
+    }, [expenses]);
+
+    const currentRemaining = incomeTotal - expenseTotal;
 
     return {
         incomeTotal, expenseTotal, currentRemaining, isLoading, error

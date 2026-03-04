@@ -7,12 +7,12 @@ import { useEffect, useState } from "react";
 import type { Category, CategoryBudget, CategoryBudgetDTO, MonthlyBudget } from "../../../types";
 import { useBudgetContext } from "../../../context/BudgetContext";
 
-interface BudgetManagementForm{
+interface BudgetManagementFormProps{
     onSuccess: () => void;
     budgetToEdit?: MonthlyBudget | null;
 }
 
-export const BudgetManagementForm = ({ onSuccess, budgetToEdit }: BudgetManagementForm) => {
+export const BudgetManagementForm = ({ onSuccess, budgetToEdit }: BudgetManagementFormProps) => {
     const { addMonthlyBudget, editMonthlyBudget, removeCategoryBudget } = useBudgetContext();
     const [ expectedIncome, setExpectedIncome ] = useState(0);
     const [ existingCategoryBudgets, setExistingCategoryBudgets ] = useState<CategoryBudget[]>([]);

@@ -25,7 +25,7 @@ export const ExpenseForm = ({ onSuccess, expenseToEdit, categoryId }: ExpenseFor
         description: '',
         expenseDate: new Date().toISOString().split('T')[0],
         month: currentMonth
-    })
+    });
     const isEditMode = !!expenseToEdit;
 
 
