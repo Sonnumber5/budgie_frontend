@@ -7,6 +7,7 @@ import './BudgetOverview.css';
 
 export const BudgetOverview = () => {
     const { monthlyBudget, categoryBudgets, availableCategories, isLoading, error, addMonthlyBudget, editCategoryBudget, editMonthlyBudget, removeCategoryBudget, removeMonthlyBudget } = useBudgetContext();
+
     return (
         <div className="monthly-budget">
             <div className="category-budget-list">
