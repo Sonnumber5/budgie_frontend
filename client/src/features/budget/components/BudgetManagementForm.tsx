@@ -6,6 +6,7 @@
 import { useEffect, useState } from "react";
 import type { Category, CategoryBudget, CategoryBudgetDTO, MonthlyBudget } from "../../../types";
 import { useBudgetContext } from "../../../context/BudgetContext";
+import { standardCategories } from "../../../types/standardCategories";
 
 interface BudgetManagementFormProps{
     onSuccess: () => void;
@@ -136,9 +137,15 @@ export const BudgetManagementForm = ({ onSuccess, budgetToEdit }: BudgetManageme
                                     placeholder="Category Name"
                                     value={cb.categoryName}
                                     onChange={(e) => updateNewCategoryBudget(index, 'categoryName', e.target.value)}
+                                    list={`category-suggestions-${index}`} // Links to datalist
                                     required
                                     style={{ flex: 1 }}
                                 />
+                                <datalist id={`category-suggestions-${index}`}>
+                                    {standardCategories.map(category => (
+                                        <option key={category} value={category} />
+                                    ))}
+                                </datalist>
                                 <input
                                     type="number"
                                     placeholder="Budget Amount"

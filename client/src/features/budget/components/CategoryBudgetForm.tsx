@@ -55,6 +55,7 @@ export const CategoryBudgetForm = ({ onSuccess, categoryBudgetToEdit }: Category
                         type="text"
                         value={formData.categoryName}
                         onChange={(e) => {setFormData({...formData, categoryName: e.target.value})}}
+                        disabled
                         style={{ flex: 1 }}
                     />
                     <input
