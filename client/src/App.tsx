@@ -34,33 +34,33 @@ function App() {
       <AuthProvider>
         <DateProvider>
           <ExpenseProvider>
-            <BudgetProvider>
-            <Navbar/>
-              <Routes>
-              <Route path="/" element={<DefaultRoute/>}/>
-              <Route path="/login" element={<LoginPage/>}/>
-              <Route path="/register" element={<RegisterPage/>}/>
-                <Route path="/expenses" element={
-                  <ProtectedRoute>
-                      <ExpensesPage/>
-                  </ProtectedRoute>
-                }/>
-                <Route path="/income" element={
-                  <ProtectedRoute>
-                    <IncomeProvider>
-                      <IncomePage/>
-                    </IncomeProvider>
-                  </ProtectedRoute>
-                }/> 
-                <Route path="/dashboard" element={
-                  <ProtectedRoute>
-                      <DashboardProvider>
+            <DashboardProvider>
+              <BudgetProvider>
+              <Navbar/>
+                <Routes>
+                <Route path="/" element={<DefaultRoute/>}/>
+                <Route path="/login" element={<LoginPage/>}/>
+                <Route path="/register" element={<RegisterPage/>}/>
+                  <Route path="/expenses" element={
+                    <ProtectedRoute>
+                        <ExpensesPage/>
+                    </ProtectedRoute>
+                  }/>
+                  <Route path="/income" element={
+                    <ProtectedRoute>
+                      <IncomeProvider>
+                        <IncomePage/>
+                      </IncomeProvider>
+                    </ProtectedRoute>
+                  }/> 
+                  <Route path="/dashboard" element={
+                    <ProtectedRoute>
                         <Dashboard/>
-                      </DashboardProvider>
-                  </ProtectedRoute>
-                }/>
-              </Routes>
-            </BudgetProvider>
+                    </ProtectedRoute>
+                  }/>
+                </Routes>
+              </BudgetProvider>
+            </DashboardProvider>
           </ExpenseProvider>
         </DateProvider>
       </AuthProvider>

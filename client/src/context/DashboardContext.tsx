@@ -11,6 +11,7 @@ interface DashboardContextType{
     currentRemaining: number;
     error: string | null;
     isLoading: boolean;
+    triggerRefresh: () => void;
 }
 
 const DashboardContext = createContext<DashboardContextType | null>(null);

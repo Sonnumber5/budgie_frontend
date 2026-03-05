@@ -6,8 +6,10 @@ import { getCategoriesAPI, createMonthlyBudgetAPI, getBudgetByMonthAPI, updateCa
 import { useState, useEffect } from 'react';
 import { useDateContext } from '../../../context/DateContext';
 import type { CategoryBudget, MonthlyBudget, Category, MonthlyBudgetDTO, CategoryBudgetDTO } from '../../../types';
+import { useDashboardContext } from '../../../context/DashboardContext';
 
 export const useBudgets = () => {
+    const { triggerRefresh } = useDashboardContext();
     const { currentMonth } = useDateContext();
     const [ monthlyBudget, setMonthlyBudget ] = useState<MonthlyBudget | null>(null);
     const [ categoryBudgets, setCategoryBudgets ] = useState<CategoryBudget[]>([]);
@@ -142,7 +144,7 @@ export const useBudgets = () => {
         try{
             const response = await updateCategoryBudgetAPI(id, data);
             const updatedCategoryBudget = response.data.categoryBudget;
-            const updatedCategoryBudgets = categoryBudgets.map((prev) => prev.categoryId === id ? updatedCategoryBudget : prev);
+            const updatedCategoryBudgets = categoryBudgets.map((prev) => prev.id === id ? updatedCategoryBudget : prev);
             
             setMonthlyBudget(prev => prev ? {
                 ...prev,
@@ -194,6 +196,7 @@ export const useBudgets = () => {
             throw error;
         }finally{
             setIsLoading(false);
+            triggerRefresh();
         }
     }
 

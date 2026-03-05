@@ -13,6 +13,11 @@ export const useDashboard = () => {
     const [ expenseTotal, setExpenseTotal ] = useState(0);
     const [ isLoading, setIsLoading ] = useState(false);
     const [ error, setError ] = useState<string | null>(null);
+    const [ refresh, setRefresh ] = useState(0);
+
+    const triggerRefresh = () => {
+        setRefresh(prev => prev + 1);
+    }
 
     useEffect(() => {
         const fetchTotals = async () => {
@@ -34,7 +39,7 @@ export const useDashboard = () => {
             }
         }
         fetchTotals();
-    }, [currentMonth]);
+    }, [currentMonth, refresh]);
 
     useEffect(() => {
         const total = expenses.reduce((sum, expense) => sum + Number(expense.amount), 0);
@@ -44,6 +49,6 @@ export const useDashboard = () => {
     const currentRemaining = incomeTotal - expenseTotal;
 
     return {
-        incomeTotal, expenseTotal, currentRemaining, isLoading, error
+        incomeTotal, expenseTotal, currentRemaining, isLoading, error, triggerRefresh
     }
 }
