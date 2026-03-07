@@ -5,6 +5,7 @@ import { useState } from 'react';
 import { Navigate, useNavigate } from 'react-router-dom';
 import './LoginPage.css';
 import { useAuth } from '../context/AuthContext';
+import { useDateContext } from '../context/DateContext';
 
 export const LoginPage = () => {
     const [email, setEmail] = useState('');
@@ -12,6 +13,7 @@ export const LoginPage = () => {
     const [error, setError] = useState<string | null>(null);
     const [isLoading, setIsLoading] = useState(false);
     const { login } = useAuth();
+    const { resetMonth } = useDateContext();
 
     const navigate = useNavigate();
 
@@ -22,6 +24,7 @@ export const LoginPage = () => {
 
         try {
             await login(email, password);
+            resetMonth();
             navigate('/dashboard');
         } catch (error: any) {
             setError(error.message || 'Failed to login');

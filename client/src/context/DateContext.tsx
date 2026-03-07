@@ -7,6 +7,7 @@ import React from 'react';
 interface DateContextType {
     currentMonth: string;
     setCurrentMonth: (month: string) => void;
+    resetMonth: () => void
 }
 
 const DateContext = createContext<DateContextType | null>(null);
@@ -17,8 +18,12 @@ export const DateProvider = ({ children }: { children: React.ReactNode }) => {
         return new Date().toISOString().split('T')[0].substring(0, 7) + '-01';
     });
 
+    const resetMonth = () => {
+        setCurrentMonth(new Date().toISOString().split('T')[0].substring(0, 7) + '-01');
+    }
+
     return (
-        <DateContext.Provider value={{ currentMonth, setCurrentMonth }}>
+        <DateContext.Provider value={{ currentMonth, setCurrentMonth, resetMonth }}>
             {children}
         </DateContext.Provider>
     );

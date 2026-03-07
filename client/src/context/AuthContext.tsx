@@ -26,7 +26,7 @@ const AuthContext = createContext<AuthContextType | null>(null);
 
 export const AuthProvider = ({ children }: {children: React.ReactNode}) => {
     const [user, setUser] = useState<User | null>(null);
-    const [isLoading, setIsLoading] = useState(false);
+    const [isLoading, setIsLoading] = useState(true);
 
     // On mount, call /auth/me to restore the session from an existing HTTP-only cookie.
     // This keeps the user logged in across page refreshes without storing tokens in localStorage.

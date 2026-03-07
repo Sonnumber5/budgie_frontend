@@ -26,7 +26,10 @@ function App() {
   // DefaultRoute redirects the root "/" path based on authentication status.
   // Authenticated users go to /dashboard; guests are sent to /login.
   const DefaultRoute = () => {
-    const { isAuthenticated } = useAuth();
+    const { isAuthenticated, isLoading } = useAuth();
+    
+    if (isLoading) return null; // add spinner later on
+
     return <Navigate to={isAuthenticated ? "/dashboard" : "/login"} replace />;
 };
   return (
