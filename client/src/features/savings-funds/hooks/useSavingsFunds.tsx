@@ -12,62 +12,87 @@ export const useSavingsFunds = () => {
         const fetchActiveSavingsFunds = async () => {
             setIsLoading(true);
             setError(null);
-            try{
+            try {
                 const response = await getActiveSavingsFunds();
-                setActiveSavingsFunds(response.data.savingsFunds);
-            }catch(error: any){
+                setActiveSavingsFunds(response.data.savingsFunds || []); 
+            } catch(error: any) {
                 setError(error.message || 'Failed to fetch active savings funds');
-            }finally{
+                console.error('Failed to fetch savings funds:', error);
+            } finally {
                 setIsLoading(false);
             }
         }
         fetchActiveSavingsFunds();
-    },[]);
+    }, []);
 
     const addSavingsFund = async (data: SavingsFundDTO): Promise<SavingsFund> => {
-        try{
+        setIsLoading(true);
+        setError(null);
+        try {
             const response = await createSavingsFund(data);
             setActiveSavingsFunds(prev => [...prev, response.data.savingsFund]);
             return response.data.savingsFund;
-        } catch(error: any){
+        } catch(error: any) {
             setError(error.message || 'Failed to create savings fund');
             throw error;
+        } finally {
+            setIsLoading(false);
         }
     }
 
     const editSavingsFund = async (id: number, data: SavingsFundDTO): Promise<SavingsFund> => {
-        try{
+        setIsLoading(true);
+        setError(null);
+        try {
             const response = await updateSavingsFund(id, data);
             const updatedFund = response.data.savingsFund;
             setActiveSavingsFunds(prev => prev.map(fund => fund.id === id ? updatedFund : fund));
             return updatedFund;
-        }catch(error: any){
+        } catch(error: any) {
             setError(error.message || 'Failed to update savings fund');
             throw error;
+        } finally {
+            setIsLoading(false); 
         }
     }
 
     const fetchArchivedSavingsFunds = async (): Promise<SavingsFund[]> => {
-        try{
+        setIsLoading(true);
+        setError(null);
+        try {
             const response = await getArchivedSavingsFunds();
-            setArchivedSavingsFunds(response.data.savingsFunds);
+            setArchivedSavingsFunds(response.data.savingsFunds || []);
             return response.data.savingsFunds;
-        }catch(error: any){
+        } catch(error: any) {
             setError(error.message || 'Failed to retrieve archived savings funds');
             throw error;
+        } finally {
+            setIsLoading(false); 
         }
     }
 
-    const removeSavingsFund = async (id: number) => {
-        try{
+    const removeSavingsFund = async (id: number): Promise<void> => { 
+        setIsLoading(true);
+        setError(null);
+        try {
             await deleteSavingsFund(id);
             setActiveSavingsFunds(prev => prev.filter(fund => fund.id !== id));
-        }catch(error: any){
+        } catch(error: any) {
             setError(error.message || 'Unable to remove savings fund');
+            throw error;
+        } finally {
+            setIsLoading(false);
         }
     }
 
     return { 
-        activeSavingsFunds, archivedSavingsFunds, isLoading, error, addSavingsFund, editSavingsFund, fetchArchivedSavingsFunds, removeSavingsFund
+        activeSavingsFunds, 
+        archivedSavingsFunds, 
+        isLoading, 
+        error, 
+        addSavingsFund, 
+        editSavingsFund, 
+        fetchArchivedSavingsFunds, 
+        removeSavingsFund
     }
 }

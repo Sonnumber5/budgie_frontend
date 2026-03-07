@@ -1,7 +1,7 @@
 // useExpenses.ts - Custom hook managing expense list state and CRUD operations.
 // Re-fetches expenses automatically whenever the selected month changes.
 import { useState, useEffect } from "react";
-import { getExpenses, getExpenseById, createExpense, updateExpense, deleteExpense } from '../api/expenses';
+import { getExpenses, createExpense, updateExpense, deleteExpense } from '../api/expenses';
 import type { Expense, ExpenseDTO } from "../../../types";
 import { useDateContext } from '../../../context/DateContext';
 
@@ -17,9 +17,10 @@ export const useExpenses = () => {
             setError(null);
             try{
                 const response = await getExpenses(currentMonth);
-                setExpenses(response.data.expenses);
+                setExpenses(response.data.expenses || []);
             } catch(error: any){
                 setError(error.message || 'Failed to fetch expenses');
+                console.error('Failed to fetch expenses:', error);
             } finally{
                 setIsLoading(false);
             }
@@ -27,8 +28,9 @@ export const useExpenses = () => {
         fetchExpenses(); 
     }, [currentMonth]);
 
-    // addExpense posts a new expense and appends it to local state optimistically.
     const addExpense = async (data: ExpenseDTO): Promise<Expense> => {
+        setIsLoading(true);
+        setError(null);
         try{
             const response = await createExpense(data);
             setExpenses(prev => [...prev, response.data.expense]);
@@ -36,11 +38,14 @@ export const useExpenses = () => {
         } catch(error: any){
             setError(error.message || 'Failed to create expense');
             throw error;
+        } finally{
+            setIsLoading(false);
         }
     };
 
-    // editExpense updates an expense and replaces the stale entry in local state.
     const editExpense = async (id: number, data: ExpenseDTO): Promise<Expense> => {
+        setIsLoading(true);
+        setError(null);
         try{
             const response = await updateExpense(id, data);
             setExpenses(prev => prev.map(e => e.id === id ? response.data.expense : e));
@@ -48,16 +53,22 @@ export const useExpenses = () => {
         } catch(error: any){
             setError(error.message || 'Failed to update expense');
             throw error;
+        } finally{
+            setIsLoading(false);
         }
     }
 
-    // removeExpense deletes the expense from the server and filters it out of local state.
-    const removeExpense = async (id: number) => {
+    const removeExpense = async (id: number): Promise<void> => {
+        setIsLoading(true);
+        setError(null);
         try{
             await deleteExpense(id);
             setExpenses(prev => prev.filter(e => e.id !== id));
         } catch(error: any){
             setError(error.message || 'Failed to delete expense');
+            throw error;
+        } finally{
+            setIsLoading(false);
         }
     }
 
