@@ -34,7 +34,7 @@ export const Navbar = () => {
             <button onClick={() => {navigate('/expenses')}}>
                 Expenses
             </button>
-            <button>
+            <button onClick={() => {navigate('/savings-funds')}}>
                 Funds
             </button>
             </div>

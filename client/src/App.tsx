@@ -21,6 +21,8 @@ import { Navigate } from 'react-router-dom';
 import { useAuth } from './context/AuthContext';
 import { BudgetProvider } from './context/BudgetContext';
 import { BudgetOverview } from './features/budget/components/BudgetOverview';
+import { SavingsFundProvider } from './context/SavingsFundContext';
+import { SavingsFundPage } from './pages/SavingsFundPage';
 
 function App() {
   // DefaultRoute redirects the root "/" path based on authentication status.
@@ -36,35 +38,42 @@ function App() {
     <BrowserRouter>
       <AuthProvider>
         <DateProvider>
-          <ExpenseProvider>
-            <DashboardProvider>
-              <BudgetProvider>
-              <Navbar/>
-                <Routes>
-                <Route path="/" element={<DefaultRoute/>}/>
-                <Route path="/login" element={<LoginPage/>}/>
-                <Route path="/register" element={<RegisterPage/>}/>
-                  <Route path="/expenses" element={
-                    <ProtectedRoute>
-                        <ExpensesPage/>
-                    </ProtectedRoute>
-                  }/>
-                  <Route path="/income" element={
-                    <ProtectedRoute>
-                      <IncomeProvider>
-                        <IncomePage/>
-                      </IncomeProvider>
-                    </ProtectedRoute>
-                  }/> 
-                  <Route path="/dashboard" element={
-                    <ProtectedRoute>
-                        <Dashboard/>
-                    </ProtectedRoute>
-                  }/>
-                </Routes>
-              </BudgetProvider>
-            </DashboardProvider>
-          </ExpenseProvider>
+          <SavingsFundProvider>
+            <ExpenseProvider>
+              <DashboardProvider>
+                <BudgetProvider>
+                <Navbar/>
+                  <Routes>
+                  <Route path="/" element={<DefaultRoute/>}/>
+                  <Route path="/login" element={<LoginPage/>}/>
+                  <Route path="/register" element={<RegisterPage/>}/>
+                    <Route path="/expenses" element={
+                      <ProtectedRoute>
+                          <ExpensesPage/>
+                      </ProtectedRoute>
+                    }/>
+                    <Route path="/income" element={
+                      <ProtectedRoute>
+                        <IncomeProvider>
+                          <IncomePage/>
+                        </IncomeProvider>
+                      </ProtectedRoute>
+                    }/> 
+                    <Route path="/dashboard" element={
+                      <ProtectedRoute>
+                          <Dashboard/>
+                      </ProtectedRoute>
+                    }/>
+                    <Route path="/savings-funds" element={
+                      <ProtectedRoute>
+                          <SavingsFundPage/>
+                      </ProtectedRoute>
+                    }/>
+                  </Routes>
+                </BudgetProvider>
+              </DashboardProvider>
+            </ExpenseProvider>
+          </SavingsFundProvider>
         </DateProvider>
       </AuthProvider>
     </BrowserRouter>
