@@ -14,7 +14,7 @@ export const getActiveSavingsFunds = () => {
 }
 
 export const updateSavingsFund = (id: number, data: SavingsFundDTO) => {
-    return api.post(`/savings-funds/${id}`, data);
+    return api.put(`/savings-funds/${id}`, data);
 }
 
 export const deleteSavingsFund = (id: number) => {

@@ -16,7 +16,7 @@ export const useSavingsFunds = () => {
                 const response = await getActiveSavingsFunds();
                 setActiveSavingsFunds(response.data.savingsFunds || []); 
             } catch(error: any) {
-                setError(error.message || 'Failed to fetch active savings funds');
+                setError(error.response?.data?.error || error.message || 'Failed to fetch active savings funds');
                 console.error('Failed to fetch savings funds:', error);
             } finally {
                 setIsLoading(false);
@@ -33,7 +33,7 @@ export const useSavingsFunds = () => {
             setActiveSavingsFunds(prev => [...prev, response.data.savingsFund]);
             return response.data.savingsFund;
         } catch(error: any) {
-            setError(error.message || 'Failed to create savings fund');
+            setError(error.response?.data?.error || error.message || 'Failed to create savings fund');
             throw error;
         } finally {
             setIsLoading(false);
@@ -49,7 +49,7 @@ export const useSavingsFunds = () => {
             setActiveSavingsFunds(prev => prev.map(fund => fund.id === id ? updatedFund : fund));
             return updatedFund;
         } catch(error: any) {
-            setError(error.message || 'Failed to update savings fund');
+            setError(error.response?.data?.error || error.message || 'Failed to update savings fund');
             throw error;
         } finally {
             setIsLoading(false); 
@@ -64,7 +64,7 @@ export const useSavingsFunds = () => {
             setArchivedSavingsFunds(response.data.savingsFunds || []);
             return response.data.savingsFunds;
         } catch(error: any) {
-            setError(error.message || 'Failed to retrieve archived savings funds');
+            setError(error.response?.data?.error || error.message || 'Failed to retrieve archived savings funds');
             throw error;
         } finally {
             setIsLoading(false); 
@@ -78,7 +78,7 @@ export const useSavingsFunds = () => {
             await deleteSavingsFund(id);
             setActiveSavingsFunds(prev => prev.filter(fund => fund.id !== id));
         } catch(error: any) {
-            setError(error.message || 'Unable to remove savings fund');
+            setError(error.response?.data?.error || error.message || 'Unable to remove savings fund');
             throw error;
         } finally {
             setIsLoading(false);

@@ -6,6 +6,8 @@ background-color: lightgreen;
     position: relative;
     display: flex;
     background-color: lightblue;
+    width: 100%;
+    justify-content: space-between;
 }
 
 .dropdown{
@@ -13,8 +15,16 @@ background-color: lightgreen;
     width: 100%;
 }
 
-.add-btn{
-    position: absolute;
-    top: 0;
-    right: 0;
+.add-fund-btn{
+
+}
+
+.edit-fund-btn{
+
+}
+
+.fund-btns{
+    display: flex;
+    gap: 5px;
+    
 }
