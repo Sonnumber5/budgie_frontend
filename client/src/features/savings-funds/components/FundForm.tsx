@@ -12,7 +12,7 @@ export const FundForm = ({ onSuccess, fundToEdit }: FundFormProps) => {
     const { addSavingsFund, editSavingsFund, error } = useSavingsFundContext();
     const [formData, setFormData] = useState<SavingsFundDTO>({
         name: '',
-        goal: 0,
+        goal: 1,
     });
     const isEditMode = !!fundToEdit;
 
