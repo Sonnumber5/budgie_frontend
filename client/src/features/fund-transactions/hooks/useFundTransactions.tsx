@@ -1,0 +1,130 @@
+import { useState, useEffect } from "react";
+import { useSavingsFundContext } from "../../../context/SavingsFundContext";
+import type { FundTransaction, FundTransactionDTO } from "../../../types";
+import { createFundTransaction, getAllTransactionsForActiveFunds, updateFundTransaction, deleteFundTransaction, createAdjustmentTransaction, createTransferTransaction } from "../api/fund-transactions";
+
+export const useFundTransactions = () => {
+    const [ transactions, setTransactions ] = useState<FundTransaction[]>([]);
+    const [ isLoading, setIsLoading ] = useState(false);
+    const [ error, setError ] = useState<string | null>(null);
+    const { refreshFundInfo } = useSavingsFundContext();
+
+    useEffect(() => {
+        const fetchTransactions = async () => {
+            setIsLoading(true);
+            setError(null);
+            try {
+                const response = await getAllTransactionsForActiveFunds();
+                setTransactions(response.data.activeFundTransactions || []);
+            } catch(error: any) {
+                setError(error.response?.data?.error || error.message || 'Failed to fetch transactions');
+                console.error('Failed to fetch transactions:', error);
+            } finally {
+                setIsLoading(false);
+            }
+        }
+        fetchTransactions();
+    }, []);
+
+    const addFundTransaction = async (data: FundTransactionDTO): Promise<FundTransaction> => {
+        setIsLoading(true);
+        setError(null);
+        try {
+            const response = await createFundTransaction(data);
+            const newTransaction = response.data.fundTransaction;
+            setTransactions(prev => [...prev, newTransaction]);
+            await refreshFundInfo(data.savingsFundId);
+            return newTransaction;
+        } catch(error: any) {
+            setError(error.response?.data?.error || error.message || 'Failed to create transaction');
+            throw error;
+        } finally {
+            setIsLoading(false);
+        }
+    };
+
+    const editFundTransaction = async (id: number, data: FundTransactionDTO): Promise<FundTransaction> => {
+        setIsLoading(true);
+        setError(null);
+        try {
+            const response = await updateFundTransaction(id, data);
+            const updatedTransaction = response.data.fundTransaction;
+            setTransactions(prev => prev.map(t => t.id === id ? updatedTransaction : t));
+            await refreshFundInfo(data.savingsFundId);
+            return updatedTransaction;
+        } catch(error: any) {
+            setError(error.response?.data?.error || error.message || 'Failed to update transaction');
+            throw error;
+        } finally {
+            setIsLoading(false);
+        }
+    }
+
+    const removeFundTransaction = async (fundId: number, transactionId: number): Promise<void> => {
+        setIsLoading(true);
+        setError(null);
+        try {
+            await deleteFundTransaction(fundId, transactionId);
+            setTransactions(prev => prev.filter(t => t.id !== transactionId));
+            await refreshFundInfo(fundId);
+        } catch(error: any) {
+            setError(error.response?.data?.error || error.message || 'Failed to delete transaction');
+            throw error;
+        } finally {
+            setIsLoading(false);
+        }
+    }
+
+    const addTransferTransaction = async (data: { sendingFundId: number, receivingFundId: number, amount: number, month: string }): Promise<FundTransaction[]> => {
+        setIsLoading(true);
+        setError(null);
+        try {
+            const response = await createTransferTransaction(data);
+            const newTransactions = response.data.transactions;
+            setTransactions(prev => [...prev, ...newTransactions]);
+            await Promise.all([
+                refreshFundInfo(data.sendingFundId),
+                refreshFundInfo(data.receivingFundId)
+            ]);
+            return newTransactions;
+        } catch(error: any) {
+            setError(error.response?.data?.error || error.message || 'Failed to transfer funds');
+            throw error;
+        } finally {
+            setIsLoading(false);
+        }
+    };
+
+    const addAdjustTransaction = async (data: { fundId: number, amount: number, month: string }): Promise<FundTransaction> => {
+        setIsLoading(true);
+        setError(null);
+        try {
+            const response = await createAdjustmentTransaction(data);
+            const newTransaction = response.data.fundTransaction;
+            setTransactions(prev => [...prev, newTransaction]);
+            await refreshFundInfo(data.fundId);
+            return newTransaction;
+        } catch(error: any) {
+            setError(error.response?.data?.error || error.message || 'Failed to adjust fund');
+            throw error;
+        } finally {
+            setIsLoading(false);
+        }
+    };
+
+    const clearError = () => {
+        setError(null);
+    };
+
+    return {
+        transactions, 
+        isLoading, 
+        error, 
+        addFundTransaction, 
+        editFundTransaction, 
+        removeFundTransaction, 
+        addTransferTransaction, 
+        addAdjustTransaction,
+        clearError
+    }
+}

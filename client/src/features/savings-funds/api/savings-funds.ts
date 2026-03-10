@@ -13,6 +13,10 @@ export const getActiveSavingsFunds = () => {
     return api.get('/savings-funds?includeArchived=false');
 }
 
+export const getSavingsFundById = (fundId: number) => {
+    return api.get(`/savings-funds/${fundId}`);
+}
+
 export const updateSavingsFund = (id: number, data: SavingsFundDTO) => {
     return api.put(`/savings-funds/${id}`, data);
 }

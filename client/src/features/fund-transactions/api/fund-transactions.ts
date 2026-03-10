@@ -13,6 +13,10 @@ export const getAllTransactionsForFund = (fundId: number) => {
     return api.get(`/savings-funds/${fundId}/transactions`);
 }
 
+export const getAllTransactionsForActiveFunds = () => {
+    return api.get(`/savings-funds/transactions`);
+}
+
 export const updateFundTransaction = (transactionId: number, data: FundTransactionDTO) => {
     return api.put(`/savings-funds/${data.savingsFundId}/transactions/${transactionId}`);
 }
@@ -21,10 +25,10 @@ export const deleteFundTransaction = (fundId: number, transactionId: number) => 
     return api.delete(`/savings-funds/${fundId}/transactions/${transactionId}`);
 }
 
-export const createTransferTransaction = (sendingFundId: number, relatedFundId: number, amount: number, month: string) => {
-    return api.post(`/savings-funds/${sendingFundId}/transactions/transfer`, { relatedFundId, amount, month });
+export const createTransferTransaction = (data: { sendingFundId: number, receivingFundId: number, amount: number, month: string }) => {
+    return api.post(`/savings-funds/${data.sendingFundId}/transactions/transfer`, {amount: data.amount, relatedFundId: data.receivingFundId, month: data.month});
 }
 
-export const createAdjustmentTransaction = (fundId: number, amount: number, month: string) => {
-    return api.post(`/savings-funds/${fundId}/transactions/adjustment`, { amount, month });
+export const createAdjustmentTransaction = (data: { fundId: number, amount: number, month: string }) => {
+    return api.post(`/savings-funds/${data.fundId}/transactions/adjustment`, { amount: data.amount, month: data.month });
 }

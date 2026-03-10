@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import type { SavingsFund, SavingsFundDTO } from "../../../types/index";
-import { createSavingsFund, getActiveSavingsFunds, getArchivedSavingsFunds, updateSavingsFund, deleteSavingsFund } from '../api/savings-funds'
+import { createSavingsFund, getActiveSavingsFunds, getSavingsFundById, getArchivedSavingsFunds, updateSavingsFund, deleteSavingsFund } from '../api/savings-funds'
 
 export const useSavingsFunds = () => {
     const [ activeSavingsFunds, setActiveSavingsFunds ] = useState<SavingsFund[]>([]);
@@ -24,6 +24,20 @@ export const useSavingsFunds = () => {
         }
         fetchActiveSavingsFunds();
     }, []);
+
+    const refreshFundInfo = async (fundId: number) => {
+        setIsLoading(true);
+        setError(null);
+        try {
+            const response = await getSavingsFundById(fundId);
+            setActiveSavingsFunds(prev => prev.map(fund => fund.id === fundId ? response.data.savingsFund : fund));
+        } catch(error: any) {
+            setError(error.response?.data?.error || error.message || 'Failed to retrieve fund');
+            throw error;
+        } finally {
+            setIsLoading(false); 
+        } 
+    } 
 
     const addSavingsFund = async (data: SavingsFundDTO): Promise<SavingsFund> => {
         setIsLoading(true);
@@ -93,6 +107,7 @@ export const useSavingsFunds = () => {
         addSavingsFund, 
         editSavingsFund, 
         fetchArchivedSavingsFunds, 
-        removeSavingsFund
+        removeSavingsFund,
+        refreshFundInfo
     }
 }
