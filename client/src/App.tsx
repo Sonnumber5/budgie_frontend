@@ -23,6 +23,7 @@ import { BudgetProvider } from './context/BudgetContext';
 import { BudgetOverview } from './features/budget/components/BudgetOverview';
 import { SavingsFundProvider } from './context/SavingsFundContext';
 import { SavingsFundPage } from './pages/SavingsFundPage';
+import { FundTransactionProvider } from './context/FundTransactionContext';
 
 function App() {
   // DefaultRoute redirects the root "/" path based on authentication status.
@@ -39,40 +40,42 @@ function App() {
       <AuthProvider>
         <DateProvider>
           <SavingsFundProvider>
-            <ExpenseProvider>
-              <DashboardProvider>
-                <BudgetProvider>
-                <Navbar/>
-                  <Routes>
-                  <Route path="/" element={<DefaultRoute/>}/>
-                  <Route path="/login" element={<LoginPage/>}/>
-                  <Route path="/register" element={<RegisterPage/>}/>
-                    <Route path="/expenses" element={
-                      <ProtectedRoute>
-                          <ExpensesPage/>
-                      </ProtectedRoute>
-                    }/>
-                    <Route path="/income" element={
-                      <ProtectedRoute>
-                        <IncomeProvider>
-                          <IncomePage/>
-                        </IncomeProvider>
-                      </ProtectedRoute>
-                    }/> 
-                    <Route path="/dashboard" element={
-                      <ProtectedRoute>
-                          <Dashboard/>
-                      </ProtectedRoute>
-                    }/>
-                    <Route path="/savings-funds" element={
-                      <ProtectedRoute>
-                          <SavingsFundPage/>
-                      </ProtectedRoute>
-                    }/>
-                  </Routes>
-                </BudgetProvider>
-              </DashboardProvider>
-            </ExpenseProvider>
+            <FundTransactionProvider>
+              <ExpenseProvider>
+                <DashboardProvider>
+                  <BudgetProvider>
+                  <Navbar/>
+                    <Routes>
+                    <Route path="/" element={<DefaultRoute/>}/>
+                    <Route path="/login" element={<LoginPage/>}/>
+                    <Route path="/register" element={<RegisterPage/>}/>
+                      <Route path="/expenses" element={
+                        <ProtectedRoute>
+                            <ExpensesPage/>
+                        </ProtectedRoute>
+                      }/>
+                      <Route path="/income" element={
+                        <ProtectedRoute>
+                          <IncomeProvider>
+                            <IncomePage/>
+                          </IncomeProvider>
+                        </ProtectedRoute>
+                      }/> 
+                      <Route path="/dashboard" element={
+                        <ProtectedRoute>
+                            <Dashboard/>
+                        </ProtectedRoute>
+                      }/>
+                      <Route path="/savings-funds" element={
+                        <ProtectedRoute>
+                            <SavingsFundPage/>
+                        </ProtectedRoute>
+                      }/>
+                    </Routes>
+                  </BudgetProvider>
+                </DashboardProvider>
+              </ExpenseProvider>
+            </FundTransactionProvider>
           </SavingsFundProvider>
         </DateProvider>
       </AuthProvider>

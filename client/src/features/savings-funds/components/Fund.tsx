@@ -1,20 +1,27 @@
 import { useState } from "react";
 import { Modal } from "../../../components/modal";
-import type { SavingsFund } from "../../../types";
+import type { FundTransaction, SavingsFund } from "../../../types";
 import './Fund.css';
 import { FundForm } from "./FundForm";
 
 interface SavingsFundProps{
     fund: SavingsFund;
+    relatedTransactions: FundTransaction[];
 }
 
-export const Fund = ({ fund }: SavingsFundProps) => {
+export const Fund = ({ fund, relatedTransactions }: SavingsFundProps) => {
     const [ isOpen, setIsOpen ] = useState(false);
     const [ isTransactionModalOpen, setIsTransactionModalOpen ] = useState(false);
     const [ isEditFundModalOpen, setIsEditFundModalOpen ] = useState(false);
 
     return (
         <div className="savings-fund">
+                <Modal isOpen={isTransactionModalOpen} onClose={() => {setIsTransactionModalOpen(false)}} title={'Fund transaction form'}>
+                    Build out fund transaction form
+                </Modal>
+                <Modal isOpen={isEditFundModalOpen} onClose={() => {setIsEditFundModalOpen(false)}} title={'Fund transaction form'}>
+                    <FundForm onSuccess={() => {setIsEditFundModalOpen(false)}} fundToEdit={fund}/>
+                </Modal>
             <div className="fund-info">
                 <h3 >{fund.name}</h3>
                 <p>{`Goal: $${Number(fund.goal).toFixed(2)}`}</p>
@@ -23,19 +30,15 @@ export const Fund = ({ fund }: SavingsFundProps) => {
                     <button onClick={() => {setIsTransactionModalOpen(true)}} className="add-fund-btn">+</button>
                     <button onClick={() => {setIsEditFundModalOpen(true)}} className="edit-fund-btn">Edit</button>
                 </div>
-                <Modal isOpen={isTransactionModalOpen} onClose={() => {setIsTransactionModalOpen(false)}} title={'Fund transaction form'}>
-                    Build out fund transaction form
-                </Modal>
-                <Modal isOpen={isEditFundModalOpen} onClose={() => {setIsEditFundModalOpen(false)}} title={'Fund transaction form'}>
-                    <FundForm onSuccess={() => {setIsEditFundModalOpen(false)}} fundToEdit={fund}/>
-                </Modal>
             </div>
             {isOpen && (
                 <div className="fund-transactions">
-                    List of fund transactions
-                    {/*fundTransactions.map((transaction) => (
-                        <FundTransactionItem key={transaction.id} transaction={transaction}/>
-                    ))*/}
+                    {relatedTransactions.map((transaction) => (
+                        //<FundTransactionItem key={transaction.id} transaction={transaction}/>
+                        <div>
+                            {transaction.amount}  |  {transaction.transactionDate}  |  {transaction.transactionType}
+                        </div> 
+                    ))}
                 </div>
             )}
             <button className="dropdown" onClick={() => {setIsOpen(!isOpen)}}>

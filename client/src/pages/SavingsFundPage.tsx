@@ -4,12 +4,21 @@ import './SavingsFundPage.css';
 import { Fund } from "../features/savings-funds/components/Fund";
 import { Modal } from "../components/modal";
 import { FundForm } from "../features/savings-funds/components/FundForm";
+import { useFundTransactionContext } from "../context/FundTransactionContext";
 
 export const SavingsFundPage = () => {
     const { activeSavingsFunds, isLoading, error } = useSavingsFundContext();
+    const { transactions } = useFundTransactionContext();
     const [ isModalOpen, setIsModalOpen ] = useState(false);
 
     if (isLoading) return <p>Loading...</p>;
+
+    const sortedFundsWithTransactions = activeSavingsFunds.map(savingsFund => {
+        const fundTransactions = transactions.filter(transaction => 
+            transaction.savingsFundId === savingsFund.id
+        )
+        return{fundTransactions, savingsFund}
+    })
 
     return(
         <div className="savings-fund-page">
@@ -20,8 +29,8 @@ export const SavingsFundPage = () => {
                 +
             </button>
             <div className="fund-list">
-            {activeSavingsFunds.map((fund) => (
-                <Fund key={fund.id} fund={fund}/>
+            {sortedFundsWithTransactions.map((fundWithTransactions) => (
+                <Fund key={fundWithTransactions.savingsFund.id} fund={fundWithTransactions.savingsFund} relatedTransactions={fundWithTransactions.fundTransactions}/>
             ))}
             </div>
         </div>
