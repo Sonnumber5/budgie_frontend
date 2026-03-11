@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Modal } from "../../../components/modal";
 import type { FundTransaction, SavingsFund } from "../../../types";
 import './Fund.css';
@@ -19,7 +19,7 @@ export const Fund = ({ fund, relatedTransactions }: SavingsFundProps) => {
     return (
         <div className="savings-fund">
                 <Modal isOpen={isTransactionModalOpen} onClose={() => {setIsTransactionModalOpen(false)}} title={'Fund transaction form'}>
-                    <FundTransactionForm onSuccess={() => {setIsTransactionModalOpen(false)}}/>
+                    <FundTransactionForm onSuccess={() => {setIsTransactionModalOpen(false)}} fundId={fund.id}/>
                 </Modal>
                 <Modal isOpen={isEditFundModalOpen} onClose={() => {setIsEditFundModalOpen(false)}} title={'Fund transaction form'}>
                     <FundForm onSuccess={() => {setIsEditFundModalOpen(false)}} fundToEdit={fund}/>
@@ -36,7 +36,7 @@ export const Fund = ({ fund, relatedTransactions }: SavingsFundProps) => {
             {isOpen && (
                 <div className="fund-transactions">
                     {relatedTransactions.map((transaction) => (
-                        <TransactionItem key={transaction.id} transaction={transaction}/>
+                        <TransactionItem key={transaction.id} transaction={transaction} />
                     ))}
                 </div>
             )}

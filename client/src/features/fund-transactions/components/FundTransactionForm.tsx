@@ -2,21 +2,19 @@ import { useEffect, useState } from "react";
 import type { FundTransaction, FundTransactionDTO } from "../../../types";
 import { useDateContext } from "../../../context/DateContext";
 import { useFundTransactionContext } from "../../../context/FundTransactionContext";
-import { useSavingsFundContext } from "../../../context/SavingsFundContext";
 import type { TransactionType } from "../../../types";
 
 interface FundTransactionFormProps{
     onSuccess: () => void;
     transactionToEdit?: FundTransaction; //will be automatically passed here when a transaction is edited with the edit form
-    fundId?: number; //will be automatically passed here when creating a transaction for a specific fund
+    fundId: number;
 }
 
 export const FundTransactionForm = ({ onSuccess, transactionToEdit, fundId }: FundTransactionFormProps) => {
     const { addFundTransaction, editFundTransaction } = useFundTransactionContext();
-    const { activeSavingsFunds } = useSavingsFundContext();
     const { currentMonth } = useDateContext();
     const [formData, setFormData] = useState<FundTransactionDTO>({
-        savingsFundId: fundId || 0,
+        savingsFundId: fundId,
         transactionType: '',
         amount: 0,
         description: '',
@@ -38,14 +36,13 @@ export const FundTransactionForm = ({ onSuccess, transactionToEdit, fundId }: Fu
                 month: currentMonth
             });
         }
-    }, [transactionToEdit]);
+    }, [transactionToEdit, currentMonth]);
 
     const handleSubmit = async (e: React.SyntheticEvent) => {
         e.preventDefault();
         try{
             if (isEditMode && transactionToEdit){
-                console.log('Form Data: ', formData)
-                await editFundTransaction(transactionToEdit.id, formData)
+                await editFundTransaction(transactionToEdit.id, formData);
             } else{
                 await addFundTransaction(formData);
                 console.log('Transaction successfully created');
@@ -57,28 +54,6 @@ export const FundTransactionForm = ({ onSuccess, transactionToEdit, fundId }: Fu
         }
     }
 
-    // selectFund renders the savings fund dropdown only when no fundId was pre-assigned.
-    // This keeps the UI clean when adding a transaction directly within a savings fund.
-    const selectFund = () => {
-        if (!fundId){
-            return (
-                <div>
-                    <label>Fund</label>
-                    <select
-                        value={formData.savingsFundId ?? ""}
-                        onChange={(e) => setFormData({...formData, savingsFundId: Number(e.target.value)})}>
-                            <option value="" disabled>Select savings fund</option>
-                            {activeSavingsFunds.map((fund) => (
-                                <option key={fund.id} value={fund.id}>
-                                    {fund.name}
-                                </option>
-                            ))}
-                    </select>
-                </div>
-            )
-        }
-        return null;
-    }
 
     return (
         <form onSubmit={handleSubmit}>
@@ -99,7 +74,6 @@ export const FundTransactionForm = ({ onSuccess, transactionToEdit, fundId }: Fu
                     required
                 />
             </div>
-            {selectFund()}
             <div>
                 <label>Transaction Type</label>
                 <select

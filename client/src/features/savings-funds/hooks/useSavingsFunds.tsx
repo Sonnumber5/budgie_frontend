@@ -26,17 +26,13 @@ export const useSavingsFunds = () => {
     }, []);
 
     const refreshFundInfo = async (fundId: number) => {
-        setIsLoading(true);
-        setError(null);
         try {
             const response = await getSavingsFundById(fundId);
             setActiveSavingsFunds(prev => prev.map(fund => fund.id === fundId ? response.data.savingsFund : fund));
         } catch(error: any) {
             setError(error.response?.data?.error || error.message || 'Failed to retrieve fund');
             throw error;
-        } finally {
-            setIsLoading(false); 
-        } 
+        }
     } 
 
     const addSavingsFund = async (data: SavingsFundDTO): Promise<SavingsFund> => {

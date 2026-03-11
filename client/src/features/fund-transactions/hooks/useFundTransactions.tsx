@@ -16,7 +16,6 @@ export const useFundTransactions = () => {
             try {
                 const response = await getAllTransactionsForActiveFunds();
                 setTransactions(response.data.activeFundTransactions || []);
-                console.log('ALL TRANSACTIONS: ', response.data.activeFundTransactions)
             } catch(error: any) {
                 setError(error.response?.data?.error || error.message || 'Failed to fetch transactions');
                 console.error('Failed to fetch transactions:', error);

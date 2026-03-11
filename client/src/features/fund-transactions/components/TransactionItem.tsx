@@ -8,7 +8,7 @@ import { FundTransactionForm } from "./FundTransactionForm";
 import './TransactionItem.css';
 
 interface TransactionItemProps{
-    transaction: FundTransaction
+    transaction: FundTransaction;
 }
 
 export const TransactionItem = ({ transaction }: TransactionItemProps) => {
@@ -18,7 +18,7 @@ export const TransactionItem = ({ transaction }: TransactionItemProps) => {
     return (
         <div className="transaction-item">
                 <Modal isOpen={isModalOpen} onClose={() => {setIsModalOpen(false)}} title="Edit Transaction">
-                    <FundTransactionForm onSuccess={() => {setIsModalOpen(false)}} transactionToEdit={transaction}/>
+                    <FundTransactionForm onSuccess={() => {setIsModalOpen(false)}} transactionToEdit={transaction} fundId={transaction.savingsFundId}/>
                 </Modal>
             <div>{transaction.description}</div>
             <div>${Number(transaction.amount).toFixed(2)}</div>
