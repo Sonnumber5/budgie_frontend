@@ -202,7 +202,7 @@ export interface FundTransaction{
 // Payload for creating a savings fund transaction.
 export interface FundTransactionDTO{
     savingsFundId: number,
-    transactionType: TransactionType,
+    transactionType: TransactionType | '',
     amount: number,
     description: string,
     transactionDate: string,

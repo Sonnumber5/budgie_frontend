@@ -3,6 +3,8 @@ import { Modal } from "../../../components/modal";
 import type { FundTransaction, SavingsFund } from "../../../types";
 import './Fund.css';
 import { FundForm } from "./FundForm";
+import { TransactionItem } from "../../fund-transactions/components/TransactionItem";
+import { FundTransactionForm } from "../../fund-transactions/components/FundTransactionForm";
 
 interface SavingsFundProps{
     fund: SavingsFund;
@@ -17,7 +19,7 @@ export const Fund = ({ fund, relatedTransactions }: SavingsFundProps) => {
     return (
         <div className="savings-fund">
                 <Modal isOpen={isTransactionModalOpen} onClose={() => {setIsTransactionModalOpen(false)}} title={'Fund transaction form'}>
-                    Build out fund transaction form
+                    <FundTransactionForm onSuccess={() => {setIsTransactionModalOpen(false)}}/>
                 </Modal>
                 <Modal isOpen={isEditFundModalOpen} onClose={() => {setIsEditFundModalOpen(false)}} title={'Fund transaction form'}>
                     <FundForm onSuccess={() => {setIsEditFundModalOpen(false)}} fundToEdit={fund}/>
@@ -34,10 +36,7 @@ export const Fund = ({ fund, relatedTransactions }: SavingsFundProps) => {
             {isOpen && (
                 <div className="fund-transactions">
                     {relatedTransactions.map((transaction) => (
-                        //<FundTransactionItem key={transaction.id} transaction={transaction}/>
-                        <div>
-                            {transaction.amount}  |  {transaction.transactionDate}  |  {transaction.transactionType}
-                        </div> 
+                        <TransactionItem key={transaction.id} transaction={transaction}/>
                     ))}
                 </div>
             )}
