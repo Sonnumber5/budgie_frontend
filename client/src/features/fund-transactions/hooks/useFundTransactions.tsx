@@ -1,13 +1,16 @@
 import { useState, useEffect } from "react";
 import { useSavingsFundContext } from "../../../context/SavingsFundContext";
 import type { FundTransaction, FundTransactionDTO } from "../../../types";
-import { createFundTransaction, getAllTransactionsForActiveFunds, updateFundTransaction, deleteFundTransaction, createAdjustmentTransaction, createTransferTransaction } from "../api/fund-transactions";
+import { createFundTransaction, getAllTransactionsForActiveFunds, getContributionSumForMonth, updateFundTransaction, deleteFundTransaction, createAdjustmentTransaction, createTransferTransaction } from "../api/fund-transactions";
+import { useDateContext } from "../../../context/DateContext";
 
 export const useFundTransactions = () => {
     const [ transactions, setTransactions ] = useState<FundTransaction[]>([]);
     const [ isLoading, setIsLoading ] = useState(false);
     const [ error, setError ] = useState<string | null>(null);
+    const [ monthlyContributionSum, setMonthlyContributionSum ] = useState(0);
     const { refreshFundInfo } = useSavingsFundContext();
+    const { currentMonth } = useDateContext();
 
     useEffect(() => {
         const fetchTransactions = async () => {
@@ -25,6 +28,24 @@ export const useFundTransactions = () => {
         }
         fetchTransactions();
     }, []);
+
+    useEffect(() => {
+        const fetchContributionSumForMonth = async (month: string): Promise<number> => {
+            setIsLoading(true);
+            setError(null);
+            try{
+                const result = await getContributionSumForMonth(month); 
+                setMonthlyContributionSum(Number(result.data.totalContributions));
+                return Number(result.data.totalContributions);
+            }catch(error: any){
+                setError(error.response?.data?.error || error.message || 'Failed to retrieve contribution sub for the month');
+                throw error;
+            } finally{
+                setIsLoading(false);
+            }
+        }
+        fetchContributionSumForMonth(currentMonth);
+    }, [currentMonth]);
 
     const addFundTransaction = async (data: FundTransactionDTO): Promise<FundTransaction> => {
         setIsLoading(true);
@@ -47,6 +68,7 @@ export const useFundTransactions = () => {
         setIsLoading(true);
         setError(null);
         try {
+            console.log('EDIT TRANSACTION:', data);
             const response = await updateFundTransaction(id, data);
             const updatedTransaction = response.data.fundTransaction;
             setTransactions(prev => prev.map(t => t.id === id ? updatedTransaction : t));
@@ -120,6 +142,7 @@ export const useFundTransactions = () => {
         transactions, 
         isLoading, 
         error, 
+        monthlyContributionSum,
         addFundTransaction, 
         editFundTransaction, 
         removeFundTransaction, 

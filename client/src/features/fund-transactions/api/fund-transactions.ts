@@ -17,8 +17,12 @@ export const getAllTransactionsForActiveFunds = () => {
     return api.get(`/savings-funds/transactions`);
 }
 
+export const getContributionSumForMonth = (month: string) => {
+    return api.get(`savings-funds/contributions?month=${month}`);
+}
+
 export const updateFundTransaction = (transactionId: number, data: FundTransactionDTO) => {
-    return api.put(`/savings-funds/${data.savingsFundId}/transactions/${transactionId}`);
+    return api.put(`/savings-funds/${data.savingsFundId}/transactions/${transactionId}`, data);
 }
 
 export const deleteFundTransaction = (fundId: number, transactionId: number) => {

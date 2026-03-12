@@ -10,10 +10,12 @@ import { Modal } from '../components/modal';
 import { BudgetManagementForm } from '../features/budget/components/BudgetManagementForm';
 import { useState } from 'react';
 import { useBudgetContext } from '../context/BudgetContext';
+import { useFundTransactionContext } from '../context/FundTransactionContext';
 
 export const Dashboard = () => {
     const { incomeTotal, expenseTotal, currentRemaining, isLoading  } = useDashboardContext();
     const { monthlyBudget } = useBudgetContext();
+    const { monthlyContributionSum } = useFundTransactionContext();
     const [ isModalOpen, setIsModalOpen ] = useState(false);
     
 
@@ -30,7 +32,15 @@ export const Dashboard = () => {
                     Total expenses: ${expenseTotal}
                 </div>
                 <div className='remaining-total'>
-                    Total remaining: ${currentRemaining}
+                    <div>
+                        Current Remaining: ${currentRemaining - monthlyContributionSum}
+                    </div>
+                    <div>
+                        Total: ${currentRemaining}
+                    </div>
+                    <div>
+                        Fund Contributions: ${monthlyContributionSum}
+                    </div>
                 </div>
                 <div className='net-worth-total'>
                     Section 4

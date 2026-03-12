@@ -6,6 +6,7 @@ interface FundTransactionContextType {
     transactions: FundTransaction[];
     isLoading: boolean;
     error: string | null;
+    monthlyContributionSum: number;
     addFundTransaction: (data: FundTransactionDTO) => Promise<FundTransaction>;
     editFundTransaction: (id: number, data: FundTransactionDTO) => Promise<FundTransaction>;
     removeFundTransaction: (fundId: number, transactionId: number) => Promise<void>;
