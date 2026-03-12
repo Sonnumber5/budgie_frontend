@@ -54,6 +54,9 @@ export const useFundTransactions = () => {
             const response = await createFundTransaction(data);
             const newTransaction = response.data.fundTransaction;
             setTransactions(prev => [...prev, newTransaction]);
+            if (data.transactionType === 'contribution') {
+                setMonthlyContributionSum(prev => prev + data.amount);
+            }
             await refreshFundInfo(data.savingsFundId);
             return newTransaction;
         } catch(error: any) {
@@ -68,11 +71,28 @@ export const useFundTransactions = () => {
         setIsLoading(true);
         setError(null);
         try {
-            console.log('EDIT TRANSACTION:', data);
+            const originalTransaction = transactions.find(transaction => transaction.id === id);
+            if (!originalTransaction){
+                throw new Error(`Transaction with id ${id} not found`);
+            }
             const response = await updateFundTransaction(id, data);
             const updatedTransaction = response.data.fundTransaction;
             setTransactions(prev => prev.map(t => t.id === id ? updatedTransaction : t));
+
+            const originalIsContribution = originalTransaction.transactionType === 'contribution';
+            const newIsContribution = data.transactionType === 'contribution';
+
+            if (originalIsContribution && newIsContribution) {
+                setMonthlyContributionSum(prev => (prev - originalTransaction.amount) + data.amount);
+            } else if (originalIsContribution && !newIsContribution) {
+                setMonthlyContributionSum(prev => prev - originalTransaction.amount);
+            } else if (!originalIsContribution && newIsContribution) {
+                setMonthlyContributionSum(prev => prev + data.amount);
+            } else {
+                // no change needed if both old and new are expenditures
+            }
             await refreshFundInfo(data.savingsFundId);
+
             return updatedTransaction;
         } catch(error: any) {
             setError(error.response?.data?.error || error.message || 'Failed to update transaction');
@@ -86,8 +106,13 @@ export const useFundTransactions = () => {
         setIsLoading(true);
         setError(null);
         try {
+            const originalTransaction = transactions.find(transaction => transaction.id === transactionId);
+            if (!originalTransaction){
+                throw new Error(`Transaction with id ${transactionId} not found`);
+            }
             await deleteFundTransaction(fundId, transactionId);
             setTransactions(prev => prev.filter(t => t.id !== transactionId));
+            setMonthlyContributionSum(prev => prev - originalTransaction.amount);
             await refreshFundInfo(fundId);
         } catch(error: any) {
             setError(error.response?.data?.error || error.message || 'Failed to delete transaction');

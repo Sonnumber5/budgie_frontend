@@ -30,7 +30,7 @@ export const FundTransactionForm = ({ onSuccess, transactionToEdit, fundId }: Fu
             setFormData({
                 savingsFundId: transactionToEdit.savingsFundId,
                 transactionType: transactionToEdit.transactionType,
-                amount: transactionToEdit.amount,
+                amount: Number(transactionToEdit.amount),
                 description: transactionToEdit.description,
                 transactionDate: new Date(transactionToEdit.transactionDate).toISOString().split('T')[0],
                 month: currentMonth
