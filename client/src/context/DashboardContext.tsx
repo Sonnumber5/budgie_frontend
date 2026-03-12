@@ -3,7 +3,7 @@
 // Scoped to the /dashboard route via DashboardProvider in App.tsx.
 import { createContext, useContext } from "react";
 import React from "react";
-import { useDashboard } from "../features/Dashboard/hooks/useDashboard";
+import { useDashboard } from "../features/dashboard/hooks/useDashboard";
 
 interface DashboardContextType{
     incomeTotal: number;

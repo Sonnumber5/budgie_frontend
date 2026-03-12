@@ -27,6 +27,10 @@ export const deleteExpense = (id: number) => {
     return api.delete(`/expenses/${id}`);
 }
 
+// Returns the sum of all expense entries for the specified month.
+export const getExpenseTotal = (month: string) => {
+    return api.get(`/expenses/total?month=${month}`)
+}
 
 
 

@@ -4,7 +4,7 @@
 import { useState, useEffect } from "react";
 import type { Income, IncomeDTO } from "../../../types";
 import { useDateContext } from "../../../context/DateContext";
-import { createIncome, getIncome, getIncomeById, updateIncome, deleteIncome } from './../api/income';
+import { createIncome, getIncome, getIncomeTotal, getIncomeById, updateIncome, deleteIncome } from './../api/income';
 
 export const useIncome = () => {
     const { currentMonth } = useDateContext();
@@ -18,12 +18,12 @@ export const useIncome = () => {
             setIsLoading(true);
             setError(null);
             try{
-                const response = await getIncome(currentMonth);
+                const [ response, sumResponse ] = await Promise.all([
+                    getIncome(currentMonth),
+                    getIncomeTotal(currentMonth)
+                ])
                 setIncomeList(response.data.income);
-                const total = response.data.income.reduce((sum: number, item: Income) => {
-                    return sum + Number(item.amount);
-                }, 0);
-                setIncomeSum(total);
+                setIncomeSum(Number(sumResponse.data.incomeSum));
             } catch(error: any){
                 setError(error.message || 'Failed to fetch income')
             } finally{
@@ -35,50 +35,60 @@ export const useIncome = () => {
 
     // addIncome posts a new income entry and adds its amount to the running incomeSum.
     const addIncome = async (data: IncomeDTO): Promise<Income> => {
+        setIsLoading(true);
+        setError(null);
         try{
             const response = await createIncome(data);
             setIncomeList(prev => [...prev, response.data.income]);
-            setIncomeSum((prev) => prev + Number(response.data.income.amount))
+            setIncomeSum(prev => prev + data.amount);
             return response.data.income;
         } catch(error: any){
             setError(error.message || 'Failed to create income');
             throw error;
+        } finally{
+            setIsLoading(false);
         }
     }
 
     // removeIncome deletes the entry and subtracts its amount from incomeSum.
     const removeIncome = async (id: number): Promise<void> => {
+        setIsLoading(true);
+        setError(null);
         try{
-            await deleteIncome(id);
-            const incomeToRemove = incomeList.find(i => i.id === id);
-            setIncomeList(prev => prev.filter(i => i.id !== id));
-            
-            if (incomeToRemove){
-                setIncomeSum(prev => prev - Number(incomeToRemove.amount));
+            const originalIncome = incomeList.find(income => income.id === id);
+            if (!originalIncome){
+                throw new Error(`Income with id ${id} not found`);
             }
+            await deleteIncome(id);
+            setIncomeList(prev => prev.filter(i => i.id !== id));
+            setIncomeSum(prev => prev - originalIncome.amount);
         } catch(error: any){
             setError(error.message || 'Failed to delete income');
             throw error;
+        } finally{
+            setIsLoading(false);
         }
     }
 
     // editIncome updates the income record and adjusts incomeSum by the delta
     // between the old and new amounts so the total stays accurate.
     const editIncome = async (id: number, data: IncomeDTO): Promise<Income> => {
+        setIsLoading(true);
+        setError(null);
         try{
-            const originalIncome = incomeList.find(i => i.id === id);
-            const response = await updateIncome(id, data);
-            const updatedIncome = response.data.income;
-            
-            setIncomeList(prev => prev.map(i => i.id === id ? updatedIncome : i));
-            if (originalIncome){
-                setIncomeSum(prev => prev - Number(originalIncome.amount) + Number(updatedIncome.amount));
+            const originalIncome = incomeList.find(income => income.id === id);
+            if (!originalIncome){
+                throw new Error(`Income with id ${id} not found`);
             }
-            
-            return updatedIncome;
+            const response = await updateIncome(id, data);
+            setIncomeList(prev => prev.map(i => i.id === id ? response.data.income : i));
+            setIncomeSum(prev => (prev - originalIncome.amount) + data.amount);
+            return response.data.income;
         } catch(error: any){
             setError(error.message || 'Failed to update income');
             throw error;
+        } finally{
+            setIsLoading(false);
         }
     }
 

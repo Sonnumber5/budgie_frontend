@@ -26,3 +26,7 @@ export const updateIncome = (id: number, data: IncomeDTO) => {
 export const deleteIncome = (id: number) => {
     return api.delete(`/income/${id}`);
 }
+
+export const getIncomeTotal = (month: string) => {
+    return api.get(`/income/total?month=${month}`)
+}

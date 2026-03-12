@@ -1,7 +1,7 @@
 // useExpenses.ts - Custom hook managing expense list state and CRUD operations.
 // Re-fetches expenses automatically whenever the selected month changes.
 import { useState, useEffect } from "react";
-import { getExpenses, createExpense, updateExpense, deleteExpense } from '../api/expenses';
+import { getExpenses, createExpense, updateExpense, deleteExpense, getExpenseTotal } from '../api/expenses';
 import type { Expense, ExpenseDTO } from "../../../types";
 import { useDateContext } from '../../../context/DateContext';
 
@@ -10,14 +10,19 @@ export const useExpenses = () => {
     const [ expenses, setExpenses ] = useState<Expense[]>([]);
     const [ isLoading, setIsLoading ] = useState(false);
     const [ error, setError ] = useState<string | null>(null);
+    const [ expenseSum, setExpenseSum ] = useState(0);
 
     useEffect (() => {
         const fetchExpenses = async () => {
             setIsLoading(true);
             setError(null);
             try{
-                const response = await getExpenses(currentMonth);
+                const [ response, sumResponse ] = await Promise.all([
+                    getExpenses(currentMonth),
+                    getExpenseTotal(currentMonth)
+                ]);
                 setExpenses(response.data.expenses || []);
+                setExpenseSum(Number(sumResponse.data.expenseSum));
             } catch(error: any){
                 setError(error.message || 'Failed to fetch expenses');
                 console.error('Failed to fetch expenses:', error);
@@ -34,6 +39,7 @@ export const useExpenses = () => {
         try{
             const response = await createExpense(data);
             setExpenses(prev => [...prev, response.data.expense]);
+            setExpenseSum(prev => prev + data.amount);
             return response.data.expense;
         } catch(error: any){
             setError(error.message || 'Failed to create expense');
@@ -47,8 +53,15 @@ export const useExpenses = () => {
         setIsLoading(true);
         setError(null);
         try{
+            const originalExpense = expenses.find(expense => 
+                expense.id === id
+            );
+            if (!originalExpense) {
+                throw new Error(`Expense with id ${id} not found`);
+            }
             const response = await updateExpense(id, data);
             setExpenses(prev => prev.map(e => e.id === id ? response.data.expense : e));
+            setExpenseSum(prev => (prev - originalExpense.amount) + data.amount)
             return response.data.expense;
         } catch(error: any){
             setError(error.message || 'Failed to update expense');
@@ -62,8 +75,16 @@ export const useExpenses = () => {
         setIsLoading(true);
         setError(null);
         try{
+            const originalExpense = expenses.find(expense => 
+                expense.id === id
+            );
+            if (!originalExpense) {
+                throw new Error(`Expense with id ${id} not found`);
+            }
             await deleteExpense(id);
             setExpenses(prev => prev.filter(e => e.id !== id));
+            setExpenseSum(prev => prev - originalExpense.amount)
+
         } catch(error: any){
             setError(error.message || 'Failed to delete expense');
             throw error;
@@ -73,6 +94,6 @@ export const useExpenses = () => {
     }
 
     return {
-        expenses, isLoading, error, addExpense, editExpense, removeExpense
+        expenses, expenseSum, isLoading, error, addExpense, editExpense, removeExpense
     }
 }

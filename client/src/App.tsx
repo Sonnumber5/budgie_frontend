@@ -42,38 +42,38 @@ function App() {
           <SavingsFundProvider>
             <FundTransactionProvider>
               <ExpenseProvider>
-                <DashboardProvider>
-                  <BudgetProvider>
-                  <Navbar/>
-                    <Routes>
-                    <Route path="/" element={<DefaultRoute/>}/>
-                    <Route path="/login" element={<LoginPage/>}/>
-                    <Route path="/register" element={<RegisterPage/>}/>
-                      <Route path="/expenses" element={
-                        <ProtectedRoute>
-                            <ExpensesPage/>
-                        </ProtectedRoute>
-                      }/>
-                      <Route path="/income" element={
-                        <ProtectedRoute>
-                          <IncomeProvider>
-                            <IncomePage/>
-                          </IncomeProvider>
-                        </ProtectedRoute>
-                      }/> 
-                      <Route path="/dashboard" element={
-                        <ProtectedRoute>
-                            <Dashboard/>
-                        </ProtectedRoute>
-                      }/>
-                      <Route path="/savings-funds" element={
-                        <ProtectedRoute>
-                            <SavingsFundPage/>
-                        </ProtectedRoute>
-                      }/>
-                    </Routes>
-                  </BudgetProvider>
-                </DashboardProvider>
+                <IncomeProvider>
+                  <DashboardProvider>
+                    <BudgetProvider>
+                    <Navbar/>
+                      <Routes>
+                      <Route path="/" element={<DefaultRoute/>}/>
+                      <Route path="/login" element={<LoginPage/>}/>
+                      <Route path="/register" element={<RegisterPage/>}/>
+                        <Route path="/expenses" element={
+                          <ProtectedRoute>
+                              <ExpensesPage/>
+                          </ProtectedRoute>
+                        }/>
+                        <Route path="/income" element={
+                          <ProtectedRoute>
+                              <IncomePage/>
+                          </ProtectedRoute>
+                        }/> 
+                        <Route path="/dashboard" element={
+                          <ProtectedRoute>
+                              <Dashboard/>
+                          </ProtectedRoute>
+                        }/>
+                        <Route path="/savings-funds" element={
+                          <ProtectedRoute>
+                              <SavingsFundPage/>
+                          </ProtectedRoute>
+                        }/>
+                      </Routes>
+                    </BudgetProvider>
+                  </DashboardProvider>
+                </IncomeProvider>
               </ExpenseProvider>
             </FundTransactionProvider>
           </SavingsFundProvider>

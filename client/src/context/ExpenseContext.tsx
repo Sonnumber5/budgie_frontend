@@ -9,6 +9,7 @@ import { useExpenses } from "../features/expenses/hooks/useExpenses";
 
 interface ExpenseContextType {
     expenses: Expense[];
+    expenseSum: number;
     isLoading: boolean;
     error: string | null;
     addExpense: (data: ExpenseDTO) => Promise<Expense>;

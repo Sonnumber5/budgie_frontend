@@ -3,7 +3,7 @@
 // The budget section shows a BudgetOverview and an Edit button that opens BudgetManagementForm.
 // The balances and categories sections are placeholders for future functionality.
 import './Dashboard.css';
-import { useDashboardContext } from '../context/DashboardContext';
+//import { useDashboardContext } from '../context/DashboardContext';
 import { MonthPicker } from '../components/DatePicker';
 import { BudgetOverview } from '../features/budget/components/BudgetOverview';
 import { Modal } from '../components/modal';
@@ -11,12 +11,17 @@ import { BudgetManagementForm } from '../features/budget/components/BudgetManage
 import { useState } from 'react';
 import { useBudgetContext } from '../context/BudgetContext';
 import { useFundTransactionContext } from '../context/FundTransactionContext';
+import { useIncomeContext } from '../context/IncomeContext';
+import { useExpenseContext } from '../context/ExpenseContext';
 
 export const Dashboard = () => {
-    const { incomeTotal, expenseTotal, currentRemaining, isLoading  } = useDashboardContext();
+    const { incomeSum, isLoading: isIncomeLoading } = useIncomeContext();
+    const { expenseSum, isLoading: isExpensesLoading } = useExpenseContext();
     const { monthlyBudget } = useBudgetContext();
     const { monthlyContributionSum } = useFundTransactionContext();
     const [ isModalOpen, setIsModalOpen ] = useState(false);
+
+    const isLoading = isIncomeLoading || isExpensesLoading;
     
 
     return (
@@ -26,17 +31,17 @@ export const Dashboard = () => {
             </div>
             <div className='totals-section'>
                 <div className='income-total'>
-                    {isLoading ? 'Loading...' : `Total income: ${incomeTotal}`}
+                    {isLoading ? 'Loading...' : `Total income: ${incomeSum}`}
                 </div>
                 <div className='expenses-total'>
-                    Total expenses: ${expenseTotal}
+                    Total expenses: ${expenseSum}
                 </div>
                 <div className='remaining-total'>
                     <div>
-                        Current Remaining: ${currentRemaining - monthlyContributionSum}
+                        Current Remaining: ${incomeSum - expenseSum - monthlyContributionSum}
                     </div>
                     <div>
-                        Total: ${currentRemaining}
+                        Total: ${incomeSum - expenseSum}
                     </div>
                     <div>
                         Fund Contributions: ${monthlyContributionSum}
@@ -51,7 +56,7 @@ export const Dashboard = () => {
                     <button onClick={() => {setIsModalOpen(true)}}>Edit</button>
                     <BudgetOverview/>
                     <Modal isOpen={isModalOpen} onClose={() => {setIsModalOpen(false)}} title="Save">
-                        <BudgetManagementForm budgetToEdit={monthlyBudget ? monthlyBudget : null} onSuccess={() => {setIsModalOpen(false)}}/>
+                        <BudgetManagementForm budgetToEdit={monthlyBudget ?? null} onSuccess={() => {setIsModalOpen(false)}}/>
                     </Modal>
                 </div>
                 <div className='balances-categories-section'>
