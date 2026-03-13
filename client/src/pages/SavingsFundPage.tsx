@@ -5,11 +5,13 @@ import { Fund } from "../features/savings-funds/components/Fund";
 import { Modal } from "../components/modal";
 import { FundForm } from "../features/savings-funds/components/FundForm";
 import { useFundTransactionContext } from "../context/FundTransactionContext";
+import { TransferFundForm } from "../features/fund-transactions/components/TransferFundForm";
 
 export const SavingsFundPage = () => {
     const { activeSavingsFunds, isLoading, error } = useSavingsFundContext();
     const { transactions } = useFundTransactionContext();
-    const [ isModalOpen, setIsModalOpen ] = useState(false);
+    const [ isAddFundModalOpen, setIsAddFundModalOpen ] = useState(false);
+    const [ isTransferModalOpen, setIsTransferModalOpen ] = useState(false);
 
     if (isLoading) return <p>Loading...</p>;
 
@@ -22,10 +24,16 @@ export const SavingsFundPage = () => {
 
     return(
         <div className="savings-fund-page">
-            <Modal isOpen={isModalOpen} onClose={() => {setIsModalOpen(false)}} title="Savings fund form">
-                <FundForm onSuccess={() => {setIsModalOpen(false)}}/>
+            <Modal isOpen={isAddFundModalOpen} onClose={() => {setIsAddFundModalOpen(false)}} title="Savings fund form">
+                <FundForm onSuccess={() => {setIsAddFundModalOpen(false)}}/>
             </Modal>
-            <button onClick={() => {setIsModalOpen(true)}}>
+            <Modal isOpen={isTransferModalOpen} onClose={() => {setIsTransferModalOpen(false)}} title="Savings fund form">
+                <TransferFundForm onSuccess={() => {setIsTransferModalOpen(false)}}/>
+            </Modal>
+            <button onClick={() => {setIsTransferModalOpen(true)}}>
+                Transfer funds
+            </button>
+            <button onClick={() => {setIsAddFundModalOpen(true)}}>
                 +
             </button>
             <div className="fund-list">

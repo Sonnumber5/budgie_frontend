@@ -127,7 +127,7 @@ export const useFundTransactions = () => {
         setError(null);
         try {
             const response = await createTransferTransaction(data);
-            const newTransactions = response.data.transactions;
+            const newTransactions = response.data.fundTransactions;
             setTransactions(prev => [...prev, ...newTransactions]);
             await Promise.all([
                 refreshFundInfo(data.sendingFundId),
