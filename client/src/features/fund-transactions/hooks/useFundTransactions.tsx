@@ -142,14 +142,14 @@ export const useFundTransactions = () => {
         }
     };
 
-    const addAdjustTransaction = async (data: { fundId: number, amount: number, month: string }): Promise<FundTransaction> => {
+    const addAdjustTransaction = async (data: { savingsFundId: number, amount: number, month: string }): Promise<FundTransaction> => {
         setIsLoading(true);
         setError(null);
         try {
             const response = await createAdjustmentTransaction(data);
             const newTransaction = response.data.fundTransaction;
             setTransactions(prev => [...prev, newTransaction]);
-            await refreshFundInfo(data.fundId);
+            await refreshFundInfo(data.savingsFundId);
             return newTransaction;
         } catch(error: any) {
             setError(error.response?.data?.error || error.message || 'Failed to adjust fund');

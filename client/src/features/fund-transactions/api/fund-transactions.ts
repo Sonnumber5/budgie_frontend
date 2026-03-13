@@ -33,6 +33,6 @@ export const createTransferTransaction = (data: { sendingFundId: number, receivi
     return api.post(`/savings-funds/${data.sendingFundId}/transactions/transfer`, {amount: data.amount, relatedFundId: data.receivingFundId, month: data.month});
 }
 
-export const createAdjustmentTransaction = (data: { fundId: number, amount: number, month: string }) => {
-    return api.post(`/savings-funds/${data.fundId}/transactions/adjustment`, { amount: data.amount, month: data.month });
+export const createAdjustmentTransaction = (data: { savingsFundId: number, amount: number, month: string }) => {
+    return api.post(`/savings-funds/${data.savingsFundId}/transactions/adjustment`, { amount: data.amount, month: data.month });
 }

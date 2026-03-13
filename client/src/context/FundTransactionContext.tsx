@@ -11,7 +11,7 @@ interface FundTransactionContextType {
     editFundTransaction: (id: number, data: FundTransactionDTO) => Promise<FundTransaction>;
     removeFundTransaction: (fundId: number, transactionId: number) => Promise<void>;
     addTransferTransaction: (data: { sendingFundId: number, receivingFundId: number, amount: number, month: string }) => Promise<FundTransaction[]>;
-    addAdjustTransaction: (data: { fundId: number, amount: number, month: string }) => Promise<FundTransaction>;
+    addAdjustTransaction: (data: { savingsFundId: number, amount: number, month: string }) => Promise<FundTransaction>;
     clearError: () => void;
 }
 

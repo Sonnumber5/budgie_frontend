@@ -9,29 +9,32 @@ import './TransactionItem.css';
 
 interface TransactionItemProps{
     transaction: FundTransaction;
+    canDelete: boolean;
 }
 
-export const TransactionItem = ({ transaction }: TransactionItemProps) => {
+export const TransactionItem = ({ transaction, canDelete }: TransactionItemProps) => {
     const { removeFundTransaction } = useFundTransactionContext();
     const [ isModalOpen, setIsModalOpen ] = useState(false);
     
     return (
         <div className="transaction-item">
-                <Modal isOpen={isModalOpen} onClose={() => {setIsModalOpen(false)}} title="Edit Transaction">
-                    <FundTransactionForm onSuccess={() => {setIsModalOpen(false)}} transactionToEdit={transaction} fundId={transaction.savingsFundId}/>
-                </Modal>
+            <Modal isOpen={isModalOpen} onClose={() => {setIsModalOpen(false)}} title="Edit Transaction">
+                <FundTransactionForm onSuccess={() => {setIsModalOpen(false)}} transactionToEdit={transaction} fundId={transaction.savingsFundId}/>
+            </Modal>
             <div>{transaction.description}</div>
             <div>${Number(transaction.amount).toFixed(2)}</div>
             <div>{new Date(transaction.transactionDate).toLocaleDateString()}</div>
             <div>{transaction.transactionType}</div>
-            <div>
-                <button onClick={() => {setIsModalOpen(true)}}>
-                    Edit
-                </button>
-                <button onClick={() => removeFundTransaction(transaction.savingsFundId, transaction.id)}>
-                    Delete
-                </button>
-            </div>
+            {canDelete &&
+                <div>
+                    <button onClick={() => {setIsModalOpen(true)}}>
+                        Edit
+                    </button>
+                    <button onClick={() => removeFundTransaction(transaction.savingsFundId, transaction.id)}>
+                        Delete
+                    </button> 
+                </div>
+            }
         </div>
     );
 };
