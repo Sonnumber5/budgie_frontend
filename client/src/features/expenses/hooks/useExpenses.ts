@@ -38,7 +38,9 @@ export const useExpenses = () => {
         setError(null);
         try{
             const response = await createExpense(data);
-            setExpenses(prev => [...prev, response.data.expense]);
+            setExpenses(prev => [...prev, response.data.expense]
+                .sort((a, b) => new Date(b.expenseDate).getTime() - new Date(a.expenseDate).getTime())
+            );
             setExpenseSum(prev => prev + data.amount);
             return response.data.expense;
         } catch(error: any){
@@ -60,7 +62,9 @@ export const useExpenses = () => {
                 throw new Error(`Expense with id ${id} not found`);
             }
             const response = await updateExpense(id, data);
-            setExpenses(prev => prev.map(e => e.id === id ? response.data.expense : e));
+            setExpenses(prev => prev.map(e => e.id === id ? response.data.expense : e)
+                .sort((a, b) => new Date(b.expenseDate).getTime() - new Date(a.expenseDate).getTime())
+            );
             setExpenseSum(prev => (prev - originalExpense.amount) + data.amount)
             return response.data.expense;
         } catch(error: any){
