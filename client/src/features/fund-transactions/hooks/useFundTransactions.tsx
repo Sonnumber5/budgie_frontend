@@ -53,7 +53,9 @@ export const useFundTransactions = () => {
         try {
             const response = await createFundTransaction(data);
             const newTransaction = response.data.fundTransaction;
-            setTransactions(prev => [...prev, newTransaction]);
+            setTransactions(prev => [...prev, newTransaction]
+                .sort((a, b) => new Date(b.transactionDate).getTime() - new Date(a.transactionDate).getTime())
+            );
             if (data.transactionType === 'contribution') {
                 setMonthlyContributionSum(prev => prev + data.amount);
             }
@@ -77,7 +79,9 @@ export const useFundTransactions = () => {
             }
             const response = await updateFundTransaction(id, data);
             const updatedTransaction = response.data.fundTransaction;
-            setTransactions(prev => prev.map(t => t.id === id ? updatedTransaction : t));
+            setTransactions(prev => prev.map(t => t.id === id ? updatedTransaction : t)
+                .sort((a, b) => new Date(b.transactionDate).getTime() - new Date(a.transactionDate).getTime())
+            );
 
             const originalIsContribution = originalTransaction.transactionType === 'contribution';
             const newIsContribution = data.transactionType === 'contribution';
@@ -88,8 +92,6 @@ export const useFundTransactions = () => {
                 setMonthlyContributionSum(prev => prev - originalTransaction.amount);
             } else if (!originalIsContribution && newIsContribution) {
                 setMonthlyContributionSum(prev => prev + data.amount);
-            } else {
-                // no change needed if both old and new are expenditures
             }
             await refreshFundInfo(data.savingsFundId);
 
@@ -112,7 +114,9 @@ export const useFundTransactions = () => {
             }
             await deleteFundTransaction(fundId, transactionId);
             setTransactions(prev => prev.filter(t => t.id !== transactionId));
-            setMonthlyContributionSum(prev => prev - originalTransaction.amount);
+            if (originalTransaction.transactionType === 'contribution') {
+                setMonthlyContributionSum(prev => prev - Number(originalTransaction.amount));
+            }
             await refreshFundInfo(fundId);
         } catch(error: any) {
             setError(error.response?.data?.error || error.message || 'Failed to delete transaction');
@@ -128,7 +132,9 @@ export const useFundTransactions = () => {
         try {
             const response = await createTransferTransaction(data);
             const newTransactions = response.data.fundTransactions;
-            setTransactions(prev => [...prev, ...newTransactions]);
+            setTransactions(prev => [...prev, ...newTransactions]
+                .sort((a, b) => new Date(b.transactionDate).getTime() - new Date(a.transactionDate).getTime())
+            );
             await Promise.all([
                 refreshFundInfo(data.sendingFundId),
                 refreshFundInfo(data.receivingFundId)
@@ -148,7 +154,9 @@ export const useFundTransactions = () => {
         try {
             const response = await createAdjustmentTransaction(data);
             const newTransaction = response.data.fundTransaction;
-            setTransactions(prev => [...prev, newTransaction]);
+            setTransactions(prev => [...prev, newTransaction]
+                .sort((a, b) => new Date(b.transactionDate).getTime() - new Date(a.transactionDate).getTime())
+            );
             await refreshFundInfo(data.savingsFundId);
             return newTransaction;
         } catch(error: any) {

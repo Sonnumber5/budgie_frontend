@@ -4,7 +4,7 @@
 import { useState, useEffect } from "react";
 import type { Income, IncomeDTO } from "../../../types";
 import { useDateContext } from "../../../context/DateContext";
-import { createIncome, getIncome, getIncomeTotal, getIncomeById, updateIncome, deleteIncome } from './../api/income';
+import { createIncome, getIncome, getIncomeTotal, updateIncome, deleteIncome } from './../api/income';
 
 export const useIncome = () => {
     const { currentMonth } = useDateContext();
@@ -39,7 +39,9 @@ export const useIncome = () => {
         setError(null);
         try{
             const response = await createIncome(data);
-            setIncomeList(prev => [...prev, response.data.income]);
+            setIncomeList(prev => [...prev, response.data.income]
+                .sort((a, b) => new Date(b.incomeDate).getTime() - new Date(a.incomeDate).getTime())
+            );
             setIncomeSum(prev => prev + data.amount);
             return response.data.income;
         } catch(error: any){
@@ -81,7 +83,9 @@ export const useIncome = () => {
                 throw new Error(`Income with id ${id} not found`);
             }
             const response = await updateIncome(id, data);
-            setIncomeList(prev => prev.map(i => i.id === id ? response.data.income : i));
+            setIncomeList(prev => prev.map(i => i.id === id ? response.data.income : i)
+                .sort((a, b) => new Date(b.incomeDate).getTime() - new Date(a.incomeDate).getTime())
+            );
             setIncomeSum(prev => (prev - originalIncome.amount) + data.amount);
             return response.data.income;
         } catch(error: any){

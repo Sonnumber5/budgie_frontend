@@ -22,9 +22,12 @@ export const useBudgets = () => {
             setIsLoading(true);
             setError(null);
             try {
-                const responseBudget = await getBudgetByMonthAPI(currentMonth);
+                const [responseBudget, responseCategories] = await Promise.all([
+                    getBudgetByMonthAPI(currentMonth),
+                    getCategoriesAPI()
+                ]);
+
                 const fetchedBudget: MonthlyBudget = responseBudget.data.budget;
-                const responseCategories = await getCategoriesAPI();
                 const allCategories: Category[] = responseCategories.data.categories;
                 const defaultCategory = allCategories.find(c => c.name === "Uncategorized");
                 
@@ -189,14 +192,13 @@ export const useBudgets = () => {
                 name: cb.categoryName
             }));
             setAvailableCategories(updatedCategories);
-
+            triggerRefresh();
         } catch(error: any){
             console.error('Failed to delete category budget', error);
             setError(error.message || 'Failed to delete category budget');
             throw error;
         }finally{
             setIsLoading(false);
-            triggerRefresh();
         }
     }
 

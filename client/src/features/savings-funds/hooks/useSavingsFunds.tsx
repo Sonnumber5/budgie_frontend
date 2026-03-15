@@ -40,7 +40,9 @@ export const useSavingsFunds = () => {
         setError(null);
         try {
             const response = await createSavingsFund(data);
-            setActiveSavingsFunds(prev => [...prev, response.data.savingsFund]);
+            setActiveSavingsFunds(prev => [...prev, response.data.savingsFund]
+                .sort((a, b) => a.name.localeCompare(b.name))
+            );
             return response.data.savingsFund;
         } catch(error: any) {
             setError(error.response?.data?.error || error.message || 'Failed to create savings fund');
@@ -56,7 +58,9 @@ export const useSavingsFunds = () => {
         try {
             const response = await updateSavingsFund(id, data);
             const updatedFund = response.data.savingsFund;
-            setActiveSavingsFunds(prev => prev.map(fund => fund.id === id ? updatedFund : fund));
+            setActiveSavingsFunds(prev => prev.map(fund => fund.id === id ? updatedFund : fund)
+                .sort((a, b) => a.name.localeCompare(b.name))
+            );
             return updatedFund;
         } catch(error: any) {
             setError(error.response?.data?.error || error.message || 'Failed to update savings fund');
