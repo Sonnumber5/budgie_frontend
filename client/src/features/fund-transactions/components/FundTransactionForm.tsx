@@ -54,6 +54,15 @@ export const FundTransactionForm = ({ onSuccess, transactionToEdit, fundId }: Fu
         }
     }
 
+    const displayMonth = (() => {
+        const [year, month] = currentMonth.split('-').slice(0, 2).map(Number);
+        const monthNames = [
+            'January', 'February', 'March', 'April', 'May', 'June',
+            'July', 'August', 'September', 'October', 'November', 'December'
+        ];
+        return `${monthNames[month - 1]} ${year}`;
+    })();
+
 
     return (
         <form onSubmit={handleSubmit}>
@@ -88,9 +97,21 @@ export const FundTransactionForm = ({ onSuccess, transactionToEdit, fundId }: Fu
                         </option>
                 </select>
             </div>
+            <div>
+                <label>Date</label>
+                <input
+                    type="date"
+                    value={new Date(formData.transactionDate).toISOString().split('T')[0]}
+                    onChange={(e) => setFormData({...formData, transactionDate: e.target.value})}
+                    required
+                />
+            </div>
             <button type="submit">
                 {isEditMode ? 'Update Transaction' : 'Add Transaction'}
             </button>
+            {formData.transactionType == 'contribution' &&
+                <p>Contributing from {displayMonth} budget</p>
+            }
         </form>
     )
 }

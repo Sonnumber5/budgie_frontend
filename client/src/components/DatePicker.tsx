@@ -2,10 +2,11 @@
 // Reads and writes currentMonth via DateContext, which triggers re-fetches in
 // all hooks that depend on it (useBudgets, useExpenses, useIncome, useDashboard).
 import { useDateContext } from '../context/DateContext';
-import './DatePicker.css'
+import './DatePicker.css';
 
 export const MonthPicker = () => {
     const { currentMonth, setCurrentMonth } = useDateContext();
+    
 
     // decrements the month, wrapping December of the previous year when needed.
     const goToPreviousMonth = () => {
