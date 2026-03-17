@@ -1,0 +1,12 @@
+.income-item {
+    background-color: lightgreen;
+    display: flex;
+    width: 100%;
+    align-items: center;
+    justify-content: space-between; /* Spreads items out */
+}
+
+.income-item td{
+    padding: 10px;
+    vertical-align: middle;
+}

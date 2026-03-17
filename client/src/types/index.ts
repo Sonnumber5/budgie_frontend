@@ -229,6 +229,6 @@ export interface AccountBalance{
 // Payload for creating or updating an account balance record.
 export interface AccountBalanceDTO{
     accountName: string,
-    accountType: AccountType,
+    accountType: AccountType | '',
     balance: number,
 }
