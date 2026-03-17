@@ -1,20 +1,22 @@
 import { useState, useEffect } from "react";
 import type { AccountBalance, AccountBalanceDTO } from "../../../types";
 import { createAccountBalance, getAccountBalances, resetAccountBalances, updateAccountBalance, deleteAccountBalance } from './../api/account-balances';
+import { useDateContext } from "../../../context/DateContext";
 
 export const useAccountBalances = () => {
     const [ accountBalances, setAccountBalances ] = useState<AccountBalance[]>([]);
     const [ error, setError ] = useState<string | null>(null);
     const [ isLoading, setIsLoading ] = useState(false);
+    const { currentMonth } = useDateContext();
 
     useEffect(() => {
         const fetchAccountBalances = async () => {
             try{
                 setIsLoading(true);
                 setError(null);
-
                 const response = await getAccountBalances();
                 setAccountBalances(response.data.accountBalances); 
+                console.log('Account Balances: ', response.data.accountBalances);
             } catch(error: any){
                 setError(error.message || 'Failed to fetch account balances');
                 console.error('Failed to fetched account balances: ', error);
@@ -23,7 +25,7 @@ export const useAccountBalances = () => {
             }
         }
         fetchAccountBalances();
-    }, []);
+    }, [currentMonth]);
 
     const addAccountBalance = async (data: AccountBalanceDTO): Promise<AccountBalance> => {
         setIsLoading(true);
