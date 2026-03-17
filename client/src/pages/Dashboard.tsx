@@ -13,19 +13,34 @@ import { useBudgetContext } from '../context/BudgetContext';
 import { useFundTransactionContext } from '../context/FundTransactionContext';
 import { useIncomeContext } from '../context/IncomeContext';
 import { useExpenseContext } from '../context/ExpenseContext';
+import { useAccountBalanceContext } from '../context/AccountBalanceContext';
+import { useSavingsFundContext } from '../context/SavingsFundContext';
+import { Fund } from '../features/savings-funds/components/Fund';
+import { AccountBalanceForm } from '../features/account-balances/components/AccountBalanceForm';
+import { AccountBalanceItem } from '../features/account-balances/components/AccountBalanceItem';
+import { FundPreview } from '../features/savings-funds/components/FundPreview';
 
 export const Dashboard = () => {
     const { incomeSum, isLoading: isIncomeLoading } = useIncomeContext();
     const { expenseSum, isLoading: isExpensesLoading } = useExpenseContext();
     const { monthlyBudget } = useBudgetContext();
     const { monthlyContributionSum } = useFundTransactionContext();
-    const [ isModalOpen, setIsModalOpen ] = useState(false);
+    const { accountBalances } = useAccountBalanceContext();
+    const { activeSavingsFunds } = useSavingsFundContext();
+    const [ isBudgetModalOpen, setIsBudgetModalOpen ] = useState(false);
+    const [ isAccountBalanceModalOpen, setIsAccountBalanceModalOpen ] = useState(false);
 
     const isLoading = isIncomeLoading || isExpensesLoading;
     
 
     return (
         <div className="dashboard">
+            <Modal isOpen={isBudgetModalOpen} onClose={() => {setIsBudgetModalOpen(false)}} title="Save">
+                <BudgetManagementForm budgetToEdit={monthlyBudget ?? null} onSuccess={() => {setIsBudgetModalOpen(false)}}/>
+            </Modal>
+            <Modal isOpen={isAccountBalanceModalOpen} onClose={() => {setIsAccountBalanceModalOpen(false)}} title="Save">
+                <AccountBalanceForm onSuccess={() => {setIsAccountBalanceModalOpen(false)}}/>
+            </Modal>
             <div className='month-section'>
                 <MonthPicker/>
             </div>
@@ -53,18 +68,20 @@ export const Dashboard = () => {
             </div>
             <div className='budget-funds-balance-sections'>
                 <div className='budget-section'>
-                    <button onClick={() => {setIsModalOpen(true)}}>Edit</button>
+                    <button onClick={() => {setIsBudgetModalOpen(true)}}>Edit</button>
                     <BudgetOverview/>
-                    <Modal isOpen={isModalOpen} onClose={() => {setIsModalOpen(false)}} title="Save">
-                        <BudgetManagementForm budgetToEdit={monthlyBudget ?? null} onSuccess={() => {setIsModalOpen(false)}}/>
-                    </Modal>
                 </div>
-                <div className='balances-categories-section'>
-                    <div className='balances-section'>
-
+                <div className='fund-balance-section'>
+                    <div className='fund-section'>
+                        {activeSavingsFunds.map(savingsFund => (
+                            <FundPreview fund={savingsFund}/>
+                        ))}
                     </div>
-                    <div className='categories-section'>
-
+                    <div className='balance-section'>
+                        <button onClick={() => {setIsAccountBalanceModalOpen(true)}}>+</button>
+                        {accountBalances.map(accountBalance => (
+                            <AccountBalanceItem key={accountBalance.id} accountBalance={accountBalance} />
+                        ))}
                     </div>
                 </div>
             </div>

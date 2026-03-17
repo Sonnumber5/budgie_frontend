@@ -49,15 +49,15 @@
     background-color: aliceblue;
 }
 
-.balances-categories-section{
+.fund-balance-section{
     display: grid;
     grid-template-rows: 2fr 1f1;
 }
 
-.balances-section{
+.fund-section{
     background-color: rgb(98, 74, 38);
 }
 
-.categories-section{
+.balance-section{
     background-color: aqua;
 }

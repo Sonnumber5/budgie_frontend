@@ -1,9 +1,7 @@
 // IncomeItem.tsx - Displays a single income row with Edit and Delete actions.
 // The edit form opens in a Modal; the date is formatted using the shared formatDate utility.
 import type { AccountBalance, Income } from "../../../types"
-import { useIncomeContext } from "../../../context/IncomeContext";
-import './IncomeItem.css';
-import { formatDate } from "../../../utils";
+import './AccountBalanceItem.css';
 import { Modal } from "../../../components/modal";
 import { AccountBalanceForm } from "./AccountBalanceForm";
 import { useState } from "react";
@@ -14,7 +12,7 @@ interface AccountBalanceItemProps{
     accountBalance: AccountBalance;
 }
 
-export const IncomeItem = ({ accountBalance }: AccountBalanceItemProps) => {
+export const AccountBalanceItem = ({ accountBalance }: AccountBalanceItemProps) => {
     const { removeAccountBalance } = useAccountBalanceContext()
     const [ isModalOpen, setIsModalOpen ] = useState(false);
 
@@ -24,7 +22,7 @@ export const IncomeItem = ({ accountBalance }: AccountBalanceItemProps) => {
                 <AccountBalanceForm accountBalanceToUpdate={accountBalance} onSuccess={() => {setIsModalOpen(false)}}/>
             </Modal>
             <div>{accountBalance.accountName}</div>
-            <div style={{ color: accountBalance.accountType === 'Asset' ? 'green' : 'red' }}>{accountBalance.balance}</div>
+            <div style={{ color: accountBalance.accountType === 'Asset' ? 'green' : 'red' }}>${Number(accountBalance.balance).toFixed(2)}</div>
             <div>
                 <button onClick={() => {setIsModalOpen(true)}}>
                     Edit
