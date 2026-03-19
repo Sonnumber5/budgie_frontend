@@ -1,11 +1,12 @@
-import { useEffect, useState } from "react";
-import { Modal } from "../../../components/Modal";
+import { useState } from "react";
+import { Modal } from "../../../components/modal";
 import type { FundTransaction, SavingsFund } from "../../../types";
 import './Fund.css';
 import { FundForm } from "./FundForm";
 import { TransactionItem } from "../../fund-transactions/components/TransactionItem";
 import { FundTransactionForm } from "../../fund-transactions/components/FundTransactionForm";
 import { AdjustmentTransactionForm } from "../../fund-transactions/components/AdjustmentTransactionForm";
+import { useSavingsFunds } from "../hooks/useSavingsFunds";
 
 interface SavingsFundProps{
     fund: SavingsFund;
@@ -17,6 +18,17 @@ export const Fund = ({ fund, relatedTransactions }: SavingsFundProps) => {
     const [ isTransactionModalOpen, setIsTransactionModalOpen ] = useState(false);
     const [ isEditFundModalOpen, setIsEditFundModalOpen ] = useState(false);
     const [ isEditBalanceOpen, setIsEditBalanceOpen ] = useState(false);
+    const { removeSavingsFund } = useSavingsFunds();
+
+    const handleDelete = async () => {
+        if (window.confirm(`Delete ${fund.name} fund? Any contributions made to this fund will still be displayed on monthly summaries on the dashboard`)) {
+            try {
+                await removeSavingsFund(fund.id);
+            } catch (error) {
+                alert('Unable to remove category budget');
+            }
+        }
+    };
 
     return (
         <div className="savings-fund">
@@ -42,6 +54,7 @@ export const Fund = ({ fund, relatedTransactions }: SavingsFundProps) => {
                 <div className="fund-btns">
                     <button onClick={() => {setIsTransactionModalOpen(true)}} className="add-fund-btn">+</button>
                     <button onClick={() => {setIsEditFundModalOpen(true)}} className="edit-fund-btn">Edit</button>
+                    <button onClick={handleDelete} className="delete-fund-btn">Delete</button>
                 </div>
             </div>
             {isOpen && (

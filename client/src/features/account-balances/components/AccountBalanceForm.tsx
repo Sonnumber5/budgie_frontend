@@ -1,8 +1,6 @@
-// IncomeForm.tsx - Form for creating or editing an income entry.
-// When incomeToEdit is provided the form pre-fills and submits an update;
-// otherwise it creates a new income record.
+
 import { useEffect, useState } from "react";
-import type { AccountBalance, AccountBalanceDTO, Income, IncomeDTO } from "../../../types";
+import type { AccountBalance, AccountBalanceDTO } from "../../../types";
 import { useAccountBalanceContext } from "../../../context/AccountBalanceContext";
 import type { AccountType } from "../../../types";
 
@@ -68,7 +66,8 @@ export const AccountBalanceForm = ({ onSuccess, accountBalanceToUpdate }: Accoun
                 <label>Account type</label>
                 <select
                     value={formData.accountType}
-                    onChange={(e) => setFormData({...formData, accountType: e.target.value as AccountType})}>
+                    onChange={(e) => setFormData({...formData, accountType: e.target.value as AccountType})}
+                    required>
                         <option value="" disabled>Select an account type</option>
                         <option value={'Asset'}>
                             Asset

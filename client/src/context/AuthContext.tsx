@@ -2,9 +2,8 @@
 // Provides the current user object, authentication status, and auth actions (login/logout)
 // to any component in the tree wrapped by AuthProvider.
 import { createContext, useContext, useState, useEffect } from "react";
-import { loginAPI, me } from'../features/auth/api/auth';
+import { loginAPI, me, logoutAPI } from'../features/auth/api/auth';
 import React from "react";
-import { logoutAPI } from "../features/auth/api/auth";
 
 interface User{
     userId: number,
@@ -27,17 +26,22 @@ const AuthContext = createContext<AuthContextType | null>(null);
 export const AuthProvider = ({ children }: {children: React.ReactNode}) => {
     const [user, setUser] = useState<User | null>(null);
     const [isLoading, setIsLoading] = useState(true);
+    const [ error, setError ] = useState<string | null>(null);
 
     // On mount, call /auth/me to restore the session from an existing HTTP-only cookie.
     // This keeps the user logged in across page refreshes without storing tokens in localStorage.
     useEffect(() => {
         const checkAuth = async () => {
+            setIsLoading(true);
+            setError(null);
             try{
                 const response = await me();
                 setUser(response.data.user);
-            } catch{
+            } catch(error: any){
                 // Cookie is absent or expired; user is not authenticated.
                 setUser(null);
+                console.error(error.response?.data?.error);
+                setError(error.response?.data?.error || error.message || 'Could not verify');
             } finally{
                 setIsLoading(false);
             }
@@ -47,26 +51,35 @@ export const AuthProvider = ({ children }: {children: React.ReactNode}) => {
 
     // logout clears the server session and resets local user state regardless of API success.
     const logout = async () => {
+        setIsLoading(true);
+        setError(null);
         try {
             await logoutAPI();
-        } catch (error) {
-            console.error('Logout failed:', error);
+        } catch (error: any) {
+            console.error(error.response?.data?.error);
+            setError(error.response?.data?.error || error.message || 'Failed to logout');
         } finally {
             setUser(null);
+            setIsLoading(false);
         }
     };
 
     // login calls the API, stores the returned user in state, and re-throws errors
     // so the caller (LoginPage) can display an appropriate error message.
     const login = async (email: string, password: string) => {
+        setIsLoading(true);
+        setError(null);
         try{
             const response = await loginAPI(email, password);
             const userResponse = response.data.user;
             setUser(userResponse);
-        } catch(error){
-            console.error('Login failed', error);
+        } catch(error: any){
+            console.error(error.response?.data?.error);
+            setError(error.response?.data?.error || error.message || 'Failed to login');
             setUser(null);
             throw error;
+        } finally{
+            setIsLoading(false);
         }
     }
 
