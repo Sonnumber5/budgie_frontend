@@ -5,7 +5,7 @@
 // so their data only loads when those pages are visited.
 import './App.css';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import { DateProvider } from './context/DateContext';;
+import { DateProvider } from './context/DateContext';
 import { ExpenseProvider } from './context/ExpenseContext';
 import { LoginPage } from './pages/LoginPage';
 import { RegisterPage } from './pages/RegisterPage';

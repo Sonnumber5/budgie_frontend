@@ -25,7 +25,7 @@ export const useIncome = () => {
                 setIncomeList(response.data.income);
                 setIncomeSum(Number(sumResponse.data.incomeSum));
             } catch(error: any){
-                setError(error.message || 'Failed to fetch income')
+                setError(error.response?.data?.error || error.message || 'Failed to fetch income')
             } finally{
                 setIsLoading(false);
             }
@@ -45,7 +45,7 @@ export const useIncome = () => {
             setIncomeSum(prev => prev + data.amount);
             return response.data.income;
         } catch(error: any){
-            setError(error.message || 'Failed to create income');
+            setError(error.response?.data?.error || error.message || 'Failed to create income');
             throw error;
         } finally{
             setIsLoading(false);
@@ -65,7 +65,7 @@ export const useIncome = () => {
             setIncomeList(prev => prev.filter(i => i.id !== id));
             setIncomeSum(prev => prev - originalIncome.amount);
         } catch(error: any){
-            setError(error.message || 'Failed to delete income');
+            setError(error.response?.data?.error || error.message || 'Failed to delete income');
             throw error;
         } finally{
             setIsLoading(false);
@@ -89,7 +89,7 @@ export const useIncome = () => {
             setIncomeSum(prev => (prev - originalIncome.amount) + data.amount);
             return response.data.income;
         } catch(error: any){
-            setError(error.message || 'Failed to update income');
+            setError(error.response?.data?.error || error.message || 'Failed to update income');
             throw error;
         } finally{
             setIsLoading(false);

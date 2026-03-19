@@ -24,7 +24,7 @@ export const useExpenses = () => {
                 setExpenses(response.data.expenses || []);
                 setExpenseSum(Number(sumResponse.data.expenseSum));
             } catch(error: any){
-                setError(error.message || 'Failed to fetch expenses');
+                setError(error.response?.data?.error || error.message || 'Failed to fetch expenses');
                 console.error('Failed to fetch expenses:', error);
             } finally{
                 setIsLoading(false);
@@ -44,7 +44,7 @@ export const useExpenses = () => {
             setExpenseSum(prev => prev + data.amount);
             return response.data.expense;
         } catch(error: any){
-            setError(error.message || 'Failed to create expense');
+            setError(error.response?.data?.error || error.message || 'Failed to create expense');
             throw error;
         } finally{
             setIsLoading(false);
@@ -68,7 +68,7 @@ export const useExpenses = () => {
             setExpenseSum(prev => (prev - originalExpense.amount) + data.amount)
             return response.data.expense;
         } catch(error: any){
-            setError(error.message || 'Failed to update expense');
+            setError(error.response?.data?.error || error.message || 'Failed to update expense');
             throw error;
         } finally{
             setIsLoading(false);
@@ -90,7 +90,7 @@ export const useExpenses = () => {
             setExpenseSum(prev => prev - originalExpense.amount)
 
         } catch(error: any){
-            setError(error.message || 'Failed to delete expense');
+            setError(error.response?.data?.error || error.message || 'Failed to delete expense');
             throw error;
         } finally{
             setIsLoading(false);

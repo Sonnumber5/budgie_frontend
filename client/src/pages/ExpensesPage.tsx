@@ -7,7 +7,7 @@ import { useExpenseContext } from "../context/ExpenseContext";
 import { useBudgetContext } from "../context/BudgetContext";
 import { CategorizedExpenses } from "../features/expenses/components/CategorizedExpenses";
 import { useState } from 'react';
-import { Modal } from '../components/modal';
+import { Modal } from '../components/Modal';
 import { ExpenseForm } from '../features/expenses/components/ExpenseForm';
 
 

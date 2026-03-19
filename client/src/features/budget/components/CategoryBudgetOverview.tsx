@@ -2,7 +2,7 @@
 // Shows the category name, amount spent vs budgeted, and remaining budget.
 // Provides edit and delete actions for the category budget.
 import { useState } from "react";
-import { Modal } from "../../../components/modal";
+import { Modal } from "../../../components/Modal";
 import { useExpenseContext } from "../../../context/ExpenseContext";
 import type { CategoryBudget } from "../../../types";
 import './CategoryBudgetOverview.css';

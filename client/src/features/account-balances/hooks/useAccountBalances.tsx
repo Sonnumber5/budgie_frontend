@@ -16,9 +16,8 @@ export const useAccountBalances = () => {
                 setError(null);
                 const response = await getAccountBalances();
                 setAccountBalances(response.data.accountBalances); 
-                console.log('Account Balances: ', response.data.accountBalances);
             } catch(error: any){
-                setError(error.message || 'Failed to fetch account balances');
+                setError(error.response?.data?.error || error.message || 'Failed to fetch account balances');
                 console.error('Failed to fetched account balances: ', error);
             } finally{
                 setIsLoading(false);
@@ -37,7 +36,7 @@ export const useAccountBalances = () => {
             );
             return response.data.accountBalance;
         } catch(error: any){
-            setError(error.message || 'Failed to create account balance');
+            setError(error.response?.data?.error || error.message || 'Failed to create account balance');
             throw error;
         } finally{
             setIsLoading(false);

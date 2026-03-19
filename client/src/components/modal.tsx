@@ -1,7 +1,7 @@
 // modal.tsx - Reusable modal component for similar forms.
 // Renders a full-screen overlay; clicking the overlay closes the modal.
 import React, { type ReactNode } from "react";
-import './modal.css'
+import './Modal.css'
 
 interface ModalProps{
     isOpen: boolean;

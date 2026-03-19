@@ -9,7 +9,7 @@ interface FundFormProps{
 }
 
 export const FundForm = ({ onSuccess, fundToEdit }: FundFormProps) => {
-    const { addSavingsFund, editSavingsFund, error } = useSavingsFundContext();
+    const { addSavingsFund, editSavingsFund } = useSavingsFundContext();
     const [formData, setFormData] = useState<SavingsFundDTO>({
         name: '',
         goal: 1,
@@ -34,9 +34,8 @@ export const FundForm = ({ onSuccess, fundToEdit }: FundFormProps) => {
                 await addSavingsFund(formData);
             }
             onSuccess();
-        } catch(err){
-            console.error(`Error ${isEditMode ? 'updating' : 'adding'} savings fund:`, err); 
-            alert(error);
+        } catch(err: any){
+            alert(err?.message || `Failed to ${isEditMode ? 'update' : 'add'} savings fund`);
         }
     }
 

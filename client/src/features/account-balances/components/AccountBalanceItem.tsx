@@ -1,8 +1,7 @@
-// IncomeItem.tsx - Displays a single income row with Edit and Delete actions.
-// The edit form opens in a Modal; the date is formatted using the shared formatDate utility.
-import type { AccountBalance, Income } from "../../../types"
+
+import type { AccountBalance } from "../../../types"
 import './AccountBalanceItem.css';
-import { Modal } from "../../../components/modal";
+import { Modal } from "../../../components/Modal";
 import { AccountBalanceForm } from "./AccountBalanceForm";
 import { useState } from "react";
 import { useAccountBalanceContext } from "../../../context/AccountBalanceContext";

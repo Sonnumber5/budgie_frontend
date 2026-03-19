@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Modal } from "../../../components/modal";
+import { Modal } from "../../../components/Modal";
 import type { FundTransaction, SavingsFund } from "../../../types";
 import './Fund.css';
 import { FundForm } from "./FundForm";

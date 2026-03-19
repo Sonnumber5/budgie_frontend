@@ -4,7 +4,7 @@
 import { IncomeItem } from "../features/income/components/IncomeItem";
 import { useIncomeContext } from "../context/IncomeContext";
 import './IncomePage.css';
-import { Modal } from "../components/modal";
+import { Modal } from "../components/Modal";
 import { useState } from "react";
 import { IncomeForm } from "../features/income/components/IncomeForm";
 

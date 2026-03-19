@@ -24,7 +24,7 @@ export const RegisterPage = () => {
             await registerAPI(email, password, name);
             navigate('/login');
         } catch (error: any) {
-            setError(error.message || 'Failed to register');
+            setError(error.response?.data?.error || error.message || 'Failed to register');
         } finally {
             setIsLoading(false);
         }

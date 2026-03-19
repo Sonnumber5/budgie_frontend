@@ -6,7 +6,7 @@ import './Dashboard.css';
 //import { useDashboardContext } from '../context/DashboardContext';
 import { MonthPicker } from '../components/DatePicker';
 import { BudgetOverview } from '../features/budget/components/BudgetOverview';
-import { Modal } from '../components/modal';
+import { Modal } from '../components/Modal';
 import { BudgetManagementForm } from '../features/budget/components/BudgetManagementForm';
 import { useState } from 'react';
 import { useBudgetContext } from '../context/BudgetContext';
@@ -74,7 +74,7 @@ export const Dashboard = () => {
                 <div className='fund-balance-section'>
                     <div className='fund-section'>
                         {activeSavingsFunds.map(savingsFund => (
-                            <FundPreview fund={savingsFund}/>
+                            <FundPreview key={savingsFund.id} fund={savingsFund}/>
                         ))}
                     </div>
                     <div className='balance-section'>

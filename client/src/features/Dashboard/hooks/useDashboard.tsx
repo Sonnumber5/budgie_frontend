@@ -5,10 +5,9 @@ import { useState, useEffect } from "react";
 import { getIncomeTotal, getExpenseTotal } from "../api/dashboard";
 import { useDateContext } from "../../../context/DateContext";
 import { useExpenseContext } from "../../../context/ExpenseContext";
-import { useIncomeContext } from "../../../context/IncomeContext";
 
 export const useDashboard = () => {
-    const { currentMonth, setCurrentMonth } = useDateContext();
+    const { currentMonth } = useDateContext();
     const { expenses } = useExpenseContext();    
     const [ incomeTotal, setIncomeTotal ] = useState(0);
     const [ expenseTotal, setExpenseTotal ] = useState(0);

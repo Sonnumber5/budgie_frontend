@@ -25,7 +25,7 @@ export const IncomeForm = ({ onSuccess, incomeToEdit }: IncomeFormProps) => {
             setFormData({
                 amount: incomeToEdit.amount,
                 source: incomeToEdit.source,
-                description: '',
+                description: incomeToEdit.description,
                 incomeDate: new Date(incomeToEdit.incomeDate).toISOString().split('T')[0]
             });
         }

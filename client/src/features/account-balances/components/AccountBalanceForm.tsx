@@ -65,7 +65,7 @@ export const AccountBalanceForm = ({ onSuccess, accountBalanceToUpdate }: Accoun
                 />
             </div>
             <div>
-                <label>Account name</label>
+                <label>Account type</label>
                 <select
                     value={formData.accountType}
                     onChange={(e) => setFormData({...formData, accountType: e.target.value as AccountType})}>

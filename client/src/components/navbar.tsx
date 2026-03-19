@@ -2,7 +2,7 @@
 // The navbar is hidden when the user is not authenticated so it doesn't
 // appear on the Login or Register pages.
 import { useAuth } from "../context/AuthContext";
-import './navbar.css';
+import './Navbar.css';
 import { Navigate, useNavigate } from "react-router-dom";
 
 export const Navbar = () => {

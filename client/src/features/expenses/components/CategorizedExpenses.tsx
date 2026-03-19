@@ -6,7 +6,7 @@ import type { CategoryBudget, Expense } from "../../../types";
 import { ExpenseItem } from "./ExpenseItem";
 import './CategorizedExpenses.css';
 import { useState } from "react";
-import { Modal } from "../../../components/modal";
+import { Modal } from "../../../components/Modal";
 import { ExpenseForm } from "./ExpenseForm";
 
 interface CategorizedExpensesProps{

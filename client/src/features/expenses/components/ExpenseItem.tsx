@@ -4,7 +4,7 @@ import { useState } from "react";
 import { useExpenseContext } from "../../../context/ExpenseContext";
 import type { Expense } from "../../../types";
 import './ExpenseItem.css';
-import { Modal } from "../../../components/modal";
+import { Modal } from "../../../components/Modal";
 import { ExpenseForm } from "./ExpenseForm";
 
 interface ExpenseItemProps{

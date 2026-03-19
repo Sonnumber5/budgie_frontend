@@ -2,7 +2,7 @@ import { useSavingsFundContext } from "../context/SavingsFundContext";
 import { useState } from "react";
 import './SavingsFundPage.css';
 import { Fund } from "../features/savings-funds/components/Fund";
-import { Modal } from "../components/modal";
+import { Modal } from "../components/Modal";
 import { FundForm } from "../features/savings-funds/components/FundForm";
 import { useFundTransactionContext } from "../context/FundTransactionContext";
 import { TransferFundForm } from "../features/fund-transactions/components/TransferFundForm";

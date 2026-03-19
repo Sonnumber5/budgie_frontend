@@ -4,7 +4,7 @@ import type { Income } from "../../../types"
 import { useIncomeContext } from "../../../context/IncomeContext";
 import './IncomeItem.css';
 import { formatDate } from "../../../utils";
-import { Modal } from "../../../components/modal";
+import { Modal } from "../../../components/Modal";
 import { IncomeForm } from "./IncomeForm";
 import { useState } from "react";
 
