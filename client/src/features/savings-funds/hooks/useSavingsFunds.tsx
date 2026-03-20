@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import type { SavingsFund, SavingsFundDTO } from "../../../types/index";
-import { createSavingsFund, getActiveSavingsFunds, getSavingsFundById, getArchivedSavingsFunds, updateSavingsFund, deleteSavingsFund } from '../api/savings-funds'
+import { createSavingsFund, getActiveSavingsFunds, getSavingsFundById, getArchivedSavingsFunds, updateSavingsFund, archiveSavingsFundAPI, deleteSavingsFund } from '../api/savings-funds'
 
 export const useSavingsFunds = () => {
     const [ activeSavingsFunds, setActiveSavingsFunds ] = useState<SavingsFund[]>([]);
@@ -97,7 +97,21 @@ export const useSavingsFunds = () => {
             await deleteSavingsFund(id);
             setActiveSavingsFunds(prev => prev.filter(fund => fund.id !== id));
         } catch(error: any) {
-            setError(error.response?.data?.error || error.message || 'Unable to remove savings fund');
+            setError(error.response?.data?.error || error.message || 'Unable to delete savings fund');
+            throw error;
+        } finally {
+            setIsLoading(false);
+        }
+    }
+
+    const archiveSavingsFund = async (id: number): Promise<void> => { 
+        setIsLoading(true);
+        setError(null);
+        try {
+            await archiveSavingsFundAPI(id);
+            setActiveSavingsFunds(prev => prev.filter(fund => fund.id !== id));
+        } catch(error: any) {
+            setError(error.response?.data?.error || error.message || 'Unable to archive savings fund');
             throw error;
         } finally {
             setIsLoading(false);
@@ -113,6 +127,7 @@ export const useSavingsFunds = () => {
         editSavingsFund, 
         fetchArchivedSavingsFunds, 
         removeSavingsFund,
+        archiveSavingsFund,
         refreshFundInfo
     }
 }
