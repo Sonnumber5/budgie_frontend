@@ -24,3 +24,7 @@ export const updateSavingsFund = (id: number, data: SavingsFundDTO) => {
 export const deleteSavingsFund = (id: number) => {
     return api.delete(`/savings-funds/${id}`);
 }
+
+export const archiveSavingsFundAPI = (id: number) => {
+    return api.patch(`/savings-funds/${id}/archive`);
+}
