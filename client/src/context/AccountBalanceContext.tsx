@@ -5,6 +5,8 @@ import { useAccountBalances } from "../features/account-balances/hooks/useAccoun
 
 interface AccountBalanceContextType{
     accountBalances: AccountBalance[];
+    assetsTotal: number;
+    liabilitiesTotal: number;
     isLoading: boolean;
     error: string | null;
     addAccountBalance: (data: AccountBalanceDTO) => Promise<AccountBalance>;

@@ -3,10 +3,9 @@
 // The budget section shows a BudgetOverview and an Edit button that opens BudgetManagementForm.
 // The balances and categories sections are placeholders for future functionality.
 import './Dashboard.css';
-//import { useDashboardContext } from '../context/DashboardContext';
 import { MonthPicker } from '../components/DatePicker';
 import { BudgetOverview } from '../features/budget/components/BudgetOverview';
-import { Modal } from '../components/Modal';
+import { Modal } from '../components/modal';
 import { BudgetManagementForm } from '../features/budget/components/BudgetManagementForm';
 import { useState } from 'react';
 import { useBudgetContext } from '../context/BudgetContext';
@@ -15,7 +14,6 @@ import { useIncomeContext } from '../context/IncomeContext';
 import { useExpenseContext } from '../context/ExpenseContext';
 import { useAccountBalanceContext } from '../context/AccountBalanceContext';
 import { useSavingsFundContext } from '../context/SavingsFundContext';
-import { Fund } from '../features/savings-funds/components/Fund';
 import { AccountBalanceForm } from '../features/account-balances/components/AccountBalanceForm';
 import { AccountBalanceItem } from '../features/account-balances/components/AccountBalanceItem';
 import { FundPreview } from '../features/savings-funds/components/FundPreview';

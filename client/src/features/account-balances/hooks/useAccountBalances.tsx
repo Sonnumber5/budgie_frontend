@@ -5,6 +5,8 @@ import { useDateContext } from "../../../context/DateContext";
 
 export const useAccountBalances = () => {
     const [ accountBalances, setAccountBalances ] = useState<AccountBalance[]>([]);
+    const [ assetsTotal, setAssetsTotal ] = useState(0);
+    const [ liabilitiesTotal, setLiabilitiesTotal ] = useState(0);
     const [ error, setError ] = useState<string | null>(null);
     const [ isLoading, setIsLoading ] = useState(false);
     const { currentMonth } = useDateContext();
@@ -15,7 +17,14 @@ export const useAccountBalances = () => {
                 setIsLoading(true);
                 setError(null);
                 const response = await getAccountBalances();
-                setAccountBalances(response.data.accountBalances); 
+
+                const accounts = response.data.accountBalances;
+                const assets = accounts.filter((account: AccountBalance) => account.accountType === 'Asset');
+                const liabilities = accounts.filter((account: AccountBalance) => account.accountType === 'Liability');
+                setAssetsTotal(assets);
+                setLiabilitiesTotal(liabilities);
+
+                setAccountBalances(accounts); 
             } catch(error: any){
                 setError(error.response?.data?.error || error.message || 'Failed to fetch account balances');
                 console.error('Failed to fetched account balances: ', error);
@@ -34,6 +43,11 @@ export const useAccountBalances = () => {
             setAccountBalances(prev => [...prev, response.data.accountBalance]
                 .sort((a, b) => a.accountName.localeCompare(b.accountName))
             );
+            if (data.accountType === 'Asset'){
+                setAssetsTotal(prev => prev + data.balance);
+            } else{
+                setLiabilitiesTotal(prev => prev - data.balance);
+            }
             return response.data.accountBalance;
         } catch(error: any){
             setError(error.response?.data?.error || error.message || 'Failed to create account balance');
@@ -47,11 +61,28 @@ export const useAccountBalances = () => {
         setIsLoading(true);
         setError(null);
         try {
+            const originalAccount = accountBalances.find(account => account.id === id);
+            if (!originalAccount){
+                throw new Error(`Account balance with id ${id} not found`);
+            }
             const response = await updateAccountBalance(id, data);
             const updatedAccountBalance = response.data.accountBalance;
             setAccountBalances(prev => prev.map(account => account.id === id ? updatedAccountBalance : account)
                 .sort((a, b) => a.accountName.localeCompare(b.accountName))
             );
+
+            if (originalAccount.accountType === 'Asset' && data.accountType === 'Asset'){
+                setAssetsTotal(prev => prev - Number(originalAccount.balance) + Number(data.balance));
+            } else if (originalAccount.accountType === 'Asset' && data.accountType === 'Liability'){
+                setAssetsTotal(prev => prev - Number(originalAccount.balance));
+                setLiabilitiesTotal(prev => prev + Number(data.balance));
+            } else if (originalAccount.accountType === 'Liability' && data.accountType === 'Asset'){
+                setAssetsTotal(prev => prev + Number(data.balance));
+                setLiabilitiesTotal(prev => prev - Number(originalAccount.balance));
+            } else if (originalAccount.accountType === 'Liability' && data.accountType === 'Liability'){
+                setLiabilitiesTotal(prev => prev - Number(originalAccount.balance) + Number(data.balance));
+            }
+
             return updatedAccountBalance;
         } catch(error: any) {
             setError(error.response?.data?.error || error.message || 'Failed to update account balance');
@@ -67,6 +98,8 @@ export const useAccountBalances = () => {
         try {
             await resetAccountBalances();
             setAccountBalances(prev => prev.map(account => ({ ...account, balance: 0 })));
+            setLiabilitiesTotal(0);
+            setAssetsTotal(0);
         } catch(error: any) {
             setError(error.response?.data?.error || error.message || 'Failed to reset account balances');
             throw error;
@@ -79,8 +112,17 @@ export const useAccountBalances = () => {
         setIsLoading(true);
         setError(null);
         try {
+            const accountToRemove = accountBalances.find(account => account.id === id);
+            if (!accountToRemove){
+                throw new Error(`Account balance with id ${id} not found`);
+            }
             await deleteAccountBalance(id);
             setAccountBalances(prev => prev.filter(account => account.id !== id));
+            if (accountToRemove.accountType === 'Asset'){
+                setAssetsTotal(prev => prev - accountToRemove.balance);
+            } else{
+                setLiabilitiesTotal(prev => prev + accountToRemove.balance);
+            }
         } catch(error: any) {
             setError(error.response?.data?.error || error.message || 'Failed to delete account balance');
             throw error;
@@ -90,6 +132,6 @@ export const useAccountBalances = () => {
     }
 
     return {
-        accountBalances, isLoading, error, addAccountBalance, editAccountBalance, clearAccountBalances, removeAccountBalance
+        accountBalances, assetsTotal, liabilitiesTotal, isLoading, error, addAccountBalance, editAccountBalance, clearAccountBalances, removeAccountBalance
     }
 }
