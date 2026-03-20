@@ -7,10 +7,12 @@ import { useState, useEffect } from 'react';
 import { useDateContext } from '../../../context/DateContext';
 import type { CategoryBudget, MonthlyBudget, Category, MonthlyBudgetDTO, CategoryBudgetDTO } from '../../../types';
 import { useDashboardContext } from '../../../context/DashboardContext';
+import { useExpenseContext } from '../../../context/ExpenseContext';
 
 export const useBudgets = () => {
-    const { triggerRefresh } = useDashboardContext();
+    //const { triggerRefresh } = useDashboardContext();
     const { currentMonth } = useDateContext();
+    const { fetchExpenses } = useExpenseContext();
     const [ monthlyBudget, setMonthlyBudget ] = useState<MonthlyBudget | null>(null);
     const [ categoryBudgets, setCategoryBudgets ] = useState<CategoryBudget[]>([]);
     const [ availableCategories, setAvailableCategories ] = useState<Category[]>([]);
@@ -192,7 +194,7 @@ export const useBudgets = () => {
                 name: cb.categoryName
             }));
             setAvailableCategories(updatedCategories);
-            triggerRefresh();
+            fetchExpenses();
         } catch(error: any){
             console.error('Failed to delete category budget', error);
             setError(error.response?.data?.error || error.message || 'Failed to delete category budget');

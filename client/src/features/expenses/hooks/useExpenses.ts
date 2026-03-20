@@ -12,24 +12,25 @@ export const useExpenses = () => {
     const [ error, setError ] = useState<string | null>(null);
     const [ expenseSum, setExpenseSum ] = useState(0);
 
+    const fetchExpenses = async () => {
+        setIsLoading(true);
+        setError(null);
+        try{
+            const [ response, sumResponse ] = await Promise.all([
+                getExpenses(currentMonth),
+                getExpenseTotal(currentMonth)
+            ]);
+            setExpenses(response.data.expenses || []);
+            setExpenseSum(Number(sumResponse.data.expenseSum));
+        } catch(error: any){
+            setError(error.response?.data?.error || error.message || 'Failed to fetch expenses');
+            console.error('Failed to fetch expenses:', error);
+        } finally{
+            setIsLoading(false);
+        }
+    };
+
     useEffect (() => {
-        const fetchExpenses = async () => {
-            setIsLoading(true);
-            setError(null);
-            try{
-                const [ response, sumResponse ] = await Promise.all([
-                    getExpenses(currentMonth),
-                    getExpenseTotal(currentMonth)
-                ]);
-                setExpenses(response.data.expenses || []);
-                setExpenseSum(Number(sumResponse.data.expenseSum));
-            } catch(error: any){
-                setError(error.response?.data?.error || error.message || 'Failed to fetch expenses');
-                console.error('Failed to fetch expenses:', error);
-            } finally{
-                setIsLoading(false);
-            }
-        };
         fetchExpenses(); 
     }, [currentMonth]);
 
@@ -98,6 +99,6 @@ export const useExpenses = () => {
     }
 
     return {
-        expenses, expenseSum, isLoading, error, addExpense, editExpense, removeExpense
+        expenses, expenseSum, isLoading, error, addExpense, editExpense, removeExpense, fetchExpenses
     }
 }

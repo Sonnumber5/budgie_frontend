@@ -15,6 +15,7 @@ interface ExpenseContextType {
     addExpense: (data: ExpenseDTO) => Promise<Expense>;
     editExpense: (id: number, data: ExpenseDTO) => Promise<Expense>;
     removeExpense: (id: number) => Promise<void>;
+    fetchExpenses: () => Promise<void>;
 }
 
 const ExpenseContext = createContext<ExpenseContextType | null>(null);
