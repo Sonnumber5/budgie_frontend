@@ -5,6 +5,7 @@ import { createSavingsFund, getActiveSavingsFunds, getSavingsFundById, getArchiv
 export const useSavingsFunds = () => {
     const [ activeSavingsFunds, setActiveSavingsFunds ] = useState<SavingsFund[]>([]);
     const [ archivedSavingsFunds, setArchivedSavingsFunds ] = useState<SavingsFund[]>([]);
+    const [ savingsTotal, setSavingsTotal ] = useState(0);
     const [ isLoading, setIsLoading ] = useState(false);
     const [ error, setError ] = useState<string | null>(null);
 
@@ -14,7 +15,11 @@ export const useSavingsFunds = () => {
             setError(null);
             try {
                 const response = await getActiveSavingsFunds();
-                setActiveSavingsFunds(response.data.savingsFunds || []); 
+                const activeFunds = response.data.savingsFunds;
+                const fundSum = (activeFunds || []).reduce((sum: number, fund: SavingsFund) => sum + Number(fund.balance ?? 0), 0)
+                setSavingsTotal(fundSum);
+
+                setActiveSavingsFunds(activeFunds || []); 
             } catch(error: any) {
                 setError(error.response?.data?.error || error.message || 'Failed to fetch active savings funds');
                 console.error('Failed to fetch savings funds:', error);
@@ -28,10 +33,13 @@ export const useSavingsFunds = () => {
     const refreshFundInfo = async (fundId: number) => {
         try {
             const response = await getSavingsFundById(fundId);
+            const updatedFund = response.data.savingsFund;
             setActiveSavingsFunds(prev => {
                 const exists = prev.some(fund => fund.id === fundId);
                 if (!exists) return prev;
-                return prev.map(fund => fund.id === fundId ? response.data.savingsFund : fund);
+                const originalFund = prev.find(fund => fund.id === fundId);
+                setSavingsTotal(prevTotal => prevTotal - Number(originalFund?.balance ?? 0) + Number(updatedFund.balance ?? 0));
+                return prev.map(fund => fund.id === fundId ? updatedFund : fund);
             });
         } catch(error: any) {
             if (error.response?.status === 404) return;
@@ -123,6 +131,7 @@ export const useSavingsFunds = () => {
         archivedSavingsFunds, 
         isLoading, 
         error, 
+        savingsTotal,
         addSavingsFund, 
         editSavingsFund, 
         fetchArchivedSavingsFunds, 

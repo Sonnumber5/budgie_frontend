@@ -6,6 +6,7 @@ import { useSavingsFunds } from "../features/savings-funds/hooks/useSavingsFunds
 interface SavingsFundContextType{
     activeSavingsFunds: SavingsFund[];
     archivedSavingsFunds: SavingsFund[];
+    savingsTotal: number;
     isLoading: boolean;
     error: string | null;
     addSavingsFund: (data: SavingsFundDTO) => Promise<SavingsFund>;
