@@ -21,8 +21,8 @@ export const useAccountBalances = () => {
                 const accounts = response.data.accountBalances;
                 const assets = accounts.filter((account: AccountBalance) => account.accountType === 'Asset');
                 const liabilities = accounts.filter((account: AccountBalance) => account.accountType === 'Liability');
-                setAssetsTotal(assets);
-                setLiabilitiesTotal(liabilities);
+                setAssetsTotal(assets.reduce((sum: number, account: AccountBalance) => sum + Number(account.balance), 0));
+                setLiabilitiesTotal(liabilities.reduce((sum: number, account: AccountBalance) => sum + Number(account.balance), 0));
 
                 setAccountBalances(accounts); 
             } catch(error: any){
@@ -44,9 +44,9 @@ export const useAccountBalances = () => {
                 .sort((a, b) => a.accountName.localeCompare(b.accountName))
             );
             if (data.accountType === 'Asset'){
-                setAssetsTotal(prev => prev + data.balance);
+                setAssetsTotal(prev => prev + Number(data.balance));
             } else{
-                setLiabilitiesTotal(prev => prev - data.balance);
+                setLiabilitiesTotal(prev => prev + Number(data.balance));
             }
             return response.data.accountBalance;
         } catch(error: any){
@@ -119,9 +119,9 @@ export const useAccountBalances = () => {
             await deleteAccountBalance(id);
             setAccountBalances(prev => prev.filter(account => account.id !== id));
             if (accountToRemove.accountType === 'Asset'){
-                setAssetsTotal(prev => prev - accountToRemove.balance);
+                setAssetsTotal(prev => prev - Number(accountToRemove.balance));
             } else{
-                setLiabilitiesTotal(prev => prev + accountToRemove.balance);
+                setLiabilitiesTotal(prev => prev - Number(accountToRemove.balance));
             }
         } catch(error: any) {
             setError(error.response?.data?.error || error.message || 'Failed to delete account balance');

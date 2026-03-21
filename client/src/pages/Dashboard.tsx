@@ -17,6 +17,7 @@ import { useSavingsFundContext } from '../context/SavingsFundContext';
 import { AccountBalanceForm } from '../features/account-balances/components/AccountBalanceForm';
 import { AccountBalanceItem } from '../features/account-balances/components/AccountBalanceItem';
 import { FundPreview } from '../features/savings-funds/components/FundPreview';
+import { useDashboard } from '../features/dashboard/hooks/useDashboard';
 
 export const Dashboard = () => {
     const { incomeSum, isLoading: isIncomeLoading } = useIncomeContext();
@@ -25,18 +26,18 @@ export const Dashboard = () => {
     const { monthlyContributionSum } = useFundTransactionContext();
     const { accountBalances } = useAccountBalanceContext();
     const { activeSavingsFunds } = useSavingsFundContext();
+    const { financialOverview, currentRemaining, monthlyTotal } = useDashboard();
     const [ isBudgetModalOpen, setIsBudgetModalOpen ] = useState(false);
     const [ isAccountBalanceModalOpen, setIsAccountBalanceModalOpen ] = useState(false);
 
     const isLoading = isIncomeLoading || isExpensesLoading;
-    
 
     return (
         <div className="dashboard">
-            <Modal isOpen={isBudgetModalOpen} onClose={() => {setIsBudgetModalOpen(false)}} title="Save">
+            <Modal isOpen={isBudgetModalOpen} onClose={() => {setIsBudgetModalOpen(false)}} title="Monthly Budget">
                 <BudgetManagementForm budgetToEdit={monthlyBudget ?? null} onSuccess={() => {setIsBudgetModalOpen(false)}}/>
             </Modal>
-            <Modal isOpen={isAccountBalanceModalOpen} onClose={() => {setIsAccountBalanceModalOpen(false)}} title="Save">
+            <Modal isOpen={isAccountBalanceModalOpen} onClose={() => {setIsAccountBalanceModalOpen(false)}} title="Add account balance">
                 <AccountBalanceForm onSuccess={() => {setIsAccountBalanceModalOpen(false)}}/>
             </Modal>
             <div className='month-section'>
@@ -44,24 +45,24 @@ export const Dashboard = () => {
             </div>
             <div className='totals-section'>
                 <div className='income-total'>
-                    {isLoading ? 'Loading...' : `Total income: ${incomeSum}`}
+                    {isLoading ? 'Loading...' : `Total income: ${Number(incomeSum).toFixed(2)}`}
                 </div>
                 <div className='expenses-total'>
                     Total expenses: ${expenseSum}
                 </div>
                 <div className='remaining-total'>
                     <div>
-                        Current Remaining: ${incomeSum - expenseSum - monthlyContributionSum}
+                        Current Remaining: ${Number(currentRemaining).toFixed(2)}
                     </div>
                     <div>
-                        Total: ${incomeSum - expenseSum}
+                        Total: ${Number(monthlyTotal).toFixed(2)}
                     </div>
                     <div>
-                        Fund Contributions: ${monthlyContributionSum}
+                        Fund Contributions: ${Number(monthlyContributionSum).toFixed(2)}
                     </div>
                 </div>
                 <div className='net-worth-total'>
-                    Section 4
+                    Financial Overview: ${financialOverview}
                 </div>
             </div>
             <div className='budget-funds-balance-sections'>

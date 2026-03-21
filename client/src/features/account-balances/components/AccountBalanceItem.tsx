@@ -1,7 +1,7 @@
 
-import type { AccountBalance } from "../../../types"
+import type { AccountBalance, Income } from "../../../types"
 import './AccountBalanceItem.css';
-import { Modal } from "../../../components/Modal";
+import { Modal } from "../../../components/modal";
 import { AccountBalanceForm } from "./AccountBalanceForm";
 import { useState } from "react";
 import { useAccountBalanceContext } from "../../../context/AccountBalanceContext";
