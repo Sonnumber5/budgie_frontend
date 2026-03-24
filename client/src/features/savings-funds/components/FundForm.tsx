@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import type { SavingsFundDTO, SavingsFund } from "../../../types";
 import { useSavingsFundContext } from "../../../context/SavingsFundContext";
-import { useBudgetContext } from "../../../context/BudgetContext";
+import { ToastContainer, toast } from 'react-toastify';
 
 interface FundFormProps{
     onSuccess: () => void;
@@ -29,13 +29,14 @@ export const FundForm = ({ onSuccess, fundToEdit }: FundFormProps) => {
         e.preventDefault();
         try{
             if (isEditMode && fundToEdit){
-                await editSavingsFund(fundToEdit.id, formData)
+                await editSavingsFund(fundToEdit.id, formData);
             } else{
                 await addSavingsFund(formData);
             }
+            toast.success(`Successfully ${isEditMode ? 'updated' : 'created'} savings fund`);
             onSuccess();
         } catch(err: any){
-            alert(err?.message || `Failed to ${isEditMode ? 'update' : 'add'} savings fund`);
+            toast.error(err.response?.data?.error || `Failed to ${isEditMode ? 'update' : 'add'} savings fund`);
         }
     }
 

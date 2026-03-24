@@ -25,6 +25,7 @@ export const IncomePage = () => {
                 <IncomeForm onSuccess={() => {setIsModalOpen(false)}}/>
             </Modal>
             <div className="income-list">
+                {isLoading && <p>Loading...</p>}
                 {incomeList.map((income) => (
                     <IncomeItem key={income.id} income={income}/>
                 ))}

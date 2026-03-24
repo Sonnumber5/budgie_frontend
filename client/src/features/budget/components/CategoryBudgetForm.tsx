@@ -2,6 +2,8 @@
 import { useEffect, useState } from "react";
 import type { Category, CategoryBudget, CategoryBudgetDTO, MonthlyBudget } from "../../../types";
 import { useBudgetContext } from "../../../context/BudgetContext";
+import { toast } from "react-toastify";
+import { useDateContext } from "../../../context/DateContext";
 
 interface CategoryBudgetFormProps{
     onSuccess: () => void;
@@ -10,6 +12,7 @@ interface CategoryBudgetFormProps{
 
 export const CategoryBudgetForm = ({ onSuccess, categoryBudgetToEdit }: CategoryBudgetFormProps) => {
     const { editCategoryBudget } = useBudgetContext();
+    const { currentMonth } = useDateContext();
     
     const [formData, setFormData] = useState({
         id: 0,
@@ -37,10 +40,10 @@ export const CategoryBudgetForm = ({ onSuccess, categoryBudgetToEdit }: Category
         e.preventDefault();
         try{
             await editCategoryBudget(categoryBudgetToEdit.id, formData);
+            toast.success(`Successfully updated category budget for ${currentMonth}`);
             onSuccess();
-        } catch(error) {
-            console.error('Submit error:', error);
-            alert(`Failed to update category budget`);
+        } catch(err: any) {
+            toast.error(err.response?.data?.error || `Failed to update category budget for ${currentMonth}`);
         }
     }
 

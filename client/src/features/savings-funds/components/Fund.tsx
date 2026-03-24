@@ -7,6 +7,7 @@ import { TransactionItem } from "../../fund-transactions/components/TransactionI
 import { FundTransactionForm } from "../../fund-transactions/components/FundTransactionForm";
 import { AdjustmentTransactionForm } from "../../fund-transactions/components/AdjustmentTransactionForm";
 import { useSavingsFundContext } from "../../../context/SavingsFundContext";
+import { toast } from "react-toastify";
 interface SavingsFundProps{
     fund: SavingsFund;
     relatedTransactions: FundTransaction[];
@@ -20,12 +21,11 @@ export const Fund = ({ fund, relatedTransactions }: SavingsFundProps) => {
     const { archiveSavingsFund } = useSavingsFundContext();
 
     const handleRemove = async () => {
-        if (window.confirm(`Archive "${fund.name}"?`)) {
-            try {
-                await archiveSavingsFund(fund.id);
-            } catch (error) {
-                alert(`Unable to archive "${fund.name}"`);
-            }
+        try {
+            await archiveSavingsFund(fund.id);
+            toast.success('Successfully archived savings fund');
+        } catch (err: any) {
+            toast.error(err.response?.data?.error || 'Failed to archive savings fund');
         }
     };
 
@@ -53,13 +53,13 @@ export const Fund = ({ fund, relatedTransactions }: SavingsFundProps) => {
                 <div className="fund-btns">
                     <button onClick={() => {setIsTransactionModalOpen(true)}} className="add-fund-btn">+</button>
                     <button onClick={() => {setIsEditFundModalOpen(true)}} className="edit-fund-btn">Edit</button>
-                    <button onClick={handleRemove}>Archive</button>
+                    <button onClick={() => {handleRemove()}}>Archive</button>
                 </div>
             </div>
             {isOpen && (
                 <div className="fund-transactions">
                     {relatedTransactions.map((transaction) => (
-                        <TransactionItem key={transaction.id} transaction={transaction} canDelete={transaction.transactionType !== 'adjustment'}/>
+                        <TransactionItem key={transaction.id} transaction={transaction} canDelete={transaction.transactionType !== 'adjustment' && transaction.transactionType !== 'transfer_in' && transaction.transactionType !== 'transfer_out'}/>
                     ))}
                 </div>
             )}

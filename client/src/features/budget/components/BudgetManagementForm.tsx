@@ -4,9 +4,11 @@
 //   newCategoryBudgets: rows added during the current editing session that will be submitted.
 // When budgetToEdit is provided the form operates in edit mode; otherwise it creates a new budget.
 import { useEffect, useState } from "react";
-import type { Category, CategoryBudget, CategoryBudgetDTO, MonthlyBudget } from "../../../types";
+import type { CategoryBudget, CategoryBudgetDTO, MonthlyBudget } from "../../../types";
 import { useBudgetContext } from "../../../context/BudgetContext";
 import { standardCategories } from "../../../types/standardCategories";
+import { toast } from "react-toastify";
+import { useDateContext } from "../../../context/DateContext";
 
 interface BudgetManagementFormProps{
     onSuccess: () => void;
@@ -15,6 +17,7 @@ interface BudgetManagementFormProps{
 
 export const BudgetManagementForm = ({ onSuccess, budgetToEdit }: BudgetManagementFormProps) => {
     const { addMonthlyBudget, editMonthlyBudget, removeCategoryBudget } = useBudgetContext();
+    const { currentMonth } = useDateContext();
     const [ expectedIncome, setExpectedIncome ] = useState(0);
     const [ existingCategoryBudgets, setExistingCategoryBudgets ] = useState<CategoryBudget[]>([]);
     const [ newCategoryBudgets, setNewCategoryBudgets ] = useState<CategoryBudgetDTO[]>([]);
@@ -42,10 +45,10 @@ export const BudgetManagementForm = ({ onSuccess, budgetToEdit }: BudgetManageme
                     categoryBudgetDTOs: newCategoryBudgets 
                 });
             }
+            toast.success(`Successfully ${isEditMode ? 'updated' : 'created'} budget for ${currentMonth}`);
             onSuccess();
-        } catch(error) {
-            console.error('Submit error:', error);
-            alert(`Failed to ${isEditMode ? 'update' : 'add'} budget`);
+        } catch(err: any) {
+            toast.error(err.response?.data?.error || `Failed to ${isEditMode ? 'update' : 'create'} budget for ${currentMonth}`);
         }
     }
 
@@ -72,16 +75,14 @@ export const BudgetManagementForm = ({ onSuccess, budgetToEdit }: BudgetManageme
     // handleDeleteExisting deletes a saved category budget immediately via the API
     // and removes it from the local existingCategoryBudgets list.
     const handleDeleteExisting = async (categoryBudgetId: number) => {
-        if (window.confirm('Are you sure you want to delete this category budget?')) {
-            try {
-                await removeCategoryBudget(categoryBudgetId);
-                setExistingCategoryBudgets(existing => 
-                    existing.filter(cb => cb.id !== categoryBudgetId)
-                );
-            } catch (error) {
-                console.error('Delete error:', error);
-                alert('Failed to delete category budget');
-            }
+        try {
+            await removeCategoryBudget(categoryBudgetId);
+            setExistingCategoryBudgets(existing => 
+                existing.filter(cb => cb.id !== categoryBudgetId)
+            );
+            toast.success(`Successfully deleted category from ${currentMonth}`);
+        } catch (err: any) {
+            toast.error(err.response?.data?.error || `Failed to delete category from ${currentMonth}`);
         }
     };
 

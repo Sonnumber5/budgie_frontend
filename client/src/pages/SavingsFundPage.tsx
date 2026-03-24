@@ -13,7 +13,6 @@ export const SavingsFundPage = () => {
     const [ isAddFundModalOpen, setIsAddFundModalOpen ] = useState(false);
     const [ isTransferModalOpen, setIsTransferModalOpen ] = useState(false);
 
-    if (isLoading) return <p>Loading...</p>;
 
     const sortedFundsWithTransactions = activeSavingsFunds.map(savingsFund => {
         const fundTransactions = transactions.filter(transaction => 
@@ -37,6 +36,7 @@ export const SavingsFundPage = () => {
                 +
             </button>
             <div className="fund-list">
+            {isLoading && <p>Loading...</p>}
             {sortedFundsWithTransactions.map((fundWithTransactions) => (
                 <Fund key={fundWithTransactions.savingsFund.id} fund={fundWithTransactions.savingsFund} relatedTransactions={fundWithTransactions.fundTransactions}/>
             ))}

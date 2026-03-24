@@ -4,9 +4,10 @@ import type { Income } from "../../../types"
 import { useIncomeContext } from "../../../context/IncomeContext";
 import './IncomeItem.css';
 import { formatDate } from "../../../utils";
-import { Modal } from "../../../components/Modal";
+import { Modal } from "../../../components/modal";
 import { IncomeForm } from "./IncomeForm";
 import { useState } from "react";
+import { toast } from "react-toastify";
 
 
 interface IncomeProps{
@@ -16,6 +17,15 @@ interface IncomeProps{
 export const IncomeItem = ({ income }: IncomeProps) => {
     const { removeIncome } = useIncomeContext();
     const [ isModalOpen, setIsModalOpen ] = useState(false);
+
+    const handleRemoveIncome = async (id: number) => {
+        try{
+            await removeIncome(id);
+            toast.success('Successfully deleted income entry');
+        }catch(err: any){
+            toast.error(err.response?.data?.error || 'Failed to delete income entry');
+        }
+    }
 
     return (
         <div className="income-item">
@@ -29,7 +39,7 @@ export const IncomeItem = ({ income }: IncomeProps) => {
                 <button onClick={() => {setIsModalOpen(true)}}>
                     Edit
                 </button>
-                <button onClick={() => removeIncome(income.id)}>
+                <button onClick={() => handleRemoveIncome(income.id)}>
                     Delete
                 </button>
             </div>

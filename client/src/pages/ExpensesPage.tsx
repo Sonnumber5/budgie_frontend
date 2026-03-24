@@ -49,16 +49,17 @@ export const ExpensesPage = () => {
 
     return(
         <div className="expense-page">
-            <div className="expense-aggregates">
-                Total: ${Number(totalExpenses.toFixed(2))}
-            </div>
             <Modal isOpen={isModalOpen} onClose={() => {setIsModalOpen(false)}} title="Add Expense">
                 <ExpenseForm onSuccess={() => {setIsModalOpen(false)}}/>
             </Modal>
+            <div className="expense-aggregates">
+                Total: ${Number(totalExpenses.toFixed(2))}
+            </div>
             <button onClick={() => {setIsModalOpen(true)}}>
                 +
             </button>
             <div className="category-list">
+                {isLoading && <p>Loading...</p>}
                 {categorizedExpenses.map((expenseGroup) => {
                     return (
                         <CategorizedExpenses 

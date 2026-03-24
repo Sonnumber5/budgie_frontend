@@ -3,6 +3,7 @@ import type { FundTransaction, FundTransactionDTO } from "../../../types";
 import { useDateContext } from "../../../context/DateContext";
 import { useFundTransactionContext } from "../../../context/FundTransactionContext";
 import type { TransactionType } from "../../../types";
+import { toast } from 'react-toastify';
 
 interface FundTransactionFormProps{
     onSuccess: () => void;
@@ -45,12 +46,11 @@ export const FundTransactionForm = ({ onSuccess, transactionToEdit, fundId }: Fu
                 await editFundTransaction(transactionToEdit.id, formData);
             } else{
                 await addFundTransaction(formData);
-                console.log('Transaction successfully created');
             }
+            toast.success(`Successfully ${isEditMode ? 'updated' : 'created'} transaction`);
             onSuccess();
-        } catch(error){
-            console.error('Error adding transaction:', error); 
-            alert(`Failed to ${isEditMode ? 'update' : 'add'} transaction`)
+        } catch(err: any){
+            toast.error(err.response?.data?.error || `Failed to ${isEditMode ? 'update' : 'create'} transaction`);
         }
     }
 

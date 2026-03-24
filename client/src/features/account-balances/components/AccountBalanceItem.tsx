@@ -5,7 +5,7 @@ import { Modal } from "../../../components/modal";
 import { AccountBalanceForm } from "./AccountBalanceForm";
 import { useState } from "react";
 import { useAccountBalanceContext } from "../../../context/AccountBalanceContext";
-
+import { toast } from 'react-toastify';
 
 interface AccountBalanceItemProps{
     accountBalance: AccountBalance;
@@ -14,6 +14,15 @@ interface AccountBalanceItemProps{
 export const AccountBalanceItem = ({ accountBalance }: AccountBalanceItemProps) => {
     const { removeAccountBalance } = useAccountBalanceContext()
     const [ isModalOpen, setIsModalOpen ] = useState(false);
+
+    const handleRemoveAccountBalance = async (id: number) => {
+        try{
+            await removeAccountBalance(id);
+            toast.success('Successfully deleted account balance');
+        } catch(err: any){
+            toast.error(err.response?.data?.error || `Failed to delete account balance`);
+        }
+    }
 
     return (
         <div className="income-item">
@@ -26,7 +35,7 @@ export const AccountBalanceItem = ({ accountBalance }: AccountBalanceItemProps) 
                 <button onClick={() => {setIsModalOpen(true)}}>
                     Edit
                 </button>
-                <button onClick={() => removeAccountBalance(accountBalance.id)}>
+                <button onClick={() => handleRemoveAccountBalance(accountBalance.id)}>
                     Delete
                 </button>
             </div>

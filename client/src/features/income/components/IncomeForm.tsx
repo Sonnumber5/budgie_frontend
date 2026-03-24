@@ -4,6 +4,7 @@
 import { useEffect, useState } from "react";
 import type { Income, IncomeDTO } from "../../../types";
 import { useIncomeContext } from "../../../context/IncomeContext";
+import { toast } from "react-toastify";
 
 interface IncomeFormProps{
     onSuccess: () => void;
@@ -39,9 +40,10 @@ export const IncomeForm = ({ onSuccess, incomeToEdit }: IncomeFormProps) => {
             } else{
                 await addIncome(formData);
             }
+            toast.success(`Successfully ${isEditMode ? 'updated' : 'created'} income entry`);
             onSuccess();
-        } catch(error){
-            alert(`Failed to ${isEditMode ? 'update' : 'add'} income`)
+        } catch(err: any){
+            toast.error(err.response?.data?.error || `Failed to ${isEditMode ? 'update' : 'create'} income record`);
         }
     }
 

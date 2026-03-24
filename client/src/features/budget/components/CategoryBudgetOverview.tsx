@@ -8,6 +8,8 @@ import type { CategoryBudget } from "../../../types";
 import './CategoryBudgetOverview.css';
 import { useBudgetContext } from "../../../context/BudgetContext";
 import { CategoryBudgetForm } from "./CategoryBudgetForm";
+import { toast } from "react-toastify";
+import { useDateContext } from "../../../context/DateContext";
 
 interface CategoryBudgetOverviewProps {
     categoryBudget: CategoryBudget,
@@ -16,6 +18,7 @@ interface CategoryBudgetOverviewProps {
 export const CategoryBudgetOverview = ({ categoryBudget }: CategoryBudgetOverviewProps) => {
     const { removeCategoryBudget } = useBudgetContext();
     const { expenses } = useExpenseContext();
+    const { currentMonth } = useDateContext();
     const [isModalOpen, setIsModalOpen] = useState(false);
 
     const categoryExpenses = expenses.filter(e => e.categoryId === categoryBudget.categoryId);
@@ -27,14 +30,12 @@ export const CategoryBudgetOverview = ({ categoryBudget }: CategoryBudgetOvervie
     const isOverBudget = remaining < 0;
 
     const handleDelete = async () => {
-        if (window.confirm(`Delete ${categoryBudget.categoryName} budget? This will also delete all expenses in this category for this month.`)) {
-            try {
-                await removeCategoryBudget(categoryBudget.id);
-                
-            } catch (error) {
-                console.error('Delete error:', error);
-                alert('Failed to delete category budget');
-            }
+        try {
+            await removeCategoryBudget(categoryBudget.id);
+            toast.success(`Successfully deleted category from ${currentMonth}`);
+        } catch (err: any) {
+            toast.error(err.response?.data?.error || `Failed to delete category from ${currentMonth}`);
+
         }
     };
 

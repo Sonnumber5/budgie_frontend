@@ -1,10 +1,11 @@
 
 import { useState } from "react";
 import type { FundTransaction } from "../../../types";
-import { Modal } from "../../../components/Modal";
+import { Modal } from "../../../components/modal";
 import { useFundTransactionContext } from "../../../context/FundTransactionContext";
 import { FundTransactionForm } from "./FundTransactionForm";
 import './TransactionItem.css';
+import { toast } from "react-toastify";
 
 interface TransactionItemProps{
     transaction: FundTransaction;
@@ -14,6 +15,15 @@ interface TransactionItemProps{
 export const TransactionItem = ({ transaction, canDelete }: TransactionItemProps) => {
     const { removeFundTransaction } = useFundTransactionContext();
     const [ isModalOpen, setIsModalOpen ] = useState(false);
+
+    const handleRemoveTransaction = async (savingsFundId: number, transactionId: number) => {
+        try{
+            await removeFundTransaction(savingsFundId, transactionId);
+            toast.success('Successfully deleted transaction');
+        } catch(err: any){
+            toast.error(err.response?.data?.error || 'Failed to delete transaction')
+        }
+    }
     
     return (
         <div className="transaction-item">
@@ -29,7 +39,7 @@ export const TransactionItem = ({ transaction, canDelete }: TransactionItemProps
                     <button onClick={() => {setIsModalOpen(true)}}>
                         Edit
                     </button>
-                    <button onClick={() => removeFundTransaction(transaction.savingsFundId, transaction.id)}>
+                    <button onClick={() => handleRemoveTransaction(transaction.savingsFundId, transaction.id)}>
                         Delete
                     </button> 
                 </div>

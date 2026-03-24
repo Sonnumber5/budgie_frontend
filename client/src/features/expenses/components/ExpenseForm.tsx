@@ -7,6 +7,7 @@ import type { Expense, ExpenseDTO } from "../../../types";
 import { useExpenseContext } from "../../../context/ExpenseContext";
 import { useBudgetContext } from "../../../context/BudgetContext";
 import { useDateContext } from "../../../context/DateContext";
+import { toast } from 'react-toastify';
 
 interface ExpenseFormProps{
     onSuccess: () => void;
@@ -52,10 +53,10 @@ export const ExpenseForm = ({ onSuccess, expenseToEdit, categoryId }: ExpenseFor
                 await addExpense(formData);
                 console.log('Expense added successfully. category id: ', categoryId);
             }
+            toast.success(`Successfully ${isEditMode ? 'updated' : 'added'} expense`);
             onSuccess();
-        } catch(error){
-            console.error('Error adding expense:', error); 
-            alert(`Failed to ${isEditMode ? 'update' : 'add'} expense`)
+        } catch(err: any){
+            toast.error(err.response?.data?.error || `Failed to ${isEditMode ? 'update' : 'create'} expense`)
         }
     }
 

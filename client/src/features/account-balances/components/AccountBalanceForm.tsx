@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import type { AccountBalance, AccountBalanceDTO } from "../../../types";
 import { useAccountBalanceContext } from "../../../context/AccountBalanceContext";
 import type { AccountType } from "../../../types";
+import { toast } from 'react-toastify';
 
 interface AccountBalanceFormProps{
     onSuccess: () => void;
@@ -36,9 +37,10 @@ export const AccountBalanceForm = ({ onSuccess, accountBalanceToUpdate }: Accoun
             } else{
                 await addAccountBalance(formData);
             }
-            onSuccess();
-        } catch(error){
-            alert(`Failed to ${isEditMode ? 'update' : 'add'} account balance`)
+            toast.success(`Successfully ${isEditMode ? 'updated' : 'created'} account balance`);
+            onSuccess()
+        } catch(err: any){
+            toast.error(err.response?.data?.error || `Failed to ${isEditMode ? 'update' : 'create'} account balance`);
         }
     }
 

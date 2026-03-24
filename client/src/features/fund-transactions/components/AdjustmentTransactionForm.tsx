@@ -2,6 +2,7 @@ import { useState } from "react";
 import type { SavingsFund } from "../../../types";
 import { useDateContext } from "../../../context/DateContext";
 import { useFundTransactionContext } from "../../../context/FundTransactionContext";
+import { toast } from 'react-toastify';
 
 interface AdjustmentTransactionFormProps{
     onSuccess: () => void;
@@ -21,11 +22,10 @@ export const AdjustmentTransactionForm = ({ onSuccess, fund }: AdjustmentTransac
         e.preventDefault();
         try{
             await addAdjustTransaction(formData);
-            console.log('Adjustment transaction successfully created');
+            toast.success('Successfully adjusted fund balance');
             onSuccess();
-        } catch(error){
-            console.error('Error adding adjustment transaction:', error); 
-            alert(`Failed to create adjustment transaction`)
+        } catch(err: any){
+            toast.error(err.response?.data?.error || 'Failed to adjust account balance');
         }
     }
 

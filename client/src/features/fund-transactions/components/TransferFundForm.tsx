@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useDateContext } from "../../../context/DateContext";
 import { useFundTransactionContext } from "../../../context/FundTransactionContext";
 import { useSavingsFundContext } from "../../../context/SavingsFundContext";
+import { toast } from "react-toastify";
 
 interface TransferFundFormProps{
     onSuccess: () => void;
@@ -21,20 +22,20 @@ export const TransferFundForm = ({ onSuccess }: TransferFundFormProps) => {
     const handleSubmit = async (e: React.SyntheticEvent) => {
         e.preventDefault();
         if (!formData.sendingFundId || !formData.receivingFundId) {
-            alert('Please select both funds');
+            toast.error('Please select both funds');
             return;
         }
         if (formData.sendingFundId === formData.receivingFundId) {
-            alert('Sending and receiving funds cannot be the same');
+            toast.error('Sending and receiving funds cannot be the same');
             return;
         }
         
         try{
             await addTransferTransaction({...formData, sendingFundId: Number(formData.sendingFundId), receivingFundId: Number(formData.receivingFundId)});
+            toast.success('Successfully transferred funds');
             onSuccess();
-        } catch(error){
-            console.error('Error transfering funds:', error); 
-            alert('Failed to transfer funds');
+        } catch(err: any){
+            toast.error(err.response?.data?.error || 'Could not transfer funds');
         }
     }
 

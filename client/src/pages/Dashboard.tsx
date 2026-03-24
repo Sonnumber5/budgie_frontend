@@ -30,8 +30,6 @@ export const Dashboard = () => {
     const [ isBudgetModalOpen, setIsBudgetModalOpen ] = useState(false);
     const [ isAccountBalanceModalOpen, setIsAccountBalanceModalOpen ] = useState(false);
 
-    const isLoading = isIncomeLoading || isExpensesLoading;
-
     return (
         <div className="dashboard">
             <Modal isOpen={isBudgetModalOpen} onClose={() => {setIsBudgetModalOpen(false)}} title="Monthly Budget">
@@ -45,10 +43,10 @@ export const Dashboard = () => {
             </div>
             <div className='totals-section'>
                 <div className='income-total'>
-                    {isLoading ? 'Loading...' : `Total income: ${Number(incomeSum).toFixed(2)}`}
+                    {isIncomeLoading ? 'Loading...' : `Total income: ${Number(incomeSum).toFixed(2)}`}
                 </div>
                 <div className='expenses-total'>
-                    Total expenses: ${Number(expenseSum).toFixed(2)}
+                    {isExpensesLoading ? 'Loading...' : `Total expense: ${Number(expenseSum).toFixed(2)}`}
                 </div>
                 <div className='remaining-total'>
                     <div>

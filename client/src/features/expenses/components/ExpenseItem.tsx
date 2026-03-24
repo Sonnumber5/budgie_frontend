@@ -4,8 +4,9 @@ import { useState } from "react";
 import { useExpenseContext } from "../../../context/ExpenseContext";
 import type { Expense } from "../../../types";
 import './ExpenseItem.css';
-import { Modal } from "../../../components/Modal";
+import { Modal } from "../../../components/modal";
 import { ExpenseForm } from "./ExpenseForm";
+import { toast } from 'react-toastify';
 
 interface ExpenseItemProps{
     expense: Expense;
@@ -14,6 +15,15 @@ interface ExpenseItemProps{
 export const ExpenseItem = ({ expense }: ExpenseItemProps) => {
     const { removeExpense } = useExpenseContext();
     const [ isModalOpen, setIsModalOpen ] = useState(false);
+
+    const handleRemoveExpense = async (id: number) => {
+        try{
+            await removeExpense(id);
+            toast.error('Successfully deleted expense');
+        } catch(err: any){
+            toast.error(err.response?.data?.error || `Failed to delete expense`);
+        }
+    }
     
     return (
         <div className="expense-item">
@@ -28,7 +38,7 @@ export const ExpenseItem = ({ expense }: ExpenseItemProps) => {
                 <button onClick={() => {setIsModalOpen(true)}}>
                     Edit
                 </button>
-                <button onClick={() => removeExpense(expense.id)}>
+                <button onClick={() => handleRemoveExpense(expense.id)}>
                     Delete
                 </button>
             </div>

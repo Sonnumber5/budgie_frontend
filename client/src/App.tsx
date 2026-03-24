@@ -23,6 +23,8 @@ import { SavingsFundProvider } from './context/SavingsFundContext';
 import { SavingsFundPage } from './pages/SavingsFundPage';
 import { FundTransactionProvider } from './context/FundTransactionContext';
 import { AccountBalanceProvider } from './context/AccountBalanceContext';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function App() {
   // DefaultRoute redirects the root "/" path based on authentication status.
@@ -37,6 +39,7 @@ function App() {
   return (
     <BrowserRouter>
       <AuthProvider>
+        <ToastContainer position="bottom-right" />
         <DateProvider>
           <SavingsFundProvider>
             <FundTransactionProvider>
