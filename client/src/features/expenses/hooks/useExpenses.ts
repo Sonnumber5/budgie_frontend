@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import { getExpenses, createExpense, updateExpense, deleteExpense, getExpenseTotal } from '../api/expenses';
 import type { Expense, ExpenseDTO } from "../../../types";
 import { useDateContext } from '../../../context/DateContext';
+import { useAuth } from "../../../context/AuthContext";
 
 export const useExpenses = () => {
     const { currentMonth } = useDateContext();
@@ -11,8 +12,14 @@ export const useExpenses = () => {
     const [ isLoading, setIsLoading ] = useState(false);
     const [ error, setError ] = useState<string | null>(null);
     const [ expenseSum, setExpenseSum ] = useState(0);
+    const { isAuthenticated } = useAuth();
 
     const fetchExpenses = async () => {
+        if (!isAuthenticated) {
+            setExpenses([]);
+            setExpenseSum(0);
+            return;
+        }
         setIsLoading(true);
         setError(null);
         try{
@@ -32,7 +39,7 @@ export const useExpenses = () => {
 
     useEffect (() => {
         fetchExpenses(); 
-    }, [currentMonth]);
+    }, [currentMonth, isAuthenticated]);
 
     const addExpense = async (data: ExpenseDTO): Promise<Expense> => {
         setIsLoading(true);

@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import type { SavingsFund, SavingsFundDTO } from "../../../types/index";
-import { createSavingsFund, getActiveSavingsFunds, getSavingsFundById, getArchivedSavingsFunds, updateSavingsFund, archiveSavingsFundAPI, deleteSavingsFund } from '../api/savings-funds'
+import { createSavingsFund, getActiveSavingsFunds, getSavingsFundById, getArchivedSavingsFunds, updateSavingsFund, archiveSavingsFundAPI, deleteSavingsFund } from '../api/savings-funds';
+import { useAuth } from "../../../context/AuthContext";
 
 export const useSavingsFunds = () => {
     const [ activeSavingsFunds, setActiveSavingsFunds ] = useState<SavingsFund[]>([]);
@@ -8,8 +9,15 @@ export const useSavingsFunds = () => {
     const [ savingsTotal, setSavingsTotal ] = useState(0);
     const [ isLoading, setIsLoading ] = useState(false);
     const [ error, setError ] = useState<string | null>(null);
+    const { isAuthenticated } = useAuth();
 
     useEffect(() => {
+        if (!isAuthenticated) {
+            setActiveSavingsFunds([]);
+            setArchivedSavingsFunds([]);
+            setSavingsTotal(0);
+            return;
+        }
         const fetchActiveSavingsFunds = async () => {
             setIsLoading(true);
             setError(null);
@@ -28,7 +36,7 @@ export const useSavingsFunds = () => {
             }
         }
         fetchActiveSavingsFunds();
-    }, []);
+    }, [isAuthenticated]);
 
     const refreshFundInfo = async (fundId: number) => {
         try {

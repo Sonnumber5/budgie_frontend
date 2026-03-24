@@ -3,6 +3,7 @@ import { useSavingsFundContext } from "../../../context/SavingsFundContext";
 import type { FundTransaction, FundTransactionDTO } from "../../../types";
 import { createFundTransaction, getAllTransactionsForActiveFunds, getContributionSumForMonth, updateFundTransaction, deleteFundTransaction, createAdjustmentTransaction, createTransferTransaction } from "../api/fund-transactions";
 import { useDateContext } from "../../../context/DateContext";
+import { useAuth } from "../../../context/AuthContext";
 
 export const useFundTransactions = () => {
     const [ transactions, setTransactions ] = useState<FundTransaction[]>([]);
@@ -11,8 +12,13 @@ export const useFundTransactions = () => {
     const [ monthlyContributionSum, setMonthlyContributionSum ] = useState(0);
     const { refreshFundInfo } = useSavingsFundContext();
     const { currentMonth } = useDateContext();
+    const { isAuthenticated } = useAuth();
 
     useEffect(() => {
+        if (!isAuthenticated){
+            setTransactions([]);
+            setMonthlyContributionSum(0);
+        }
         const fetchTransactions = async () => {
             setIsLoading(true);
             setError(null);
@@ -27,7 +33,7 @@ export const useFundTransactions = () => {
             }
         }
         fetchTransactions();
-    }, []);
+    }, [isAuthenticated]);
 
     useEffect(() => {
         const fetchContributionSumForMonth = async (month: string): Promise<number> => {

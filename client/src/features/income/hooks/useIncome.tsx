@@ -5,15 +5,22 @@ import { useState, useEffect } from "react";
 import type { Income, IncomeDTO } from "../../../types";
 import { useDateContext } from "../../../context/DateContext";
 import { createIncome, getIncome, getIncomeTotal, updateIncome, deleteIncome } from './../api/income';
+import { useAuth } from "../../../context/AuthContext";
+
 
 export const useIncome = () => {
     const { currentMonth } = useDateContext();
+    const { isAuthenticated } = useAuth();
     const [ incomeList, setIncomeList ] = useState<Income[]>([]);
     const [ isLoading, setIsLoading ] = useState(false);
     const [ error, setError ] = useState<string | null>(null);
     const [ incomeSum, setIncomeSum ] = useState(0);
 
     useEffect(() => {
+        if (!isAuthenticated) {
+            setIncomeList([]);
+            return;
+        }
         const fetchIncome = async () => {
             setIsLoading(true);
             setError(null);
@@ -31,7 +38,7 @@ export const useIncome = () => {
             }
         }
         fetchIncome();
-    }, [currentMonth]);
+    }, [currentMonth, isAuthenticated]);
 
     // addIncome posts a new income entry and adds its amount to the running incomeSum.
     const addIncome = async (data: IncomeDTO): Promise<Income> => {

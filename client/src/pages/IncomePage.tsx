@@ -4,7 +4,7 @@
 import { IncomeItem } from "../features/income/components/IncomeItem";
 import { useIncomeContext } from "../context/IncomeContext";
 import './IncomePage.css';
-import { Modal } from "../components/Modal";
+import { Modal } from "../components/modal";
 import { useState } from "react";
 import { IncomeForm } from "../features/income/components/IncomeForm";
 
@@ -16,7 +16,7 @@ export const IncomePage = () => {
     return(
         <div className="income-page">
             <div className="income-aggregates">
-            Total: {incomeSum}
+            Total: {Number(incomeSum).toFixed(2)}
             </div>
             <button onClick={() => {setIsModalOpen(true)}}>
             + Add Income

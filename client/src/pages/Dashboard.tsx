@@ -48,7 +48,7 @@ export const Dashboard = () => {
                     {isLoading ? 'Loading...' : `Total income: ${Number(incomeSum).toFixed(2)}`}
                 </div>
                 <div className='expenses-total'>
-                    Total expenses: ${expenseSum}
+                    Total expenses: ${Number(expenseSum).toFixed(2)}
                 </div>
                 <div className='remaining-total'>
                     <div>
@@ -62,7 +62,7 @@ export const Dashboard = () => {
                     </div>
                 </div>
                 <div className='net-worth-total'>
-                    Financial Overview: ${financialOverview}
+                    Financial Overview: ${Number(financialOverview).toFixed(2)}
                 </div>
             </div>
             <div className='budget-funds-balance-sections'>

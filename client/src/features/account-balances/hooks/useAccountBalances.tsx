@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import type { AccountBalance, AccountBalanceDTO } from "../../../types";
 import { createAccountBalance, getAccountBalances, resetAccountBalances, updateAccountBalance, deleteAccountBalance } from './../api/account-balances';
 import { useDateContext } from "../../../context/DateContext";
+import { useAuth } from "../../../context/AuthContext";
 
 export const useAccountBalances = () => {
     const [ accountBalances, setAccountBalances ] = useState<AccountBalance[]>([]);
@@ -10,8 +11,14 @@ export const useAccountBalances = () => {
     const [ error, setError ] = useState<string | null>(null);
     const [ isLoading, setIsLoading ] = useState(false);
     const { currentMonth } = useDateContext();
+    const { isAuthenticated } = useAuth();
 
     useEffect(() => {
+        if (!isAuthenticated){
+            setAccountBalances([]);
+            setAssetsTotal(0);
+            setLiabilitiesTotal(0);
+        }
         const fetchAccountBalances = async () => {
             try{
                 setIsLoading(true);
@@ -33,7 +40,7 @@ export const useAccountBalances = () => {
             }
         }
         fetchAccountBalances();
-    }, [currentMonth]);
+    }, [currentMonth, isAuthenticated]);
 
     const addAccountBalance = async (data: AccountBalanceDTO): Promise<AccountBalance> => {
         setIsLoading(true);

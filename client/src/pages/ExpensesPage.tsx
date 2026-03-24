@@ -7,7 +7,7 @@ import { useExpenseContext } from "../context/ExpenseContext";
 import { useBudgetContext } from "../context/BudgetContext";
 import { CategorizedExpenses } from "../features/expenses/components/CategorizedExpenses";
 import { useState } from 'react';
-import { Modal } from '../components/Modal';
+import { Modal } from '../components/modal';
 import { ExpenseForm } from '../features/expenses/components/ExpenseForm';
 
 
@@ -50,7 +50,7 @@ export const ExpensesPage = () => {
     return(
         <div className="expense-page">
             <div className="expense-aggregates">
-                Total: ${totalExpenses.toFixed(2)}
+                Total: ${Number(totalExpenses.toFixed(2))}
             </div>
             <Modal isOpen={isModalOpen} onClose={() => {setIsModalOpen(false)}} title="Add Expense">
                 <ExpenseForm onSuccess={() => {setIsModalOpen(false)}}/>

@@ -11,7 +11,6 @@ import { LoginPage } from './pages/LoginPage';
 import { RegisterPage } from './pages/RegisterPage';
 import { ProtectedRoute } from './components/ProtectedRoute';
 import { AuthProvider } from './context/AuthContext';
-import { DashboardProvider } from './context/DashboardContext';
 import { Dashboard } from './pages/Dashboard';
 import { Navbar } from './components/navbar';
 import { ExpensesPage } from './pages/ExpensesPage';
@@ -20,7 +19,6 @@ import { IncomePage } from './pages/IncomePage';
 import { Navigate } from 'react-router-dom';
 import { useAuth } from './context/AuthContext';
 import { BudgetProvider } from './context/BudgetContext';
-import { BudgetOverview } from './features/budget/components/BudgetOverview';
 import { SavingsFundProvider } from './context/SavingsFundContext';
 import { SavingsFundPage } from './pages/SavingsFundPage';
 import { FundTransactionProvider } from './context/FundTransactionContext';
@@ -45,7 +43,6 @@ function App() {
               <ExpenseProvider>
                 <IncomeProvider>
                   <AccountBalanceProvider>
-                    <DashboardProvider>
                       <BudgetProvider>
                       <Navbar/>
                         <Routes>
@@ -74,7 +71,6 @@ function App() {
                           }/>
                         </Routes>
                       </BudgetProvider>
-                    </DashboardProvider>
                   </AccountBalanceProvider>
                 </IncomeProvider>
               </ExpenseProvider>

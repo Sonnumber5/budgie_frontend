@@ -6,8 +6,8 @@ import { getCategoriesAPI, createMonthlyBudgetAPI, getBudgetByMonthAPI, updateCa
 import { useState, useEffect } from 'react';
 import { useDateContext } from '../../../context/DateContext';
 import type { CategoryBudget, MonthlyBudget, Category, MonthlyBudgetDTO, CategoryBudgetDTO } from '../../../types';
-import { useDashboardContext } from '../../../context/DashboardContext';
 import { useExpenseContext } from '../../../context/ExpenseContext';
+import { useAuth } from "../../../context/AuthContext";
 
 export const useBudgets = () => {
     //const { triggerRefresh } = useDashboardContext();
@@ -18,8 +18,14 @@ export const useBudgets = () => {
     const [ availableCategories, setAvailableCategories ] = useState<Category[]>([]);
     const [ isLoading, setIsLoading ] = useState(false);
     const [ error, setError ] = useState<string | null>(null);
+    const { isAuthenticated } = useAuth();
 
     useEffect(() => {
+        if (isAuthenticated){
+            setMonthlyBudget(null);
+            setCategoryBudgets([]);
+            setAvailableCategories([]);
+        }
         const fetchBudget = async () => {
             setIsLoading(true);
             setError(null);
@@ -70,7 +76,7 @@ export const useBudgets = () => {
         }
         
         fetchBudget();
-    }, [currentMonth]);
+    }, [currentMonth, isAuthenticated]);
 
     // addMonthlyBudget creates a new budget for the currently selected month.
     // Automatically sets data.month before sending so the caller doesn't need to.
