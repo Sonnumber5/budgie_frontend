@@ -8,6 +8,8 @@ import { Modal } from "../../../components/modal";
 import { IncomeForm } from "./IncomeForm";
 import { useState } from "react";
 import { toast } from "react-toastify";
+import { DropdownMenu } from "../../../components/DropdownMenu";
+import { ConfirmModal } from "../../../components/ConfirmModal";
 
 
 interface IncomeProps{
@@ -16,7 +18,9 @@ interface IncomeProps{
 
 export const IncomeItem = ({ income }: IncomeProps) => {
     const { removeIncome } = useIncomeContext();
-    const [ isModalOpen, setIsModalOpen ] = useState(false);
+    const [ isIncomeModalOpen, setIsIncomeModalOpen ] = useState(false);
+    const [ isConfirmModalOpen, setIsConfirmModalOpen ] = useState(false);
+
 
     const handleRemoveIncome = async (id: number) => {
         try{
@@ -29,19 +33,15 @@ export const IncomeItem = ({ income }: IncomeProps) => {
 
     return (
         <div className="income-item">
-            <Modal isOpen={isModalOpen} onClose={() => {setIsModalOpen(false)}} title="Edit Income">
-                <IncomeForm incomeToEdit={income} onSuccess={() => {setIsModalOpen(false)}}/>
+            <Modal isOpen={isIncomeModalOpen} onClose={() => {setIsIncomeModalOpen(false)}} title="Edit Income">
+                <IncomeForm incomeToEdit={income} onSuccess={() => {setIsIncomeModalOpen(false)}}/>
             </Modal>
+            <ConfirmModal isOpen={isConfirmModalOpen} onClose={() => {setIsConfirmModalOpen(false)}} confirmAction={() => {handleRemoveIncome(income.id)}}/>
             <div>{formatDate(income.incomeDate)}</div>
             <div>{income.source}</div>
             <div>{income.amount}</div>
             <div>
-                <button onClick={() => {setIsModalOpen(true)}}>
-                    Edit
-                </button>
-                <button onClick={() => handleRemoveIncome(income.id)}>
-                    Delete
-                </button>
+                <DropdownMenu onDelete={() => {setIsConfirmModalOpen(true)}} onEdit={() => {setIsIncomeModalOpen(true)}}/>
             </div>
         </div>
     )
