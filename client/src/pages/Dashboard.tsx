@@ -24,7 +24,7 @@ export const Dashboard = () => {
     const { expenseSum, isLoading: isExpensesLoading } = useExpenseContext();
     const { monthlyBudget } = useBudgetContext();
     const { monthlyContributionSum } = useFundTransactionContext();
-    const { accountBalances } = useAccountBalanceContext();
+    const { accountBalances, clearAccountBalances } = useAccountBalanceContext();
     const { activeSavingsFunds } = useSavingsFundContext();
     const { financialOverview, currentRemaining, monthlyTotal } = useDashboard();
     const [ isBudgetModalOpen, setIsBudgetModalOpen ] = useState(false);
@@ -76,6 +76,7 @@ export const Dashboard = () => {
                     </div>
                     <div className='balance-section'>
                         <button onClick={() => {setIsAccountBalanceModalOpen(true)}}>+</button>
+                        <button onClick={() => {clearAccountBalances()}}>Clear Balances</button>
                         {accountBalances.map(accountBalance => (
                             <AccountBalanceItem key={accountBalance.id} accountBalance={accountBalance} />
                         ))}
