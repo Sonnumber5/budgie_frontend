@@ -15,7 +15,9 @@ import { BudgetManagementForm } from '../features/budget/components/BudgetManage
 export const ExpensesPage = () => {
     const { expenses, isLoading, error } = useExpenseContext();
     const { categoryBudgets, monthlyBudget } = useBudgetContext();
-    const [ isModalOpen, setIsModalOpen ] = useState(false);
+    const [ isExpenseModalOpen, setIsExpenseModalOpen ] = useState(false);
+    const [ isBudgetModalOpen, setIsBudgetModalOpen ] = useState(false);
+
 
     
     // Build one group per category budget, attaching only expenses that belong to that category.
@@ -50,19 +52,19 @@ export const ExpensesPage = () => {
 
     return(
         <div className="expense-page">
-            <Modal isOpen={isModalOpen} onClose={() => {setIsModalOpen(false)}} title="Add Expense">
-                <ExpenseForm onSuccess={() => {setIsModalOpen(false)}}/>
+            <Modal isOpen={isExpenseModalOpen} onClose={() => {setIsExpenseModalOpen(false)}} title="Add Expense">
+                <ExpenseForm onSuccess={() => {setIsExpenseModalOpen(false)}}/>
             </Modal>
-            <Modal isOpen={isModalOpen} onClose={() => {setIsModalOpen(false)}} title="Monthly Budget">
-                <BudgetManagementForm budgetToEdit={monthlyBudget ?? null} onSuccess={() => {setIsModalOpen(false)}}/>
+            <Modal isOpen={isBudgetModalOpen} onClose={() => {setIsBudgetModalOpen(false)}} title="Monthly Budget">
+                <BudgetManagementForm budgetToEdit={monthlyBudget ?? null} onSuccess={() => {setIsBudgetModalOpen(false)}}/>
             </Modal>
             <div className="expense-aggregates">
                 Total: ${Number(totalExpenses.toFixed(2))}
             </div>
-            <button onClick={() => {setIsModalOpen(true)}}>
+            <button onClick={() => {setIsExpenseModalOpen(true)}}>
                 +
             </button>
-            <button onClick={() => {setIsModalOpen(true)}}>
+            <button onClick={() => {setIsBudgetModalOpen(true)}}>
                 Manage Budget
             </button>
             <div className="category-list">

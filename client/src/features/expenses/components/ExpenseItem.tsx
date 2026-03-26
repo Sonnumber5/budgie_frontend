@@ -7,6 +7,8 @@ import './ExpenseItem.css';
 import { Modal } from "../../../components/modal";
 import { ExpenseForm } from "./ExpenseForm";
 import { toast } from 'react-toastify';
+import { DropdownMenu } from "../../../components/DropdownMenu";
+import { ConfirmModal } from "../../../components/ConfirmModal";
 
 interface ExpenseItemProps{
     expense: Expense;
@@ -15,6 +17,7 @@ interface ExpenseItemProps{
 export const ExpenseItem = ({ expense }: ExpenseItemProps) => {
     const { removeExpense } = useExpenseContext();
     const [ isModalOpen, setIsModalOpen ] = useState(false);
+    const [ isConfirmModalOpen, setIsConfirmModalOpen ] = useState(false);
 
     const handleRemoveExpense = async (id: number) => {
         try{
@@ -32,15 +35,11 @@ export const ExpenseItem = ({ expense }: ExpenseItemProps) => {
             <div>${Number(expense.amount).toFixed(2)}</div>
             <div>{new Date(expense.expenseDate).toLocaleDateString()}</div>
             <div>
+                <DropdownMenu onEdit={() => {setIsModalOpen(true)}} onDelete={() => setIsConfirmModalOpen(true)}/>
                 <Modal isOpen={isModalOpen} onClose={() => {setIsModalOpen(false)}} title="Edit Expense">
                     <ExpenseForm onSuccess={() => {setIsModalOpen(false)}} expenseToEdit={expense}/>
                 </Modal>
-                <button onClick={() => {setIsModalOpen(true)}}>
-                    Edit
-                </button>
-                <button onClick={() => handleRemoveExpense(expense.id)}>
-                    Delete
-                </button>
+                <ConfirmModal isOpen={isConfirmModalOpen} onClose={() => {setIsConfirmModalOpen(false)}} confirmAction={() => {handleRemoveExpense(expense.id)}}/>
             </div>
         </div>
     );
