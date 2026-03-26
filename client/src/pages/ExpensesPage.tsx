@@ -9,11 +9,12 @@ import { CategorizedExpenses } from "../features/expenses/components/Categorized
 import { useState } from 'react';
 import { Modal } from '../components/modal';
 import { ExpenseForm } from '../features/expenses/components/ExpenseForm';
+import { BudgetManagementForm } from '../features/budget/components/BudgetManagementForm';
 
 
 export const ExpensesPage = () => {
     const { expenses, isLoading, error } = useExpenseContext();
-    const { categoryBudgets } = useBudgetContext();
+    const { categoryBudgets, monthlyBudget } = useBudgetContext();
     const [ isModalOpen, setIsModalOpen ] = useState(false);
 
     
@@ -52,11 +53,17 @@ export const ExpensesPage = () => {
             <Modal isOpen={isModalOpen} onClose={() => {setIsModalOpen(false)}} title="Add Expense">
                 <ExpenseForm onSuccess={() => {setIsModalOpen(false)}}/>
             </Modal>
+            <Modal isOpen={isModalOpen} onClose={() => {setIsModalOpen(false)}} title="Monthly Budget">
+                <BudgetManagementForm budgetToEdit={monthlyBudget ?? null} onSuccess={() => {setIsModalOpen(false)}}/>
+            </Modal>
             <div className="expense-aggregates">
                 Total: ${Number(totalExpenses.toFixed(2))}
             </div>
             <button onClick={() => {setIsModalOpen(true)}}>
                 +
+            </button>
+            <button onClick={() => {setIsModalOpen(true)}}>
+                Manage Budget
             </button>
             <div className="category-list">
                 {isLoading && <p>Loading...</p>}

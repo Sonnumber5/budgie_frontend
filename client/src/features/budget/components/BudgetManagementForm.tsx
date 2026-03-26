@@ -116,6 +116,7 @@ export const BudgetManagementForm = ({ onSuccess, budgetToEdit }: BudgetManageme
                                 <input
                                     type="number"
                                     value={cb.budgetedAmount}
+                                    disabled
                                     style={{ flex: 1 }}
                                 />
                                 <button

@@ -8,6 +8,7 @@ import './CategorizedExpenses.css';
 import { useState } from "react";
 import { Modal } from "../../../components/modal";
 import { ExpenseForm } from "./ExpenseForm";
+import { CategoryBudgetForm } from "../../budget/components/CategoryBudgetForm";
 
 interface CategorizedExpensesProps{
     categoryBudget?: CategoryBudget;
@@ -18,7 +19,8 @@ interface CategorizedExpensesProps{
 
 export const CategorizedExpenses = ({ categoryBudget, expenses, totalSpent, remaining }:CategorizedExpensesProps) => {
     const [ isOpen, setIsOpen ] = useState(false);
-    const [ isModalOpen, setIsModalOpen ] = useState(false);
+    const [ isExpenseModalOpen, setIsExpenseModalOpen ] = useState(false);
+    const [ isCategoryBudgetModalOpen, setIsCategoryBudgetModalOpen ] = useState(false);
 
     return (
         <div className="budget-category">
@@ -27,9 +29,13 @@ export const CategorizedExpenses = ({ categoryBudget, expenses, totalSpent, rema
                 <p>{categoryBudget ? `Budget: $${Number(categoryBudget.budgetedAmount).toFixed(2)}` : ""}</p>
                 <p>Total Spent: ${totalSpent.toFixed(2)}</p>
                 <p>{remaining || remaining === 0 ? `Remaining: $${remaining.toFixed(2)}` : ""}</p>
-                <button onClick={() => {setIsModalOpen(true)}} className="add-btn">+</button>
-                <Modal isOpen={isModalOpen} onClose={() => {setIsModalOpen(false)}} title={'Expense Form'}>
-                    <ExpenseForm categoryId={categoryBudget ? categoryBudget.categoryId : undefined} onSuccess={() => {setIsModalOpen(false)}}/>
+                <button onClick={() => {setIsExpenseModalOpen(true)}} className="add-btn">+</button>
+                <button onClick={() => {setIsCategoryBudgetModalOpen(true)}}>Edit</button>
+                <Modal isOpen={isExpenseModalOpen} onClose={() => {setIsExpenseModalOpen(false)}} title={'Expense Form'}>
+                    <ExpenseForm categoryId={categoryBudget ? categoryBudget.categoryId : undefined} onSuccess={() => {setIsExpenseModalOpen(false)}}/>
+                </Modal>
+                <Modal isOpen={isCategoryBudgetModalOpen} onClose={() => {setIsCategoryBudgetModalOpen(false)}} title={'Expense Form'}>
+                    <CategoryBudgetForm categoryBudgetToEdit={categoryBudget} onSuccess={() => {setIsCategoryBudgetModalOpen(false)}}/>
                 </Modal>
             </div>
             {isOpen && (
