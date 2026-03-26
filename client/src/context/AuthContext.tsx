@@ -8,7 +8,6 @@ import React from "react";
 interface User{
     userId: number,
     email: string,
-    password: string,
     name: string
 }
 
@@ -41,7 +40,6 @@ export const AuthProvider = ({ children }: {children: React.ReactNode}) => {
             } catch(error: any){
                 // Cookie is absent or expired; user is not authenticated.
                 setUser(null);
-                console.error(error.response?.data?.error);
                 setError(error.response?.data?.error || error.message || 'Could not verify');
             } finally{
                 setIsLoading(false);
@@ -57,7 +55,6 @@ export const AuthProvider = ({ children }: {children: React.ReactNode}) => {
         try {
             await logoutAPI();
         } catch (error: any) {
-            console.error(error.response?.data?.error);
             setError(error.response?.data?.error || error.message || 'Failed to logout');
         } finally {
             setUser(null);
@@ -75,7 +72,6 @@ export const AuthProvider = ({ children }: {children: React.ReactNode}) => {
             const userResponse = response.data.user;
             setUser(userResponse);
         } catch(error: any){
-            console.error(error.response?.data?.error);
             setError(error.response?.data?.error || error.message || 'Failed to login');
             setUser(null);
             throw error;

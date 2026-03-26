@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import type { SavingsFundDTO, SavingsFund } from "../../../types";
 import { useSavingsFundContext } from "../../../context/SavingsFundContext";
-import { ToastContainer, toast } from 'react-toastify';
+import { toast } from 'react-toastify';
 
 interface FundFormProps{
     onSuccess: () => void;
@@ -58,6 +58,8 @@ export const FundForm = ({ onSuccess, fundToEdit }: FundFormProps) => {
                     value={formData.goal}
                     onChange={(e) => setFormData({...formData, goal: Number(e.target.value)})}
                     required
+                    min={0}
+                    step="0.01"
                 />
             </div>
             <button type="submit">

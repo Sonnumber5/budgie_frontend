@@ -62,6 +62,8 @@ export const AccountBalanceForm = ({ onSuccess, accountBalanceToUpdate }: Accoun
                     value={formData.balance}
                     onChange={(e) => setFormData({...formData, balance: Number(e.target.value)})}
                     required
+                    min={0}
+                    step="0.01"
                 />
             </div>
             <div>

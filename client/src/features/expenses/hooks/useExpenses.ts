@@ -31,7 +31,6 @@ export const useExpenses = () => {
             setExpenseSum(Number(sumResponse.data.expenseSum));
         } catch(error: any){
             setError(error.response?.data?.error || error.message || 'Failed to fetch expenses');
-            console.error('Failed to fetch expenses:', error);
         } finally{
             setIsLoading(false);
         }

@@ -95,6 +95,8 @@ export const BudgetManagementForm = ({ onSuccess, budgetToEdit }: BudgetManageme
                     value={expectedIncome}
                     onChange={(e) => setExpectedIncome(Number(e.target.value))}
                     required
+                    min={0}
+                    step="0.01"
                 />
             </div>
             <div>

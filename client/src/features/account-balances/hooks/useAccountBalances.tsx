@@ -34,7 +34,6 @@ export const useAccountBalances = () => {
                 setAccountBalances(accounts); 
             } catch(error: any){
                 setError(error.response?.data?.error || error.message || 'Failed to fetch account balances');
-                console.error('Failed to fetched account balances: ', error);
             } finally{
                 setIsLoading(false);
             }

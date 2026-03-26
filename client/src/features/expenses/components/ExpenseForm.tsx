@@ -51,7 +51,6 @@ export const ExpenseForm = ({ onSuccess, expenseToEdit, categoryId }: ExpenseFor
                 await editExpense(expenseToEdit.id, formData)
             } else{
                 await addExpense(formData);
-                console.log('Expense added successfully. category id: ', categoryId);
             }
             toast.success(`Successfully ${isEditMode ? 'updated' : 'added'} expense`);
             onSuccess();
@@ -101,6 +100,8 @@ export const ExpenseForm = ({ onSuccess, expenseToEdit, categoryId }: ExpenseFor
                     value={formData.amount}
                     onChange={(e) => setFormData({...formData, amount: Number(e.target.value)})}
                     required
+                    min={0}
+                    step="0.01"
                 />
             </div>
             {selectCategory()}

@@ -68,7 +68,6 @@ export const useBudgets = () => {
                     setError(null);
                 } else {
                     setError(error.response?.data?.error || error.message || 'Failed to fetch budget');
-                    console.error('Failed to fetch budget:', error);
                 }
             } finally {
                 setIsLoading(false);
@@ -106,7 +105,6 @@ export const useBudgets = () => {
             return newBudget;
         } catch(error: any) {
             setError(error.response?.data?.error || error.message || 'Failed to create monthly budget');
-            console.error('Failed to create budget:', error);
             throw error; 
         } finally {
             setIsLoading(false);
@@ -140,7 +138,6 @@ export const useBudgets = () => {
             return updatedBudget;
         } catch(error: any) {
             setError(error.response?.data?.error || error.message || 'Failed to update monthly budget');
-            console.error('Failed to update budget:', error);
             throw error; 
         } finally {
             setIsLoading(false);
@@ -171,7 +168,6 @@ export const useBudgets = () => {
             return updatedCategoryBudget;
         }catch(error: any){
             setError(error.response?.data?.error || error.message || 'Failed to update category budget');
-            console.error('Failed to update category budget:', error);
             throw error; 
         }finally{
             setIsLoading(false);
@@ -202,7 +198,6 @@ export const useBudgets = () => {
             setAvailableCategories(updatedCategories);
             fetchExpenses();
         } catch(error: any){
-            console.error('Failed to delete category budget', error);
             setError(error.response?.data?.error || error.message || 'Failed to delete category budget');
             throw error;
         }finally{
@@ -220,7 +215,6 @@ export const useBudgets = () => {
             setCategoryBudgets([]);
             setMonthlyBudget(null);
         }catch(error: any){
-            console.error('Failed to delete monthly budget', error);
             setError(error.response?.data?.error || error.message || 'Failed to delete monthly budget');
             throw error;
         }finally{

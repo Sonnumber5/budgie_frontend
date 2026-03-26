@@ -65,6 +65,8 @@ export const IncomeForm = ({ onSuccess, incomeToEdit }: IncomeFormProps) => {
                     value={formData.amount}
                     onChange={(e) => setFormData({...formData, amount: Number(e.target.value)})}
                     required
+                    min={0}
+                    step="0.01"
                 />
             </div>
             <div>

@@ -30,7 +30,6 @@ export const useSavingsFunds = () => {
                 setActiveSavingsFunds(activeFunds || []); 
             } catch(error: any) {
                 setError(error.response?.data?.error || error.message || 'Failed to fetch active savings funds');
-                console.error('Failed to fetch savings funds:', error);
             } finally {
                 setIsLoading(false);
             }

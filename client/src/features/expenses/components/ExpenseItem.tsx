@@ -19,7 +19,7 @@ export const ExpenseItem = ({ expense }: ExpenseItemProps) => {
     const handleRemoveExpense = async (id: number) => {
         try{
             await removeExpense(id);
-            toast.error('Successfully deleted expense');
+            toast.success('Successfully deleted expense');
         } catch(err: any){
             toast.error(err.response?.data?.error || `Failed to delete expense`);
         }
