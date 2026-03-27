@@ -6,6 +6,8 @@ import { AccountBalanceForm } from "./AccountBalanceForm";
 import { useState } from "react";
 import { useAccountBalanceContext } from "../../../context/AccountBalanceContext";
 import { toast } from 'react-toastify';
+import { DropdownMenu } from "../../../components/DropdownMenu";
+import { ConfirmModal } from "../../../components/ConfirmModal";
 
 interface AccountBalanceItemProps{
     accountBalance: AccountBalance;
@@ -13,11 +15,12 @@ interface AccountBalanceItemProps{
 
 export const AccountBalanceItem = ({ accountBalance }: AccountBalanceItemProps) => {
     const { removeAccountBalance } = useAccountBalanceContext()
-    const [ isModalOpen, setIsModalOpen ] = useState(false);
+    const [ isAccountBalanceModalOpen, setIsAccountBalanceModalOpen ] = useState(false);
+    const [ isConfirmModalOpen, setIsConfirmModalOpen ] = useState(false);
 
-    const handleRemoveAccountBalance = async (id: number) => {
+    const handleRemoveAccountBalance = async () => {
         try{
-            await removeAccountBalance(id);
+            await removeAccountBalance(accountBalance.id);
             toast.success('Successfully deleted account balance');
         } catch(err: any){
             toast.error(err.response?.data?.error || `Failed to delete account balance`);
@@ -26,18 +29,14 @@ export const AccountBalanceItem = ({ accountBalance }: AccountBalanceItemProps) 
 
     return (
         <div className="income-item">
-            <Modal isOpen={isModalOpen} onClose={() => {setIsModalOpen(false)}} title="Edit Account Balance">
-                <AccountBalanceForm accountBalanceToUpdate={accountBalance} onSuccess={() => {setIsModalOpen(false)}}/>
+            <Modal isOpen={isAccountBalanceModalOpen} onClose={() => {setIsAccountBalanceModalOpen(false)}} title="Edit Account Balance">
+                <AccountBalanceForm accountBalanceToUpdate={accountBalance} onSuccess={() => {setIsAccountBalanceModalOpen(false)}}/>
             </Modal>
+            <ConfirmModal isOpen={isConfirmModalOpen} onClose={() => {setIsConfirmModalOpen(false)}} confirmAction={() => {handleRemoveAccountBalance()}}/>
             <div>{accountBalance.accountName}</div>
             <div style={{ color: accountBalance.accountType === 'Asset' ? 'green' : 'red' }}>${Number(accountBalance.balance).toFixed(2)}</div>
             <div>
-                <button onClick={() => {setIsModalOpen(true)}}>
-                    Edit
-                </button>
-                <button onClick={() => handleRemoveAccountBalance(accountBalance.id)}>
-                    Delete
-                </button>
+                <DropdownMenu onEdit={() => {setIsAccountBalanceModalOpen(true)}} onDelete={() => {setIsConfirmModalOpen(true)}}/>
             </div>
         </div>
     )
