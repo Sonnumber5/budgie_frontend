@@ -2,10 +2,12 @@ import { useState, useRef, useEffect } from 'react';
 
 interface DropdownMenuProps {
     onEdit: () => void;
-    onDelete: () => void;
+    onDelete?: () => void;
+    onEditBalance?: () => void;
+    onArchive?: () => void;
 }
 
-export const DropdownMenu = ({ onEdit, onDelete }: DropdownMenuProps) => {
+export const DropdownMenu = ({ onEdit, onDelete, onEditBalance, onArchive }: DropdownMenuProps) => {
     const [isOpen, setIsOpen] = useState(false);
     const ref = useRef<HTMLDivElement>(null);
 
@@ -35,7 +37,9 @@ export const DropdownMenu = ({ onEdit, onDelete }: DropdownMenuProps) => {
                     flexDirection: 'column'
                 }}>
                     <button type="button" onClick={() => { onEdit(); setIsOpen(false); }}>Edit</button>
-                    <button type="button" onClick={() => { onDelete(); setIsOpen(false); }}>Delete</button>
+                    {onDelete && <button type="button" onClick={() => { onDelete(); setIsOpen(false); }}>Delete</button>}
+                    {onEditBalance && <button type="button" onClick={() => { onEditBalance(); setIsOpen(false); }}>Edit Balance</button>}
+                    {onArchive && <button type="button" onClick={() => { onArchive(); setIsOpen(false); }}>Archive</button>}
                 </div>
             )}
         </div>

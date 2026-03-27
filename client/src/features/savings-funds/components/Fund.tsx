@@ -8,6 +8,8 @@ import { FundTransactionForm } from "../../fund-transactions/components/FundTran
 import { AdjustmentTransactionForm } from "../../fund-transactions/components/AdjustmentTransactionForm";
 import { useSavingsFundContext } from "../../../context/SavingsFundContext";
 import { toast } from "react-toastify";
+import { DropdownMenu } from "../../../components/DropdownMenu";
+import { ConfirmModal } from "../../../components/ConfirmModal";
 interface SavingsFundProps{
     fund: SavingsFund;
     relatedTransactions: FundTransaction[];
@@ -18,6 +20,7 @@ export const Fund = ({ fund, relatedTransactions }: SavingsFundProps) => {
     const [ isTransactionModalOpen, setIsTransactionModalOpen ] = useState(false);
     const [ isEditFundModalOpen, setIsEditFundModalOpen ] = useState(false);
     const [ isEditBalanceOpen, setIsEditBalanceOpen ] = useState(false);
+    const [ isConfirmModalOpen, setIsConfirmModalOpen ] = useState(false);
     const { archiveSavingsFund } = useSavingsFundContext();
 
     const handleRemove = async () => {
@@ -40,20 +43,17 @@ export const Fund = ({ fund, relatedTransactions }: SavingsFundProps) => {
                 <Modal isOpen={isEditBalanceOpen} onClose={() => {setIsEditBalanceOpen(false)}} title={'Adjust balance form'}>
                     <AdjustmentTransactionForm onSuccess={() => {setIsEditBalanceOpen(false)}} fund={fund}/>
                 </Modal>
+                <ConfirmModal isOpen={isConfirmModalOpen} onClose={() => {setIsConfirmModalOpen}} confirmAction={() => {handleRemove()}}/>
             <div className="fund-info">
                 <h3 >{fund.name}</h3>
                 
                 <p>{`Goal: $${Number(fund.goal).toFixed(2)}`}</p>
                 <div>
                     <p>{`Balance: $${Number(fund.balance).toFixed(2)}`}</p>
-                    <button onClick={() => {setIsEditBalanceOpen(true)}}>
-                        Edit balance
-                    </button>
                 </div>
                 <div className="fund-btns">
                     <button onClick={() => {setIsTransactionModalOpen(true)}} className="add-fund-btn">+</button>
-                    <button onClick={() => {setIsEditFundModalOpen(true)}} className="edit-fund-btn">Edit</button>
-                    <button onClick={() => {handleRemove()}}>Archive</button>
+                    <DropdownMenu onEditBalance={() => {setIsEditBalanceOpen(true)}} onEdit={() => {setIsEditFundModalOpen(true)}} onArchive={() => {setIsConfirmModalOpen(true)}}/>
                 </div>
             </div>
             {isOpen && (

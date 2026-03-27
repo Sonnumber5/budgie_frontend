@@ -1,5 +1,5 @@
 
-import type { AccountBalance, Income } from "../../../types"
+import type { AccountBalance } from "../../../types"
 import './AccountBalanceItem.css';
 import { Modal } from "../../../components/modal";
 import { AccountBalanceForm } from "./AccountBalanceForm";
