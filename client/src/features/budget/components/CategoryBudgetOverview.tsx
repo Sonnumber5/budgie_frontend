@@ -10,6 +10,8 @@ import { useBudgetContext } from "../../../context/BudgetContext";
 import { CategoryBudgetForm } from "./CategoryBudgetForm";
 import { toast } from "react-toastify";
 import { useDateContext } from "../../../context/DateContext";
+import { ConfirmModal } from "../../../components/ConfirmModal";
+import { DropdownMenu } from "../../../components/DropdownMenu";
 
 interface CategoryBudgetOverviewProps {
     categoryBudget: CategoryBudget,
@@ -19,7 +21,8 @@ export const CategoryBudgetOverview = ({ categoryBudget }: CategoryBudgetOvervie
     const { removeCategoryBudget } = useBudgetContext();
     const { expenses } = useExpenseContext();
     const { currentMonth } = useDateContext();
-    const [isModalOpen, setIsModalOpen] = useState(false);
+    const [ isCategoryBudgetModalOpen, setIsCategoryBudgetModalOpen ] = useState(false);
+    const [ isConfirmModalOpen, setIsConfirmModalOpen ] = useState(false);
 
     const categoryExpenses = expenses.filter(e => e.categoryId === categoryBudget.categoryId);
 
@@ -54,17 +57,13 @@ export const CategoryBudgetOverview = ({ categoryBudget }: CategoryBudgetOvervie
                 </div>
             </div>
             <div className="actions">
-                <button onClick={() => setIsModalOpen(true)}>
-                    Edit
-                </button>
-                <button onClick={handleDelete}>
-                    Delete
-                </button>
+
             </div>
-            
-            <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} title="Edit Category Budget">
+            <DropdownMenu onDelete={() => {setIsConfirmModalOpen(true)}} onEdit={() => {setIsCategoryBudgetModalOpen(true)}}/>
+            <ConfirmModal isOpen={isConfirmModalOpen} onClose={() => {setIsConfirmModalOpen(false)}} confirmAction={() => {handleDelete()}}/>
+            <Modal isOpen={isCategoryBudgetModalOpen} onClose={() => setIsCategoryBudgetModalOpen(false)} title="Edit Category Budget">
                 <CategoryBudgetForm 
-                    onSuccess={() => setIsModalOpen(false)} 
+                    onSuccess={() => setIsCategoryBudgetModalOpen(false)} 
                     categoryBudgetToEdit={categoryBudget}
                 />
             </Modal>
