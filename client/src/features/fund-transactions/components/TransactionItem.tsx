@@ -6,6 +6,8 @@ import { useFundTransactionContext } from "../../../context/FundTransactionConte
 import { FundTransactionForm } from "./FundTransactionForm";
 import './TransactionItem.css';
 import { toast } from "react-toastify";
+import { DropdownMenu } from "../../../components/DropdownMenu";
+import { ConfirmModal } from "../../../components/ConfirmModal";
 
 interface TransactionItemProps{
     transaction: FundTransaction;
@@ -14,7 +16,8 @@ interface TransactionItemProps{
 
 export const TransactionItem = ({ transaction, canDelete }: TransactionItemProps) => {
     const { removeFundTransaction } = useFundTransactionContext();
-    const [ isModalOpen, setIsModalOpen ] = useState(false);
+    const [ isTransactionModalOpen, setIsTransactionModalOpen ] = useState(false);
+    const [ isConfirmModalOpen, setIsConfirmModalOpen ] = useState(false);
 
     const handleRemoveTransaction = async (savingsFundId: number, transactionId: number) => {
         try{
@@ -27,21 +30,17 @@ export const TransactionItem = ({ transaction, canDelete }: TransactionItemProps
     
     return (
         <div className="transaction-item">
-            <Modal isOpen={isModalOpen} onClose={() => {setIsModalOpen(false)}} title="Edit Transaction">
-                <FundTransactionForm onSuccess={() => {setIsModalOpen(false)}} transactionToEdit={transaction} fundId={transaction.savingsFundId}/>
+            <Modal isOpen={isTransactionModalOpen} onClose={() => {setIsTransactionModalOpen(false)}} title="Edit Transaction">
+                <FundTransactionForm onSuccess={() => {setIsTransactionModalOpen(false)}} transactionToEdit={transaction} fundId={transaction.savingsFundId}/>
             </Modal>
+            <ConfirmModal isOpen={isConfirmModalOpen} onClose={() => {setIsConfirmModalOpen(false)}} confirmAction={() => {handleRemoveTransaction(transaction.savingsFundId, transaction.id)}}/>
             <div>{transaction.description}</div>
             <div>${Number(transaction.amount).toFixed(2)}</div>
             <div>{new Date(transaction.transactionDate).toLocaleDateString()}</div>
             <div>{transaction.transactionType}</div>
             {canDelete &&
                 <div>
-                    <button onClick={() => {setIsModalOpen(true)}}>
-                        Edit
-                    </button>
-                    <button onClick={() => handleRemoveTransaction(transaction.savingsFundId, transaction.id)}>
-                        Delete
-                    </button> 
+                    <DropdownMenu onEdit={() => {setIsTransactionModalOpen(true)}} onDelete={() => {setIsConfirmModalOpen(true)}}/>
                 </div>
             }
         </div>
