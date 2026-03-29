@@ -29,10 +29,10 @@ export const SavingsFundPage = () => {
             <Modal isOpen={isTransferModalOpen} onClose={() => {setIsTransferModalOpen(false)}} title="Savings fund form">
                 <TransferFundForm onSuccess={() => {setIsTransferModalOpen(false)}}/>
             </Modal>
-            <button onClick={() => {setIsTransferModalOpen(true)}}>
+            <button className="btn-primary" onClick={() => {setIsTransferModalOpen(true)}}>
                 Transfer funds
             </button>
-            <button onClick={() => {setIsAddFundModalOpen(true)}}>
+            <button className="btn-add" onClick={() => {setIsAddFundModalOpen(true)}}>
                 +
             </button>
             <div className="fund-list">

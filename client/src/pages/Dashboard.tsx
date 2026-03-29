@@ -18,6 +18,9 @@ import { AccountBalanceForm } from '../features/account-balances/components/Acco
 import { AccountBalanceItem } from '../features/account-balances/components/AccountBalanceItem';
 import { FundPreview } from '../features/savings-funds/components/FundPreview';
 import { useDashboard } from '../features/dashboard/hooks/useDashboard';
+import { useDateContext } from '../context/DateContext';
+
+
 
 export const Dashboard = () => {
     const { incomeSum, isLoading: isIncomeLoading } = useIncomeContext();
@@ -25,14 +28,25 @@ export const Dashboard = () => {
     const { monthlyBudget } = useBudgetContext();
     const { monthlyContributionSum } = useFundTransactionContext();
     const { accountBalances, clearAccountBalances } = useAccountBalanceContext();
+    const { currentMonth } = useDateContext();
     const { activeSavingsFunds } = useSavingsFundContext();
     const { financialOverview, currentRemaining, monthlyTotal } = useDashboard();
     const [ isBudgetModalOpen, setIsBudgetModalOpen ] = useState(false);
     const [ isAccountBalanceModalOpen, setIsAccountBalanceModalOpen ] = useState(false);
 
+        // Converts the "YYYY-MM-01" date string into this format: "March 2024".
+        const displayMonth = (() => {
+            const [year, month] = currentMonth.split('-').slice(0, 2).map(Number);
+            const monthNames = [
+                'January', 'February', 'March', 'April', 'May', 'June',
+                'July', 'August', 'September', 'October', 'November', 'December'
+            ];
+            return `${monthNames[month - 1]} ${year}`;
+        })();
+
     return (
-        <div className="dashboard">
-            <Modal isOpen={isBudgetModalOpen} onClose={() => {setIsBudgetModalOpen(false)}} title="Monthly Budget">
+        <div className="dashboard page">
+            <Modal isOpen={isBudgetModalOpen} onClose={() => {setIsBudgetModalOpen(false)}} title={`${displayMonth} Budget`}>
                 <BudgetManagementForm budgetToEdit={monthlyBudget ?? null} onSuccess={() => {setIsBudgetModalOpen(false)}}/>
             </Modal>
             <Modal isOpen={isAccountBalanceModalOpen} onClose={() => {setIsAccountBalanceModalOpen(false)}} title="Add account balance">
@@ -65,7 +79,7 @@ export const Dashboard = () => {
             </div>
             <div className='budget-funds-balance-sections'>
                 <div className='budget-section'>
-                    <button onClick={() => {setIsBudgetModalOpen(true)}}>Edit</button>
+                    <button className='btn-secondary' onClick={() => {setIsBudgetModalOpen(true)}}>Edit</button>
                     <BudgetOverview/>
                 </div>
                 <div className='fund-balance-section'>
@@ -75,8 +89,8 @@ export const Dashboard = () => {
                         ))}
                     </div>
                     <div className='balance-section'>
-                        <button onClick={() => {setIsAccountBalanceModalOpen(true)}}>+</button>
-                        <button onClick={() => {clearAccountBalances()}}>Clear Balances</button>
+                        <button className="btn-add" onClick={() => {setIsAccountBalanceModalOpen(true)}}>+</button>
+                        <button className="btn-danger" onClick={() => {clearAccountBalances()}}>Clear Balances</button>
                         {accountBalances.map(accountBalance => (
                             <AccountBalanceItem key={accountBalance.id} accountBalance={accountBalance} />
                         ))}

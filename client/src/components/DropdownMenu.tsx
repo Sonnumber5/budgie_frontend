@@ -23,19 +23,9 @@ export const DropdownMenu = ({ onEdit, onDelete, onEditBalance, onArchive }: Dro
 
     return (
         <div ref={ref} style={{ position: 'relative' }}>
-            <button type="button" onClick={() => setIsOpen(prev => !prev)}>⋮</button>
+            <button className='kebab' type="button" onClick={() => setIsOpen(prev => !prev)}>⋮</button>
             {isOpen && (
-                <div style={{
-                    position: 'absolute',
-                    right: 0,
-                    background: 'white',
-                    border: '1px solid #ccc',
-                    borderRadius: '4px',
-                    zIndex: 100,
-                    minWidth: '100px',
-                    display: 'flex',
-                    flexDirection: 'column'
-                }}>
+                <div className='kebab-menu'>
                     <button type="button" onClick={() => { onEdit(); setIsOpen(false); }}>Edit</button>
                     {onDelete && <button type="button" onClick={() => { onDelete(); setIsOpen(false); }}>Delete</button>}
                     {onEditBalance && <button type="button" onClick={() => { onEditBalance(); setIsOpen(false); }}>Edit Balance</button>}

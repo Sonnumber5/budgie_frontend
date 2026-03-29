@@ -120,6 +120,7 @@ export const BudgetManagementForm = ({ onSuccess, budgetToEdit }: BudgetManageme
                                     style={{ flex: 1 }}
                                 />
                                 <button
+                                className="btn-danger"
                                     type="button"
                                     onClick={() => handleDeleteExisting(cb.id)}
                                 >
@@ -158,6 +159,7 @@ export const BudgetManagementForm = ({ onSuccess, budgetToEdit }: BudgetManageme
                                     style={{ flex: 1 }}
                                 />
                                 <button
+                                    className="btn-danger"
                                     type="button"
                                     onClick={() => removeNewCategoryBudget(index)}
                                 >
@@ -168,11 +170,11 @@ export const BudgetManagementForm = ({ onSuccess, budgetToEdit }: BudgetManageme
                     </div>
                 )}
 
-                <button type="button" onClick={addNewCategoryBudget}>
-                    + Add Category Budget
+                <button className="btn-add" type="button" onClick={addNewCategoryBudget}>
+                    +
                 </button>
             </div>
-            <button type="submit">
+            <button className="btn-primary" type="submit">
                 {isEditMode ? 'Update Budget' : 'Create Budget'}
             </button>
         </form>

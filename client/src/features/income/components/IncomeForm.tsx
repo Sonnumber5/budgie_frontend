@@ -78,7 +78,7 @@ export const IncomeForm = ({ onSuccess, incomeToEdit }: IncomeFormProps) => {
                     required
                 />
             </div>
-            <button type="submit">
+            <button className="btn-primary" type="submit">
                 {isEditMode ? 'Update Income' : 'Add Income'}
             </button>
         </form>

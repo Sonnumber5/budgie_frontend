@@ -40,7 +40,7 @@ export const AdjustmentTransactionForm = ({ onSuccess, fund }: AdjustmentTransac
                     required
                 />
             </div>
-            <button type="submit">
+            <button className="btn-primary" type="submit">
                 Update balance
             </button>
         </form>

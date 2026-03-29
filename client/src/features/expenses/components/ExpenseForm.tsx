@@ -122,7 +122,7 @@ export const ExpenseForm = ({ onSuccess, expenseToEdit, categoryId }: ExpenseFor
                     required
                 />
             </div>
-            <button type="submit">
+            <button className="btn-primary" type="submit">
                 {isEditMode ? 'Update Expense' : 'Add Expense'}
             </button>
         </form>

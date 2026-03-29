@@ -79,7 +79,7 @@ export const TransferFundForm = ({ onSuccess }: TransferFundFormProps) => {
                     required
                 />
             </div>
-            <button type="submit">
+            <button className="btn-primary" type="submit">
                 Transfer
             </button>
         </form>

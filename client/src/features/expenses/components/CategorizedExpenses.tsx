@@ -29,12 +29,12 @@ export const CategorizedExpenses = ({ categoryBudget, expenses, totalSpent, rema
                 <p>{categoryBudget ? `Budget: $${Number(categoryBudget.budgetedAmount).toFixed(2)}` : ""}</p>
                 <p>Total Spent: ${totalSpent.toFixed(2)}</p>
                 <p>{remaining || remaining === 0 ? `Remaining: $${remaining.toFixed(2)}` : ""}</p>
-                <button onClick={() => {setIsExpenseModalOpen(true)}} className="add-btn">+</button>
-                <button onClick={() => {setIsCategoryBudgetModalOpen(true)}}>Edit</button>
+                <button className="btn-add" onClick={() => {setIsExpenseModalOpen(true)}}>+</button>
+                <button className="kebab" onClick={() => {setIsCategoryBudgetModalOpen(true)}}>⋮</button>
                 <Modal isOpen={isExpenseModalOpen} onClose={() => {setIsExpenseModalOpen(false)}} title={'Expense Form'}>
                     <ExpenseForm categoryId={categoryBudget ? categoryBudget.categoryId : undefined} onSuccess={() => {setIsExpenseModalOpen(false)}}/>
                 </Modal>
-                <Modal isOpen={isCategoryBudgetModalOpen} onClose={() => {setIsCategoryBudgetModalOpen(false)}} title={'Expense Form'}>
+                <Modal isOpen={isCategoryBudgetModalOpen} onClose={() => {setIsCategoryBudgetModalOpen(false)}} title={`${categoryBudget?.categoryName} budget`}>
                     <CategoryBudgetForm categoryBudgetToEdit={categoryBudget} onSuccess={() => {setIsCategoryBudgetModalOpen(false)}}/>
                 </Modal>
             </div>

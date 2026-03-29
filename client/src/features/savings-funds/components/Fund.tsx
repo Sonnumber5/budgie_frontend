@@ -52,7 +52,7 @@ export const Fund = ({ fund, relatedTransactions }: SavingsFundProps) => {
                     <p>{`Balance: $${Number(fund.balance).toFixed(2)}`}</p>
                 </div>
                 <div className="fund-btns">
-                    <button onClick={() => {setIsTransactionModalOpen(true)}} className="add-fund-btn">+</button>
+                    <button className="btn-add" onClick={() => {setIsTransactionModalOpen(true)}}>+</button>
                     <DropdownMenu onEditBalance={() => {setIsEditBalanceOpen(true)}} onEdit={() => {setIsEditFundModalOpen(true)}} onArchive={() => {setIsConfirmModalOpen(true)}}/>
                 </div>
             </div>

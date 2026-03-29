@@ -3,12 +3,13 @@
 // appear on the Login or Register pages.
 import { useAuth } from "../context/AuthContext";
 import './Navbar.css';
-import { Navigate, useNavigate } from "react-router-dom";
+import { Navigate, useLocation, useNavigate } from "react-router-dom";
 
 export const Navbar = () => {
     const {user, isAuthenticated, logout} = useAuth();
 
     const navigate = useNavigate();
+    const { pathname } = useLocation();
 
     // onLogout clears auth state then redirects the user to the login page.
     const onLogout = () => {
@@ -25,21 +26,21 @@ export const Navbar = () => {
         Logo
             </div>
             <div className="nav-buttons">
-            <button onClick={() => {navigate('/dashboard')}}>
+            <button className={pathname === '/dashboard' ? 'btn-primary' : 'btn-secondary'} onClick={() => {navigate('/dashboard')}}>
                 Dashboard
             </button>
-            <button onClick={() => {navigate('/income')}}>
+            <button className={pathname === '/income' ? 'btn-primary' : 'btn-secondary'} onClick={() => {navigate('/income')}}>
                 Income
             </button>
-            <button onClick={() => {navigate('/expenses')}}>
+            <button className={pathname === '/expenses' ? 'btn-primary' : 'btn-secondary'} onClick={() => {navigate('/expenses')}}>
                 Expenses
             </button>
-            <button onClick={() => {navigate('/savings-funds')}}>
+            <button className={pathname === '/savings-funds' ? 'btn-primary' : 'btn-secondary'} onClick={() => {navigate('/savings-funds')}}>
                 Funds
             </button>
             </div>
             <div className="auth-buttons">
-            <button onClick={onLogout}>
+            <button className="btn-danger" onClick={onLogout}>
                 Logout
             </button>
             </div>

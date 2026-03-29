@@ -49,10 +49,7 @@ export const CategoryBudgetForm = ({ onSuccess, categoryBudgetToEdit }: Category
 
     return (
         <form onSubmit={handleSubmit}>
-
-            <div>
-                <h3>Category Budgets</h3>
-                
+            <div>     
                 <div style={{ display: 'flex', gap: '10px', marginBottom: '10px' }}>
                     <input
                         type="text"
@@ -69,7 +66,7 @@ export const CategoryBudgetForm = ({ onSuccess, categoryBudgetToEdit }: Category
                     />
                 </div>
             </div>
-            <button type="submit">
+            <button className="btn-primary" type="submit">
                 Update
             </button>
         </form>

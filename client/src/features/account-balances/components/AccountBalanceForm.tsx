@@ -81,8 +81,8 @@ export const AccountBalanceForm = ({ onSuccess, accountBalanceToUpdate }: Accoun
                         </option>
                 </select>
             </div>
-            <button type="submit">
-                {isEditMode ? 'Update account balance' : 'Add account balance'}
+            <button className="btn-primary" type="submit">
+                {isEditMode ? 'Save' : 'Add'}
             </button>
         </form>
     )

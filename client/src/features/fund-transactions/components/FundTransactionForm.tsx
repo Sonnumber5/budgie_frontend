@@ -106,7 +106,7 @@ export const FundTransactionForm = ({ onSuccess, transactionToEdit, fundId }: Fu
                     required
                 />
             </div>
-            <button type="submit">
+            <button className="btn-primary" type="submit">
                 {isEditMode ? 'Update Transaction' : 'Add Transaction'}
             </button>
             {formData.transactionType == 'contribution' &&

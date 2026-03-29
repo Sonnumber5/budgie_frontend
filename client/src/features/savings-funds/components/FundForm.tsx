@@ -62,7 +62,7 @@ export const FundForm = ({ onSuccess, fundToEdit }: FundFormProps) => {
                     step="0.01"
                 />
             </div>
-            <button type="submit">
+            <button className="btn-primary" type="submit">
                 {isEditMode ? 'Update Fund' : 'Add Fund'}
             </button>
         </form>
