@@ -9,6 +9,7 @@ import { useBudgetContext } from "../../../context/BudgetContext";
 import { standardCategories } from "../../../types/standardCategories";
 import { toast } from "react-toastify";
 import { useDateContext } from "../../../context/DateContext";
+import { ConfirmModal } from "../../../components/ConfirmModal";
 
 interface BudgetManagementFormProps{
     onSuccess: () => void;
@@ -21,6 +22,7 @@ export const BudgetManagementForm = ({ onSuccess, budgetToEdit }: BudgetManageme
     const [ expectedIncome, setExpectedIncome ] = useState(0);
     const [ existingCategoryBudgets, setExistingCategoryBudgets ] = useState<CategoryBudget[]>([]);
     const [ newCategoryBudgets, setNewCategoryBudgets ] = useState<CategoryBudgetDTO[]>([]);
+    const [ isConfirmModalOpen, setIsConfirmModalOpen ] = useState(false);
 
     const isEditMode = !!budgetToEdit;
 
@@ -107,6 +109,7 @@ export const BudgetManagementForm = ({ onSuccess, budgetToEdit }: BudgetManageme
                         <h4>Existing Budgets</h4>
                         {existingCategoryBudgets.map((cb) => (
                             <div key={cb.id} style={{ display: 'flex', gap: '10px', marginBottom: '10px' }}>
+                                <ConfirmModal isOpen={isConfirmModalOpen} onClose={() => {setIsConfirmModalOpen(false)}} confirmAction={() => {handleDeleteExisting(cb.id)}} />
                                 <input
                                     type="text"
                                     value={cb.categoryName}
@@ -122,7 +125,7 @@ export const BudgetManagementForm = ({ onSuccess, budgetToEdit }: BudgetManageme
                                 <button
                                 className="btn-danger"
                                     type="button"
-                                    onClick={() => handleDeleteExisting(cb.id)}
+                                    onClick={() => setIsConfirmModalOpen(true)}
                                 >
                                     Delete
                                 </button>

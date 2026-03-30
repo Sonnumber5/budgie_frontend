@@ -9,6 +9,9 @@ import { useState } from "react";
 import { Modal } from "../../../components/modal";
 import { ExpenseForm } from "./ExpenseForm";
 import { CategoryBudgetForm } from "../../budget/components/CategoryBudgetForm";
+import { DropdownMenu } from "../../../components/DropdownMenu";
+import { ConfirmModal } from "../../../components/ConfirmModal";
+import { useBudgetContext } from "../../../context/BudgetContext";
 
 interface CategorizedExpensesProps{
     categoryBudget?: CategoryBudget;
@@ -21,22 +24,29 @@ export const CategorizedExpenses = ({ categoryBudget, expenses, totalSpent, rema
     const [ isOpen, setIsOpen ] = useState(false);
     const [ isExpenseModalOpen, setIsExpenseModalOpen ] = useState(false);
     const [ isCategoryBudgetModalOpen, setIsCategoryBudgetModalOpen ] = useState(false);
+    const [ isConfirmModalOpen, setIsConfirmModalOpen ] = useState(false);
+    const { removeCategoryBudget } = useBudgetContext();
 
     return (
         <div className="budget-category">
+            <Modal isOpen={isExpenseModalOpen} onClose={() => {setIsExpenseModalOpen(false)}} title={'Expense Form'}>
+                <ExpenseForm categoryId={categoryBudget ? categoryBudget.categoryId : undefined} onSuccess={() => {setIsExpenseModalOpen(false)}}/>
+            </Modal>
+            <Modal isOpen={isCategoryBudgetModalOpen} onClose={() => {setIsCategoryBudgetModalOpen(false)}} title={`${categoryBudget?.categoryName} budget`}>
+                <CategoryBudgetForm categoryBudgetToEdit={categoryBudget} onSuccess={() => {setIsCategoryBudgetModalOpen(false)}}/>
+            </Modal>
+            { categoryBudget &&
+            <ConfirmModal isOpen={isConfirmModalOpen} onClose={() => {setIsConfirmModalOpen(false)}} confirmAction={() => {removeCategoryBudget(categoryBudget?.id)}}/>
+            }
             <div className="category-info">
                 <h3 >{categoryBudget ? categoryBudget.categoryName : "Uncategorized"}</h3>
                 <p>{categoryBudget ? `Budget: $${Number(categoryBudget.budgetedAmount).toFixed(2)}` : ""}</p>
                 <p>Total Spent: ${totalSpent.toFixed(2)}</p>
                 <p>{remaining || remaining === 0 ? `Remaining: $${remaining.toFixed(2)}` : ""}</p>
                 <button className="btn-add" onClick={() => {setIsExpenseModalOpen(true)}}>+</button>
-                <button className="kebab" onClick={() => {setIsCategoryBudgetModalOpen(true)}}>⋮</button>
-                <Modal isOpen={isExpenseModalOpen} onClose={() => {setIsExpenseModalOpen(false)}} title={'Expense Form'}>
-                    <ExpenseForm categoryId={categoryBudget ? categoryBudget.categoryId : undefined} onSuccess={() => {setIsExpenseModalOpen(false)}}/>
-                </Modal>
-                <Modal isOpen={isCategoryBudgetModalOpen} onClose={() => {setIsCategoryBudgetModalOpen(false)}} title={`${categoryBudget?.categoryName} budget`}>
-                    <CategoryBudgetForm categoryBudgetToEdit={categoryBudget} onSuccess={() => {setIsCategoryBudgetModalOpen(false)}}/>
-                </Modal>
+                <div>
+                    <DropdownMenu onEdit={() => {setIsCategoryBudgetModalOpen(true)}} onDelete={() => {setIsConfirmModalOpen(true)}}/>
+                </div>
             </div>
             {isOpen && (
                 <div className="expenses-group">

@@ -61,7 +61,7 @@ export const ExpensesPage = () => {
             <div className="expense-aggregates">
                 Total: ${Number(totalExpenses.toFixed(2))}
             </div>
-            <button onClick={() => {setIsExpenseModalOpen(true)}}>
+            <button className='btn-add' onClick={() => {setIsExpenseModalOpen(true)}}>
                 +
             </button>
             <button className='btn-secondary' onClick={() => {setIsBudgetModalOpen(true)}}>
