@@ -23,6 +23,7 @@ export const BudgetManagementForm = ({ onSuccess, budgetToEdit }: BudgetManageme
     const [ existingCategoryBudgets, setExistingCategoryBudgets ] = useState<CategoryBudget[]>([]);
     const [ newCategoryBudgets, setNewCategoryBudgets ] = useState<CategoryBudgetDTO[]>([]);
     const [ isConfirmModalOpen, setIsConfirmModalOpen ] = useState(false);
+    const [ categoryBudgetToDelete, setCategoryBudgetToDelete ] = useState<number | null>(null);
 
     const isEditMode = !!budgetToEdit;
 
@@ -90,92 +91,107 @@ export const BudgetManagementForm = ({ onSuccess, budgetToEdit }: BudgetManageme
 
     return (
         <form onSubmit={handleSubmit}>
-            <div>
-                <label>Expected Income</label>
-                <input
-                    type="number"
-                    value={expectedIncome}
-                    onChange={(e) => setExpectedIncome(Number(e.target.value))}
-                    required
-                    min={0}
-                    step="0.01"
-                />
-            </div>
-            <div>
-                <h3>Category Budgets</h3>
-                
-                {existingCategoryBudgets.length > 0 && (
-                    <div>
-                        <h4>Existing Budgets</h4>
-                        {existingCategoryBudgets.map((cb) => (
-                            <div key={cb.id} style={{ display: 'flex', gap: '10px', marginBottom: '10px' }}>
-                                <ConfirmModal isOpen={isConfirmModalOpen} onClose={() => {setIsConfirmModalOpen(false)}} confirmAction={() => {handleDeleteExisting(cb.id)}} />
-                                <input
-                                    type="text"
-                                    value={cb.categoryName}
-                                    disabled
-                                    style={{ flex: 1 }}
-                                />
-                                <input
-                                    type="number"
-                                    value={cb.budgetedAmount}
-                                    disabled
-                                    style={{ flex: 1 }}
-                                />
-                                <button
-                                className="btn-danger"
-                                    type="button"
-                                    onClick={() => setIsConfirmModalOpen(true)}
-                                >
-                                    Delete
-                                </button>
+            <ConfirmModal isOpen={isConfirmModalOpen} onClose={() => {setIsConfirmModalOpen(false)}} confirmAction={() => { categoryBudgetToDelete && handleDeleteExisting(categoryBudgetToDelete)}} />
+            <div className="form-body-standard">
+                <div className="form-field-standard">
+                    <label>Expected Income</label>
+                    <input
+                        className="input-field-standard"
+                        type="number"
+                        value={expectedIncome}
+                        onChange={(e) => setExpectedIncome(Number(e.target.value))}
+                        required
+                        min={0}
+                        step="0.01"
+                    />
+                </div>
+                <div style={{display: 'flex', flexDirection: 'column', gap: '8px'}}>
+                    <h3>Category Budgets</h3>
+                    {existingCategoryBudgets.length > 0 && (
+                        <div>
+                            <h4>Existing Budgets</h4>
+                            <div style={{display: 'flex', flexDirection: 'column', gap: '8px'}}>
+                                {existingCategoryBudgets.map((cb) => (
+                                    <div className="form-field-group-standard" key={cb.id}>
+                                        <div className="form-field-standard">
+                                            <input
+                                                className="input-field-standard"
+                                                type="text"
+                                                value={cb.categoryName}
+                                                disabled
+                                            />
+                                        </div>
+                                        <div className="form-field-standard">
+                                            <input
+                                                className="input-field-standard"
+                                                type="number"
+                                                value={cb.budgetedAmount}
+                                                disabled
+                                            />
+                                        </div>
+                                        <button
+                                        className="btn-x"
+                                            type="button"
+                                            onClick={() => {setIsConfirmModalOpen(true); setCategoryBudgetToDelete(cb.id)}}
+                                        >
+                                            ×
+                                        </button>
+                                    </div>
+                                ))}
                             </div>
-                        ))}
-                    </div>
-                )}
+                        </div>
+                    )}
 
-                {newCategoryBudgets.length > 0 && (
-                    <div>
-                        <h4>New Budgets</h4>
-                        {newCategoryBudgets.map((cb, index) => (
-                            <div key={index} style={{ display: 'flex', gap: '10px', marginBottom: '10px' }}>
-                                <input
-                                    type="text"
-                                    placeholder="Category Name"
-                                    value={cb.categoryName}
-                                    onChange={(e) => updateNewCategoryBudget(index, 'categoryName', e.target.value)}
-                                    list={`category-suggestions-${index}`} // Links to datalist
-                                    required
-                                    style={{ flex: 1 }}
-                                />
-                                <datalist id={`category-suggestions-${index}`}>
-                                    {standardCategories.map(category => (
-                                        <option key={category} value={category} />
-                                    ))}
-                                </datalist>
-                                <input
-                                    type="number"
-                                    placeholder="Budget Amount"
-                                    value={cb.budgetedAmount}
-                                    onChange={(e) => updateNewCategoryBudget(index, 'budgetedAmount', Number(e.target.value))}
-                                    required
-                                    style={{ flex: 1 }}
-                                />
-                                <button
-                                    className="btn-danger"
-                                    type="button"
-                                    onClick={() => removeNewCategoryBudget(index)}
-                                >
-                                    Remove
-                                </button>
+                    {newCategoryBudgets.length > 0 && (
+                        <div>
+                            <h4>New Budgets</h4>
+                            <div style={{display: 'flex', flexDirection: 'column', gap: '8px'}}>
+                                {newCategoryBudgets.map((cb, index) => (
+                                    <div className="form-field-group-standard" key={index}>
+                                        <div className="form-field-standard">
+                                            <input
+                                                className="input-field-standard"
+                                                type="text"
+                                                placeholder="Category Name"
+                                                value={cb.categoryName}
+                                                onChange={(e) => updateNewCategoryBudget(index, 'categoryName', e.target.value)}
+                                                list={`category-suggestions-${index}`} // Links to datalist
+                                                required
+                                            />
+                                            <datalist id={`category-suggestions-${index}`}>
+                                                {standardCategories.map(category => (
+                                                    <option key={category} value={category} />
+                                                ))}
+                                            </datalist>
+                                        </div>
+                                        <div className="form-field-standard">
+                                            <input
+                                                className="input-field-standard"
+                                                type="number"
+                                                placeholder="Budget Amount"
+                                                value={cb.budgetedAmount}
+                                                onChange={(e) => updateNewCategoryBudget(index, 'budgetedAmount', Number(e.target.value))}
+                                                required
+                                            />
+                                        </div>
+                                        <button
+                                            className="btn-x"
+                                            type="button"
+                                            onClick={() => removeNewCategoryBudget(index)}
+                                        >
+                                            ×
+                                        </button>
+                                    </div>
+                                ))}
                             </div>
-                        ))}
+                        </div>
+                    )}
+                    <div style={{display: 'flex', justifyContent: 'center'}} >
+                        <button className="btn-add" type="button" onClick={addNewCategoryBudget}>
+                            +
+                        </button>
                     </div>
-                )}
-
-                <button className="btn-add" type="button" onClick={addNewCategoryBudget}>
-                    +
-                </button>
+                </div>
             </div>
             <button className="btn-primary" type="submit">
                 {isEditMode ? 'Update Budget' : 'Create Budget'}

@@ -79,7 +79,7 @@ export const Dashboard = () => {
             </div>
             <div className='budget-funds-balance-sections'>
                 <div className='budget-section'>
-                    <button className='btn-secondary' onClick={() => {setIsBudgetModalOpen(true)}}>Edit</button>
+                    <button className='btn-secondary' onClick={() => {setIsBudgetModalOpen(true)}}>Manage Budget</button>
                     <BudgetOverview/>
                 </div>
                 <div className='fund-balance-section'>

@@ -116,8 +116,26 @@ body {
   color: #696f82;
 }
 
-.btn-add{
+.btn-x {
+  background: none;
+  color: var(--color-btn-add-inside);
+  border: none;
+  border-radius: var(--border-radius-full);
+  width: 2.5rem;
+  height: 2.5rem;
+  font-size: 1.5rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.3s ease, color 0.3s ease;
+  line-height: 1;
+}
 
+.btn-x:hover{
+  cursor: pointer;
+  background-color: var(--color-red-primary);
+  color: white;
 }
 
 .kebab{
