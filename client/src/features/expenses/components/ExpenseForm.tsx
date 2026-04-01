@@ -8,7 +8,6 @@ import { useExpenseContext } from "../../../context/ExpenseContext";
 import { useBudgetContext } from "../../../context/BudgetContext";
 import { useDateContext } from "../../../context/DateContext";
 import { toast } from 'react-toastify';
-import './ExpenseForm.css';
 
 interface ExpenseFormProps{
     onSuccess: () => void;
@@ -65,7 +64,7 @@ export const ExpenseForm = ({ onSuccess, expenseToEdit, categoryId }: ExpenseFor
     const selectCategory = () => {
         if (!categoryId){
             return (
-                <div className="form-field-category">
+                <div className="form-field-standard">
                     <label>Category</label>
                     <select
                         className="select-field-standard"
@@ -86,9 +85,9 @@ export const ExpenseForm = ({ onSuccess, expenseToEdit, categoryId }: ExpenseFor
 
     return (
         <form onSubmit={handleSubmit}>
-            <div className="expense-form-body">
-                <div className="form-field-vendor-amount">
-                    <div className="form-field-vendor">
+            <div className="form-body-standard">
+                <div className="form-field-group-standard">
+                    <div className="form-field-standard">
                         <label>Vendor</label>
                         <input
                             className="input-field-standard"
@@ -98,7 +97,7 @@ export const ExpenseForm = ({ onSuccess, expenseToEdit, categoryId }: ExpenseFor
                             required
                         />
                     </div>
-                    <div  className="form-field-amount">
+                    <div  className="form-field-standard">
                         <label>Amount</label>
                         <input
                             className="input-field-standard"
@@ -111,9 +110,9 @@ export const ExpenseForm = ({ onSuccess, expenseToEdit, categoryId }: ExpenseFor
                         />
                     </div>
                 </div>
-                <div className="form-field-category-date">
+                <div className="form-field-group-standard">
                     {selectCategory()}
-                    <div className="form-field-date">
+                    <div className="form-field-standard">
                         <label>Date</label>
                         <input
                             className="date-field-standard"
@@ -124,7 +123,7 @@ export const ExpenseForm = ({ onSuccess, expenseToEdit, categoryId }: ExpenseFor
                         />
                     </div>
                 </div>
-                <div className="form-field-description">
+                <div className="form-field-standard">
                     <label>Description</label>
                     <input
                         className="input-field-standard"

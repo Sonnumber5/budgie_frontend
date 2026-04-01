@@ -1,6 +1,6 @@
 
 import { useEffect, useState } from "react";
-import type { Category, CategoryBudget, CategoryBudgetDTO, MonthlyBudget } from "../../../types";
+import type { CategoryBudget } from "../../../types";
 import { useBudgetContext } from "../../../context/BudgetContext";
 import { toast } from "react-toastify";
 import { useDateContext } from "../../../context/DateContext";
@@ -49,20 +49,20 @@ export const CategoryBudgetForm = ({ onSuccess, categoryBudgetToEdit }: Category
 
     return (
         <form onSubmit={handleSubmit}>
-            <div>     
-                <div style={{ display: 'flex', gap: '10px', marginBottom: '10px' }}>
+            <div className="form-body-standard">     
+                <div className="form-field-group-standard">
                     <input
+                        className="input-field-standard"
                         type="text"
                         value={formData.categoryName}
                         onChange={(e) => {setFormData({...formData, categoryName: e.target.value})}}
                         disabled
-                        style={{ flex: 1 }}
                     />
                     <input
+                        className="input-field-standard"
                         type="number"
                         value={formData.budgetedAmount}
                         onChange={(e) => setFormData({...formData, budgetedAmount: Number(e.target.value)})}
-                        style={{ flex: 1 }}
                     />
                 </div>
             </div>

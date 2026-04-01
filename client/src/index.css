@@ -19,6 +19,10 @@
   --color-btn-danger: #8B2925;
   --color-dropdown-menu: #101628;
   --color-btn-add-inside: #4E5361;
+  --color-green-primary: #68BE7A;
+  --color-green-secondary: #16282A;
+  --color-red-primary: #BD6261;
+  --color-red-secondary: #2E1B27;
   --color-modal: #202939;
   --spacing-sm: 8px;
   --spacing-md: 16px;
@@ -236,7 +240,7 @@ body {
   box-shadow: inset var(--box-shadow-md);
   border: none;
   border-radius: var(--border-radius-md);
-  padding: 0.8em 1.4em;
+  padding: 0.75em 1.4em;
   font-family: inherit;
   outline: none;
   transition: box-shadow 0.5s ease;
@@ -255,4 +259,27 @@ body {
 
 .date-field-standard::-webkit-calendar-picker-indicator:hover {
   opacity: 1;
+}
+
+.form-body-standard{
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-sm);
+  background-color: var(--color-modal);
+  border-radius: var(--border-radius-md);
+  padding: var(--padding-lg);
+  box-shadow: var(--box-shadow-md);
+}
+
+.form-body-standard input, .form-body-standard select{
+  width: 100%;
+}
+
+.form-field-group-standard {
+  display: flex;
+  gap: var(--spacing-md);
+}
+
+.form-field-standard{
+  flex: 1;
 }

@@ -5,7 +5,6 @@ import { useEffect, useState } from "react";
 import type { Income, IncomeDTO } from "../../../types";
 import { useIncomeContext } from "../../../context/IncomeContext";
 import { toast } from "react-toastify";
-import './IncomeForm.css';
 
 interface IncomeFormProps{
     onSuccess: () => void;
@@ -50,8 +49,8 @@ export const IncomeForm = ({ onSuccess, incomeToEdit }: IncomeFormProps) => {
 
     return (
         <form onSubmit={handleSubmit}>
-            <div className="income-form-body">
-                <div className="form-field-income-source">
+            <div className="form-body-standard">
+                <div className="form-field-group-standard">
                     <label>Source</label>
                     <input
                         className="input-field-standard"
@@ -61,8 +60,8 @@ export const IncomeForm = ({ onSuccess, incomeToEdit }: IncomeFormProps) => {
                         required
                     />
                 </div>
-                <div className="form-field-income-amount-date">
-                    <div className="form-field-income-amount">
+                <div className="form-field-group-standard">
+                    <div className="form-field-standard">
                         <label>Amount</label>
                         <input
                             className="input-field-standard"
@@ -74,10 +73,10 @@ export const IncomeForm = ({ onSuccess, incomeToEdit }: IncomeFormProps) => {
                             step="0.01"
                         />
                     </div>
-                    <div className="form-field-income-date">
+                    <div className="form-field-standard">
                         <label>Date</label>
                         <input
-                            className="input-field-standard"
+                            className="date-field-standard"
                             type="date"
                             value={formData.incomeDate}
                             onChange={(e) => setFormData({...formData, incomeDate: e.target.value})}

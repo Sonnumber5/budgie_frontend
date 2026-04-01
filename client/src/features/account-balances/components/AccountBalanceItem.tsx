@@ -34,7 +34,7 @@ export const AccountBalanceItem = ({ accountBalance }: AccountBalanceItemProps) 
             </Modal>
             <ConfirmModal isOpen={isConfirmModalOpen} onClose={() => {setIsConfirmModalOpen(false)}} confirmAction={() => {handleRemoveAccountBalance()}}/>
             <div>{accountBalance.accountName}</div>
-            <div style={{ color: accountBalance.accountType === 'Asset' ? 'green' : 'red' }}>${Number(accountBalance.balance).toFixed(2)}</div>
+            <div style={{ color: accountBalance.accountType === 'Asset' ? 'var(--color-green-primary)' : 'var(--color-red-primary)' }}>${Number(accountBalance.balance).toFixed(2)}</div>
             <div>
                 <DropdownMenu onEdit={() => {setIsAccountBalanceModalOpen(true)}} onDelete={() => {setIsConfirmModalOpen(true)}}/>
             </div>

@@ -4,6 +4,7 @@ import type { AccountBalance, AccountBalanceDTO } from "../../../types";
 import { useAccountBalanceContext } from "../../../context/AccountBalanceContext";
 import type { AccountType } from "../../../types";
 import { toast } from 'react-toastify';
+import './AccountBalanceForm.css';
 
 interface AccountBalanceFormProps{
     onSuccess: () => void;
@@ -46,40 +47,48 @@ export const AccountBalanceForm = ({ onSuccess, accountBalanceToUpdate }: Accoun
 
     return (
         <form onSubmit={handleSubmit}>
-            <div>
-                <label>Account name</label>
-                <input
-                    type="text"
-                    value={formData.accountName}
-                    onChange={(e) => setFormData({...formData, accountName: e.target.value})}
-                    required
-                />
-            </div>
-            <div>
-                <label>Balance</label>
-                <input
-                    type="number"
-                    value={formData.balance}
-                    onChange={(e) => setFormData({...formData, balance: Number(e.target.value)})}
-                    required
-                    min={0}
-                    step="0.01"
-                />
-            </div>
-            <div>
-                <label>Account type</label>
-                <select
-                    value={formData.accountType}
-                    onChange={(e) => setFormData({...formData, accountType: e.target.value as AccountType})}
-                    required>
-                        <option value="" disabled>Select an account type</option>
-                        <option value={'Asset'}>
-                            Asset
-                        </option>
-                        <option value={'Liability'}>
-                            Liability
-                        </option>
-                </select>
+            <div className="form-body-standard">
+                <div className="form-field-group-standard">
+                    <div className="form-field-standard">
+                        <label>Balance</label>
+                        <input
+                            className="input-field-standard"
+                            type="number"
+                            value={formData.balance}
+                            onChange={(e) => setFormData({...formData, balance: Number(e.target.value)})}
+                            required
+                            min={0}
+                            step="0.01"
+                        />
+                    </div>
+                    <div className="form-field-standard">
+                        <label>Account type</label>
+                        <div className="account-type-toggle">
+                            <button
+                                type="button"
+                                className={`account-type-btn asset ${formData.accountType === 'Asset' ? 'active' : ''}`}
+                                onClick={() => setFormData({...formData, accountType: 'Asset'})}>
+                                Asset
+                            </button>
+                            <button
+                                type="button"
+                                className={`account-type-btn liability ${formData.accountType === 'Liability' ? 'active' : ''}`}
+                                onClick={() => setFormData({...formData, accountType: 'Liability'})}>
+                                Liability
+                            </button>
+                        </div>
+                    </div>
+                    <div className="form-field-standard">
+                        <label>Account name</label>
+                        <input
+                            className="input-field-standard"
+                            type="text"
+                            value={formData.accountName}
+                            onChange={(e) => setFormData({...formData, accountName: e.target.value})}
+                            required
+                        />
+                    </div>
+                </div>
             </div>
             <button className="btn-primary" type="submit">
                 {isEditMode ? 'Save' : 'Add'}
