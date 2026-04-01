@@ -4,7 +4,6 @@ import type { AccountBalance, AccountBalanceDTO } from "../../../types";
 import { useAccountBalanceContext } from "../../../context/AccountBalanceContext";
 import type { AccountType } from "../../../types";
 import { toast } from 'react-toastify';
-import './AccountBalanceForm.css';
 
 interface AccountBalanceFormProps{
     onSuccess: () => void;
@@ -63,16 +62,16 @@ export const AccountBalanceForm = ({ onSuccess, accountBalanceToUpdate }: Accoun
                     </div>
                     <div className="form-field-standard">
                         <label>Account type</label>
-                        <div className="account-type-toggle">
+                        <div className="type-toggle">
                             <button
                                 type="button"
-                                className={`account-type-btn asset ${formData.accountType === 'Asset' ? 'active' : ''}`}
+                                className={`type-btn green ${formData.accountType === 'Asset' ? 'active' : ''}`}
                                 onClick={() => setFormData({...formData, accountType: 'Asset'})}>
                                 Asset
                             </button>
                             <button
                                 type="button"
-                                className={`account-type-btn liability ${formData.accountType === 'Liability' ? 'active' : ''}`}
+                                className={`type-btn red ${formData.accountType === 'Liability' ? 'active' : ''}`}
                                 onClick={() => setFormData({...formData, accountType: 'Liability'})}>
                                 Liability
                             </button>

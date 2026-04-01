@@ -42,25 +42,31 @@ export const FundForm = ({ onSuccess, fundToEdit }: FundFormProps) => {
 
     return (
         <form onSubmit={handleSubmit}>
-            <div>
-                <label>Name</label>
-                <input
-                    type="text"
-                    value={formData.name}
-                    onChange={(e) => setFormData({...formData, name: e.target.value})}
-                    required
-                />
-            </div>
-            <div>
-                <label>Goal</label>
-                <input
-                    type="number"
-                    value={formData.goal}
-                    onChange={(e) => setFormData({...formData, goal: Number(e.target.value)})}
-                    required
-                    min={0}
-                    step="0.01"
-                />
+            <div className="form-body-standard">
+                <div className="form-field-group-standard">
+                    <div className="form-field-standard">
+                        <label>Name</label>
+                        <input
+                            className="input-field-standard"
+                            type="text"
+                            value={formData.name}
+                            onChange={(e) => setFormData({...formData, name: e.target.value})}
+                            required
+                        />
+                    </div>
+                    <div className="form-field-standard">
+                        <label>Goal</label>
+                        <input
+                            className="input-field-standard"
+                            type="number"
+                            value={formData.goal}
+                            onChange={(e) => setFormData({...formData, goal: Number(e.target.value)})}
+                            required
+                            min={0}
+                            step="0.01"
+                        />
+                    </div>
+                </div>
             </div>
             <button className="btn-primary" type="submit">
                 {isEditMode ? 'Update Fund' : 'Add Fund'}

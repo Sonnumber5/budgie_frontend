@@ -66,45 +66,55 @@ export const FundTransactionForm = ({ onSuccess, transactionToEdit, fundId }: Fu
 
     return (
         <form onSubmit={handleSubmit}>
-            <div>
-                <label>Description</label>
-                <input
-                    type="text"
-                    value={formData.description}
-                    onChange={(e) => setFormData({...formData, description: e.target.value})}
-                />
-            </div>
-            <div>
-                <label>Amount</label>
-                <input
-                    type="number"
-                    value={formData.amount}
-                    onChange={(e) => setFormData({...formData, amount: Number(e.target.value)})}
-                    required
-                />
-            </div>
-            <div>
-                <label>Transaction Type</label>
-                <select
-                    value={formData.transactionType}
-                    onChange={(e) => setFormData({...formData, transactionType: e.target.value as TransactionType})}>
-                        <option value="" disabled>Select the transaction type</option>
-                        <option value={'contribution'}>
-                            Contribution
-                        </option>
-                        <option value={'expenditure'}>
-                            Expenditure
-                        </option>
-                </select>
-            </div>
-            <div>
-                <label>Date</label>
-                <input
-                    type="date"
-                    value={new Date(formData.transactionDate).toISOString().split('T')[0]}
-                    onChange={(e) => setFormData({...formData, transactionDate: e.target.value})}
-                    required
-                />
+            <div className="form-body-standard">
+                <div className="form-field-group-standard">
+                    <div className="form-field-standard">
+                        <label>Amount</label>
+                        <input
+                            className="input-field-standard"
+                            type="number"
+                            value={formData.amount}
+                            onChange={(e) => setFormData({...formData, amount: Number(e.target.value)})}
+                            required
+                        />
+                    </div>
+                    <div className="form-field-standard">
+                        <label>Transaction Type</label>
+                        <div className="type-toggle">
+                            <button
+                                type="button"
+                                className={`type-btn green ${formData.transactionType === 'contribution' ? 'active' : ''}`}
+                                onClick={() => setFormData({...formData, transactionType: 'contribution'})}>
+                                Contribution
+                            </button>
+                            <button
+                                type="button"
+                                className={`type-btn red ${formData.transactionType === 'expenditure' ? 'active' : ''}`}
+                                onClick={() => setFormData({...formData, transactionType: 'expenditure'})}>
+                                Expenditure
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div className="form-field-standard">
+                    <label>Date</label>
+                    <input
+                    className="date-field-standard"
+                        type="date"
+                        value={new Date(formData.transactionDate).toISOString().split('T')[0]}
+                        onChange={(e) => setFormData({...formData, transactionDate: e.target.value})}
+                        required
+                    />
+                </div>
+                <div className="form-field-standard">
+                    <label>Description</label>
+                    <input
+                        className="input-field-standard"
+                        type="text"
+                        value={formData.description}
+                        onChange={(e) => setFormData({...formData, description: e.target.value})}
+                    />
+                </div>
             </div>
             <button className="btn-primary" type="submit">
                 {isEditMode ? 'Update Transaction' : 'Add Transaction'}

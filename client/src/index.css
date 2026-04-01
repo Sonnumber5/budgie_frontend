@@ -82,7 +82,7 @@ body {
 
 .btn-danger:hover{
   cursor: pointer;
-  background-color: #a12f2b;
+  background-color: var(--color-red-primary);
 }
 
 .btn-primary, .btn-secondary, .btn-danger{
@@ -282,4 +282,34 @@ body {
 
 .form-field-standard{
   flex: 1;
+}
+
+.type-toggle {
+  display: flex;
+  gap: var(--spacing-sm);
+}
+
+.type-btn {
+  flex: 1;
+  padding: 0.8em 1.4em;
+  border-radius: var(--border-radius-md);
+  border: 1px solid transparent;
+  cursor: pointer;
+  transition: background-color 0.2s ease, border-color 0.2s ease;
+  background-color: var(--color-input-field);
+  color: var(--color-text);
+}
+
+.type-btn.green:hover,
+.type-btn.green.active {
+  border-color: var(--color-green-primary);
+  color: var(--color-green-primary);
+  box-shadow: var(--box-shadow-md);
+}
+
+.type-btn.red:hover,
+.type-btn.red.active {
+  border-color: var(--color-red-primary);
+  color: var(--color-red-primary);
+  box-shadow: var(--box-shadow-md);
 }

@@ -41,43 +41,54 @@ export const TransferFundForm = ({ onSuccess }: TransferFundFormProps) => {
 
     return (
         <form onSubmit={handleSubmit}>
-            <div>
-                <label>From</label>
-                <select
-                    required
-                    value={formData.sendingFundId ?? ""}
-                    onChange={(e) => setFormData({...formData, sendingFundId: e.target.value ?  Number(e.target.value) : ""})}>
-                    <option value="" disabled>Select sending fund</option>
-                    {activeSavingsFunds.map(fund => (
-                        <option key={fund.id} value={fund.id}>
-                            {fund.name}
-                        </option>
-                    ))}
-                </select>
-                <label>To</label>
-                <select
-                    required
-                    value={formData.receivingFundId ?? ""}
-                    onChange={(e) => setFormData({...formData, receivingFundId: e.target.value?  Number(e.target.value) : ""})}>
-                    <option value="" disabled>Select receiving fund</option>
-                    {activeSavingsFunds
-                        .filter(fund => fund.id !== formData.sendingFundId)
-                        .map(fund => (
-                            <option key={fund.id} value={fund.id}>
-                                {fund.name}
-                            </option>
-                        ))
-                    }
-                </select>
-                <label>Amount</label>
-                <input
-                    type="number"
-                    min="0.01"
-                    step="0.01"
-                    value={formData.amount}
-                    onChange={(e) => setFormData({...formData, amount: Number(e.target.value)})}
-                    required
-                />
+            <div className="form-body-standard">
+                <div className="form-field-group-standard">
+                    <div className="form-field-standard">
+                        <label>From</label>
+                        <select
+                            className="select-field-standard"
+                            required
+                            value={formData.sendingFundId ?? ""}
+                            onChange={(e) => setFormData({...formData, sendingFundId: e.target.value ?  Number(e.target.value) : ""})}>
+                            <option value="" disabled>Select sending fund</option>
+                            {activeSavingsFunds.map(fund => (
+                                <option key={fund.id} value={fund.id}>
+                                    {fund.name}
+                                </option>
+                            ))}
+                        </select>
+                    </div>
+                    <div className="form-field-standard">
+                        <label>To</label>
+                        <select
+                            className="select-field-standard"
+                            required
+                            value={formData.receivingFundId ?? ""}
+                            onChange={(e) => setFormData({...formData, receivingFundId: e.target.value?  Number(e.target.value) : ""})}>
+                            <option value="" disabled>Select receiving fund</option>
+                            {activeSavingsFunds
+                                .filter(fund => fund.id !== formData.sendingFundId)
+                                .map(fund => (
+                                    <option key={fund.id} value={fund.id}>
+                                        {fund.name}
+                                    </option>
+                                ))
+                            }
+                        </select>
+                    </div>
+                </div>
+                <div className="form-field-standard">
+                    <label>Amount</label>
+                    <input
+                        className="input-field-standard"
+                        type="number"
+                        min="0.01"
+                        step="0.01"
+                        value={formData.amount}
+                        onChange={(e) => setFormData({...formData, amount: Number(e.target.value)})}
+                        required
+                    />
+                </div>
             </div>
             <button className="btn-primary" type="submit">
                 Transfer
