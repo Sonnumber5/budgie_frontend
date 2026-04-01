@@ -14,10 +14,12 @@
   --color-text: #8893A6;
   --color-input-field: #364053;
   --color-btn-secondary: #364053;
+  --color-secondary: #364053;
   --color-btn-primary: #FFE13C;
   --color-btn-danger: #8B2925;
   --color-dropdown-menu: #101628;
   --color-btn-add-inside: #4E5361;
+  --color-modal: #202939;
   --spacing-sm: 8px;
   --spacing-md: 16px;
   --spacing-lg: 24px;
@@ -25,7 +27,13 @@
   --border-radius-md: 8px;
   --border-radius-lg: 16px;
   --border-radius-full: 9999px;
-  --box-shadow-btns: 0 4px 6px rgba(0, 0, 0, 0.1);
+  --box-shadow-btns: 0 2px 6px rgba(0, 0, 0, 0.25);
+  --box-shadow-sm: 0 2px 6px rgba(0, 0, 0, 0.25);
+  --box-shadow-md: 0 2px 10px rgba(0, 0, 0, 0.25);
+  --box-shadow-lg: 0 2px 15px rgba(0, 0, 0, 0.25);
+  --padding-sm: 10px;
+  --padding-md: 15px;
+  --padding-lg: 20px;
 }
 
 .page{
@@ -173,4 +181,78 @@ body {
 .kebab-wrapper {
   position: relative;
   display: inline-block;
+}
+
+.input-field-standard{
+  color: var(--color-text);
+  background-color: var(--color-input-field);
+  box-shadow: inset var(--box-shadow-md);
+  border: none;
+  border-radius: var(--border-radius-md);
+  padding: 0.8em 1.4em;
+  font-family: inherit;
+  outline: none;
+  transition: box-shadow 0.5s ease;
+}
+
+.input-field-standard:focus {
+  box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.1);
+}
+
+.input-field-standard:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.input-field-standard::placeholder {
+  color: #9ca3af;
+}
+
+.select-field-standard {
+  color: var(--color-text);
+  background-color: var(--color-input-field);
+  box-shadow: inset var(--box-shadow-md);
+  border: none;
+  border-radius: var(--border-radius-md);
+  padding: 0.8em 1.4em;
+  font-family: inherit;
+  outline: none;
+  transition: box-shadow 0.5s ease;
+  width: 100%;
+  cursor: pointer;
+  appearance: none; 
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%236b7280' d='M6 8L1 3h10z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 1em center;
+}
+
+.select-field-standard:focus {
+  box-shadow: inset var(--box-shadow-md), 0 0 0 3px rgba(79, 70, 229, 0.1);
+}
+
+.date-field-standard {
+  color: var(--color-text);
+  background-color: var(--color-input-field);
+  box-shadow: inset var(--box-shadow-md);
+  border: none;
+  border-radius: var(--border-radius-md);
+  padding: 0.8em 1.4em;
+  font-family: inherit;
+  outline: none;
+  transition: box-shadow 0.5s ease;
+  width: 100%;
+  cursor: pointer;
+}
+
+.date-field-standard:focus {
+  box-shadow: inset var(--box-shadow-md), 0 0 0 3px rgba(79, 70, 229, 0.1);
+}
+
+.date-field-standard::-webkit-calendar-picker-indicator {
+  cursor: pointer;
+  opacity: 0.6;
+}
+
+.date-field-standard::-webkit-calendar-picker-indicator:hover {
+  opacity: 1;
 }

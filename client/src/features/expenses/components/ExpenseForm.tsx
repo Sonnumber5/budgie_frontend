@@ -8,6 +8,7 @@ import { useExpenseContext } from "../../../context/ExpenseContext";
 import { useBudgetContext } from "../../../context/BudgetContext";
 import { useDateContext } from "../../../context/DateContext";
 import { toast } from 'react-toastify';
+import './ExpenseForm.css';
 
 interface ExpenseFormProps{
     onSuccess: () => void;
@@ -64,9 +65,10 @@ export const ExpenseForm = ({ onSuccess, expenseToEdit, categoryId }: ExpenseFor
     const selectCategory = () => {
         if (!categoryId){
             return (
-                <div>
+                <div className="form-field-category">
                     <label>Category</label>
                     <select
+                        className="select-field-standard"
                         value={formData.existingCategoryId ?? ""}
                         onChange={(e) => setFormData({...formData, existingCategoryId: Number(e.target.value)})}>
                             <option value="" disabled>Select a category</option>
@@ -84,43 +86,53 @@ export const ExpenseForm = ({ onSuccess, expenseToEdit, categoryId }: ExpenseFor
 
     return (
         <form onSubmit={handleSubmit}>
-            <div>
-                <label>Vendor</label>
-                <input
-                    type="text"
-                    value={formData.vendor}
-                    onChange={(e) => setFormData({...formData, vendor: e.target.value})}
-                    required
-                />
-            </div>
-            <div>
-                <label>Amount</label>
-                <input
-                    type="number"
-                    value={formData.amount}
-                    onChange={(e) => setFormData({...formData, amount: Number(e.target.value)})}
-                    required
-                    min={0}
-                    step="0.01"
-                />
-            </div>
-            {selectCategory()}
-            <div>
-                <label>Description</label>
-                <input
-                    type="text"
-                    value={formData.description}
-                    onChange={(e) => setFormData({...formData, description: e.target.value})}
-                />
-            </div>
-            <div>
-                <label>Date</label>
-                <input
-                    type="date"
-                    value={formData.expenseDate}
-                    onChange={(e) => setFormData({...formData, expenseDate: e.target.value})}
-                    required
-                />
+            <div className="expense-form-body">
+                <div className="form-field-vendor-amount">
+                    <div className="form-field-vendor">
+                        <label>Vendor</label>
+                        <input
+                            className="input-field-standard"
+                            type="text"
+                            value={formData.vendor}
+                            onChange={(e) => setFormData({...formData, vendor: e.target.value})}
+                            required
+                        />
+                    </div>
+                    <div  className="form-field-amount">
+                        <label>Amount</label>
+                        <input
+                            className="input-field-standard"
+                            type="number"
+                            value={formData.amount}
+                            onChange={(e) => setFormData({...formData, amount: Number(e.target.value)})}
+                            required
+                            min={0}
+                            step="0.01"
+                        />
+                    </div>
+                </div>
+                <div className="form-field-category-date">
+                    {selectCategory()}
+                    <div className="form-field-date">
+                        <label>Date</label>
+                        <input
+                            className="date-field-standard"
+                            type="date"
+                            value={formData.expenseDate}
+                            onChange={(e) => setFormData({...formData, expenseDate: e.target.value})}
+                            required
+                        />
+                    </div>
+                </div>
+                <div className="form-field-description">
+                    <label>Description</label>
+                    <input
+                        className="input-field-standard"
+                        type="text"
+                        value={formData.description}
+                        onChange={(e) => setFormData({...formData, description: e.target.value})}
+                    />
+                </div>
             </div>
             <button className="btn-primary" type="submit">
                 {isEditMode ? 'Update Expense' : 'Add Expense'}

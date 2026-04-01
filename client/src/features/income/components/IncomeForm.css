@@ -1,0 +1,27 @@
+.income-form-body{
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-sm);
+    background-color: var(--color-modal);
+    border-radius: var(--border-radius-md);
+    padding: var(--padding-lg);
+    box-shadow: var(--box-shadow-md);
+}
+
+.income-form-body input{
+    width: 100%;
+}
+
+.form-field-income-source input{
+    width: 100%;
+}
+
+.form-field-income-amount-date {
+    display: flex;
+    gap: var(--spacing-md);
+}
+
+.form-field-income-amount, 
+.form-field-income-date{
+    flex: 1;
+}

@@ -29,7 +29,7 @@ export const CategorizedExpenses = ({ categoryBudget, expenses, totalSpent, rema
 
     return (
         <div className="budget-category">
-            <Modal isOpen={isExpenseModalOpen} onClose={() => {setIsExpenseModalOpen(false)}} title={'Expense Form'}>
+            <Modal isOpen={isExpenseModalOpen} onClose={() => {setIsExpenseModalOpen(false)}} title={'Add Expense'}>
                 <ExpenseForm categoryId={categoryBudget ? categoryBudget.categoryId : undefined} onSuccess={() => {setIsExpenseModalOpen(false)}}/>
             </Modal>
             <Modal isOpen={isCategoryBudgetModalOpen} onClose={() => {setIsCategoryBudgetModalOpen(false)}} title={`${categoryBudget?.categoryName} budget`}>

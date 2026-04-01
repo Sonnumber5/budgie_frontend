@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import type { Income, IncomeDTO } from "../../../types";
 import { useIncomeContext } from "../../../context/IncomeContext";
 import { toast } from "react-toastify";
+import './IncomeForm.css';
 
 interface IncomeFormProps{
     onSuccess: () => void;
@@ -49,34 +50,41 @@ export const IncomeForm = ({ onSuccess, incomeToEdit }: IncomeFormProps) => {
 
     return (
         <form onSubmit={handleSubmit}>
-            <div>
-                <label>Source</label>
-                <input
-                    type="text"
-                    value={formData.source}
-                    onChange={(e) => setFormData({...formData, source: e.target.value})}
-                    required
-                />
-            </div>
-            <div>
-                <label>Amount</label>
-                <input
-                    type="number"
-                    value={formData.amount}
-                    onChange={(e) => setFormData({...formData, amount: Number(e.target.value)})}
-                    required
-                    min={0}
-                    step="0.01"
-                />
-            </div>
-            <div>
-                <label>Date</label>
-                <input
-                    type="date"
-                    value={formData.incomeDate}
-                    onChange={(e) => setFormData({...formData, incomeDate: e.target.value})}
-                    required
-                />
+            <div className="income-form-body">
+                <div className="form-field-income-source">
+                    <label>Source</label>
+                    <input
+                        className="input-field-standard"
+                        type="text"
+                        value={formData.source}
+                        onChange={(e) => setFormData({...formData, source: e.target.value})}
+                        required
+                    />
+                </div>
+                <div className="form-field-income-amount-date">
+                    <div className="form-field-income-amount">
+                        <label>Amount</label>
+                        <input
+                            className="input-field-standard"
+                            type="number"
+                            value={formData.amount}
+                            onChange={(e) => setFormData({...formData, amount: Number(e.target.value)})}
+                            required
+                            min={0}
+                            step="0.01"
+                        />
+                    </div>
+                    <div className="form-field-income-date">
+                        <label>Date</label>
+                        <input
+                            className="input-field-standard"
+                            type="date"
+                            value={formData.incomeDate}
+                            onChange={(e) => setFormData({...formData, incomeDate: e.target.value})}
+                            required
+                        />
+                    </div>
+                </div>
             </div>
             <button className="btn-primary" type="submit">
                 {isEditMode ? 'Update Income' : 'Add Income'}

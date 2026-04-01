@@ -18,8 +18,8 @@ export const IncomePage = () => {
             <div className="income-aggregates">
             Total: {Number(incomeSum).toFixed(2)}
             </div>
-            <button onClick={() => {setIsModalOpen(true)}}>
-            + Add Income
+            <button className="btn-add" onClick={() => {setIsModalOpen(true)}}>
+            +
             </button>
             <Modal isOpen={isModalOpen} onClose={() => {setIsModalOpen(false)}} title="Add Income">
                 <IncomeForm onSuccess={() => {setIsModalOpen(false)}}/>
