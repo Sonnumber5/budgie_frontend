@@ -57,25 +57,25 @@ export const Dashboard = () => {
             </div>
             <div className='container'>
                 <div className='dashboard-summary'>
-                    <div className='dashboard-summary-component income-dashboard-summary'>
+                    <div className='standard-container income-dashboard-summary'>
                         <p>Income (Actual)</p>
                         <p>{isIncomeLoading ? 'Loading...' : `$${Number(incomeSum).toFixed(2)}`}</p>
                         <p>{monthlyBudget ? `Expected: $${monthlyBudget.expectedIncome}` : 'Expected:'}</p>
-                        <button className='btn-dashboard-summary-component'>{`›`}</button>
+                        <button className='btn-arrow-circle summary'>{`›`}</button>
                     </div>
-                    <div className='dashboard-summary-component expense-dashboard-summary'>
+                    <div className='standard-container expense-dashboard-summary'>
                         <p>Expenses (Actual)</p>
                         <p>{isExpensesLoading ? 'Loading...' : `$${Number(expenseSum).toFixed(2)}`}</p>
                         <p>{monthlyBudget ? `Budget: $${totalCategoryBudget}` : 'Budget:'}</p>
-                        <button className='btn-dashboard-summary-component'>{`›`}</button>
+                        <button className='btn-arrow-circle summary'>{`›`}</button>
                     </div>
-                    <div className='dashboard-summary-component remaining-dashboard-summary'>
+                    <div className='standard-container remaining-dashboard-summary'>
                         <p>Remaining</p>
                         <p>${Number(currentRemaining).toFixed(2)}</p>
                         <p>{`Total: $${Number(monthlyTotal).toFixed(2)}`}</p>
                         <p>{`Fund Contributions: $${Number(monthlyContributionSum).toFixed(2)}`}</p>
                     </div>
-                    <div className='dashboard-summary-component'>
+                    <div className='standard-container'>
                         <p>Financial Overview</p>
                         <p>${Number(financialOverview).toFixed(2)}</p>
                     </div>
@@ -88,18 +88,30 @@ export const Dashboard = () => {
                     <BudgetOverview/>
                 </div>
                 <div className='fund-balance-section'>
-                    <div className='standard-container fund-section'>
-                        <p>Savings Funds</p>
-                        {activeSavingsFunds.map(savingsFund => (
-                            <FundPreview key={savingsFund.id} fund={savingsFund}/>
-                        ))}
+                    <div className='standard-container'>
+                        <div className='savings-section-header'>
+                            <p>Savings Funds</p>
+                            <button className='btn-arrow-circle'>{`›`}</button>
+                        </div>
+                        <div className='fund-section'>
+                            {activeSavingsFunds.map(savingsFund => (
+                                <FundPreview key={savingsFund.id} fund={savingsFund}/>
+                            ))}
+                        </div>
                     </div>
-                    <div className='standard-container balance-section'>
-                        <button className="btn-add" onClick={() => {setIsAccountBalanceModalOpen(true)}}>+</button>
-                        <button className="btn-danger" onClick={() => {clearAccountBalances()}}>Clear Balances</button>
-                        {accountBalances.map(accountBalance => (
-                            <AccountBalanceItem key={accountBalance.id} accountBalance={accountBalance} />
-                        ))}
+                    <div className='standard-container'>
+                        <div className='account-balance-section-header'>
+                            <p>Account Balances</p>
+                            <div className='account-balance-section-btns'>
+                                <button className="btn-danger" onClick={() => {clearAccountBalances()}}>Clear Balances</button>
+                                <button className="btn-add" onClick={() => {setIsAccountBalanceModalOpen(true)}}>+</button>
+                            </div>
+                        </div>
+                        <div className='account-balance-section'>
+                            {accountBalances.map(accountBalance => (
+                                <AccountBalanceItem key={accountBalance.id} accountBalance={accountBalance} />
+                            ))}
+                        </div>
                     </div>
                 </div>
             </div>

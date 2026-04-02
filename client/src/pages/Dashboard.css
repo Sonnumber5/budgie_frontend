@@ -1,12 +1,3 @@
-.dashboard {
-    margin-top: 75px;
-    height: calc(100% - 75px);
-    display: grid;
-    padding: 20px;
-    grid-template-rows: 1fr 2fr 6fr;
-    box-sizing: border-box;
-}
-
 .month-section{
     
 }
@@ -19,7 +10,7 @@
     margin: 0;
 }
 
-@media (min-width: 768px) {
+@media (min-width: 980px) {
     .dashboard-summary {
         grid-template-columns: 1fr 1fr 1fr 1fr;
     }
@@ -33,41 +24,53 @@
     gap: var(--spacing-md);
 }
 
-@media (min-width: 768px) {
+@media (min-width: 980px) {
     .budget-funds-balance-sections {
-        grid-template-columns: 2fr 1fr;
+        grid-template-columns: 1fr 1fr;
+        align-items: stretch;
     }
+}
+
+.budget-section{
+    height: 460px;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
 }
 
 .fund-balance-section{
     display: grid;
-    position: relative;
     gap: var(--spacing-md);
     grid-template-rows: 1fr 1fr;
+    height: 460px;
 }
 
-
-.dashboard-summary-component {
-    position: relative;
-    background-color: var(--color-component-group);
-    padding: var(--spacing-md);
-    border-radius: var(--border-radius-md);
+.fund-balance-section > .standard-container {
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    overflow: hidden;
 }
 
-.dashboard-summary-component.income-dashboard-summary{
+.fund-section, .account-balance-section {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-md);
+    overflow-y: auto;
+    min-height: 0;
+}
+
+.standard-container.income-dashboard-summary{
     background-color: var(--color-green-secondary);
     border: solid 0.1rem var(--color-green-primary);
 }
 
-.dashboard-summary-component.expense-dashboard-summary{
+.standard-container.expense-dashboard-summary{
     background-color: var(--color-red-secondary);
     border: solid 0.1rem var(--color-red-primary);
 }
 
-.dashboard-summary-component.remaining-dashboard-summary{
+.standard-container.remaining-dashboard-summary{
     background-color: #162144;
     border: solid 0.1rem #6590DB;
 }
@@ -87,19 +90,24 @@
     font-size: var(--font-size-md);
 }
 
-.dashboard-summary-section p:nth-child(2){
+.income-dashboard-summary p:nth-child(2),
+.expense-dashboard-summary p:nth-child(2),
+.remaining-dashboard-summary p:nth-child(2) {
     color: white;
     font-size: var(--font-size-xl);
     font-weight: var(--font-weight-regular);
 }
 
-.dashboard-summary-section p:nth-child(3), p:nth-child(4){
+.income-dashboard-summary p:nth-child(3),
+.income-dashboard-summary p:nth-child(4),
+.expense-dashboard-summary p:nth-child(3),
+.expense-dashboard-summary p:nth-child(4),
+.remaining-dashboard-summary p:nth-child(3),
+.remaining-dashboard-summary p:nth-child(4) {
     font-size: var(--font-size-sm);
 }
 
-.btn-dashboard-summary-component{
-    position: absolute;
-    right: 1rem;
+.btn-arrow-circle{
     background-color: rgba(255, 255, 255, 0.109);
     color: var(--color-btn-add-inside);
     border: none;
@@ -115,18 +123,30 @@
     line-height: 1;
 }
 
-.btn-dashboard-summary-section:hover{
+.btn-arrow-circle.summary {
+    position: absolute;
+    right: 1rem;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.btn-arrow-circle:hover{
     cursor: pointer;
     background-color: rgba(255, 255, 255, 0.254);
     color: #696f82;
 }
 
-.fund-section{
-    height: 100%;
+.savings-section-header, .account-balance-section-header {
     display: flex;
-    gap: var(--spacing-sm);
+    align-items: center;
+    justify-content: space-between;
 }
 
-.balance-section{
+.savings-section-header p, .account-balance-section-header p {
+    font-weight: var(--font-weight-bold);
+}
 
+.account-balance-section-btns {
+    display: flex;
+    gap: var(--spacing-md);
 }

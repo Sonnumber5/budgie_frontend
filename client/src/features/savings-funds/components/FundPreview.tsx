@@ -6,15 +6,16 @@ interface SavingsFundProps{
 }
 
 export const FundPreview = ({ fund }: SavingsFundProps) => {
+    const progress = Math.min((fund.balance / fund.goal) * 100, 100);
+
     return (
         <div className="fund-preview">
             <div className="fund-preview-info">
-                <h3 >{fund.name}</h3>
-                
-                <p>{`Goal: $${Number(fund.goal).toFixed(2)}`}</p>
-                <div>
-                    <p>{`Balance: $${Number(fund.balance).toFixed(2)}`}</p>
-                </div>
+                <p>{fund.name}</p>
+                <p>{`$${Number(fund.balance).toFixed(2)} / $${Number(fund.goal).toFixed(2)}`}</p>
+            </div>
+            <div className="fund-preview-progress-bar">
+                <div className="fund-preview-progress-fill" style={{ width: `${progress}%` }}/>
             </div>
         </div>
     )
