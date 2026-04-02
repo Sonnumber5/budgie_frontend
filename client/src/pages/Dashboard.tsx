@@ -3,7 +3,6 @@
 // The budget section shows a BudgetOverview and an Edit button that opens BudgetManagementForm.
 // The balances and categories sections are placeholders for future functionality.
 import './Dashboard.css';
-
 import { MonthPicker } from '../components/DatePicker';
 import { BudgetOverview } from '../features/budget/components/BudgetOverview';
 import { Modal } from '../components/modal';
@@ -26,7 +25,7 @@ import { useDateContext } from '../context/DateContext';
 export const Dashboard = () => {
     const { incomeSum, isLoading: isIncomeLoading } = useIncomeContext();
     const { expenseSum, isLoading: isExpensesLoading } = useExpenseContext();
-    const { monthlyBudget } = useBudgetContext();
+    const { monthlyBudget, totalCategoryBudget } = useBudgetContext();
     const { monthlyContributionSum } = useFundTransactionContext();
     const { accountBalances, clearAccountBalances } = useAccountBalanceContext();
     const { currentMonth } = useDateContext();
@@ -56,46 +55,46 @@ export const Dashboard = () => {
             <div className='month-section'>
                 <MonthPicker/>
             </div>
-            <div className='totals-section container'>
-                <div className='row'>
-                    <div className='dashboard-summary-section income-dashboard-summary'>
+            <div className='container'>
+                <div className='dashboard-summary'>
+                    <div className='dashboard-summary-component income-dashboard-summary'>
                         <p>Income (Actual)</p>
                         <p>{isIncomeLoading ? 'Loading...' : `$${Number(incomeSum).toFixed(2)}`}</p>
                         <p>{monthlyBudget ? `Expected: $${monthlyBudget.expectedIncome}` : 'Expected:'}</p>
+                        <button className='btn-dashboard-summary-component'>{`›`}</button>
                     </div>
-                    <div className='dashboard-summary-section expense-dashboard-summary'>
+                    <div className='dashboard-summary-component expense-dashboard-summary'>
                         <p>Expenses (Actual)</p>
                         <p>{isExpensesLoading ? 'Loading...' : `$${Number(expenseSum).toFixed(2)}`}</p>
-                        <p>{monthlyBudget ? `Budget: ${monthlyBudget.}` : 'Budget:'}</p>
+                        <p>{monthlyBudget ? `Budget: $${totalCategoryBudget}` : 'Budget:'}</p>
+                        <button className='btn-dashboard-summary-component'>{`›`}</button>
                     </div>
-                    <div className='dashboard-summary-section'>
-                        <div>
-                            Current Remaining: ${Number(currentRemaining).toFixed(2)}
-                        </div>
-                        <div>
-                            Total: ${Number(monthlyTotal).toFixed(2)}
-                        </div>
-                        <div>
-                            Fund Contributions: ${Number(monthlyContributionSum).toFixed(2)}
-                        </div>
+                    <div className='dashboard-summary-component remaining-dashboard-summary'>
+                        <p>Remaining</p>
+                        <p>${Number(currentRemaining).toFixed(2)}</p>
+                        <p>{`Total: $${Number(monthlyTotal).toFixed(2)}`}</p>
+                        <p>{`Fund Contributions: $${Number(monthlyContributionSum).toFixed(2)}`}</p>
                     </div>
-                    <div className='dashboard-summary-section'>
-                        Financial Overview: ${Number(financialOverview).toFixed(2)}
+                    <div className='dashboard-summary-component'>
+                        <p>Financial Overview</p>
+                        <p>${Number(financialOverview).toFixed(2)}</p>
                     </div>
                 </div>
             </div>
             <div className='budget-funds-balance-sections'>
-                <div className='budget-section'>
+                <div className='standard-container budget-section'>
+                    <p>{displayMonth} Budget</p>
                     <button className='btn-secondary' onClick={() => {setIsBudgetModalOpen(true)}}>Manage Budget</button>
                     <BudgetOverview/>
                 </div>
                 <div className='fund-balance-section'>
-                    <div className='fund-section'>
+                    <div className='standard-container fund-section'>
+                        <p>Savings Funds</p>
                         {activeSavingsFunds.map(savingsFund => (
                             <FundPreview key={savingsFund.id} fund={savingsFund}/>
                         ))}
                     </div>
-                    <div className='balance-section'>
+                    <div className='standard-container balance-section'>
                         <button className="btn-add" onClick={() => {setIsAccountBalanceModalOpen(true)}}>+</button>
                         <button className="btn-danger" onClick={() => {clearAccountBalances()}}>Clear Balances</button>
                         {accountBalances.map(accountBalance => (

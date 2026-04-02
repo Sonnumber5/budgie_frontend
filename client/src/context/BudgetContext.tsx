@@ -11,6 +11,7 @@ interface BudgetContextType{
     monthlyBudget: MonthlyBudget | null;
     categoryBudgets: CategoryBudget[];
     availableCategories: Category[];
+    totalCategoryBudget: number;
     isLoading: boolean;
     error: string | null;
     addMonthlyBudget: (data: MonthlyBudgetDTO) => Promise<MonthlyBudget>;

@@ -8,32 +8,68 @@
 }
 
 .month-section{
-    background-color: aqua;
+    
 }
 
-.totals-section {
-
+.dashboard-summary {
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--spacing-md);
+    margin: 0;
 }
 
-.dashboard-summary-section {
-    background-color: lightskyblue;
-    padding: 10px;
-    border-radius: 8px;
+@media (min-width: 768px) {
+    .dashboard-summary {
+        grid-template-columns: 1fr 1fr 1fr 1fr;
+    }
+}
+
+.budget-funds-balance-sections{
+    margin-top: 20px;
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--spacing-md);
+}
+
+@media (min-width: 768px) {
+    .budget-funds-balance-sections {
+        grid-template-columns: 2fr 1fr;
+    }
+}
+
+.fund-balance-section{
+    display: grid;
+    position: relative;
+    gap: var(--spacing-md);
+    grid-template-rows: 1fr 1fr;
+}
+
+
+.dashboard-summary-component {
+    position: relative;
+    background-color: var(--color-component-group);
+    padding: var(--spacing-md);
+    border-radius: var(--border-radius-md);
     display: flex;
     flex-direction: column;
     justify-content: center;
 }
 
-.dashboard-summary-section.income-dashboard-summary{
+.dashboard-summary-component.income-dashboard-summary{
     background-color: var(--color-green-secondary);
     border: solid 0.1rem var(--color-green-primary);
-    color: solid 0.1rem var(--color-green-primary);
 }
 
-.dashboard-summary-section.expense-dashboard-summary{
+.dashboard-summary-component.expense-dashboard-summary{
     background-color: var(--color-red-secondary);
     border: solid 0.1rem var(--color-red-primary);
-    color: solid 0.1rem var(--color-red-primary);
+}
+
+.dashboard-summary-component.remaining-dashboard-summary{
+    background-color: #162144;
+    border: solid 0.1rem #6590DB;
 }
 
 .income-dashboard-summary p:nth-child(1) {
@@ -46,56 +82,51 @@
     font-size: var(--font-size-md);
 }
 
+.remaining-dashboard-summary p:nth-child(1) {
+    color: #6590DB;
+    font-size: var(--font-size-md);
+}
+
 .dashboard-summary-section p:nth-child(2){
     color: white;
     font-size: var(--font-size-xl);
     font-weight: var(--font-weight-regular);
 }
 
-.dashboard-summary-section p:nth-child(3){
+.dashboard-summary-section p:nth-child(3), p:nth-child(4){
     font-size: var(--font-size-sm);
 }
 
-.income-total{
-
+.btn-dashboard-summary-component{
+    position: absolute;
+    right: 1rem;
+    background-color: rgba(255, 255, 255, 0.109);
+    color: var(--color-btn-add-inside);
+    border: none;
+    border-radius: var(--border-radius-full);
+    width: 2.5rem;
+    height: 2.5rem;
+    font-size: 1.5rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.3s ease, color 0.3s ease;
+    line-height: 1;
 }
 
-.expenses-total{
-
-}
-
-.remaining-total{
-
-}
-
-.net-worth-total{
-
-}
-
-.net-worth-total, .remaining-total, .expenses-total, .income-total{
-    background-color: lightskyblue;
-}
-
-.budget-funds-balance-sections{
-    background-color: antiquewhite;
-    margin-top: 20px;
-    display: grid;
-    grid-template-columns: 2fr 1fr;
-}
-
-.budget-section{
-    background-color: aliceblue;
-}
-
-.fund-balance-section{
-    display: grid;
-    grid-template-rows: 2fr 1f1;
+.btn-dashboard-summary-section:hover{
+    cursor: pointer;
+    background-color: rgba(255, 255, 255, 0.254);
+    color: #696f82;
 }
 
 .fund-section{
-    background-color: rgb(98, 74, 38);
+    height: 100%;
+    display: flex;
+    gap: var(--spacing-sm);
 }
 
 .balance-section{
-    background-color: aqua;
+
 }

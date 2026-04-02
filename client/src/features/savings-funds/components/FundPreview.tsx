@@ -1,5 +1,5 @@
 import type { SavingsFund } from "../../../types";
-import './Fund.css';
+import './FundPreview.css';
 
 interface SavingsFundProps{
     fund: SavingsFund;
@@ -7,8 +7,8 @@ interface SavingsFundProps{
 
 export const FundPreview = ({ fund }: SavingsFundProps) => {
     return (
-        <div className="savings-fund">
-            <div className="fund-info">
+        <div className="fund-preview">
+            <div className="fund-preview-info">
                 <h3 >{fund.name}</h3>
                 
                 <p>{`Goal: $${Number(fund.goal).toFixed(2)}`}</p>

@@ -222,5 +222,8 @@ export const useBudgets = () => {
         }
     }
 
-    return {monthlyBudget, categoryBudgets, availableCategories, isLoading, error, addMonthlyBudget, editMonthlyBudget, editCategoryBudget, removeCategoryBudget, removeMonthlyBudget}
+    const totalCategoryBudget = categoryBudgets.reduce((sum, cb) => sum + Number(cb.budgetedAmount), 0);
+
+
+    return {totalCategoryBudget, monthlyBudget, categoryBudgets, availableCategories, isLoading, error, addMonthlyBudget, editMonthlyBudget, editCategoryBudget, removeCategoryBudget, removeMonthlyBudget}
 }
