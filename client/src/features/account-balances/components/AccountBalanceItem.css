@@ -1,12 +1,17 @@
-.income-item {
-    background-color: lightgreen;
+.account-balance-item {
     display: flex;
     width: 100%;
     align-items: center;
-    justify-content: space-between; /* Spreads items out */
+    justify-content: space-between;
 }
 
-.income-item td{
+.account-balance-item td{
     padding: 10px;
     vertical-align: middle;
+}
+
+.account-balance-manage{
+    display: flex;
+    gap: var(--spacing-sm);
+    align-items: center;
 }

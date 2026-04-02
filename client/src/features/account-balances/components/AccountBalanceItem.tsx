@@ -28,16 +28,22 @@ export const AccountBalanceItem = ({ accountBalance }: AccountBalanceItemProps) 
     }
 
     return (
-        <div className="income-item">
-            <Modal isOpen={isAccountBalanceModalOpen} onClose={() => {setIsAccountBalanceModalOpen(false)}} title="Edit Account Balance">
-                <AccountBalanceForm accountBalanceToUpdate={accountBalance} onSuccess={() => {setIsAccountBalanceModalOpen(false)}}/>
-            </Modal>
-            <ConfirmModal isOpen={isConfirmModalOpen} onClose={() => {setIsConfirmModalOpen(false)}} confirmAction={() => {handleRemoveAccountBalance()}}/>
-            <div>{accountBalance.accountName}</div>
-            <div style={{ color: accountBalance.accountType === 'Asset' ? 'var(--color-green-primary)' : 'var(--color-red-primary)' }}>${Number(accountBalance.balance).toFixed(2)}</div>
-            <div>
-                <DropdownMenu onEdit={() => {setIsAccountBalanceModalOpen(true)}} onDelete={() => {setIsConfirmModalOpen(true)}}/>
+        <div>
+            <div className="account-balance-item">
+                <Modal isOpen={isAccountBalanceModalOpen} onClose={() => {setIsAccountBalanceModalOpen(false)}} title="Edit Account Balance">
+                    <AccountBalanceForm accountBalanceToUpdate={accountBalance} onSuccess={() => {setIsAccountBalanceModalOpen(false)}}/>
+                </Modal>
+                <ConfirmModal isOpen={isConfirmModalOpen} onClose={() => {setIsConfirmModalOpen(false)}} confirmAction={() => {handleRemoveAccountBalance()}}/>
+                <div>{accountBalance.accountName}</div>
+                
+                <div className="account-balance-manage">
+                    <div style={{ color: accountBalance.accountType === 'Asset' ? 'var(--color-green-primary)' : 'var(--color-red-primary)' }}>${Number(accountBalance.balance).toFixed(2)}</div>
+                    <div>
+                        <DropdownMenu onEdit={() => {setIsAccountBalanceModalOpen(true)}} onDelete={() => {setIsConfirmModalOpen(true)}}/>
+                    </div>
+                </div>
             </div>
+            <div className="basic-divider"></div>
         </div>
     )
 }
