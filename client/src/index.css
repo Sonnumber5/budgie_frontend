@@ -32,6 +32,7 @@
   --color-red-primary: #BD6261;
   --color-red-secondary: #2E1B27;
   --color-modal: #202939;
+  --spacing-xsm: 4px;
   --spacing-sm: 8px;
   --spacing-md: 16px;
   --spacing-lg: 24px;
@@ -366,4 +367,34 @@ body {
 .basic-divider{
   background-color: var(--color-btn-secondary);
   height: 1px;
+}
+
+.progress-bar {
+  width: 100%;
+  height: 5px;
+  background-color: var(--color-input-field);
+  border-radius: var(--border-radius-full);
+  margin-top: var(--spacing-sm);
+  margin-bottom: var(--spacing-xsm);
+  overflow: hidden;
+}
+
+.fund-preview-progress-fill {
+  height: 100%;
+  background-color: var(--color-green-primary);
+  border-radius: var(--border-radius-full);
+  transition: width 0.3s ease;
+}
+
+.progress-fill.fund-preview {
+  height: 100%;
+  background-color: var(--color-green-primary);
+  border-radius: var(--border-radius-full);
+  transition: width 0.3s ease;
+}
+
+.progress-fill.category-budget-preview {
+  height: 100%;
+  border-radius: var(--border-radius-full);
+  transition: width 0.3s ease;
 }

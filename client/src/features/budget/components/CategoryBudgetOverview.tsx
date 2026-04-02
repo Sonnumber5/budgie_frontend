@@ -32,6 +32,8 @@ export const CategoryBudgetOverview = ({ categoryBudget }: CategoryBudgetOvervie
     const remaining = budgetedAmount - amountSpent;
     const isOverBudget = remaining < 0;
 
+    const progress = Math.min((amountSpent / budgetedAmount) * 100, 100);
+
     const handleDelete = async () => {
         try {
             await removeCategoryBudget(categoryBudget.id);
@@ -43,23 +45,7 @@ export const CategoryBudgetOverview = ({ categoryBudget }: CategoryBudgetOvervie
     };
 
     return (
-        <div className="category-budget-overview">
-            <div className="main-info">
-                {categoryBudget.categoryName}
-            </div>
-            <div className="progress-bar">
-               
-            </div>
-            <div className="sub-info">
-                <div>${amountSpent.toFixed(2)} / ${budgetedAmount.toFixed(2)}</div>
-                <div style={{ color: isOverBudget ? 'red' : 'green' }}>
-                    Remaining: ${remaining.toFixed(2)}
-                </div>
-            </div>
-            <div className="actions">
-
-            </div>
-            <DropdownMenu onDelete={() => {setIsConfirmModalOpen(true)}} onEdit={() => {setIsCategoryBudgetModalOpen(true)}}/>
+        <div className="category-budget-overview-with-menu">
             <ConfirmModal isOpen={isConfirmModalOpen} onClose={() => {setIsConfirmModalOpen(false)}} confirmAction={() => {handleDelete()}}/>
             <Modal isOpen={isCategoryBudgetModalOpen} onClose={() => setIsCategoryBudgetModalOpen(false)} title="Edit Category Budget">
                 <CategoryBudgetForm 
@@ -67,6 +53,25 @@ export const CategoryBudgetOverview = ({ categoryBudget }: CategoryBudgetOvervie
                     categoryBudgetToEdit={categoryBudget}
                 />
             </Modal>
+            <div className="category-budget-overview">
+                <div className="category-budget-info">
+                    <p>{categoryBudget.categoryName}</p>
+                    <p>${amountSpent.toFixed(2)} / ${budgetedAmount.toFixed(2)}</p>
+                </div>
+                <div className="progress-bar">
+                    <div className="progress-fill category-budget-preview" style={{ width: `${progress}%`, backgroundColor: isOverBudget ? '#BD6261' : '#68BE7A' }}/>
+                </div>
+                <p>Remaining: ${remaining.toFixed(2)}</p>
+                {/* 
+                <p style={{ color: isOverBudget ? 'BD6261' : '#68BE7A' }}>
+                    Remaining: ${remaining.toFixed(2)}
+                </p>
+                */}
+
+            </div>
+            <div>
+                <DropdownMenu onDelete={() => {setIsConfirmModalOpen(true)}} onEdit={() => {setIsCategoryBudgetModalOpen(true)}}/>
+            </div>
         </div>
     )
 }

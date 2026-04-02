@@ -1,11 +1,32 @@
 .category-budget-overview{
-    background-color: lightblue;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: var(--spacing-sm);
+    flex: 1;
+}
+
+.category-budget-overview-with-menu{
+    display: flex;
+    align-self: flex-start;
+    width: 100%;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.category-budget-info{
     display: flex;
     justify-content: space-between;
-    padding: 10px;
 }
 
 .monthly-budget{
     overflow-y: scroll;
-    background-color: lightpink;
+}
+
+.category-budget-overview p:nth-child(1){
+    color: white;
+}
+
+.category-budget-overview p:nth-child(3){
+    font-size: var(--font-size-sm);
 }
