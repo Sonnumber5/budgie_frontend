@@ -3,6 +3,7 @@
 // The budget section shows a BudgetOverview and an Edit button that opens BudgetManagementForm.
 // The balances and categories sections are placeholders for future functionality.
 import './Dashboard.css';
+
 import { MonthPicker } from '../components/DatePicker';
 import { BudgetOverview } from '../features/budget/components/BudgetOverview';
 import { Modal } from '../components/modal';
@@ -45,7 +46,7 @@ export const Dashboard = () => {
         })();
 
     return (
-        <div className="dashboard page">
+        <div className="page container">
             <Modal isOpen={isBudgetModalOpen} onClose={() => {setIsBudgetModalOpen(false)}} title={`${displayMonth} Budget`}>
                 <BudgetManagementForm budgetToEdit={monthlyBudget ?? null} onSuccess={() => {setIsBudgetModalOpen(false)}}/>
             </Modal>
@@ -55,26 +56,32 @@ export const Dashboard = () => {
             <div className='month-section'>
                 <MonthPicker/>
             </div>
-            <div className='totals-section'>
-                <div className='income-total'>
-                    {isIncomeLoading ? 'Loading...' : `Total income: ${Number(incomeSum).toFixed(2)}`}
-                </div>
-                <div className='expenses-total'>
-                    {isExpensesLoading ? 'Loading...' : `Total expense: ${Number(expenseSum).toFixed(2)}`}
-                </div>
-                <div className='remaining-total'>
-                    <div>
-                        Current Remaining: ${Number(currentRemaining).toFixed(2)}
+            <div className='totals-section container'>
+                <div className='row'>
+                    <div className='dashboard-summary-section income-dashboard-summary'>
+                        <p>Income (Actual)</p>
+                        <p>{isIncomeLoading ? 'Loading...' : `$${Number(incomeSum).toFixed(2)}`}</p>
+                        <p>{monthlyBudget ? `Expected: $${monthlyBudget.expectedIncome}` : 'Expected:'}</p>
                     </div>
-                    <div>
-                        Total: ${Number(monthlyTotal).toFixed(2)}
+                    <div className='dashboard-summary-section expense-dashboard-summary'>
+                        <p>Expenses (Actual)</p>
+                        <p>{isExpensesLoading ? 'Loading...' : `$${Number(expenseSum).toFixed(2)}`}</p>
+                        <p>{monthlyBudget ? `Budget: ${monthlyBudget.}` : 'Budget:'}</p>
                     </div>
-                    <div>
-                        Fund Contributions: ${Number(monthlyContributionSum).toFixed(2)}
+                    <div className='dashboard-summary-section'>
+                        <div>
+                            Current Remaining: ${Number(currentRemaining).toFixed(2)}
+                        </div>
+                        <div>
+                            Total: ${Number(monthlyTotal).toFixed(2)}
+                        </div>
+                        <div>
+                            Fund Contributions: ${Number(monthlyContributionSum).toFixed(2)}
+                        </div>
                     </div>
-                </div>
-                <div className='net-worth-total'>
-                    Financial Overview: ${Number(financialOverview).toFixed(2)}
+                    <div className='dashboard-summary-section'>
+                        Financial Overview: ${Number(financialOverview).toFixed(2)}
+                    </div>
                 </div>
             </div>
             <div className='budget-funds-balance-sections'>

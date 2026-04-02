@@ -8,6 +8,13 @@
   font-family: system-ui, Helvetica, Arial, sans-serif;
   line-height: 1.5;
   font-size: 16px;
+  --font-size-sm: 0.875rem;
+  --font-size-md: 1rem;
+  --font-size-lg: 1.25rem;
+  --font-size-xl: 1.5rem;
+  --font-weight-normal: 400;
+  --font-weight-medium: 500;
+  --font-weight-bold: 700;
   --color-primary: #4f46e5;
   --color-background: #101628;
   --color-component-group: #1F293A;
@@ -46,6 +53,7 @@
   max-width: 1200px;
   width: 100%;
   margin: 0 auto;
+  margin-top: 60px;
 }
 
 body {
@@ -330,4 +338,25 @@ body {
   border-color: var(--color-red-primary);
   color: var(--color-red-primary);
   box-shadow: var(--box-shadow-md);
+}
+
+.container {
+  width: 100%;
+  margin-right: auto;
+  margin-left: auto;
+  max-width: 1320px;
+}
+
+.row {
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.5rem;
+  margin: 0;
+}
+
+@media (min-width: 768px) {
+  .row {
+      grid-template-columns: 1fr 1fr 1fr 1fr;
+  }
 }
