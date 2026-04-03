@@ -7,24 +7,29 @@ import './IncomePage.css';
 import { Modal } from "../components/modal";
 import { useState } from "react";
 import { IncomeForm } from "../features/income/components/IncomeForm";
+import { useBudgetContext } from "../context/BudgetContext";
 
 
 export const IncomePage = () => {
     const { incomeSum, incomeList, isLoading, error } = useIncomeContext();
+    const { monthlyBudget } = useBudgetContext();
     const [ isModalOpen, setIsModalOpen ] = useState(false);
 
     return(
-        <div className="income-page">
-            <div className="income-aggregates">
-            Total: {Number(incomeSum).toFixed(2)}
-            </div>
-            <button className="btn-add" onClick={() => {setIsModalOpen(true)}}>
-            +
-            </button>
+        <div className="page container">
             <Modal isOpen={isModalOpen} onClose={() => {setIsModalOpen(false)}} title="Add Income">
                 <IncomeForm onSuccess={() => {setIsModalOpen(false)}}/>
             </Modal>
-            <div className="income-list">
+            <div className="income-page-header">
+                {/* income-dashboard-summary style exists in Dashboard.css */}
+                <div className="income-dashboard-summary">
+                    <p>Income (Actual)</p>
+                    <p>{isLoading ? 'Loading...' : `$${Number(incomeSum).toFixed(2)}`}</p>
+                    <p>{monthlyBudget ? `Expected: $${monthlyBudget.expectedIncome}` : 'Expected:'}</p>
+                </div>
+                <button className="btn-add" onClick={() => {setIsModalOpen(true)}}>+</button>
+            </div>
+            <div className="standard-container income-list">
                 {isLoading && <p>Loading...</p>}
                 {incomeList.map((income) => (
                     <IncomeItem key={income.id} income={income}/>

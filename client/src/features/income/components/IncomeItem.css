@@ -1,12 +1,39 @@
 .income-item {
-    background-color: lightgreen;
     display: flex;
     width: 100%;
     align-items: center;
-    justify-content: space-between; /* Spreads items out */
+    justify-content: space-between;
 }
 
 .income-item td{
     padding: 10px;
     vertical-align: middle;
+}
+
+.income-date-source{
+    display: flex;
+    gap: var(--spacing-lg);
+    align-items: center;
+}
+
+.income-date-source p:nth-child(1){
+    font-size: var(--font-size-sm);
+}
+
+.income-date-source p:nth-child(2){
+    font-weight: 100;
+}
+
+.income-date-source p:nth-child(3){
+    color: white;
+}
+
+.income-amount-settings{
+    display: flex;
+    align-items: center;
+}
+
+.income-amount-settings p:nth-child(1){
+    color: var(--color-green-primary);
+    font-size: var(--font-size-lg);
 }

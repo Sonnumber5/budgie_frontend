@@ -1,21 +1,17 @@
-.income-page{
-    background-color: lightpink;
-    margin-top: 75px;
-    height: calc(100% - 75px);
-    display: grid;
-    padding: 20px;
-    grid-template-rows: auto auto 1fr;
-    gap: 10px;
-    box-sizing: border-box;
-}
-
-.income-list{
-    background-color: lightblue;
+.income-list {
     width: 100%;
-    height: 100%;
+    flex: 1;
+    min-height: 0;
     display: flex;
     flex-direction: column;
-    border-collapse: collapse;
+    height: calc(100dvh - 180px);
     gap: 10px;
     overflow-y: scroll;
+}
+
+.income-page-header{
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: var(--spacing-md);
+    align-items: center;
 }
