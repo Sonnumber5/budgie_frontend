@@ -56,9 +56,14 @@ export const MonthPicker = () => {
 
     return (
         <div className="month-picker">
-            <span>{displayMonth}</span>
-            <button onClick={goToPreviousMonth}>&lt;</button>
-            <button onClick={goToNextMonth}>&gt;</button>
+            <div className='date-with-arrows'>
+                <p>{displayMonth}</p>
+                <div className='arrow-btns'>
+                    <button onClick={goToPreviousMonth}>&lt;</button>
+                    <button onClick={goToNextMonth}>&gt;</button>
+                </div>
+            </div>
+            <div className='divider'></div>
         </div>
     );
 };

@@ -4,7 +4,6 @@
 // The balances and categories sections are placeholders for future functionality.
 import './Dashboard.css';
 import { MonthPicker } from '../components/DatePicker';
-import { BudgetOverview } from '../features/budget/components/BudgetOverview';
 import { Modal } from '../components/modal';
 import { BudgetManagementForm } from '../features/budget/components/BudgetManagementForm';
 import { useState } from 'react';
@@ -19,13 +18,16 @@ import { AccountBalanceItem } from '../features/account-balances/components/Acco
 import { FundPreview } from '../features/savings-funds/components/FundPreview';
 import { useDashboard } from '../features/dashboard/hooks/useDashboard';
 import { useDateContext } from '../context/DateContext';
+import { useNavigate } from 'react-router-dom';
+import { ConfirmModal } from '../components/ConfirmModal';
+import { CategoryBudgetOverview } from '../features/budget/components/CategoryBudgetOverview';
 
 
 
 export const Dashboard = () => {
     const { incomeSum, isLoading: isIncomeLoading } = useIncomeContext();
     const { expenseSum, isLoading: isExpensesLoading } = useExpenseContext();
-    const { monthlyBudget, totalCategoryBudget } = useBudgetContext();
+    const { monthlyBudget, totalCategoryBudget, categoryBudgets } = useBudgetContext();
     const { monthlyContributionSum } = useFundTransactionContext();
     const { accountBalances, clearAccountBalances } = useAccountBalanceContext();
     const { currentMonth } = useDateContext();
@@ -33,6 +35,9 @@ export const Dashboard = () => {
     const { financialOverview, currentRemaining, monthlyTotal } = useDashboard();
     const [ isBudgetModalOpen, setIsBudgetModalOpen ] = useState(false);
     const [ isAccountBalanceModalOpen, setIsAccountBalanceModalOpen ] = useState(false);
+    const [ isConfirmModalOpen, setIsConfirmModalOpen ] = useState(false);
+
+    const navigate = useNavigate();
 
         // Converts the "YYYY-MM-01" date string into this format: "March 2024".
         const displayMonth = (() => {
@@ -52,6 +57,7 @@ export const Dashboard = () => {
             <Modal isOpen={isAccountBalanceModalOpen} onClose={() => {setIsAccountBalanceModalOpen(false)}} title="Add account balance">
                 <AccountBalanceForm onSuccess={() => {setIsAccountBalanceModalOpen(false)}}/>
             </Modal>
+            <ConfirmModal isOpen={isConfirmModalOpen} onClose={() => {setIsConfirmModalOpen(false)}} confirmAction={() => {clearAccountBalances()}}/>
             <div className='month-section'>
                 <MonthPicker/>
             </div>
@@ -61,13 +67,13 @@ export const Dashboard = () => {
                         <p>Income (Actual)</p>
                         <p>{isIncomeLoading ? 'Loading...' : `$${Number(incomeSum).toFixed(2)}`}</p>
                         <p>{monthlyBudget ? `Expected: $${monthlyBudget.expectedIncome}` : 'Expected:'}</p>
-                        <button className='btn-arrow-circle summary'>{`›`}</button>
+                        <button onClick={() => {navigate('/income')}} className='btn-arrow-circle summary'>{`›`}</button>
                     </div>
                     <div className='standard-container expense-dashboard-summary'>
                         <p>Expenses (Actual)</p>
                         <p>{isExpensesLoading ? 'Loading...' : `$${Number(expenseSum).toFixed(2)}`}</p>
                         <p>{monthlyBudget ? `Budget: $${totalCategoryBudget}` : 'Budget:'}</p>
-                        <button className='btn-arrow-circle summary'>{`›`}</button>
+                        <button onClick={() => {navigate('/expenses')}} className='btn-arrow-circle summary'>{`›`}</button>
                     </div>
                     <div className='standard-container remaining-dashboard-summary'>
                         <p>Remaining</p>
@@ -83,15 +89,23 @@ export const Dashboard = () => {
             </div>
             <div className='budget-funds-balance-sections'>
                 <div className='standard-container budget-section'>
-                    <p>{displayMonth} Budget</p>
-                    <button className='btn-secondary' onClick={() => {setIsBudgetModalOpen(true)}}>Manage Budget</button>
-                    <BudgetOverview/>
+                    <div className='budget-section-header'>
+                        <p>{displayMonth} Budget</p>
+                        <button className='btn-secondary' onClick={() => {setIsBudgetModalOpen(true)}}>Manage Budget</button>
+                    </div>
+                    <div className="monthly-budget">
+                        <div className="category-budget-list">
+                            {categoryBudgets.map((categoryBudget) => (
+                                <CategoryBudgetOverview key={categoryBudget.id} categoryBudget={categoryBudget}/>
+                            ))}
+                        </div>
+                    </div>
                 </div>
                 <div className='fund-balance-section'>
                     <div className='standard-container'>
                         <div className='savings-section-header'>
                             <p>Savings Funds</p>
-                            <button className='btn-arrow-circle'>{`›`}</button>
+                            <button onClick={() => {navigate('/savings-funds')}} className='btn-arrow-circle'>{`›`}</button>
                         </div>
                         <div className='fund-section'>
                             {activeSavingsFunds.map(savingsFund => (
@@ -103,7 +117,7 @@ export const Dashboard = () => {
                         <div className='account-balance-section-header'>
                             <p>Account Balances</p>
                             <div className='account-balance-section-btns'>
-                                <button className="btn-danger" onClick={() => {clearAccountBalances()}}>Clear Balances</button>
+                                <button className="btn-danger" onClick={() => {setIsConfirmModalOpen(true)}}>Clear Balances</button>
                                 <button className="btn-add" onClick={() => {setIsAccountBalanceModalOpen(true)}}>+</button>
                             </div>
                         </div>

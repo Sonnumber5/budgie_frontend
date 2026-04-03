@@ -23,6 +23,7 @@
   --color-input-field: #364053;
   --color-btn-secondary: #364053;
   --color-secondary: #364053;
+  --color-secondary-hover: #455269;
   --color-btn-primary: #FFE13C;
   --color-btn-danger: #8B2925;
   --color-dropdown-menu: #101628;
@@ -59,7 +60,7 @@
 }
 @media (min-width: 980px) {
   .page {
-    padding-top: 80px;
+    padding-top: 70px;
     padding-bottom: 0px;
   }
 }
@@ -78,6 +79,7 @@ body {
   border-radius: var(--border-radius-md);
   display: flex;
   flex-direction: column;
+  box-shadow: var(--spacing-sm) var(--spacing-xsm) 20px rgba(0, 0, 0, 0.5);
 }
 
 .btn-primary{
@@ -97,7 +99,7 @@ body {
 
 .btn-secondary:hover{
   cursor: pointer;
-  background-color: #455269;
+  background-color: var(--color-secondary-hover);
 }
 
 .btn-danger{
@@ -137,7 +139,7 @@ body {
 
 .btn-add:hover{
   cursor: pointer;
-  background-color: #455269;
+  background-color: var(--color-secondary-hover);
   color: #696f82;
 }
 

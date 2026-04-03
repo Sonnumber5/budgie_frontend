@@ -1,3 +1,7 @@
+.account-balance{
+    margin-right: var(--spacing-md);
+}
+
 .account-balance-item {
     display: flex;
     width: 100%;

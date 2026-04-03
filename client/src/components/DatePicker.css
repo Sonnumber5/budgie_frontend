@@ -1,26 +1,40 @@
 /* MonthPicker.css */
 .month-picker {
     display: flex;
-    align-items: center;
-    gap: 20px;
+    flex-direction: column;
+    gap: var(--spacing-sm);
+    margin-bottom: var(--spacing-md);
+    width: 190px;
 }
 
 .month-picker button {
-    background-color: white;
-    border: 1px solid #ccc;
-    padding: 8px 16px;
+    background-color: transparent;
+    border: none;
     cursor: pointer;
     border-radius: 4px;
     font-size: 18px;
+    color: var(--color-text)
 }
 
-.month-picker button:hover {
-    background-color: #f0f0f0;
+.date-with-arrows{
+    display: flex;
+    justify-content: space-between;
 }
 
-.month-picker span {
-    font-size: 20px;
-    font-weight: bold;
-    min-width: 180px;
-    text-align: center;
+.arrow-btns{
+    display: flex;
+    gap: var(--spacing-sm);
+}
+
+.arrow-btns button{
+    width: 25px;
+    height: 25px;
+}
+
+.arrow-btns button:hover{
+    color: var(--color-secondary-hover);
+}
+
+.divider{
+    border-top: solid 1px var(--color-text);
 }

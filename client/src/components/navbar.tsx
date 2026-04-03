@@ -3,7 +3,7 @@
 // appear on the Login or Register pages.
 import { useAuth } from "../context/AuthContext";
 import './Navbar.css';
-import { Navigate, useLocation, useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
 export const Navbar = () => {
     const {user, isAuthenticated, logout} = useAuth();

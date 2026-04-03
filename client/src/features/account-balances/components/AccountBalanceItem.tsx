@@ -28,7 +28,7 @@ export const AccountBalanceItem = ({ accountBalance }: AccountBalanceItemProps) 
     }
 
     return (
-        <div>
+        <div className="account-balance">
             <div className="account-balance-item">
                 <Modal isOpen={isAccountBalanceModalOpen} onClose={() => {setIsAccountBalanceModalOpen(false)}} title="Edit Account Balance">
                     <AccountBalanceForm accountBalanceToUpdate={accountBalance} onSuccess={() => {setIsAccountBalanceModalOpen(false)}}/>
