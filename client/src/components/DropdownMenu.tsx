@@ -1,13 +1,14 @@
 import { useState, useRef, useEffect } from 'react';
 
 interface DropdownMenuProps {
-    onEdit: () => void;
+    onEdit?: () => void;
     onDelete?: () => void;
     onEditBalance?: () => void;
     onArchive?: () => void;
+    onLogout?: () => void;
 }
 
-export const DropdownMenu = ({ onEdit, onDelete, onEditBalance, onArchive }: DropdownMenuProps) => {
+export const DropdownMenu = ({ onEdit, onDelete, onEditBalance, onArchive, onLogout }: DropdownMenuProps) => {
     const [isOpen, setIsOpen] = useState(false);
     const ref = useRef<HTMLDivElement>(null);
 
@@ -26,10 +27,17 @@ export const DropdownMenu = ({ onEdit, onDelete, onEditBalance, onArchive }: Dro
             <button className='kebab' type="button" onClick={() => setIsOpen(prev => !prev)}>⋮</button>
             {isOpen && (
                 <div className='kebab-menu'>
-                    <button type="button" onClick={() => { onEdit(); setIsOpen(false); }}>Edit</button>
+                    {onEdit && <button type="button" onClick={() => { onEdit(); setIsOpen(false); }}>Edit</button>}
                     {onDelete && <button type="button" onClick={() => { onDelete(); setIsOpen(false); }}>Delete</button>}
                     {onEditBalance && <button type="button" onClick={() => { onEditBalance(); setIsOpen(false); }}>Edit Balance</button>}
                     {onArchive && <button type="button" onClick={() => { onArchive(); setIsOpen(false); }}>Archive</button>}
+                    {onLogout && 
+                    <div>
+                        <button type="button" onClick={() => { onLogout(); setIsOpen(false); }}>Logout</button>
+                        <button type="button" onClick={() => {}}>Archived Funds</button>
+                    </div>
+                        
+                    }
                 </div>
             )}
         </div>

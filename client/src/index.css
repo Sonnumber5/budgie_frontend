@@ -60,7 +60,7 @@
 }
 @media (min-width: 980px) {
   .page {
-    padding-top: 70px;
+    padding-top: 85px;
     padding-bottom: 0px;
   }
 }
@@ -201,12 +201,12 @@ body {
 .kebab-menu {
   position: absolute;
   right: 0;
-  top: 75%;
+  bottom: 0;
   background: white;
   border: 1px solid #e5e7eb;
   border-radius: var(--border-radius-md);
   box-shadow: var(--box-shadow-btns);
-  z-index: 100;
+  z-index: 1000;
   min-width: 120px;
   overflow: hidden;
 }
@@ -379,13 +379,6 @@ body {
   margin-top: var(--spacing-sm);
   margin-bottom: var(--spacing-xsm);
   overflow: hidden;
-}
-
-.fund-preview-progress-fill {
-  height: 100%;
-  background-color: var(--color-green-primary);
-  border-radius: var(--border-radius-full);
-  transition: width 0.3s ease;
 }
 
 .progress-fill.fund-preview {
