@@ -13,16 +13,14 @@ import { BudgetManagementForm } from '../features/budget/components/BudgetManage
 
 
 export const ExpensesPage = () => {
-    const { expenses, isLoading, error } = useExpenseContext();
-    const { categoryBudgets, monthlyBudget } = useBudgetContext();
-    const [ isExpenseModalOpen, setIsExpenseModalOpen ] = useState(false);
-    const [ isBudgetModalOpen, setIsBudgetModalOpen ] = useState(false);
+    const { expenses, expenseSum, isLoading } = useExpenseContext();
+    const { categoryBudgets, monthlyBudget, totalCategoryBudget } = useBudgetContext();
+    const [isExpenseModalOpen, setIsExpenseModalOpen] = useState(false);
+    const [isBudgetModalOpen, setIsBudgetModalOpen] = useState(false);
 
-
-    
     // Build one group per category budget, attaching only expenses that belong to that category.
     const categorizedExpenses = categoryBudgets.map(categoryBudget => {
-        const categoryExpenses = expenses.filter(expense => 
+        const categoryExpenses = expenses.filter(expense =>
             expense.categoryId === categoryBudget.categoryId
         );
 
@@ -48,32 +46,48 @@ export const ExpensesPage = () => {
         (sum, expense) => sum + Number(expense.amount), 0
     );
 
-    const totalExpenses = expenses.reduce((sum, expense) => sum + Number(expense.amount), 0);
+    const progress = Math.min((expenseSum / totalCategoryBudget) * 100, 100);
 
-    return(
-        <div className="expense-page">
-            <Modal isOpen={isExpenseModalOpen} onClose={() => {setIsExpenseModalOpen(false)}} title="Add Expense">
-                <ExpenseForm onSuccess={() => {setIsExpenseModalOpen(false)}}/>
+    const isOverBudget = expenseSum > totalCategoryBudget;
+
+
+    return (
+        <div className="page">
+            <Modal isOpen={isExpenseModalOpen} onClose={() => { setIsExpenseModalOpen(false) }} title="Add Expense">
+                <ExpenseForm onSuccess={() => { setIsExpenseModalOpen(false) }} />
             </Modal>
-            <Modal isOpen={isBudgetModalOpen} onClose={() => {setIsBudgetModalOpen(false)}} title="Monthly Budget">
-                <BudgetManagementForm budgetToEdit={monthlyBudget ?? null} onSuccess={() => {setIsBudgetModalOpen(false)}}/>
+            <Modal isOpen={isBudgetModalOpen} onClose={() => { setIsBudgetModalOpen(false) }} title="Monthly Budget">
+                <BudgetManagementForm budgetToEdit={monthlyBudget ?? null} onSuccess={() => { setIsBudgetModalOpen(false) }} />
             </Modal>
-            <div className="expense-aggregates">
-                Total: ${Number(totalExpenses.toFixed(2))}
+            <div className="expense-page-menu">
+                <div className='expense-dashboard-summary'>
+                    <p>Expenses (Actual)</p>
+                    <p>{isLoading ? 'Loading...' : `$${Number(expenseSum).toFixed(2)}`}</p>
+                    <p>{monthlyBudget ? `Budget: $${totalCategoryBudget}` : 'Budget:'}</p>
+                </div>
+                <div className='expense-dashboard-progress-bar-btns'>
+                    <div className='expense-menu-progress-bar'>
+                        <p>
+                            <span className="expense-actual">${Number(expenseSum).toFixed(2)}</span>
+                            <span>  </span>
+                            <span className="month-budget"> / ${Number(totalCategoryBudget).toFixed(2)}</span>
+                        </p>                        <div className='progress-bar'>
+                            <div className='progress-fill expense-dashboard-progress-bar' style={{ width: `${progress}`, backgroundColor: isOverBudget ? '#BD6261' : '#FFE13C' }}></div>
+                        </div>
+                    </div>
+                    <div className='expense-dashboard-btns'>
+                        <button className='btn-secondary' onClick={() => { setIsBudgetModalOpen(true) }}>Manage Budget</button>
+                        <button className='btn-add' onClick={() => { setIsExpenseModalOpen(true) }}>+</button>
+                    </div>
+                </div>
             </div>
-            <button className='btn-add' onClick={() => {setIsExpenseModalOpen(true)}}>
-                +
-            </button>
-            <button className='btn-secondary' onClick={() => {setIsBudgetModalOpen(true)}}>
-                Manage Budget
-            </button>
             <div className="category-list">
                 {isLoading && <p>Loading...</p>}
                 {categorizedExpenses.map((expenseGroup) => {
                     return (
-                        <CategorizedExpenses 
+                        <CategorizedExpenses
                             key={expenseGroup.categoryBudget.id}
-                            categoryBudget={expenseGroup.categoryBudget} 
+                            categoryBudget={expenseGroup.categoryBudget}
                             expenses={expenseGroup.expenses}
                             totalSpent={expenseGroup.totalSpent}
                             remaining={expenseGroup.remaining}
@@ -81,10 +95,10 @@ export const ExpensesPage = () => {
                     )
                 })}
                 {uncategorizedExpenses.length > 0 && (
-                    <CategorizedExpenses 
+                    <CategorizedExpenses
                         key="uncategorized"
-                        expenses={uncategorizedExpenses} 
-                        totalSpent={totalSpentUncategorized} 
+                        expenses={uncategorizedExpenses}
+                        totalSpent={totalSpentUncategorized}
                     />
                 )}
             </div>

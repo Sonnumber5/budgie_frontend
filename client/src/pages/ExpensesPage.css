@@ -1,19 +1,45 @@
-.expense-page{
-    margin-top: 75px;
-    height: calc(100% - 75px);
-    display: grid;
-    padding: 20px;
-    grid-template-rows: auto auto 1fr;
-    gap: 10px;
-    box-sizing: border-box;
+.expense-page-menu{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: var(--spacing-lg);
+    margin-bottom: var(--spacing-md);
+}
+
+.expense-dashboard-progress-bar-btns{
+    display: flex;
+    gap: var(--spacing-sm);
+    flex: 1;
+    flex-direction: column;
+    align-items: end;
+}
+
+.expense-menu-progress-bar{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    align-items: flex-end;
+}
+
+.expense-dashboard-btns{
+    display: flex;
+    gap: var(--spacing-sm);
+}
+
+@media (min-width: 980px) {
+    .expense-dashboard-progress-bar-btns {
+        flex-direction: row;
+        align-items: center;
+    }
+    .expense-dashboard-progress-bar-btns{
+        flex: 0.75;
+        gap: var(--spacing-xlg);
+    }
 }
 
 .category-list{
-    width: 100%;
-    height: 100%;
     display: flex;
     flex-direction: column;
-    border-collapse: collapse;
     gap: 20px;
-    overflow-y: scroll;
 }
+

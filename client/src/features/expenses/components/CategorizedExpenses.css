@@ -1,6 +1,39 @@
+.dropdown-header-gap{
+    gap: var(--spacing-md);
+}
 
-.expense-group{
-    overflow-y: scroll;
+.category-info-progress-bar{
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    align-items:stretch;
+}
+
+.expense-actual {
+    color: white;
+}
+
+.category-info{
+    display: flex;
+    justify-content: space-between;
+}
+
+
+.category-info p:nth-child(1){
+    font-weight: bold;
+    color: white;
+}
+
+.category-info p:nth-child(2){
+    font-weight: lighter;
+}
+
+.category-btns{
+    display: flex;
+}
+
+.expense-list{
+    padding-right: var(--spacing-sm);
 }
 
 .add-btn{

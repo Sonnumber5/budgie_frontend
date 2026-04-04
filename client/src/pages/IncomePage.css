@@ -8,7 +8,6 @@
 .income-list {  
     display: flex;
     flex-direction: column;
-    gap: 10px;
     margin-right: var(--spacing-sm);
 }
 

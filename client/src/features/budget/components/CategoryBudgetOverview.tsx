@@ -59,7 +59,7 @@ export const CategoryBudgetOverview = ({ categoryBudget }: CategoryBudgetOvervie
                     <p>${amountSpent.toFixed(2)} / ${budgetedAmount.toFixed(2)}</p>
                 </div>
                 <div className="progress-bar">
-                    <div className="progress-fill category-budget-preview" style={{ width: `${progress}%`, backgroundColor: isOverBudget ? '#BD6261' : '#68BE7A' }}/>
+                    <div className="progress-fill category-budget-preview" style={{ width: `${progress}%`, backgroundColor: isOverBudget ? '#BD6261' : '#FFE13C' }}/>
                 </div>
                 <p>Remaining: ${remaining.toFixed(2)}</p>
                 {/* 
