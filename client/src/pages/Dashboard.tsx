@@ -93,7 +93,7 @@ export const Dashboard = () => {
                         <p>{displayMonth} Budget</p>
                         <button className='btn-secondary' onClick={() => {setIsBudgetModalOpen(true)}}>Manage Budget</button>
                     </div>
-                    <div className="monthly-budget">
+                    <div className="monthly-budget custom-scroll-bar">
                         <div className="category-budget-list">
                             {categoryBudgets.map((categoryBudget) => (
                                 <CategoryBudgetOverview key={categoryBudget.id} categoryBudget={categoryBudget}/>
@@ -107,7 +107,7 @@ export const Dashboard = () => {
                             <p>Savings Funds</p>
                             <button onClick={() => {navigate('/savings-funds')}} className='btn-arrow-circle'>{`›`}</button>
                         </div>
-                        <div className='fund-section'>
+                        <div className='fund-section custom-scroll-bar'>
                             {activeSavingsFunds.map(savingsFund => (
                                 <FundPreview key={savingsFund.id} fund={savingsFund}/>
                             ))}
@@ -121,7 +121,7 @@ export const Dashboard = () => {
                                 <button className="btn-add" onClick={() => {setIsAccountBalanceModalOpen(true)}}>+</button>
                             </div>
                         </div>
-                        <div className='account-balance-section'>
+                        <div className='account-balance-section custom-scroll-bar'>
                             {accountBalances.map(accountBalance => (
                                 <AccountBalanceItem key={accountBalance.id} accountBalance={accountBalance} />
                             ))}

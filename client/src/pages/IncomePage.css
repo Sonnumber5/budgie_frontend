@@ -1,12 +1,15 @@
-.income-list {
+.income-content{
     width: 100%;
     flex: 1;
     min-height: 0;
+    height: calc(100dvh - 180px);
+}
+
+.income-list {  
     display: flex;
     flex-direction: column;
-    height: calc(100dvh - 180px);
     gap: 10px;
-    overflow-y: scroll;
+    margin-right: var(--spacing-sm);
 }
 
 .income-page-header{

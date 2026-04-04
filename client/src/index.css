@@ -393,3 +393,25 @@ body {
   border-radius: var(--border-radius-full);
   transition: width 0.3s ease;
 }
+
+.custom-scroll-bar{
+  overflow-y: scroll;
+}
+
+.custom-scroll-bar::-webkit-scrollbar{
+  width: 6px;
+}
+
+.custom-scroll-bar::-webkit-scrollbar-track{
+  background: transparent;
+}
+
+.custom-scroll-bar::-webkit-scrollbar-thumb{
+  background-color: var(--color-btn-secondary);
+  border-radius: var(--border-radius-full);
+}
+
+.scrollable::-webkit-scrollbar-thumb:hover {
+  background-color: var(--color-secondary-hover);
+  border-radius: var(--border-radius-full);
+}

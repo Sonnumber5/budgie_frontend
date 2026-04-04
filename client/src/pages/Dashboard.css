@@ -182,30 +182,3 @@
     display: flex;
     gap: var(--spacing-md);
 }
-
-.monthly-budget::-webkit-scrollbar,
-.fund-section::-webkit-scrollbar,
-.account-balance-section::-webkit-scrollbar {
-    width: 6px;
-
-}
-
-.monthly-budget::-webkit-scrollbar-track,
-.fund-section::-webkit-scrollbar-track,
-.account-balance-section::-webkit-scrollbar-track {
-    background: transparent;
-}
-
-.monthly-budget::-webkit-scrollbar-thumb,
-.fund-section::-webkit-scrollbar-thumb,
-.account-balance-section::-webkit-scrollbar-thumb {
-    background-color: var(--color-secondary);
-    border-radius: var(--border-radius-full)
-}
-
-.monthly-budget::-webkit-scrollbar-thumb:hover,
-.fund-section::-webkit-scrollbar-thumb:hover,
-.account-balance-section::-webkit-scrollbar-thumb:hover {
-    background-color: var(--color-secondary-hover);
-    border-radius: var(--border-radius-full)
-}
