@@ -1,5 +1,4 @@
 .expense-page{
-    background-color: lightpink;
     margin-top: 75px;
     height: calc(100% - 75px);
     display: grid;

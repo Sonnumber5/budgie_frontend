@@ -1,5 +1,40 @@
-.expense-item{
+.expense-item {
     display: flex;
     width: 100%;
+    align-items: center;
     justify-content: space-between;
+}
+
+
+.expense-date-vendor{
+    display: flex;
+    gap: var(--spacing-lg);
+    align-items: center;
+}
+
+.expense-vendor{
+    display: flex;
+}
+
+.expense-date-vendor p:nth-child(1){
+    font-size: var(--font-size-sm);
+}
+
+.expense-date-vendor p:nth-child(2){
+    font-weight: 100;
+}
+
+.expense-date-vendor p:nth-child(3){
+    color: white;
+}
+
+.expense-amount-settings{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.expense-amount-settings p:nth-child(1){
+    color: var(--color-red-primary);
+    font-size: var(--font-size-lg);
 }

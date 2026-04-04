@@ -6,9 +6,10 @@ interface DropdownMenuProps {
     onEditBalance?: () => void;
     onArchive?: () => void;
     onLogout?: () => void;
+    onViewDescription?: () => void;
 }
 
-export const DropdownMenu = ({ onEdit, onDelete, onEditBalance, onArchive, onLogout }: DropdownMenuProps) => {
+export const DropdownMenu = ({ onEdit, onDelete, onEditBalance, onArchive, onLogout, onViewDescription }: DropdownMenuProps) => {
     const [isOpen, setIsOpen] = useState(false);
     const ref = useRef<HTMLDivElement>(null);
 
@@ -31,6 +32,7 @@ export const DropdownMenu = ({ onEdit, onDelete, onEditBalance, onArchive, onLog
                     {onDelete && <button type="button" onClick={() => { onDelete(); setIsOpen(false); }}>Delete</button>}
                     {onEditBalance && <button type="button" onClick={() => { onEditBalance(); setIsOpen(false); }}>Edit Balance</button>}
                     {onArchive && <button type="button" onClick={() => { onArchive(); setIsOpen(false); }}>Archive</button>}
+                    {onViewDescription && <button type="button" onClick={() => { onViewDescription(); setIsOpen(false); }}>View Notes</button>}
                     {onLogout && 
                     <div>
                         <button type="button" onClick={() => { onLogout(); setIsOpen(false); }}>Logout</button>

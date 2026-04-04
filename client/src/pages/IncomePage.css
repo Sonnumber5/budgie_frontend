@@ -2,7 +2,7 @@
     width: 100%;
     flex: 1;
     min-height: 0;
-    height: calc(100dvh - 180px);
+    height: calc(100dvh - 220px);
 }
 
 .income-list {  

@@ -13,51 +13,51 @@ import { DropdownMenu } from "../../../components/DropdownMenu";
 import { ConfirmModal } from "../../../components/ConfirmModal";
 import { useBudgetContext } from "../../../context/BudgetContext";
 
-interface CategorizedExpensesProps{
+interface CategorizedExpensesProps {
     categoryBudget?: CategoryBudget;
     expenses: Expense[];
     totalSpent: number;
     remaining?: number;
 }
 
-export const CategorizedExpenses = ({ categoryBudget, expenses, totalSpent, remaining }:CategorizedExpensesProps) => {
-    const [ isOpen, setIsOpen ] = useState(false);
-    const [ isExpenseModalOpen, setIsExpenseModalOpen ] = useState(false);
-    const [ isCategoryBudgetModalOpen, setIsCategoryBudgetModalOpen ] = useState(false);
-    const [ isConfirmModalOpen, setIsConfirmModalOpen ] = useState(false);
+export const CategorizedExpenses = ({ categoryBudget, expenses, totalSpent, remaining }: CategorizedExpensesProps) => {
+    const [isOpen, setIsOpen] = useState(false);
+    const [isExpenseModalOpen, setIsExpenseModalOpen] = useState(false);
+    const [isCategoryBudgetModalOpen, setIsCategoryBudgetModalOpen] = useState(false);
+    const [isConfirmModalOpen, setIsConfirmModalOpen] = useState(false);
     const { removeCategoryBudget } = useBudgetContext();
 
     return (
-        <div className="budget-category">
-            <Modal isOpen={isExpenseModalOpen} onClose={() => {setIsExpenseModalOpen(false)}} title={'Add Expense'}>
-                <ExpenseForm categoryId={categoryBudget ? categoryBudget.categoryId : undefined} onSuccess={() => {setIsExpenseModalOpen(false)}}/>
+        <div className="dropdown">
+            <Modal isOpen={isExpenseModalOpen} onClose={() => setIsExpenseModalOpen(false)} title={'Add Expense'}>
+                <ExpenseForm categoryId={categoryBudget?.categoryId} onSuccess={() => setIsExpenseModalOpen(false)} />
             </Modal>
-            <Modal isOpen={isCategoryBudgetModalOpen} onClose={() => {setIsCategoryBudgetModalOpen(false)}} title={'Edit Category Budget'}>
-                <CategoryBudgetForm categoryBudgetToEdit={categoryBudget} onSuccess={() => {setIsCategoryBudgetModalOpen(false)}}/>
+            <Modal isOpen={isCategoryBudgetModalOpen} onClose={() => setIsCategoryBudgetModalOpen(false)} title={'Edit Category Budget'}>
+                <CategoryBudgetForm categoryBudgetToEdit={categoryBudget} onSuccess={() => setIsCategoryBudgetModalOpen(false)} />
             </Modal>
-            { categoryBudget &&
-            <ConfirmModal isOpen={isConfirmModalOpen} onClose={() => {setIsConfirmModalOpen(false)}} confirmAction={() => {removeCategoryBudget(categoryBudget?.id)}}/>
+            {categoryBudget &&
+                <ConfirmModal isOpen={isConfirmModalOpen} onClose={() => setIsConfirmModalOpen(false)} confirmAction={() => removeCategoryBudget(categoryBudget.id)} />
             }
-            <div className="category-info">
-                <h3 >{categoryBudget ? categoryBudget.categoryName : "Uncategorized"}</h3>
+            <div className="category-info dropdown-header">
+                <h3>{categoryBudget ? categoryBudget.categoryName : "Uncategorized"}</h3>
                 <p>{categoryBudget ? `Budget: $${Number(categoryBudget.budgetedAmount).toFixed(2)}` : ""}</p>
                 <p>Total Spent: ${totalSpent.toFixed(2)}</p>
                 <p>{remaining || remaining === 0 ? `Remaining: $${remaining.toFixed(2)}` : ""}</p>
-                <button className="btn-add" onClick={() => {setIsExpenseModalOpen(true)}}>+</button>
-                <div>
-                    <DropdownMenu onEdit={() => {setIsCategoryBudgetModalOpen(true)}} onDelete={() => {setIsConfirmModalOpen(true)}}/>
-                </div>
+                <button className="btn-add" onClick={() => setIsExpenseModalOpen(true)}>+</button>
+                <DropdownMenu onEdit={() => setIsCategoryBudgetModalOpen(true)} onDelete={() => setIsConfirmModalOpen(true)} />
             </div>
             {isOpen && (
-                <div className="expenses-group">
-                    {expenses.map((expense) => (
-                        <ExpenseItem key={expense.id} expense={expense}/>
-                    ))}
+                <div className="dropdown-content custom-scroll-bar">
+                    <div className="expense-group">
+                        {expenses.map((expense) => (
+                            <ExpenseItem key={expense.id} expense={expense} />
+                        ))}
+                    </div>
                 </div>
             )}
-            <button className="dropdown" onClick={() => {setIsOpen(!isOpen)}}>
-            <span>{isOpen ? '▲' : '▼'}</span>
+            <button className="dropdown-toggle" onClick={() => setIsOpen(prev => !prev)}>
+                <span className={`dropdown-toggle-icon ${isOpen ? 'open' : ''}`}>▼</span>
             </button>
         </div>
-    )
+    );
 }

@@ -5,11 +5,6 @@
     justify-content: space-between;
 }
 
-.income-item td{
-    padding: 10px;
-    vertical-align: middle;
-}
-
 .income-date-source{
     display: flex;
     gap: var(--spacing-lg);

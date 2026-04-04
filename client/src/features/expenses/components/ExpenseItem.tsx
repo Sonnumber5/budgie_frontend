@@ -10,37 +10,48 @@ import { toast } from 'react-toastify';
 import { DropdownMenu } from "../../../components/DropdownMenu";
 import { ConfirmModal } from "../../../components/ConfirmModal";
 
-interface ExpenseItemProps{
+interface ExpenseItemProps {
     expense: Expense;
 }
 
 export const ExpenseItem = ({ expense }: ExpenseItemProps) => {
     const { removeExpense } = useExpenseContext();
-    const [ isModalOpen, setIsModalOpen ] = useState(false);
-    const [ isConfirmModalOpen, setIsConfirmModalOpen ] = useState(false);
+    const [isModalOpen, setIsModalOpen] = useState(false);
+    const [isConfirmModalOpen, setIsConfirmModalOpen] = useState(false);
+    const [isDescriptionModalOpen, setIsDescriptionModalOpen] = useState(false);
 
     const handleRemoveExpense = async (id: number) => {
-        try{
+        try {
             await removeExpense(id);
             toast.success('Successfully deleted expense');
-        } catch(err: any){
+        } catch (err: any) {
             toast.error(err.response?.data?.error || `Failed to delete expense`);
         }
     }
-    
+
     return (
-        <div className="expense-item">
-            <div>{expense.vendor}</div>
-            <div>{expense.description}</div>
-            <div>${Number(expense.amount).toFixed(2)}</div>
-            <div>{new Date(expense.expenseDate).toLocaleDateString()}</div>
-            <div>
-                <DropdownMenu onEdit={() => {setIsModalOpen(true)}} onDelete={() => setIsConfirmModalOpen(true)}/>
-                <Modal isOpen={isModalOpen} onClose={() => {setIsModalOpen(false)}} title="Edit Expense">
-                    <ExpenseForm onSuccess={() => {setIsModalOpen(false)}} expenseToEdit={expense}/>
+        <div>
+            <div className="expense-item">
+                <Modal isOpen={isModalOpen} onClose={() => { setIsModalOpen(false) }} title="Edit Expense">
+                    <ExpenseForm onSuccess={() => { setIsModalOpen(false) }} expenseToEdit={expense} />
                 </Modal>
-                <ConfirmModal isOpen={isConfirmModalOpen} onClose={() => {setIsConfirmModalOpen(false)}} confirmAction={() => {handleRemoveExpense(expense.id)}}/>
+                <Modal isOpen={isDescriptionModalOpen} onClose={() => { setIsDescriptionModalOpen(false) }} title="Expense Notes:">
+                    <div className="standard-container">
+                        <p>{expense.description}</p>
+                    </div>
+                </Modal>
+                <ConfirmModal isOpen={isConfirmModalOpen} onClose={() => { setIsConfirmModalOpen(false) }} confirmAction={() => { handleRemoveExpense(expense.id) }} />
+                <div className="expense-date-vendor">
+                    <p>{new Date(expense.expenseDate).toLocaleDateString()}</p>
+                    <p>|</p>
+                    <p>{expense.vendor}</p>
+                </div>
+                <div className="expense-amount-settings">
+                    <p>${Number(expense.amount).toFixed(2)}</p>
+                    <DropdownMenu onEdit={() => { setIsModalOpen(true) }} onDelete={() => setIsConfirmModalOpen(true)} onViewDescription={() => { setIsDescriptionModalOpen(true) }} />
+                </div>
             </div>
+            <div className="basic-divider"></div>
         </div>
     );
 };

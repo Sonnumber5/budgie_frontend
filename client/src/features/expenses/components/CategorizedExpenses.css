@@ -1,16 +1,6 @@
-.budget-category{
-background-color: lightgreen;
-}
 
-.category-info{
-    position: relative;
-    display: flex;
-    background-color: lightblue;
-}
-
-.dropdown{
-    min-width: fit-content;
-    width: 100%;
+.expense-group{
+    overflow-y: scroll;
 }
 
 .add-btn{

@@ -124,7 +124,7 @@ export const ExpenseForm = ({ onSuccess, expenseToEdit, categoryId }: ExpenseFor
                     </div>
                 </div>
                 <div className="form-field-standard">
-                    <label>Description</label>
+                    <label>Notes</label>
                     <input
                         className="input-field-standard"
                         type="text"

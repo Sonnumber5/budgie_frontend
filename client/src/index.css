@@ -82,6 +82,42 @@ body {
   box-shadow: var(--spacing-sm) var(--spacing-xsm) 20px rgba(0, 0, 0, 0.5);
 }
 
+.dropdown{
+  box-shadow: var(--spacing-sm) var(--spacing-xsm) 20px rgba(0, 0, 0, 0.5);
+  display: flex;
+  background-color: var(--color-component-group);
+  flex-direction: column;
+  border-radius: var(--border-radius-md);
+  overflow-y: visible;
+}
+
+.dropdown-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--spacing-md);
+}
+
+.dropdown-content {
+  height: 300px;
+  overflow-y: scroll;
+}
+
+.expense-group {
+  display: flex;
+  flex-direction: column;
+  padding: var(--spacing-sm) var(--spacing-md);
+  gap: var(--spacing-sm);
+}
+
+.dropdown-toggle-icon {
+  transition: transform 0.3s ease;
+}
+
+.dropdown-toggle-icon.open {
+  transform: rotate(180deg);
+}
+
 .btn-primary{
   background-color: var(--color-btn-primary);
   color: black;
