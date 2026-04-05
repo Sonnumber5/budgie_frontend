@@ -52,7 +52,7 @@ export const ExpensesPage = () => {
 
 
     return (
-        <div className="page">
+        <div className="page container">
             <Modal isOpen={isExpenseModalOpen} onClose={() => { setIsExpenseModalOpen(false) }} title="Add Expense">
                 <ExpenseForm onSuccess={() => { setIsExpenseModalOpen(false) }} />
             </Modal>
@@ -68,10 +68,11 @@ export const ExpensesPage = () => {
                 <div className='expense-dashboard-progress-bar-btns'>
                     <div className='expense-menu-progress-bar'>
                         <p>
-                            <span className="expense-actual">${Number(expenseSum).toFixed(2)}</span>
+                            <span className="text-white">${Number(expenseSum).toFixed(2)}</span>
                             <span>  </span>
-                            <span className="month-budget"> / ${Number(totalCategoryBudget).toFixed(2)}</span>
-                        </p>                        <div className='progress-bar'>
+                            <span> / ${Number(totalCategoryBudget).toFixed(2)}</span>
+                        </p>                        
+                        <div className='progress-bar'>
                             <div className='progress-fill expense-dashboard-progress-bar' style={{ width: `${progress}`, backgroundColor: isOverBudget ? '#BD6261' : '#FFE13C' }}></div>
                         </div>
                     </div>

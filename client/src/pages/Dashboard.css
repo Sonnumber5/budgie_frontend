@@ -2,6 +2,17 @@
     
 }
 
+.income-dashboard-summary:hover,
+.expense-dashboard-summary:hover{
+    transform: translatey(-3px);
+    cursor: pointer;
+}
+
+.income-dashboard-summary,
+.expense-dashboard-summary{
+    transition: transform 0.3s ease;
+}
+
 .dashboard-summary {
     width: 100%;
     display: grid;
@@ -28,6 +39,7 @@
     .budget-funds-balance-sections {
         grid-template-columns: 1fr 1fr;
         align-items: stretch;
+        margin-bottom: 20px;
     }
 }
 

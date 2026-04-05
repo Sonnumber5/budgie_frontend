@@ -9,10 +9,6 @@
     align-items:stretch;
 }
 
-.expense-actual {
-    color: white;
-}
-
 .category-info{
     display: flex;
     justify-content: space-between;
@@ -25,7 +21,7 @@
 }
 
 .category-info p:nth-child(2){
-    font-weight: lighter;
+    font-weight: var(--font-weight-light);
 }
 
 .category-btns{

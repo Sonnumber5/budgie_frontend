@@ -63,13 +63,13 @@ export const Dashboard = () => {
             </div>
             <div className='container'>
                 <div className='dashboard-summary'>
-                    <div className='standard-container income-dashboard-summary'>
+                    <div onClick={() => {navigate('/income')}}  className='standard-container income-dashboard-summary'>
                         <p>Income (Actual)</p>
                         <p>{isIncomeLoading ? 'Loading...' : `$${Number(incomeSum).toFixed(2)}`}</p>
                         <p>{monthlyBudget ? `Expected: $${monthlyBudget.expectedIncome}` : 'Expected:'}</p>
                         <button onClick={() => {navigate('/income')}} className='btn-arrow-circle summary'>{`›`}</button>
                     </div>
-                    <div className='standard-container expense-dashboard-summary'>
+                    <div onClick={() => {navigate('/expenses')}}  className='standard-container expense-dashboard-summary'>
                         <p>Expenses (Actual)</p>
                         <p>{isExpensesLoading ? 'Loading...' : `$${Number(expenseSum).toFixed(2)}`}</p>
                         <p>{monthlyBudget ? `Budget: $${totalCategoryBudget}` : 'Budget:'}</p>

@@ -56,7 +56,10 @@ export const CategoryBudgetOverview = ({ categoryBudget }: CategoryBudgetOvervie
             <div className="category-budget-overview">
                 <div className="category-budget-info">
                     <p>{categoryBudget.categoryName}</p>
-                    <p>${amountSpent.toFixed(2)} / ${budgetedAmount.toFixed(2)}</p>
+                    <p>
+                        <span className="text-white">${amountSpent.toFixed(2)}</span>
+                        <span> / ${budgetedAmount.toFixed(2)}</span>
+                    </p>
                 </div>
                 <div className="progress-bar">
                     <div className="progress-fill category-budget-preview" style={{ width: `${progress}%`, backgroundColor: isOverBudget ? '#BD6261' : '#FFE13C' }}/>

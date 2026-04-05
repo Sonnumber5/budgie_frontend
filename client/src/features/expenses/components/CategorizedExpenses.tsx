@@ -47,7 +47,7 @@ export const CategorizedExpenses = ({ categoryBudget, expenses, totalSpent, rema
                     <div className="category-info">
                         <p>{categoryBudget ? categoryBudget.categoryName : "Uncategorized"}</p>
                         <p>
-                            <span className="expense-actual">{categoryBudget ? `$${totalSpent.toFixed(2)}` : `Spent: $${totalSpent.toFixed(2)}`}</span>
+                            <span className="text-white">{categoryBudget ? `$${totalSpent.toFixed(2)}` : `Spent: $${totalSpent.toFixed(2)}`}</span>
                             <span>{categoryBudget ? ` / $${categoryBudget.budgetedAmount}` : ''}</span>
                         </p>
                     </div>
