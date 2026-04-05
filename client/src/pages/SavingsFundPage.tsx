@@ -8,7 +8,7 @@ import { useFundTransactionContext } from "../context/FundTransactionContext";
 import { TransferFundForm } from "../features/fund-transactions/components/TransferFundForm";
 
 export const SavingsFundPage = () => {
-    const { activeSavingsFunds, isLoading, error } = useSavingsFundContext();
+    const { activeSavingsFunds, isLoading } = useSavingsFundContext();
     const { transactions } = useFundTransactionContext();
     const [ isAddFundModalOpen, setIsAddFundModalOpen ] = useState(false);
     const [ isTransferModalOpen, setIsTransferModalOpen ] = useState(false);
@@ -29,17 +29,19 @@ export const SavingsFundPage = () => {
             <Modal isOpen={isTransferModalOpen} onClose={() => {setIsTransferModalOpen(false)}} title="Transfer Funds">
                 <TransferFundForm onSuccess={() => {setIsTransferModalOpen(false)}}/>
             </Modal>
-            <button className="btn-primary" onClick={() => {setIsTransferModalOpen(true)}}>
-                Transfer funds
-            </button>
-            <button className="btn-add" onClick={() => {setIsAddFundModalOpen(true)}}>
-                +
-            </button>
+            <div className="fund-page-dashboard">
+                <button className="btn-primary" onClick={() => {setIsTransferModalOpen(true)}}>
+                    Transfer funds
+                </button>
+                <button className="btn-add" onClick={() => {setIsAddFundModalOpen(true)}}>
+                    +
+                </button>
+            </div>
             <div className="fund-list">
-            {isLoading && <p>Loading...</p>}
-            {sortedFundsWithTransactions.map((fundWithTransactions) => (
-                <Fund key={fundWithTransactions.savingsFund.id} fund={fundWithTransactions.savingsFund} relatedTransactions={fundWithTransactions.fundTransactions}/>
-            ))}
+                {isLoading && <p>Loading...</p>}
+                {sortedFundsWithTransactions.map((fundWithTransactions) => (
+                    <Fund key={fundWithTransactions.savingsFund.id} fund={fundWithTransactions.savingsFund} relatedTransactions={fundWithTransactions.fundTransactions}/>
+                ))}
             </div>
         </div>
     )

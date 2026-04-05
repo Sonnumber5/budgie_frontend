@@ -60,6 +60,7 @@
   margin: 0 auto;
   padding-bottom: 100px;
 }
+
 @media (min-width: 980px) {
   .page {
     padding-top: 85px;
@@ -253,7 +254,7 @@ body {
 
 .disabled-kebab{
   background-color: transparent;
-  color: #1c2542;
+  color: #ffffff1a;
   border: none;
   font-size: 1.7rem;
   font-weight: bold;
@@ -448,7 +449,7 @@ body {
 }
 
 .basic-divider{
-  background-color: var(--color-btn-secondary);
+  background-color: var(--color-secondary);
   height: 1px;
 }
 

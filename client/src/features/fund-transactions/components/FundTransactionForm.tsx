@@ -111,6 +111,7 @@ export const FundTransactionForm = ({ onSuccess, transactionToEdit, fundId }: Fu
                     <input
                         className="input-field-standard"
                         type="text"
+                        maxLength={100}
                         value={formData.description}
                         onChange={(e) => setFormData({...formData, description: e.target.value})}
                     />

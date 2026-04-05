@@ -1,28 +1,33 @@
-.savings-fund{
-}
-
 .fund-info{
     position: relative;
     display: flex;
     width: 100%;
     justify-content: space-between;
+    align-items: center;
+    gap: var(--spacing-md);
 }
 
-.dropdown{
-    min-width: fit-content;
-    width: 100%;
+.fund-progress-bar-details{
+    display: flex;
+    flex-direction: column;
+    flex: 1;
 }
 
-.add-fund-btn{
-
+.fund-details{
+    display: flex;
+    justify-content: space-between;
 }
 
-.edit-fund-btn{
+.fund-details p:nth-child(1){
+    color: white;
+    font-weight: var(--font-weight-bold);
+}
 
+.fund-details p:nth-child(2){
+    font-weight: var(--font-weight-light);
 }
 
 .fund-btns{
     display: flex;
-    gap: 5px;
-    
+    gap: var(--spacing-sm);
 }

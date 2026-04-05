@@ -72,7 +72,6 @@ export const TransactionItem = ({ transaction, canDelete }: TransactionItemProps
                         <p style={{color: '#8893A6'}}>${Number(transaction.amount).toFixed(2)}</p>
                         }
                         
-                        
                         <button className='disabled-kebab' type="button" onClick={() => { }}>⋮</button>
                     </div> 
                 </div>

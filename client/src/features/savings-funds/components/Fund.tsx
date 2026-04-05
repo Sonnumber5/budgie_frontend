@@ -32,8 +32,10 @@ export const Fund = ({ fund, relatedTransactions }: SavingsFundProps) => {
         }
     };
 
+    const progress = Math.min((fund.balance / fund.goal) * 100, 100);
+
     return (
-        <div className="savings-fund">
+        <div className={`dropdown ${isOpen ? 'open' : ''}`}>
                 <Modal isOpen={isTransactionModalOpen} onClose={() => {setIsTransactionModalOpen(false)}} title={'Add Transaction'}>
                     <FundTransactionForm onSuccess={() => {setIsTransactionModalOpen(false)}} fundId={fund.id}/>
                 </Modal>
@@ -44,28 +46,37 @@ export const Fund = ({ fund, relatedTransactions }: SavingsFundProps) => {
                     <AdjustmentTransactionForm onSuccess={() => {setIsEditBalanceOpen(false)}} fund={fund}/>
                 </Modal>
                 <ConfirmModal isOpen={isConfirmModalOpen} onClose={() => {setIsConfirmModalOpen(false)}} confirmAction={() => {handleRemove()}}/>
-            <div className="fund-info">
-                <h3 >{fund.name}</h3>
-                
-                <p>{`Goal: $${Number(fund.goal).toFixed(2)}`}</p>
-                <div>
-                    <p>{`Balance: $${Number(fund.balance).toFixed(2)}`}</p>
+            <div className="fund-info dropdown-header">
+                <div className="fund-progress-bar-details">
+                    <div className="fund-details">
+                        <p>{fund.name}</p>
+                        <p>
+                            <span className="text-white">${Number(fund.balance).toFixed(2)}</span>
+                            <span> / ${Number(fund.goal).toFixed(2)}</span>
+                        </p>
+                    </div>
+                    <div className="progress-bar">
+                        <div className="progress-fill fund-preview" style={{width: `${progress}%`}}></div>
+                    </div>
                 </div>
                 <div className="fund-btns">
                     <button className="btn-add" onClick={() => {setIsTransactionModalOpen(true)}}>+</button>
                     <DropdownMenu onEditBalance={() => {setIsEditBalanceOpen(true)}} onEdit={() => {setIsEditFundModalOpen(true)}} onArchive={() => {setIsConfirmModalOpen(true)}}/>
                 </div>
             </div>
-            {isOpen && (
-                <div className="fund-transactions">
-                    {relatedTransactions.map((transaction) => (
+            <div className="dropdown-content">
+                {relatedTransactions.map((transaction) => (
+                    <>                        
                         <TransactionItem key={transaction.id} transaction={transaction} canDelete={transaction.transactionType !== 'adjustment' && transaction.transactionType !== 'transfer_in' && transaction.transactionType !== 'transfer_out'}/>
-                    ))}
-                </div>
-            )}
-            <button className="dropdown" onClick={() => {setIsOpen(!isOpen)}}>
-            <span>{isOpen ? '▲' : '▼'}</span>
+                        <div className="basic-divider"></div>
+
+                    </>
+                ))}
+            </div>
+            <button className="dropdown-toggle" onClick={() => {setIsOpen(prev => !prev)}}>
+                <span className={`dropdown-toggle-icon ${isOpen ? 'open' : ''}`}>▼</span>
             </button>
+
         </div>
     )
 }

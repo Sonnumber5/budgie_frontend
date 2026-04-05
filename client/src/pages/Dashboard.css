@@ -2,8 +2,8 @@
     
 }
 
-.income-dashboard-summary:hover,
-.expense-dashboard-summary:hover{
+.standard-container.income-dashboard-summary:hover,
+.standard-container.expense-dashboard-summary:hover{
     transform: translatey(-3px);
     cursor: pointer;
 }

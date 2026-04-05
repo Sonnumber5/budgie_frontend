@@ -26,6 +26,7 @@
 
 .category-btns{
     display: flex;
+    gap: var(--spacing-sm);
 }
 
 .expense-list{

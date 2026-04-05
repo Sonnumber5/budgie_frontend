@@ -9,13 +9,20 @@
     display: flex;
     justify-content: space-between;
     flex: 1;
+    gap: var(--spacing-sm);
 }
 
 .transaction-type-date-desc{
     display: flex;
-    gap: var(--spacing-lg);
+    gap: var(--spacing-sm);
     align-items: center;
     flex: 1;
+}
+
+@media (min-width: 980px){
+    .transaction-type-date-desc{
+        gap: var(--spacing-lg);
+    }
 }
 
 .transaction-type-date-desc.enabled p:nth-child(1){
