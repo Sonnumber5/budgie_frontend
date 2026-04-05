@@ -1,39 +1,31 @@
-.register-page{
-    background-color: lightpink;
-    min-height: 100vh;
+.register-page-content{
+    max-width: 448px;
     display: flex;
-    align-items: center;
+    flex-direction: column;
     justify-content: center;
+    margin: auto;
+    gap: var(--spacing-sm);
+    transform: translateY(20vh);
 }
 
 .register-card{
-    background-color: lightblue;
-    padding: 32px;
-    width: 100%;
-    max-width: 448px;
+    display: flex;
+    justify-content: center;
 }
 
-.login-title{
-
-}
-
-.login-error{
-
+.register-title{
+    text-align: center;
+    font-size: var(--font-size-lg);
+    font-weight: var(--font-weight-bold);
 }
 
 .register-form{
     display: flex;
+    flex: 1;
     flex-direction: column;
     gap: 16px;
-    background-color: lightgreen;
 }
 
-.register-field{
-    display: flex;
-    gap: 
-    4px;
-}
-
-.register-label{
-    font-size: 0.875rem;
+.register-form .input-field-standard {
+    width: 100%;
 }

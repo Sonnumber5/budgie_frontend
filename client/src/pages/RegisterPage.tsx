@@ -31,56 +31,60 @@ export const RegisterPage = () => {
     };
 
     return (
-        <div className="register-page">
-            <div className="register-card">
-                <h1 className="register-title">Register</h1>
+        <div className="page">
+            <div className='register-page-content'>
+                <p className="register-title">Register</p>
+                <div className="container standard-container">
 
-                {error && <p className="register-error">{error}</p>}
+                    <div className='register-card'>
+                        {error && <p className="register-error">{error}</p>}
 
-                <form onSubmit={handleSubmit} className="register-form">
-                    <div className="register-field">
-                        <label className="register-label">Name</label>
-                        <input
-                            type="text"
-                            value={name}
-                            onChange={(e) => setName(e.target.value)}
-                            className="register-input"
-                            placeholder="John Doe"
-                            required
-                        />
+                        <form onSubmit={handleSubmit} className="register-form">
+                            <div className="form-field-standard">
+                                <label>Name</label>
+                                <input
+                                    type="text"
+                                    value={name}
+                                    onChange={(e) => setName(e.target.value)}
+                                    className="input-field-standard"
+                                    placeholder="John Doe"
+                                    required
+                                />
+                            </div>
+
+                            <div className="form-field-standard">
+                                <label>Email</label>
+                                <input
+                                    type="email"
+                                    value={email}
+                                    onChange={(e) => setEmail(e.target.value)}
+                                    className="input-field-standard"
+                                    placeholder="you@example.com"
+                                    required
+                                />
+                            </div>
+
+                            <div className="form-field-standard">
+                                <label>Password</label>
+                                <input
+                                    type="password"
+                                    value={password}
+                                    onChange={(e) => setPassword(e.target.value)}
+                                    className="input-field-standard"
+                                    placeholder="••••••••"
+                                    required
+                                />
+                            </div>
+
+                            <button type="submit" disabled={isLoading} className="btn-primary">
+                                {isLoading ? 'Registering...' : 'Register'}
+                            </button>
+                            <button type="button" onClick={() => navigate('/login')} className="btn-secondary">
+                                Login
+                            </button>
+                        </form>
                     </div>
-
-                    <div className="register-field">
-                        <label className="register-label">Email</label>
-                        <input
-                            type="email"
-                            value={email}
-                            onChange={(e) => setEmail(e.target.value)}
-                            className="register-input"
-                            placeholder="you@example.com"
-                            required
-                        />
-                    </div>
-
-                    <div className="register-field">
-                        <label className="register-label">Password</label>
-                        <input
-                            type="password"
-                            value={password}
-                            onChange={(e) => setPassword(e.target.value)}
-                            className="register-input"
-                            placeholder="••••••••"
-                            required
-                        />
-                    </div>
-
-                    <button type="submit" disabled={isLoading} className="register-btn">
-                        {isLoading ? 'Registering...' : 'Register'}
-                    </button>
-                    <button type="button" onClick={() => navigate('/login')} className="register-login-btn">
-                        Login
-                    </button>
-                </form>
+                </div>
             </div>
         </div>
     );

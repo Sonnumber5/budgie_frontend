@@ -37,6 +37,7 @@ export const Dashboard = () => {
     const [ isAccountBalanceModalOpen, setIsAccountBalanceModalOpen ] = useState(false);
     const [ isConfirmModalOpen, setIsConfirmModalOpen ] = useState(false);
 
+
     const navigate = useNavigate();
 
         // Converts the "YYYY-MM-01" date string into this format: "March 2024".
@@ -65,25 +66,39 @@ export const Dashboard = () => {
                 <div className='dashboard-summary'>
                     <div onClick={() => {navigate('/income')}}  className='standard-container income-dashboard-summary'>
                         <p>Income (Actual)</p>
-                        <p>{isIncomeLoading ? 'Loading...' : `$${Number(incomeSum).toFixed(2)}`}</p>
-                        <p>{monthlyBudget ? `Expected: $${monthlyBudget.expectedIncome}` : 'Expected:'}</p>
+                        {isIncomeLoading ? 'Loading...' : 
+                            <>
+                                <p>${Number(incomeSum).toFixed(2)}</p>
+                                <p>{monthlyBudget ? `Expected: $${monthlyBudget.expectedIncome}` : 'Expected:'}</p>
+                            </>
+                        }
                         <button onClick={() => {navigate('/income')}} className='btn-arrow-circle summary'>{`›`}</button>
+
                     </div>
                     <div onClick={() => {navigate('/expenses')}}  className='standard-container expense-dashboard-summary'>
                         <p>Expenses (Actual)</p>
-                        <p>{isExpensesLoading ? 'Loading...' : `$${Number(expenseSum).toFixed(2)}`}</p>
-                        <p>{monthlyBudget ? `Budget: $${totalCategoryBudget}` : 'Budget:'}</p>
+                        {isExpensesLoading ? 'Loading...' : 
+                            <>
+                                <p>${Number(expenseSum).toFixed(2)}</p>
+                                <p>{monthlyBudget ? `Budget: $${totalCategoryBudget}` : 'Budget:'}</p>
+                            </>
+                        }
                         <button onClick={() => {navigate('/expenses')}} className='btn-arrow-circle summary'>{`›`}</button>
                     </div>
                     <div className='standard-container remaining-dashboard-summary'>
-                        <p>Remaining</p>
-                        <p>${Number(currentRemaining).toFixed(2)}</p>
-                        <p>{`Total: $${Number(monthlyTotal).toFixed(2)}`}</p>
-                        <p>{`Fund Contributions: $${Number(monthlyContributionSum).toFixed(2)}`}</p>
+                    <p>Remaining</p>
+                        {isIncomeLoading || isExpensesLoading ? 'Loading...' : 
+                        <>
+                            <p>${Number(currentRemaining).toFixed(2)}</p>
+                            <p>{`Total: $${Number(monthlyTotal).toFixed(2)}`}</p>
+                            <p>{`Fund Contributions: $${Number(monthlyContributionSum).toFixed(2)}`}</p>
+                        </>                    
+                        }
+
                     </div>
                     <div className='standard-container'>
                         <p>Financial Overview</p>
-                        <p>${Number(financialOverview).toFixed(2)}</p>
+                        <p>{isIncomeLoading || isExpensesLoading ? 'Loading...' : `${Number(financialOverview).toFixed(2)}`}</p>
                     </div>
                 </div>
             </div>

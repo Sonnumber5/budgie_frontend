@@ -34,44 +34,49 @@ export const LoginPage = () => {
     };
 
     return (
-        <div className="login-page">
-            <div className="login-card">
-                <h1 className="login-title">Login</h1>
+        <div className="page">
+            <div className='login-page-content'>
+                <p className="login-title">Login</p>
+                <div className="container standard-container">
 
-                {error && <p className="login-error">{error}</p>}
+                    <div className='login-card'>
 
-                <form onSubmit={handleSubmit} className="login-form">
-                    <div className="login-field">
-                        <label className="login-label">Email</label>
-                        <input
-                            type="email"
-                            value={email}
-                            onChange={(e) => setEmail(e.target.value)}
-                            className="login-input"
-                            placeholder="you@example.com"
-                            required
-                        />
+                        {error && <p className="login-error">{error}</p>}
+
+                        <form onSubmit={handleSubmit} className="login-form">
+                            <div className="form-field-standard">
+                                <label>Email</label>
+                                <input
+                                    type="email"
+                                    value={email}
+                                    onChange={(e) => setEmail(e.target.value)}
+                                    className="input-field-standard"
+                                    placeholder="you@example.com"
+                                    required
+                                />
+                            </div>
+
+                            <div className="form-field-standard">
+                                <label>Password</label>
+                                <input
+                                    type="password"
+                                    value={password}
+                                    onChange={(e) => setPassword(e.target.value)}
+                                    className="input-field-standard"
+                                    placeholder="••••••••"
+                                    required
+                                />
+                            </div>
+
+                            <button type="submit" disabled={isLoading} className="btn-primary">
+                                {isLoading ? 'Logging in...' : 'Login'}
+                            </button>
+                            <button type="button" onClick={() => navigate('/register')} className="btn-secondary">
+                                Register
+                            </button>
+                        </form>
                     </div>
-
-                    <div className="login-field">
-                        <label className="login-label">Password</label>
-                        <input
-                            type="password"
-                            value={password}
-                            onChange={(e) => setPassword(e.target.value)}
-                            className="login-input"
-                            placeholder="••••••••"
-                            required
-                        />
-                    </div>
-
-                    <button type="submit" disabled={isLoading} className="login-btn">
-                        {isLoading ? 'Logging in...' : 'Login'}
-                    </button>
-                    <button type="button" onClick={() => navigate('/register')} className="login-register-btn">
-                        Register
-                    </button>
-                </form>
+                </div>
             </div>
         </div>
     );
