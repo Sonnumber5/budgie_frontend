@@ -251,6 +251,22 @@ body {
   transition: background-color 0.3s ease;
 }
 
+.disabled-kebab{
+  background-color: transparent;
+  color: #1c2542;
+  border: none;
+  font-size: 1.7rem;
+  font-weight: bold;
+  width: 1.5rem;
+  height: 2.5rem;
+  border-radius: var(--border-radius-full);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
+  transition: background-color 0.3s ease;
+}
+
 .kebab-btn {
   background: none;
   border: none;

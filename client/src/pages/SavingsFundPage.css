@@ -1,13 +1,4 @@
-.savings-fund-page{
-    background-color: lightpink;
-    margin-top: 75px;
-    height: calc(100% - 75px);
-    display: grid;
-    padding: 20px;
-    grid-template-rows: auto auto 1fr;
-    gap: 10px;
-    box-sizing: border-box;
-}
+
 
 .fund-list{
     width: 100%;

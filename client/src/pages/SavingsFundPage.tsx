@@ -22,7 +22,7 @@ export const SavingsFundPage = () => {
     })
 
     return(
-        <div className="savings-fund-page">
+        <div className="page container">
             <Modal isOpen={isAddFundModalOpen} onClose={() => {setIsAddFundModalOpen(false)}} title="Add Savings Fund">
                 <FundForm onSuccess={() => {setIsAddFundModalOpen(false)}}/>
             </Modal>

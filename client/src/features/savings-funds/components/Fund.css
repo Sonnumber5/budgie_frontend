@@ -1,11 +1,9 @@
 .savings-fund{
-background-color: lightgreen;
 }
 
 .fund-info{
     position: relative;
     display: flex;
-    background-color: lightblue;
     width: 100%;
     justify-content: space-between;
 }
