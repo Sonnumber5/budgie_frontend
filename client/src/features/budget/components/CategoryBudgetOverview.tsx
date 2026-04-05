@@ -19,7 +19,7 @@ interface CategoryBudgetOverviewProps {
 
 export const CategoryBudgetOverview = ({ categoryBudget }: CategoryBudgetOverviewProps) => {
     const { removeCategoryBudget } = useBudgetContext();
-    const { expenses } = useExpenseContext();
+    const { expenses, isLoading: isExpensesLoading } = useExpenseContext();
     const { currentMonth } = useDateContext();
     const [ isCategoryBudgetModalOpen, setIsCategoryBudgetModalOpen ] = useState(false);
     const [ isConfirmModalOpen, setIsConfirmModalOpen ] = useState(false);
@@ -56,20 +56,17 @@ export const CategoryBudgetOverview = ({ categoryBudget }: CategoryBudgetOvervie
             <div className="category-budget-overview">
                 <div className="category-budget-info">
                     <p>{categoryBudget.categoryName}</p>
-                    <p>
-                        <span className="text-white">${amountSpent.toFixed(2)}</span>
-                        <span> / ${budgetedAmount.toFixed(2)}</span>
-                    </p>
+                    {isExpensesLoading ? 'Loading...' :
+                        <p>
+                            <span className="text-white">${amountSpent.toFixed(2)}</span>
+                            <span> / ${budgetedAmount.toFixed(2)}</span>
+                        </p>
+                    }
                 </div>
                 <div className="progress-bar">
-                    <div className="progress-fill category-budget-preview" style={{ width: `${progress}%`, backgroundColor: isOverBudget ? '#BD6261' : '#FFE13C' }}/>
+                    <div className="progress-fill category-budget-preview" style={{ width: isExpensesLoading ? '0%' : `${progress}%`, backgroundColor: isOverBudget ? '#BD6261' : '#FFE13C' }}/>
                 </div>
-                <p>Remaining: ${remaining.toFixed(2)}</p>
-                {/* 
-                <p style={{ color: isOverBudget ? 'BD6261' : '#68BE7A' }}>
-                    Remaining: ${remaining.toFixed(2)}
-                </p>
-                */}
+                <p>{isExpensesLoading ? 'Loading...' : `Remaining: $${remaining.toFixed(2)}`}</p>
 
             </div>
             <div>

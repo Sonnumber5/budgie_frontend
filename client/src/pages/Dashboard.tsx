@@ -27,11 +27,11 @@ import { CategoryBudgetOverview } from '../features/budget/components/CategoryBu
 export const Dashboard = () => {
     const { incomeSum, isLoading: isIncomeLoading } = useIncomeContext();
     const { expenseSum, isLoading: isExpensesLoading } = useExpenseContext();
-    const { monthlyBudget, totalCategoryBudget, categoryBudgets } = useBudgetContext();
+    const { monthlyBudget, totalCategoryBudget, categoryBudgets, isLoading: isCategoryBudgetsLoading } = useBudgetContext();
     const { monthlyContributionSum } = useFundTransactionContext();
-    const { accountBalances, clearAccountBalances } = useAccountBalanceContext();
+    const { accountBalances, clearAccountBalances, isLoading: isAccountBalancesLoading } = useAccountBalanceContext();
     const { currentMonth } = useDateContext();
-    const { activeSavingsFunds } = useSavingsFundContext();
+    const { activeSavingsFunds, isLoading: isActiveSavingsFundsLoading } = useSavingsFundContext();
     const { financialOverview, currentRemaining, monthlyTotal } = useDashboard();
     const [ isBudgetModalOpen, setIsBudgetModalOpen ] = useState(false);
     const [ isAccountBalanceModalOpen, setIsAccountBalanceModalOpen ] = useState(false);
@@ -106,13 +106,19 @@ export const Dashboard = () => {
                 <div className='standard-container budget-section'>
                     <div className='budget-section-header'>
                         <p>{displayMonth} Budget</p>
-                        <button className='btn-secondary' onClick={() => {setIsBudgetModalOpen(true)}}>Manage Budget</button>
+                        { isCategoryBudgetsLoading ? '' : 
+                            <button className='btn-secondary' onClick={() => {setIsBudgetModalOpen(true)}}>Manage Budget</button>
+                        }
                     </div>
                     <div className="monthly-budget custom-scroll-bar">
                         <div className="category-budget-list">
-                            {categoryBudgets.map((categoryBudget) => (
-                                <CategoryBudgetOverview key={categoryBudget.id} categoryBudget={categoryBudget}/>
-                            ))}
+                            { isCategoryBudgetsLoading ? 'Loading...' : 
+                                <>
+                                    {categoryBudgets.map((categoryBudget) => (
+                                        <CategoryBudgetOverview key={categoryBudget.id} categoryBudget={categoryBudget}/>
+                                    ))}
+                                </>
+                            }
                         </div>
                     </div>
                 </div>
@@ -123,23 +129,35 @@ export const Dashboard = () => {
                             <button onClick={() => {navigate('/savings-funds')}} className='btn-arrow-circle'>{`›`}</button>
                         </div>
                         <div className='fund-section custom-scroll-bar'>
-                            {activeSavingsFunds.map(savingsFund => (
-                                <FundPreview key={savingsFund.id} fund={savingsFund}/>
-                            ))}
+                            {isActiveSavingsFundsLoading ? 'Loading...' :
+                                <>
+                                    {activeSavingsFunds.map(savingsFund => (
+                                        <FundPreview key={savingsFund.id} fund={savingsFund}/>
+                                    ))}
+                                </>
+                            }
                         </div>
                     </div>
                     <div className='standard-container'>
                         <div className='account-balance-section-header'>
                             <p>Account Balances</p>
                             <div className='account-balance-section-btns'>
-                                <button className="btn-danger" onClick={() => {setIsConfirmModalOpen(true)}}>Clear Balances</button>
-                                <button className="btn-add" onClick={() => {setIsAccountBalanceModalOpen(true)}}>+</button>
+                                {isAccountBalancesLoading ? '' :
+                                    <>
+                                        <button className="btn-danger" onClick={() => {setIsConfirmModalOpen(true)}}>Clear Balances</button>
+                                        <button className="btn-add" onClick={() => {setIsAccountBalanceModalOpen(true)}}>+</button>
+                                    </>
+                                }
                             </div>
                         </div>
                         <div className='account-balance-section custom-scroll-bar'>
-                            {accountBalances.map(accountBalance => (
-                                <AccountBalanceItem key={accountBalance.id} accountBalance={accountBalance} />
-                            ))}
+                            {isAccountBalancesLoading ? 'Loading...' :
+                                <>
+                                    {accountBalances.map(accountBalance => (
+                                        <AccountBalanceItem key={accountBalance.id} accountBalance={accountBalance} />
+                                    ))}
+                                </>
+                            }
                         </div>
                     </div>
                 </div>
