@@ -12,6 +12,7 @@ import { toast } from "react-toastify";
 import { useDateContext } from "../../../context/DateContext";
 import { ConfirmModal } from "../../../components/ConfirmModal";
 import { DropdownMenu } from "../../../components/DropdownMenu";
+import { formatCurrency } from "../../../utils/formatCurrency";
 
 interface CategoryBudgetOverviewProps {
     categoryBudget: CategoryBudget,
@@ -58,15 +59,15 @@ export const CategoryBudgetOverview = ({ categoryBudget }: CategoryBudgetOvervie
                     <p>{categoryBudget.categoryName}</p>
                     {isExpensesLoading ? 'Loading...' :
                         <p>
-                            <span className="text-white">${amountSpent.toFixed(2)}</span>
-                            <span> / ${budgetedAmount.toFixed(2)}</span>
+                            <span className="text-white">{formatCurrency(Number(amountSpent))}</span>
+                            <span> / {formatCurrency(Number(budgetedAmount))}</span>
                         </p>
                     }
                 </div>
                 <div className="progress-bar">
                     <div className="progress-fill category-budget-preview" style={{ width: isExpensesLoading ? '0%' : `${progress}%`, backgroundColor: isOverBudget ? '#BD6261' : '#FFE13C' }}/>
                 </div>
-                <p>{isExpensesLoading ? 'Loading...' : `Remaining: $${remaining.toFixed(2)}`}</p>
+                <p>{isExpensesLoading ? 'Loading...' : `Remaining: ${formatCurrency(Number(remaining))}`}</p>
 
             </div>
             <div>

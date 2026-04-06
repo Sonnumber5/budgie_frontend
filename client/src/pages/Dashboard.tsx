@@ -21,6 +21,7 @@ import { useDateContext } from '../context/DateContext';
 import { useNavigate } from 'react-router-dom';
 import { ConfirmModal } from '../components/ConfirmModal';
 import { CategoryBudgetOverview } from '../features/budget/components/CategoryBudgetOverview';
+import { formatCurrency } from '../utils/formatCurrency';
 
 
 
@@ -68,8 +69,8 @@ export const Dashboard = () => {
                         <p>Income (Actual)</p>
                         {isIncomeLoading ? 'Loading...' : 
                             <>
-                                <p>${Number(incomeSum).toFixed(2)}</p>
-                                <p>{monthlyBudget ? `Expected: $${monthlyBudget.expectedIncome}` : 'Expected:'}</p>
+                                <p>{formatCurrency(Number(incomeSum))}</p>
+                                <p>{monthlyBudget ? `Expected: ${formatCurrency(Number(monthlyBudget.expectedIncome))}` : 'Expected:'}</p>
                             </>
                         }
                         <button onClick={() => {navigate('/income')}} className='btn-arrow-circle summary'>{`›`}</button>
@@ -79,8 +80,8 @@ export const Dashboard = () => {
                         <p>Expenses (Actual)</p>
                         {isExpensesLoading ? 'Loading...' : 
                             <>
-                                <p>${Number(expenseSum).toFixed(2)}</p>
-                                <p>{monthlyBudget ? `Budget: $${totalCategoryBudget}` : 'Budget:'}</p>
+                                <p>{formatCurrency(Number(expenseSum))}</p>
+                                <p>{monthlyBudget ? `Budget: ${formatCurrency(Number(totalCategoryBudget))}` : 'Budget:'}</p>
                             </>
                         }
                         <button onClick={() => {navigate('/expenses')}} className='btn-arrow-circle summary'>{`›`}</button>
@@ -89,16 +90,16 @@ export const Dashboard = () => {
                     <p>Remaining</p>
                         {isIncomeLoading || isExpensesLoading ? 'Loading...' : 
                         <>
-                            <p>${Number(currentRemaining).toFixed(2)}</p>
-                            <p>{`Total: $${Number(monthlyTotal).toFixed(2)}`}</p>
-                            <p>{`Fund Contributions: $${Number(monthlyContributionSum).toFixed(2)}`}</p>
+                            <p>{formatCurrency(Number(currentRemaining))}</p>
+                            <p>{`Total: ${formatCurrency(Number(monthlyTotal))}`}</p>
+                            <p>{`Fund Contributions: ${formatCurrency(Number(monthlyContributionSum))}`}</p>
                         </>                    
                         }
 
                     </div>
                     <div className='standard-container'>
                         <p>Financial Overview</p>
-                        <p>{isIncomeLoading || isExpensesLoading ? 'Loading...' : `${Number(financialOverview).toFixed(2)}`}</p>
+                        <p>{isIncomeLoading || isExpensesLoading ? 'Loading...' : `${formatCurrency(Number(financialOverview))}`}</p>
                     </div>
                 </div>
             </div>

@@ -8,6 +8,7 @@ import './TransactionItem.css';
 import { toast } from "react-toastify";
 import { DropdownMenu } from "../../../components/DropdownMenu";
 import { ConfirmModal } from "../../../components/ConfirmModal";
+import { formatCurrency } from "../../../utils/formatCurrency";
 
 interface TransactionItemProps {
     transaction: FundTransaction;
@@ -46,7 +47,7 @@ export const TransactionItem = ({ transaction, canDelete }: TransactionItemProps
                         <p>{transaction.description}</p>
                     </div>
                     <div className="transaction-amount-settings enabled">
-                        <p style={{color:transaction.transactionType === 'contribution' ? '#68BE7A' : '#BD6261'}}>${Number(transaction.amount).toFixed(2)}</p>
+                        <p style={{color:transaction.transactionType === 'contribution' ? '#68BE7A' : '#BD6261'}}>{formatCurrency(Number(transaction.amount))}</p>
                         <DropdownMenu onEdit={() => { setIsTransactionModalOpen(true) }} onDelete={() => { setIsConfirmModalOpen(true) }} />
                     </div>
                 </div>
@@ -63,13 +64,13 @@ export const TransactionItem = ({ transaction, canDelete }: TransactionItemProps
                     </div>
                     <div className="transaction-amount-settings disabled">
                         {transaction.transactionType === 'transfer_in' &&
-                        <p style={{color: '#68BE7A'}}>${Number(transaction.amount).toFixed(2)}</p>
+                        <p style={{color: '#68BE7A'}}>{formatCurrency(Number(transaction.amount))}</p>
                         }
                         {transaction.transactionType === 'transfer_out' &&
-                        <p style={{color: '#BD6261'}}>${Number(transaction.amount).toFixed(2)}</p>
+                        <p style={{color: '#BD6261'}}>{formatCurrency(Number(transaction.amount))}</p>
                         }
                         {transaction.transactionType === 'adjustment' &&
-                        <p style={{color: '#8893A6'}}>${Number(transaction.amount).toFixed(2)}</p>
+                        <p style={{color: '#8893A6'}}>{formatCurrency(Number(transaction.amount))}</p>
                         }
                         
                         <button className='disabled-kebab' type="button" onClick={() => { }}>⋮</button>

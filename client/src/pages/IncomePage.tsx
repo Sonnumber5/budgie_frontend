@@ -8,10 +8,11 @@ import { Modal } from "../components/modal";
 import { useState } from "react";
 import { IncomeForm } from "../features/income/components/IncomeForm";
 import { useBudgetContext } from "../context/BudgetContext";
+import { formatCurrency } from "../utils/formatCurrency";
 
 
 export const IncomePage = () => {
-    const { incomeSum, incomeList, isLoading, error } = useIncomeContext();
+    const { incomeSum, incomeList, isLoading } = useIncomeContext();
     const { monthlyBudget } = useBudgetContext();
     const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -24,21 +25,26 @@ export const IncomePage = () => {
                 {/* income-dashboard-summary style exists in Dashboard.css */}
                 <div className="income-dashboard-summary">
                     <p>Income (Actual)</p>
-                    <p>{isLoading ? 'Loading...' : `$${Number(incomeSum).toFixed(2)}`}</p>
-                    <p>{monthlyBudget ? `Expected: $${monthlyBudget.expectedIncome}` : 'Expected:'}</p>
+                    
+                    {isLoading ? 'Loading...' : 
+                    <>
+                        <p>{formatCurrency(Number(incomeSum))}</p>
+                        <p>{monthlyBudget ? `Expected: ${formatCurrency(Number(monthlyBudget.expectedIncome))}` : 'Expected:'}</p>
+                    </>
+                    }
+                    
+                   
                 </div>
                 <button className="btn-add" onClick={() => { setIsModalOpen(true) }}>+</button>
             </div>
             <div className="standard-container income-content">
-                <div className="custom-scroll-bar">
-                    <div className="income-list">
-                        {isLoading && <p>Loading...</p>}
-                        {incomeList.map((income) => (
-                            <IncomeItem key={income.id} income={income} />
-                        ))}
-                    </div>
-                </div>
+            <div className="income-list custom-scroll-bar">
+                {isLoading && <p>Loading...</p>}
+                {incomeList.map((income) => (
+                    <IncomeItem key={income.id} income={income} />
+                ))}
             </div>
+        </div>
         </div>
     )
 }

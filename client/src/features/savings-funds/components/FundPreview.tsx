@@ -1,4 +1,5 @@
 import type { SavingsFund } from "../../../types";
+import { formatCurrency } from "../../../utils/formatCurrency";
 import './FundPreview.css';
 
 interface SavingsFundProps{
@@ -12,7 +13,7 @@ export const FundPreview = ({ fund }: SavingsFundProps) => {
         <div className="fund-preview">
             <div className="fund-preview-info">
                 <p>{fund.name}</p>
-                <p>{`$${Number(fund.balance).toFixed(2)} / $${Number(fund.goal).toFixed(2)}`}</p>
+                <p>{`${formatCurrency(Number(fund.balance))} / ${formatCurrency(Number(fund.goal))}`}</p>
             </div>
             <div className="progress-bar">
                 <div className="progress-fill fund-preview" style={{ width: `${progress}%` }}/>

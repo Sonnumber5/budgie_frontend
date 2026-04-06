@@ -9,6 +9,7 @@ import { ExpenseForm } from "./ExpenseForm";
 import { toast } from 'react-toastify';
 import { DropdownMenu } from "../../../components/DropdownMenu";
 import { ConfirmModal } from "../../../components/ConfirmModal";
+import { formatCurrency } from "../../../utils/formatCurrency";
 
 interface ExpenseItemProps {
     expense: Expense;
@@ -47,7 +48,7 @@ export const ExpenseItem = ({ expense }: ExpenseItemProps) => {
                     <p>{expense.vendor}</p>
                 </div>
                 <div className="expense-amount-settings">
-                    <p>${Number(expense.amount).toFixed(2)}</p>
+                    <p>{formatCurrency(Number(expense.amount))}</p>
                     <DropdownMenu onEdit={() => { setIsModalOpen(true) }} onDelete={() => setIsConfirmModalOpen(true)} onViewDescription={() => { setIsDescriptionModalOpen(true) }} />
                 </div>
             </div>

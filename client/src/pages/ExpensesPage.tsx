@@ -10,6 +10,7 @@ import { useState } from 'react';
 import { Modal } from '../components/modal';
 import { ExpenseForm } from '../features/expenses/components/ExpenseForm';
 import { BudgetManagementForm } from '../features/budget/components/BudgetManagementForm';
+import { formatCurrency } from '../utils/formatCurrency';
 
 
 export const ExpensesPage = () => {
@@ -62,15 +63,15 @@ export const ExpensesPage = () => {
             <div className="expense-page-menu">
                 <div className='expense-dashboard-summary'>
                     <p>Expenses (Actual)</p>
-                    <p>{isLoading ? 'Loading...' : `$${Number(expenseSum).toFixed(2)}`}</p>
-                    <p>{monthlyBudget ? `Budget: $${totalCategoryBudget}` : 'Budget:'}</p>
+                    <p>{isLoading ? 'Loading...' : `${formatCurrency(Number(expenseSum))}`}</p>
+                    <p>{monthlyBudget ? `Budget: ${formatCurrency(Number(totalCategoryBudget))}` : 'Budget:'}</p>
                 </div>
                 <div className='expense-dashboard-progress-bar-btns'>
                     <div className='expense-menu-progress-bar'>
                         <p>
-                            <span className="text-white">${Number(expenseSum).toFixed(2)}</span>
+                            <span className="text-white">{formatCurrency(Number(expenseSum))}</span>
                             <span>  </span>
-                            <span> / ${Number(totalCategoryBudget).toFixed(2)}</span>
+                            <span> / {formatCurrency(Number(totalCategoryBudget))}</span>
                         </p>                        
                         <div className='progress-bar'>
                             <div className='progress-fill expense-dashboard-progress-bar' style={{ width: `${progress}`, backgroundColor: isOverBudget ? '#BD6261' : '#FFE13C' }}></div>

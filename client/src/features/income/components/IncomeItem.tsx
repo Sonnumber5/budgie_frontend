@@ -10,6 +10,7 @@ import { useState } from "react";
 import { toast } from "react-toastify";
 import { DropdownMenu } from "../../../components/DropdownMenu";
 import { ConfirmModal } from "../../../components/ConfirmModal";
+import { formatCurrency } from "../../../utils/formatCurrency";
 
 
 interface IncomeProps {
@@ -44,7 +45,7 @@ export const IncomeItem = ({ income }: IncomeProps) => {
                     <p>{income.source}</p>
                 </div>
                 <div className="income-amount-settings">
-                    <p>{income.amount}</p>
+                    <p>{formatCurrency(Number(income.amount))}</p>
                     <div>
                         <DropdownMenu onDelete={() => { setIsConfirmModalOpen(true) }} onEdit={() => { setIsIncomeModalOpen(true) }} />
                     </div>

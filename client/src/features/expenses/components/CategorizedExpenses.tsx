@@ -12,6 +12,7 @@ import { CategoryBudgetForm } from "../../budget/components/CategoryBudgetForm";
 import { DropdownMenu } from "../../../components/DropdownMenu";
 import { ConfirmModal } from "../../../components/ConfirmModal";
 import { useBudgetContext } from "../../../context/BudgetContext";
+import { formatCurrency } from "../../../utils/formatCurrency";
 
 interface CategorizedExpensesProps {
     categoryBudget?: CategoryBudget;
@@ -47,8 +48,8 @@ export const CategorizedExpenses = ({ categoryBudget, expenses, totalSpent, rema
                     <div className="category-info">
                         <p>{categoryBudget ? categoryBudget.categoryName : "Uncategorized"}</p>
                         <p>
-                            <span className="text-white">{categoryBudget ? `$${totalSpent.toFixed(2)}` : `Spent: $${totalSpent.toFixed(2)}`}</span>
-                            <span>{categoryBudget ? ` / $${categoryBudget.budgetedAmount}` : ''}</span>
+                            <span className="text-white">{categoryBudget ? `${formatCurrency(Number(totalSpent))}` : `Spent: ${formatCurrency(Number(totalSpent))}`}</span>
+                            <span>{categoryBudget ? ` / ${formatCurrency(Number(categoryBudget.budgetedAmount))}` : ''}</span>
                         </p>
                     </div>
                     {categoryBudget &&

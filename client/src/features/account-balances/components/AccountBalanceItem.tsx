@@ -8,6 +8,7 @@ import { useAccountBalanceContext } from "../../../context/AccountBalanceContext
 import { toast } from 'react-toastify';
 import { DropdownMenu } from "../../../components/DropdownMenu";
 import { ConfirmModal } from "../../../components/ConfirmModal";
+import { formatCurrency } from "../../../utils/formatCurrency";
 
 interface AccountBalanceItemProps{
     accountBalance: AccountBalance;
@@ -37,7 +38,7 @@ export const AccountBalanceItem = ({ accountBalance }: AccountBalanceItemProps) 
                 <div>{accountBalance.accountName}</div>
                 
                 <div className="account-balance-manage">
-                    <div style={{ color: accountBalance.accountType === 'Asset' ? 'var(--color-green-primary)' : 'var(--color-red-primary)' }}>${Number(accountBalance.balance).toFixed(2)}</div>
+                    <div style={{ color: accountBalance.accountType === 'Asset' ? 'var(--color-green-primary)' : 'var(--color-red-primary)' }}>{formatCurrency(Number(accountBalance.balance))}</div>
                     <div>
                         <DropdownMenu onEdit={() => {setIsAccountBalanceModalOpen(true)}} onDelete={() => {setIsConfirmModalOpen(true)}}/>
                     </div>

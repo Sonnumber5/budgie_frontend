@@ -10,6 +10,7 @@ import { useSavingsFundContext } from "../../../context/SavingsFundContext";
 import { toast } from "react-toastify";
 import { DropdownMenu } from "../../../components/DropdownMenu";
 import { ConfirmModal } from "../../../components/ConfirmModal";
+import { formatCurrency } from "../../../utils/formatCurrency";
 interface SavingsFundProps{
     fund: SavingsFund;
     relatedTransactions: FundTransaction[];
@@ -51,8 +52,8 @@ export const Fund = ({ fund, relatedTransactions }: SavingsFundProps) => {
                     <div className="fund-details">
                         <p>{fund.name}</p>
                         <p>
-                            <span className="text-white">${Number(fund.balance).toFixed(2)}</span>
-                            <span> / ${Number(fund.goal).toFixed(2)}</span>
+                            <span className="text-white">{formatCurrency(Number(fund.balance))}</span>
+                            <span> / {formatCurrency(Number(fund.goal))}</span>
                         </p>
                     </div>
                     <div className="progress-bar">
