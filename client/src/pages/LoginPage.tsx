@@ -2,10 +2,11 @@
 // On successful login the user is redirected to /dashboard.
 // Error messages are displayed inline below the form title.
 import { useState } from 'react';
-import { Navigate, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import './LoginPage.css';
 import { useAuth } from '../context/AuthContext';
 import { useDateContext } from '../context/DateContext';
+import { toast } from 'react-toastify';
 
 export const LoginPage = () => {
     const [email, setEmail] = useState('');
@@ -25,9 +26,10 @@ export const LoginPage = () => {
         try {
             await login(email, password);
             resetMonth();
+            toast.success('Login successful');
             navigate('/dashboard');
         } catch (error: any) {
-            setError(error.message || 'Failed to login');
+            toast.error(error.message || 'Failed to login');
         } finally {
             setIsLoading(false);
         }
@@ -72,7 +74,7 @@ export const LoginPage = () => {
                                 {isLoading ? 'Logging in...' : 'Login'}
                             </button>
                             <button type="button" onClick={() => navigate('/register')} className="btn-secondary">
-                                Register
+                                Register New User
                             </button>
                         </form>
                     </div>

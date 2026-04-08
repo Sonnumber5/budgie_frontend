@@ -11,6 +11,7 @@ import { Modal } from '../components/modal';
 import { ExpenseForm } from '../features/expenses/components/ExpenseForm';
 import { BudgetManagementForm } from '../features/budget/components/BudgetManagementForm';
 import { formatCurrency } from '../utils/formatCurrency';
+import { MonthPicker } from '../components/DatePicker';
 
 
 export const ExpensesPage = () => {
@@ -60,21 +61,28 @@ export const ExpensesPage = () => {
             <Modal isOpen={isBudgetModalOpen} onClose={() => { setIsBudgetModalOpen(false) }} title="Monthly Budget">
                 <BudgetManagementForm budgetToEdit={monthlyBudget ?? null} onSuccess={() => { setIsBudgetModalOpen(false) }} />
             </Modal>
+            <MonthPicker/>
             <div className="expense-page-menu">
                 <div className='expense-dashboard-summary'>
                     <p>Expenses (Actual)</p>
-                    <p>{isLoading ? 'Loading...' : `${formatCurrency(Number(expenseSum))}`}</p>
-                    <p>{monthlyBudget ? `Budget: ${formatCurrency(Number(totalCategoryBudget))}` : 'Budget:'}</p>
+                    {isLoading ? 'Loading...' :
+                        <>
+                            <p>{formatCurrency(Number(expenseSum))}</p>
+                            <p>{monthlyBudget ? `Budget: ${formatCurrency(Number(totalCategoryBudget))}` : 'Budget:'}</p>
+                        </>
+                    }
                 </div>
                 <div className='expense-dashboard-progress-bar-btns'>
                     <div className='expense-menu-progress-bar'>
-                        <p>
-                            <span className="text-white">{formatCurrency(Number(expenseSum))}</span>
-                            <span>  </span>
-                            <span> / {formatCurrency(Number(totalCategoryBudget))}</span>
-                        </p>                        
+                        {isLoading ? 'Loading...' : 
+                            <p>
+                                <span className="text-white">{formatCurrency(Number(expenseSum))}</span>
+                                <span>  </span>
+                                <span> / {formatCurrency(Number(totalCategoryBudget))}</span>
+                            </p>     
+                        }
                         <div className='progress-bar'>
-                            <div className='progress-fill expense-dashboard-progress-bar' style={{ width: `${progress}`, backgroundColor: isOverBudget ? '#BD6261' : '#FFE13C' }}></div>
+                            <div className='progress-fill expense-dashboard-progress-bar' style={{ width: isLoading ? '0%' : `${progress}%`, backgroundColor: isOverBudget ? '#BD6261' : '#FFE13C' }}></div>
                         </div>
                     </div>
                     <div className='expense-dashboard-btns'>

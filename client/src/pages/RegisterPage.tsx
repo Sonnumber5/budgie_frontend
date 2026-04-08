@@ -5,6 +5,7 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { registerAPI } from '../features/auth/api/auth';
 import './RegisterPage.css';
+import { toast } from 'react-toastify';
 
 export const RegisterPage = () => {
     const [email, setEmail] = useState('');
@@ -22,9 +23,10 @@ export const RegisterPage = () => {
 
         try {
             await registerAPI(email, password, name);
+            toast.success(`Successfully registered`);
             navigate('/login');
         } catch (error: any) {
-            setError(error.response?.data?.error || error.message || 'Failed to register');
+            toast.error(error.response?.data?.error || error.message || 'Failed to register');
         } finally {
             setIsLoading(false);
         }
@@ -80,7 +82,7 @@ export const RegisterPage = () => {
                                 {isLoading ? 'Registering...' : 'Register'}
                             </button>
                             <button type="button" onClick={() => navigate('/login')} className="btn-secondary">
-                                Login
+                                Go to Login
                             </button>
                         </form>
                     </div>

@@ -9,6 +9,7 @@ import { useState } from "react";
 import { IncomeForm } from "../features/income/components/IncomeForm";
 import { useBudgetContext } from "../context/BudgetContext";
 import { formatCurrency } from "../utils/formatCurrency";
+import { MonthPicker } from "../components/DatePicker";
 
 
 export const IncomePage = () => {
@@ -21,6 +22,7 @@ export const IncomePage = () => {
             <Modal isOpen={isModalOpen} onClose={() => { setIsModalOpen(false) }} title="Add Income">
                 <IncomeForm onSuccess={() => { setIsModalOpen(false) }} />
             </Modal>
+            <MonthPicker/>
             <div className="income-page-header">
                 {/* income-dashboard-summary style exists in Dashboard.css */}
                 <div className="income-dashboard-summary">

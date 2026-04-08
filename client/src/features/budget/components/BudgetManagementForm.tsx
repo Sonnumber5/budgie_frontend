@@ -105,7 +105,7 @@ export const BudgetManagementForm = ({ onSuccess, budgetToEdit }: BudgetManageme
                         step="0.01"
                     />
                 </div>
-                <div style={{display: 'flex', flexDirection: 'column', gap: '8px'}}>
+                <div className="custom-scroll-bar" style={{display: 'flex', flexDirection: 'column', gap: '8px', maxHeight: '250px', overflowY: 'scroll'}}>
                     <h3>Category Budgets</h3>
                     {existingCategoryBudgets.length > 0 && (
                         <div>
