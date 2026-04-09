@@ -287,14 +287,13 @@ body {
 }
 
 .kebab-menu {
-  position: absolute;
-  right: 0;
-  bottom: 0;
+  position: fixed;
+  transform: translateX(-100%);
   background: white;
   border: 1px solid #e5e7eb;
   border-radius: var(--border-radius-md);
   box-shadow: var(--box-shadow-btns);
-  z-index: 1000;
+  z-index: 9999;
   min-width: 120px;
   overflow: hidden;
 }

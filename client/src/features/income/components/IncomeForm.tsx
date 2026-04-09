@@ -66,6 +66,7 @@ export const IncomeForm = ({ onSuccess, incomeToEdit }: IncomeFormProps) => {
                         <input
                             className="input-field-standard"
                             type="number"
+                            prefix="$"
                             value={formData.amount}
                             onChange={(e) => setFormData({...formData, amount: Number(e.target.value)})}
                             required
