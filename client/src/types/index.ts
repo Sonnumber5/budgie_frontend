@@ -82,6 +82,7 @@ export interface IncomeDTO{
     source: string,
     description: string,
     incomeDate: string,
+    month: string
 }
 
 //---------EXPENSE---------//

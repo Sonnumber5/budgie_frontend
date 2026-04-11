@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import type { Income, IncomeDTO } from "../../../types";
 import { useIncomeContext } from "../../../context/IncomeContext";
 import { toast } from "react-toastify";
+import { useDateContext } from "../../../context/DateContext";
 
 interface IncomeFormProps{
     onSuccess: () => void;
@@ -13,11 +14,13 @@ interface IncomeFormProps{
 
 export const IncomeForm = ({ onSuccess, incomeToEdit }: IncomeFormProps) => {
     const { addIncome, editIncome } = useIncomeContext();
+    const { currentMonth } = useDateContext();
     const [formData, setFormData] = useState({
         amount: 0,
         source: '',
         description: '',
-        incomeDate: new Date().toISOString().split('T')[0]
+        incomeDate: new Date().toISOString().split('T')[0],
+        month: currentMonth
     })
     const isEditMode = !!incomeToEdit;
 
@@ -27,7 +30,8 @@ export const IncomeForm = ({ onSuccess, incomeToEdit }: IncomeFormProps) => {
                 amount: incomeToEdit.amount,
                 source: incomeToEdit.source,
                 description: incomeToEdit.description,
-                incomeDate: new Date(incomeToEdit.incomeDate).toISOString().split('T')[0]
+                incomeDate: new Date(incomeToEdit.incomeDate).toISOString().split('T')[0],
+                month: currentMonth
             });
         }
     }, [incomeToEdit]);
@@ -36,7 +40,7 @@ export const IncomeForm = ({ onSuccess, incomeToEdit }: IncomeFormProps) => {
         e.preventDefault();
         try{
             if (isEditMode && incomeToEdit){
-                await editIncome(incomeToEdit.id, formData)
+                await editIncome(incomeToEdit.id, formData);
             } else{
                 await addIncome(formData);
             }
