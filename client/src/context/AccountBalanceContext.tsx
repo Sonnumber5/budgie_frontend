@@ -17,6 +17,7 @@ interface AccountBalanceContextType{
 
 const AccountBalanceContext = createContext<AccountBalanceContextType | null>(null);
 
+// Provides account balance state and actions to the component tree via context.
 export const AccountBalanceProvider = ({ children }: { children: React.ReactNode }) => {
     const accountBalances = useAccountBalances();
     return (

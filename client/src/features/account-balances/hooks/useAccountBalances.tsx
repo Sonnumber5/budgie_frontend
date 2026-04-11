@@ -4,6 +4,7 @@ import { createAccountBalance, getAccountBalances, resetAccountBalances, updateA
 import { useDateContext } from "../../../context/DateContext";
 import { useAuth } from "../../../context/AuthContext";
 
+// Hook that manages account balance state and exposes CRUD actions plus running asset and liability totals.
 export const useAccountBalances = () => {
     const [ accountBalances, setAccountBalances ] = useState<AccountBalance[]>([]);
     const [ assetsTotal, setAssetsTotal ] = useState(0);
@@ -41,6 +42,7 @@ export const useAccountBalances = () => {
         fetchAccountBalances();
     }, [currentMonth, isAuthenticated]);
 
+    // Creates a new account balance entry and updates the appropriate assets or liabilities total.
     const addAccountBalance = async (data: AccountBalanceDTO): Promise<AccountBalance> => {
         setIsLoading(true);
         setError(null);
@@ -63,6 +65,7 @@ export const useAccountBalances = () => {
         }
     }
 
+    // Updates an account balance entry and recalculates asset and liability totals based on type changes.
     const editAccountBalance = async (id: number, data: AccountBalanceDTO): Promise<AccountBalance> => {
         setIsLoading(true);
         setError(null);
@@ -98,6 +101,7 @@ export const useAccountBalances = () => {
         }
     }
 
+    // Resets all account balances to zero and clears the assets and liabilities totals.
     const clearAccountBalances = async (): Promise<void> => {
         setIsLoading(true);
         setError(null);
@@ -114,6 +118,7 @@ export const useAccountBalances = () => {
         }
     }
 
+    // Deletes an account balance entry and subtracts its value from the appropriate running total.
     const removeAccountBalance = async (id: number): Promise<void> => {
         setIsLoading(true);
         setError(null);

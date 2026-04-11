@@ -9,6 +9,7 @@ interface AdjustmentTransactionFormProps{
     fund: SavingsFund
 }
 
+// Form for setting a savings fund's balance to an exact amount via an adjustment transaction.
 export const AdjustmentTransactionForm = ({ onSuccess, fund }: AdjustmentTransactionFormProps) => {
     const { addAdjustTransaction } = useFundTransactionContext();
     const { currentMonth } = useDateContext();
@@ -18,6 +19,7 @@ export const AdjustmentTransactionForm = ({ onSuccess, fund }: AdjustmentTransac
         month: currentMonth
     });
 
+    // Submits the adjustment to update the fund balance, then calls onSuccess on completion.
     const handleSubmit = async (e: React.SyntheticEvent) => {
         e.preventDefault();
         try{

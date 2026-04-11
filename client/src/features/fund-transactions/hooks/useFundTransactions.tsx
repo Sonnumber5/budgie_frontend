@@ -5,6 +5,7 @@ import { createFundTransaction, getAllTransactionsForActiveFunds, getContributio
 import { useDateContext } from "../../../context/DateContext";
 import { useAuth } from "../../../context/AuthContext";
 
+// Hook that manages fund transaction state and exposes actions for creating, editing, deleting, transferring, and adjusting transactions.
 export const useFundTransactions = () => {
     const [ transactions, setTransactions ] = useState<FundTransaction[]>([]);
     const [ isLoading, setIsLoading ] = useState(false);
@@ -52,6 +53,7 @@ export const useFundTransactions = () => {
         fetchContributionSumForMonth(currentMonth);
     }, [currentMonth]);
 
+    // Creates a new contribution or expenditure transaction and refreshes the parent fund's balance.
     const addFundTransaction = async (data: FundTransactionDTO): Promise<FundTransaction> => {
         setIsLoading(true);
         setError(null);
@@ -74,6 +76,7 @@ export const useFundTransactions = () => {
         }
     };
 
+    // Updates an existing transaction, adjusts the monthly contribution sum, and refreshes the fund balance.
     const editFundTransaction = async (id: number, data: FundTransactionDTO): Promise<FundTransaction> => {
         setIsLoading(true);
         setError(null);
@@ -109,6 +112,7 @@ export const useFundTransactions = () => {
         }
     }
 
+    // Deletes a transaction, reverses its contribution sum effect, and refreshes the fund balance.
     const removeFundTransaction = async (fundId: number, transactionId: number): Promise<void> => {
         setIsLoading(true);
         setError(null);
@@ -131,6 +135,7 @@ export const useFundTransactions = () => {
         }
     }
 
+    // Creates a transfer between two funds and refreshes both funds' balances.
     const addTransferTransaction = async (data: { sendingFundId: number, receivingFundId: number, amount: number, month: string }): Promise<FundTransaction[]> => {
         setIsLoading(true);
         setError(null);
@@ -153,6 +158,7 @@ export const useFundTransactions = () => {
         }
     };
 
+    // Sets a fund's balance to an exact amount via an adjustment transaction and refreshes fund info.
     const addAdjustTransaction = async (data: { savingsFundId: number, amount: number, month: string }): Promise<FundTransaction> => {
         setIsLoading(true);
         setError(null);
@@ -172,6 +178,7 @@ export const useFundTransactions = () => {
         }
     };
 
+    // Resets the error state to null.
     const clearError = () => {
         setError(null);
     };

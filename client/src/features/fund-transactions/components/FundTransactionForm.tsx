@@ -11,6 +11,7 @@ interface FundTransactionFormProps{
     fundId: number;
 }
 
+// Form for creating or editing a fund transaction; switches between create and edit mode based on whether transactionToEdit is provided.
 export const FundTransactionForm = ({ onSuccess, transactionToEdit, fundId }: FundTransactionFormProps) => {
     const { addFundTransaction, editFundTransaction } = useFundTransactionContext();
     const { currentMonth } = useDateContext();
@@ -39,6 +40,7 @@ export const FundTransactionForm = ({ onSuccess, transactionToEdit, fundId }: Fu
         }
     }, [transactionToEdit, currentMonth]);
 
+    // Submits the form to create or update a fund transaction, then calls onSuccess on completion.
     const handleSubmit = async (e: React.SyntheticEvent) => {
         e.preventDefault();
         try{

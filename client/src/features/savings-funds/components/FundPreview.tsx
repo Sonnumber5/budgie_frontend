@@ -6,6 +6,7 @@ interface SavingsFundProps{
     fund: SavingsFund;
 }
 
+// Renders a compact read-only preview of a savings fund showing its name, balance vs. goal, and a progress bar.
 export const FundPreview = ({ fund }: SavingsFundProps) => {
     const progress = Math.min((fund.balance / fund.goal) * 100, 100);
 

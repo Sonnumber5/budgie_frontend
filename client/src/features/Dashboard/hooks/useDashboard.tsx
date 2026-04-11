@@ -5,6 +5,7 @@ import { useIncomeContext } from "../../../context/IncomeContext";
 import { useFundTransactionContext } from "../../../context/FundTransactionContext";
 import { useSavingsFundContext } from "../../../context/SavingsFundContext";
 
+// Hook that computes high-level financial summary values from context state for the dashboard.
 export const useDashboard = () => {
     const { expenseSum } = useExpenseContext();    
     const { incomeSum } = useIncomeContext();

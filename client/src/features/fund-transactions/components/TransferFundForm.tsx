@@ -8,6 +8,7 @@ interface TransferFundFormProps{
     onSuccess: () => void;
 }
 
+// Form for transferring a specified amount between two active savings funds.
 export const TransferFundForm = ({ onSuccess }: TransferFundFormProps) => {
     const { addTransferTransaction } = useFundTransactionContext();
     const { currentMonth } = useDateContext();
@@ -19,6 +20,7 @@ export const TransferFundForm = ({ onSuccess }: TransferFundFormProps) => {
         month: currentMonth
     });
 
+    // Validates fund selections and submits the transfer, then calls onSuccess on completion.
     const handleSubmit = async (e: React.SyntheticEvent) => {
         e.preventDefault();
         if (!formData.sendingFundId || !formData.receivingFundId) {

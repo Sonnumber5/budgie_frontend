@@ -6,6 +6,7 @@ interface ConfirmModalProps{
     confirmAction: () => void
 }
 
+// Renders a confirmation modal with Cancel and Confirm buttons; returns null when closed.
 export const ConfirmModal = ({ isOpen, onClose, confirmAction }: ConfirmModalProps) => {
     if (!isOpen){
         return null;

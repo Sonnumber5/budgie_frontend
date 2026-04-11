@@ -10,6 +10,7 @@ interface DropdownMenuProps {
     onViewDescription?: () => void;
 }
 
+// Renders a kebab-menu button that opens a portal-based dropdown with optional action buttons.
 export const DropdownMenu = ({ onEdit, onDelete, onEditBalance, onArchive, onLogout, onViewDescription }: DropdownMenuProps) => {
     const [isOpen, setIsOpen] = useState(false);
     const [menuPos, setMenuPos] = useState({ top: 0, left: 0 });
@@ -30,6 +31,7 @@ export const DropdownMenu = ({ onEdit, onDelete, onEditBalance, onArchive, onLog
         return () => document.removeEventListener('mousedown', handleClickOutside);
     }, []);
 
+    // Calculates the button's position and toggles the dropdown open or closed.
     const handleOpen = () => {
         if (btnRef.current) {
             const rect = btnRef.current.getBoundingClientRect();

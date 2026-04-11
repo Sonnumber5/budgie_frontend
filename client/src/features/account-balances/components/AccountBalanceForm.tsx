@@ -10,6 +10,7 @@ interface AccountBalanceFormProps{
     accountBalanceToUpdate?: AccountBalance;
 }
 
+// Form for creating or editing an account balance; switches between create and edit mode based on whether accountBalanceToUpdate is provided.
 export const AccountBalanceForm = ({ onSuccess, accountBalanceToUpdate }: AccountBalanceFormProps) => {
     const { addAccountBalance, editAccountBalance } = useAccountBalanceContext();
     const [formData, setFormData] = useState<AccountBalanceDTO>({
@@ -29,6 +30,7 @@ export const AccountBalanceForm = ({ onSuccess, accountBalanceToUpdate }: Accoun
         }
     }, [accountBalanceToUpdate]);
 
+    // Submits the form to create or update an account balance, then calls onSuccess on completion.
     const handleSubmit = async (e: React.SyntheticEvent) => {
         e.preventDefault();
         try{

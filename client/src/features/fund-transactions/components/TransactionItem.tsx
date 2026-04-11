@@ -15,6 +15,7 @@ interface TransactionItemProps {
     canDelete: boolean;
 }
 
+// Renders a single fund transaction row with edit and delete controls when canDelete is true, or a read-only view for adjustments and transfers.
 export const TransactionItem = ({ transaction, canDelete }: TransactionItemProps) => {
     const { removeFundTransaction } = useFundTransactionContext();
     const [isTransactionModalOpen, setIsTransactionModalOpen] = useState(false);
@@ -22,6 +23,7 @@ export const TransactionItem = ({ transaction, canDelete }: TransactionItemProps
 
     const formattedType = (transaction.transactionType.replace(/_/g, ' ').charAt(0).toUpperCase() + transaction.transactionType.replace(/_/g, ' ').slice(1).toLowerCase());
 
+    // Deletes a transaction and shows a success or error toast.
     const handleRemoveTransaction = async (savingsFundId: number, transactionId: number) => {
         try {
             await removeFundTransaction(savingsFundId, transactionId);

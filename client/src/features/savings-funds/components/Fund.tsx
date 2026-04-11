@@ -16,6 +16,7 @@ interface SavingsFundProps{
     relatedTransactions: FundTransaction[];
 }
 
+// Renders a savings fund card with its transactions list, progress bar, and modals for editing, adding transactions, and archiving.
 export const Fund = ({ fund, relatedTransactions }: SavingsFundProps) => {
     const [ isOpen, setIsOpen ] = useState(false);
     const [ isTransactionModalOpen, setIsTransactionModalOpen ] = useState(false);
@@ -24,6 +25,7 @@ export const Fund = ({ fund, relatedTransactions }: SavingsFundProps) => {
     const [ isConfirmModalOpen, setIsConfirmModalOpen ] = useState(false);
     const { archiveSavingsFund } = useSavingsFundContext();
 
+    // Archives the fund and shows a success or error toast.
     const handleRemove = async () => {
         try {
             await archiveSavingsFund(fund.id);

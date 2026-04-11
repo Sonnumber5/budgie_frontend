@@ -19,6 +19,7 @@ interface SavingsFundContextType{
 
 const SavingsFundContext = createContext<SavingsFundContextType | null>(null);
 
+// Provides savings fund state and actions to the component tree via context.
 export const SavingsFundProvider = ({ children }: { children: React.ReactNode }) => {
     const savingsFunds = useSavingsFunds();
     return (
@@ -28,6 +29,7 @@ export const SavingsFundProvider = ({ children }: { children: React.ReactNode })
     );
 };
 
+// Returns the savings fund context value; throws if used outside a SavingsFundProvider.
 export const useSavingsFundContext = () => {
     const context = useContext(SavingsFundContext);
     if (!context){

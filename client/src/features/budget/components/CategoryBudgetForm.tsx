@@ -10,6 +10,7 @@ interface CategoryBudgetFormProps{
     categoryBudgetToEdit?: CategoryBudget | null;
 }
 
+// Form for editing the budgeted amount for a specific category budget; returns null if no category is selected.
 export const CategoryBudgetForm = ({ onSuccess, categoryBudgetToEdit }: CategoryBudgetFormProps) => {
     const { editCategoryBudget } = useBudgetContext();
     const { currentMonth } = useDateContext();
@@ -36,6 +37,7 @@ export const CategoryBudgetForm = ({ onSuccess, categoryBudgetToEdit }: Category
         return null;
     }
 
+    // Submits the updated budgeted amount for the category, then calls onSuccess on completion.
     const handleSubmit = async (e: React.SyntheticEvent) => {
         e.preventDefault();
         try{

@@ -8,6 +8,7 @@ import { useFundTransactionContext } from "../context/FundTransactionContext";
 import { TransferFundForm } from "../features/fund-transactions/components/TransferFundForm";
 import { MonthPicker } from "../components/DatePicker";
 
+// Page that lists all active savings funds with their transactions, and provides controls to add funds and transfer between them.
 export const SavingsFundPage = () => {
     const { activeSavingsFunds, isLoading } = useSavingsFundContext();
     const { transactions } = useFundTransactionContext();

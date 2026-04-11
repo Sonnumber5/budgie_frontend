@@ -3,6 +3,7 @@ import type { SavingsFund, SavingsFundDTO } from "../../../types/index";
 import { createSavingsFund, getActiveSavingsFunds, getSavingsFundById, getArchivedSavingsFunds, updateSavingsFund, archiveSavingsFundAPI, deleteSavingsFund } from '../api/savings-funds';
 import { useAuth } from "../../../context/AuthContext";
 
+// Hook that manages savings fund state and exposes CRUD actions for active and archived funds.
 export const useSavingsFunds = () => {
     const [ activeSavingsFunds, setActiveSavingsFunds ] = useState<SavingsFund[]>([]);
     const [ archivedSavingsFunds, setArchivedSavingsFunds ] = useState<SavingsFund[]>([]);
@@ -37,6 +38,7 @@ export const useSavingsFunds = () => {
         fetchActiveSavingsFunds();
     }, [isAuthenticated]);
 
+    // Fetches the latest data for a single fund and updates it in local state.
     const refreshFundInfo = async (fundId: number) => {
         try {
             const response = await getSavingsFundById(fundId);
@@ -55,6 +57,7 @@ export const useSavingsFunds = () => {
         }
     }
 
+    // Creates a new savings fund and appends it to the active list sorted by name.
     const addSavingsFund = async (data: SavingsFundDTO): Promise<SavingsFund> => {
         setIsLoading(true);
         setError(null);
@@ -72,6 +75,7 @@ export const useSavingsFunds = () => {
         }
     }
 
+    // Updates a savings fund's name or goal and refreshes the active list.
     const editSavingsFund = async (id: number, data: SavingsFundDTO): Promise<SavingsFund> => {
         setIsLoading(true);
         setError(null);
@@ -90,6 +94,7 @@ export const useSavingsFunds = () => {
         }
     }
 
+    // Fetches all archived savings funds and stores them in local state.
     const fetchArchivedSavingsFunds = async (): Promise<SavingsFund[]> => {
         setIsLoading(true);
         setError(null);
@@ -105,7 +110,8 @@ export const useSavingsFunds = () => {
         }
     }
 
-    const removeSavingsFund = async (id: number): Promise<void> => { 
+    // Permanently deletes a savings fund and removes it from the active list.
+    const removeSavingsFund = async (id: number): Promise<void> => {
         setIsLoading(true);
         setError(null);
         try {
@@ -119,7 +125,8 @@ export const useSavingsFunds = () => {
         }
     }
 
-    const archiveSavingsFund = async (id: number): Promise<void> => { 
+    // Archives a savings fund and removes it from the active list.
+    const archiveSavingsFund = async (id: number): Promise<void> => {
         setIsLoading(true);
         setError(null);
         try {

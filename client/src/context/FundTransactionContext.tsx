@@ -17,6 +17,7 @@ interface FundTransactionContextType {
 
 const FundTransactionContext = createContext<FundTransactionContextType | null>(null);
 
+// Provides fund transaction state and actions to the component tree via context.
 export const FundTransactionProvider = ({ children }: { children: React.ReactNode }) => {
     const fundTransactions = useFundTransactions();
     return (
@@ -26,6 +27,7 @@ export const FundTransactionProvider = ({ children }: { children: React.ReactNod
     );
 };
 
+// Returns the fund transaction context value; throws if used outside a FundTransactionProvider.
 export const useFundTransactionContext = () => {
     const context = useContext(FundTransactionContext);
     if (!context) {

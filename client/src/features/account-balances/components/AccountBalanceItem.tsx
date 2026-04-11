@@ -14,11 +14,13 @@ interface AccountBalanceItemProps{
     accountBalance: AccountBalance;
 }
 
+// Renders a single account balance row with edit and delete controls.
 export const AccountBalanceItem = ({ accountBalance }: AccountBalanceItemProps) => {
     const { removeAccountBalance } = useAccountBalanceContext()
     const [ isAccountBalanceModalOpen, setIsAccountBalanceModalOpen ] = useState(false);
     const [ isConfirmModalOpen, setIsConfirmModalOpen ] = useState(false);
 
+    // Deletes the account balance and shows a success or error toast.
     const handleRemoveAccountBalance = async () => {
         try{
             await removeAccountBalance(accountBalance.id);
