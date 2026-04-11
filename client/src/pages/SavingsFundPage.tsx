@@ -32,15 +32,20 @@ export const SavingsFundPage = () => {
                 <TransferFundForm onSuccess={() => {setIsTransferModalOpen(false)}}/>
             </Modal>
             <div className="fund-page-dashboard">
-                <button className="btn-primary" onClick={() => {setIsTransferModalOpen(true)}}>
-                    Transfer funds
-                </button>
+                {activeSavingsFunds.length > 0 &&
+                    <button className="btn-primary" onClick={() => {setIsTransferModalOpen(true)}}>
+                        Transfer funds
+                    </button>
+                }
                 <button className="btn-add" onClick={() => {setIsAddFundModalOpen(true)}}>
                     +
                 </button>
             </div>
             <div className="fund-list">
                 {isLoading && <p>Loading...</p>}
+                {activeSavingsFunds.length < 1 && !isLoading &&
+                    <p>There are no active savings yet. Click the add button to create a savings fund.</p>
+                }
                 {sortedFundsWithTransactions.map((fundWithTransactions) => (
                     <Fund key={fundWithTransactions.savingsFund.id} fund={fundWithTransactions.savingsFund} relatedTransactions={fundWithTransactions.fundTransactions}/>
                 ))}

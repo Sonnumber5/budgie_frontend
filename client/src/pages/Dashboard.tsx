@@ -38,7 +38,6 @@ export const Dashboard = () => {
     const [ isAccountBalanceModalOpen, setIsAccountBalanceModalOpen ] = useState(false);
     const [ isConfirmModalOpen, setIsConfirmModalOpen ] = useState(false);
 
-
     const navigate = useNavigate();
 
         // Converts the "YYYY-MM-01" date string into this format: "March 2024".
@@ -97,9 +96,10 @@ export const Dashboard = () => {
                         }
 
                     </div>
-                    <div className='standard-container'>
+                    <div className='standard-container financial-overview-dashboard-summary'>
                         <p>Financial Overview</p>
                         <p>{isIncomeLoading || isExpensesLoading ? 'Loading...' : `${formatCurrency(Number(financialOverview))}`}</p>
+                        <p>(Account Balances sum <span style={{whiteSpace: 'nowrap'}}>- Savings Funds sum</span>)</p>
                     </div>
                 </div>
             </div>
@@ -113,6 +113,9 @@ export const Dashboard = () => {
                     </div>
                     <div className="monthly-budget custom-scroll-bar">
                         <div className="category-budget-list">
+                            { categoryBudgets.length < 1 && !isCategoryBudgetsLoading &&
+                                <p>No category budgets have been added to this month's budget. Add your expected income by selecting the "manage budget" button, and then add categories by selecting the "manage budget" button again, or you can add uncategorized expenses.</p>
+                            }
                             { isCategoryBudgetsLoading ? 'Loading...' : 
                                 <>
                                     {categoryBudgets.map((categoryBudget) => (
@@ -130,6 +133,9 @@ export const Dashboard = () => {
                             <button onClick={() => {navigate('/savings-funds')}} className='btn-arrow-circle'>{`›`}</button>
                         </div>
                         <div className='fund-section custom-scroll-bar'>
+                            {activeSavingsFunds.length < 1 && !isAccountBalancesLoading &&
+                                <p>There are no active savings yet.</p>
+                            }
                             {isActiveSavingsFundsLoading ? 'Loading...' :
                                 <>
                                     {activeSavingsFunds.map(savingsFund => (
@@ -152,6 +158,9 @@ export const Dashboard = () => {
                             </div>
                         </div>
                         <div className='account-balance-section custom-scroll-bar'>
+                            {accountBalances.length < 1 && !isAccountBalancesLoading &&
+                                <p>No account balances have been added</p>
+                            }
                             {isAccountBalancesLoading ? 'Loading...' :
                                 <>
                                     {accountBalances.map(accountBalance => (

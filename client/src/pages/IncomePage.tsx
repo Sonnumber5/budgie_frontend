@@ -42,6 +42,9 @@ export const IncomePage = () => {
             <div className="standard-container income-content">
             <div className="income-list custom-scroll-bar">
                 {isLoading && <p>Loading...</p>}
+                {incomeList.length < 1 && !isLoading &&
+                    <p>No income has been entered for this month</p>
+                }
                 {incomeList.map((income) => (
                     <IncomeItem key={income.id} income={income} />
                 ))}

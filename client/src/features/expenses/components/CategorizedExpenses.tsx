@@ -60,11 +60,16 @@ export const CategorizedExpenses = ({ categoryBudget, expenses, totalSpent, rema
                 </div>
                 <div className="category-btns">
                     <button className="btn-add" onClick={() => setIsExpenseModalOpen(true)}>+</button>
-                    <DropdownMenu onEdit={() => setIsCategoryBudgetModalOpen(true)} onDelete={() => setIsConfirmModalOpen(true)} />
+                    {categoryBudget &&
+                        <DropdownMenu onEdit={() => setIsCategoryBudgetModalOpen(true)} onDelete={() => setIsConfirmModalOpen(true)} />
+                    }
                 </div>
             </div>
             <div className="expense-list">
                 <div className="dropdown-content custom-scroll-bar">
+                    {expenses.length < 1 &&
+                        <p>No expenses have been added to this category</p>
+                    }
                     {expenses.map((expense) => (
                         <ExpenseItem key={expense.id} expense={expense} />
                     ))}

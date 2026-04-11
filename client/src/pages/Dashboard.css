@@ -21,6 +21,10 @@
     margin: 0;
 }
 
+.financial-overview-dashboard-summary p:nth-child(2){
+    
+}
+
 @media (min-width: 980px) {
     .dashboard-summary {
         grid-template-columns: 1fr 1fr 1fr 1fr;
@@ -135,7 +139,8 @@
 
 .income-dashboard-summary p:nth-child(2),
 .expense-dashboard-summary p:nth-child(2),
-.remaining-dashboard-summary p:nth-child(2) {
+.remaining-dashboard-summary p:nth-child(2),
+.financial-overview-dashboard-summary p:nth-child(2){
     color: white;
     font-size: var(--font-size-xl);
     font-weight: var(--font-weight-regular);
@@ -148,6 +153,10 @@
 .remaining-dashboard-summary p:nth-child(3),
 .remaining-dashboard-summary p:nth-child(4) {
     font-size: var(--font-size-sm);
+}
+
+.financial-overview-dashboard-summary p:nth-child(3) {
+    font-size: var(--font-size-xsm);
 }
 
 .btn-arrow-circle{

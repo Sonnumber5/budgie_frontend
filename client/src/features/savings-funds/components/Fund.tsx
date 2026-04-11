@@ -68,6 +68,9 @@ export const Fund = ({ fund, relatedTransactions }: SavingsFundProps) => {
                 </div>
             </div>
             <div className="dropdown-content">
+                {relatedTransactions.length < 1 &&
+                    <p>There are no transactions for this fund.</p>
+                }
                 {relatedTransactions.map((transaction) => (
                     <>                        
                         <TransactionItem key={transaction.id} transaction={transaction} canDelete={transaction.transactionType !== 'adjustment' && transaction.transactionType !== 'transfer_in' && transaction.transactionType !== 'transfer_out'}/>
