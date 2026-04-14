@@ -48,7 +48,7 @@ export const useExpenses = () => {
             setExpenses(prev => [...prev, response.data.expense]
                 .sort((a, b) => new Date(b.expenseDate).getTime() - new Date(a.expenseDate).getTime())
             );
-            setExpenseSum(prev => Number(prev + data.amount));
+            setExpenseSum(prev => Number(prev) + Number(data.amount));
             return response.data.expense;
         } catch(error: any){
             setError(error.response?.data?.error || error.message || 'Failed to create expense');
