@@ -4,31 +4,33 @@
 //   newCategoryBudgets: rows added during the current editing session that will be submitted.
 // When budgetToEdit is provided the form operates in edit mode; otherwise it creates a new budget.
 import { useEffect, useState } from "react";
-import type { CategoryBudget, CategoryBudgetDTO, MonthlyBudget } from "../../../types";
+import type { CategoryBudget, CategoryBudgetDTO, DefaultBudgetDTO, DefaultCategoryBudget, DefaultCategoryBudgetDTO, MonthlyBudget } from "../../../types";
 import { useBudgetContext } from "../../../context/BudgetContext";
 import { standardCategories } from "../../../types/standardCategories";
 import { toast } from "react-toastify";
 import { useDateContext } from "../../../context/DateContext";
 import { ConfirmModal } from "../../../components/ConfirmModal";
+import { useDefaultBudgets } from "../../default-budgets/hooks/useDefaultBudgets";
 
-interface BudgetManagementFormProps{
+interface BudgetManagementFormProps {
     onSuccess: () => void;
     budgetToEdit?: MonthlyBudget | null;
 }
 
 export const BudgetManagementForm = ({ onSuccess, budgetToEdit }: BudgetManagementFormProps) => {
+    const { getDefaultBudget, saveDefaultBudget, isLoading } = useDefaultBudgets();
     const { addMonthlyBudget, editMonthlyBudget, removeCategoryBudget } = useBudgetContext();
     const { currentMonth } = useDateContext();
-    const [ expectedIncome, setExpectedIncome ] = useState(0);
-    const [ existingCategoryBudgets, setExistingCategoryBudgets ] = useState<CategoryBudget[]>([]);
-    const [ newCategoryBudgets, setNewCategoryBudgets ] = useState<CategoryBudgetDTO[]>([]);
-    const [ isConfirmModalOpen, setIsConfirmModalOpen ] = useState(false);
-    const [ categoryBudgetToDelete, setCategoryBudgetToDelete ] = useState<number | null>(null);
+    const [expectedIncome, setExpectedIncome] = useState(0);
+    const [existingCategoryBudgets, setExistingCategoryBudgets] = useState<CategoryBudget[]>([]);
+    const [newCategoryBudgets, setNewCategoryBudgets] = useState<CategoryBudgetDTO[] | DefaultCategoryBudget[]>([]);
+    const [isConfirmModalOpen, setIsConfirmModalOpen] = useState(false);
+    const [categoryBudgetToDelete, setCategoryBudgetToDelete] = useState<number | null>(null);
 
     const isEditMode = !!budgetToEdit;
 
     useEffect(() => {
-        if (budgetToEdit){
+        if (budgetToEdit) {
             setExpectedIncome(budgetToEdit.expectedIncome);
             setExistingCategoryBudgets(budgetToEdit.categoryBudgets || []);
         }
@@ -36,29 +38,65 @@ export const BudgetManagementForm = ({ onSuccess, budgetToEdit }: BudgetManageme
 
     const handleSubmit = async (e: React.SyntheticEvent) => {
         e.preventDefault();
-        try{
-            if (isEditMode && budgetToEdit){
+        try {
+            if (isEditMode && budgetToEdit) {
                 await editMonthlyBudget(budgetToEdit.id, {
-                    expectedIncome: expectedIncome, 
-                    categoryBudgetDTOs: newCategoryBudgets 
+                    expectedIncome: expectedIncome,
+                    categoryBudgetDTOs: newCategoryBudgets
                 });
-            } else{
+            } else {
                 await addMonthlyBudget({
                     expectedIncome: expectedIncome,
-                    categoryBudgetDTOs: newCategoryBudgets 
+                    categoryBudgetDTOs: newCategoryBudgets
                 });
             }
             toast.success(`Successfully ${isEditMode ? 'updated' : 'created'} budget for ${currentMonth}`);
             onSuccess();
-        } catch(err: any) {
+        } catch (err: any) {
             toast.error(err.response?.data?.error || `Failed to ${isEditMode ? 'update' : 'create'} budget for ${currentMonth}`);
+        }
+    }
+
+    const handleGetDefaultBudget = async () => {
+        try {
+            const result = await getDefaultBudget();
+            const defaultCategoryBudgets = result.defaultCategoryBudgets;
+            const newDefaultCategoryBudgets = defaultCategoryBudgets.filter((category) => {
+                return !existingCategoryBudgets.find((existingCategory) =>
+                    existingCategory.categoryId === category.categoryId
+                );
+            });
+            setExpectedIncome(result.expectedIncome);
+            setNewCategoryBudgets(newDefaultCategoryBudgets);
+
+        } catch (err: any) {
+            toast.error(err.response?.data?.error || 'Failed to retrieve default budget');
+        }
+    }
+
+    const handleSaveDefaultBudget = async () => {
+        try {
+            const existingAsDefaults: DefaultCategoryBudgetDTO[] = existingCategoryBudgets.map((category) => ({
+                id: category.id,
+                categoryId: category.categoryId!,
+                categoryName: category.categoryName,
+                budgetedAmount: Number(category.budgetedAmount),
+            }));
+            const newDefaultBudget: DefaultBudgetDTO = {
+                expectedIncome: expectedIncome,
+                defaultCategoryBudgetDTOs: existingAsDefaults
+            }
+
+            await saveDefaultBudget(newDefaultBudget);
+        } catch (err: any) {
+            toast.error(err.response?.data?.error || 'Failed to save default budget');
         }
     }
 
     // addNewCategoryBudget appends a blank category budget row to the new-budgets list.
     const addNewCategoryBudget = () => {
         setNewCategoryBudgets([
-            ...newCategoryBudgets, 
+            ...newCategoryBudgets,
             { categoryName: '', budgetedAmount: 0 }
         ]);
     }
@@ -80,7 +118,7 @@ export const BudgetManagementForm = ({ onSuccess, budgetToEdit }: BudgetManageme
     const handleDeleteExisting = async (categoryBudgetId: number) => {
         try {
             await removeCategoryBudget(categoryBudgetId);
-            setExistingCategoryBudgets(existing => 
+            setExistingCategoryBudgets(existing =>
                 existing.filter(cb => cb.id !== categoryBudgetId)
             );
             toast.success(`Successfully deleted category from ${currentMonth}`);
@@ -91,7 +129,7 @@ export const BudgetManagementForm = ({ onSuccess, budgetToEdit }: BudgetManageme
 
     return (
         <form onSubmit={handleSubmit}>
-            <ConfirmModal isOpen={isConfirmModalOpen} onClose={() => {setIsConfirmModalOpen(false)}} confirmAction={() => { categoryBudgetToDelete && handleDeleteExisting(categoryBudgetToDelete)}} />
+            <ConfirmModal isOpen={isConfirmModalOpen} onClose={() => { setIsConfirmModalOpen(false) }} confirmAction={() => { categoryBudgetToDelete && handleDeleteExisting(categoryBudgetToDelete) }} />
             <div className="form-body-standard">
                 <div className="form-field-standard">
                     <label>Expected Income</label>
@@ -106,12 +144,12 @@ export const BudgetManagementForm = ({ onSuccess, budgetToEdit }: BudgetManageme
                     />
                 </div>
                 {budgetToEdit &&
-                        <div className="custom-scroll-bar" style={{display: 'flex', flexDirection: 'column', gap: '8px', maxHeight: '250px', overflowY: 'scroll'}}>
+                    <div className="custom-scroll-bar" style={{ display: 'flex', flexDirection: 'column', gap: '8px', maxHeight: '250px', overflowY: 'scroll' }}>
                         <h3>Category Budgets</h3>
                         {existingCategoryBudgets.length > 0 && (
                             <div>
                                 <h4>Existing Budgets</h4>
-                                <div style={{display: 'flex', flexDirection: 'column', gap: '8px'}}>
+                                <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
                                     {existingCategoryBudgets.map((cb) => (
                                         <div className="form-field-group-standard" key={cb.id}>
                                             <div className="form-field-standard">
@@ -132,9 +170,9 @@ export const BudgetManagementForm = ({ onSuccess, budgetToEdit }: BudgetManageme
                                                 />
                                             </div>
                                             <button
-                                            className="btn-x"
+                                                className="btn-x"
                                                 type="button"
-                                                onClick={() => {setIsConfirmModalOpen(true); setCategoryBudgetToDelete(cb.id)}}
+                                                onClick={() => { setIsConfirmModalOpen(true); setCategoryBudgetToDelete(cb.id) }}
                                             >
                                                 ×
                                             </button>
@@ -147,7 +185,7 @@ export const BudgetManagementForm = ({ onSuccess, budgetToEdit }: BudgetManageme
                         {newCategoryBudgets.length > 0 && (
                             <div>
                                 <h4>New Budgets</h4>
-                                <div style={{display: 'flex', flexDirection: 'column', gap: '8px'}}>
+                                <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
                                     {newCategoryBudgets.map((cb, index) => (
                                         <div className="form-field-group-standard" key={index}>
                                             <div className="form-field-standard">
@@ -188,17 +226,19 @@ export const BudgetManagementForm = ({ onSuccess, budgetToEdit }: BudgetManageme
                                 </div>
                             </div>
                         )}
-                        <div style={{display: 'flex', justifyContent: 'center'}} >
-                            <button className="btn-add" type="button" onClick={addNewCategoryBudget}>
-                                +
-                            </button>
-                        </div>
                     </div>
                 }
+                <div style={{ display: 'flex', justifyContent: 'center' }} >
+                    <button className="btn-add" type="button" onClick={addNewCategoryBudget}>
+                        +
+                    </button>
+                </div>
             </div>
             <button className="btn-primary" type="submit">
                 {isEditMode ? 'Update Budget' : 'Create Budget'}
             </button>
+            <button onClick={() => { handleSaveDefaultBudget() }} className="btn-primary" type="button">Save Default Budget</button>
+            <button onClick={() => { handleGetDefaultBudget() }} className="btn-primary" type="button">Default Budget</button>
         </form>
     )
 }

@@ -147,11 +147,49 @@ export interface CategoryBudget{
     updatedAt: string
 }
 
+
 // Payload for creating or updating a category budget entry.
 export interface CategoryBudgetDTO{
     id?: number,
     monthlyBudgetId?: number,
     categoryId?: number,
+    categoryName?: string,
+    budgetedAmount: number
+}
+
+//---------DEFAULT BUDGETS---------//
+
+export interface DefaultBudget{
+    id: number,
+    expectedIncome: number, 
+    defaultCategoryBudgets: DefaultCategoryBudget[],
+    createdAt: string,
+    updatedAt: string
+}
+
+export interface DefaultBudgetDTO{
+    id?: number, 
+    expectedIncome: number,
+    defaultCategoryBudgetDTOs: DefaultCategoryBudgetDTO[],
+}
+
+
+//---------DEFAULT CATEGORY BUDGETS---------//
+
+export interface DefaultCategoryBudget{
+    id: number,
+    defaultBudgetId: number,
+    categoryId: number,
+    categoryName: string,
+    budgetedAmount: number,
+    createdAt: string,
+    updatedAt: string
+}
+
+export interface DefaultCategoryBudgetDTO{
+    id?: number,
+    defaultBudgetId?: number,
+    categoryId: number,
     categoryName?: string,
     budgetedAmount: number
 }
