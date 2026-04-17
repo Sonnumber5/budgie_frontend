@@ -42,7 +42,15 @@ export const BudgetManagementForm = ({ onSuccess, budgetToEdit }: BudgetManageme
             if (isEditMode && budgetToEdit) {
                 await editMonthlyBudget(budgetToEdit.id, {
                     expectedIncome: expectedIncome,
-                    categoryBudgetDTOs: newCategoryBudgets
+                    categoryBudgetDTOs: [
+                        ...existingCategoryBudgets.map(cb => ({
+                            id: cb.id,
+                            categoryId: cb.categoryId,
+                            categoryName: cb.categoryName,
+                            budgetedAmount: cb.budgetedAmount
+                        })), 
+                        ...newCategoryBudgets
+                    ]
                 });
             } else {
                 await addMonthlyBudget({
@@ -60,12 +68,12 @@ export const BudgetManagementForm = ({ onSuccess, budgetToEdit }: BudgetManageme
     const handleGetDefaultBudget = async () => {
         try {
             const result = await getDefaultBudget();
-            const defaultCategoryBudgets = result.defaultCategoryBudgets;
-            const newDefaultCategoryBudgets = defaultCategoryBudgets.filter((category) => {
-                return !existingCategoryBudgets.find((existingCategory) =>
-                    existingCategory.categoryId === category.categoryId
-                );
-            });
+
+            const newDefaultCategoryBudgets = result.defaultCategoryBudgets.filter((category) =>
+                !existingCategoryBudgets.find((existing) => existing.categoryId === category.categoryId) &&
+                !newCategoryBudgets.find((newCb) => newCb.categoryId === category.categoryId)
+            );
+
             setExpectedIncome(result.expectedIncome);
             setNewCategoryBudgets(newDefaultCategoryBudgets);
 
@@ -91,6 +99,12 @@ export const BudgetManagementForm = ({ onSuccess, budgetToEdit }: BudgetManageme
         } catch (err: any) {
             toast.error(err.response?.data?.error || 'Failed to save default budget');
         }
+    }
+
+    const handleUpdateExistingCategoryBudgetAmount = (id: number, budgetedAmount: number) => {
+        setExistingCategoryBudgets((existing) => 
+            existing.map(cb => cb.id === id ? {...cb, budgetedAmount: budgetedAmount} : cb)
+        );
     }
 
     // addNewCategoryBudget appends a blank category budget row to the new-budgets list.
@@ -166,7 +180,8 @@ export const BudgetManagementForm = ({ onSuccess, budgetToEdit }: BudgetManageme
                                                     className="input-field-standard"
                                                     type="number"
                                                     value={cb.budgetedAmount === 0 ? '' : cb.budgetedAmount}
-                                                    disabled
+                                                    onChange={(e) => {handleUpdateExistingCategoryBudgetAmount(cb.id, Number(e.target.value))}}
+                                                    
                                                 />
                                             </div>
                                             <button
@@ -195,7 +210,7 @@ export const BudgetManagementForm = ({ onSuccess, budgetToEdit }: BudgetManageme
                                                     placeholder="Category Name"
                                                     value={cb.categoryName}
                                                     onChange={(e) => updateNewCategoryBudget(index, 'categoryName', e.target.value)}
-                                                    list={`category-suggestions-${index}`} // Links to datalist
+                                                    list={`category-suggestions-${index}`} 
                                                     required
                                                 />
                                                 <datalist id={`category-suggestions-${index}`}>
