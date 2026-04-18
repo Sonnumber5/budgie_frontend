@@ -23,7 +23,7 @@ export const BudgetManagementForm = ({ onSuccess, budgetToEdit }: BudgetManageme
     const { currentMonth } = useDateContext();
     const [expectedIncome, setExpectedIncome] = useState(0);
     const [existingCategoryBudgets, setExistingCategoryBudgets] = useState<CategoryBudget[]>([]);
-    const [newCategoryBudgets, setNewCategoryBudgets] = useState<CategoryBudgetDTO[] | DefaultCategoryBudget[]>([]);
+    const [newCategoryBudgets, setNewCategoryBudgets] = useState<CategoryBudgetDTO[]>([]);
     const [isConfirmModalOpen, setIsConfirmModalOpen] = useState(false);
     const [categoryBudgetToDelete, setCategoryBudgetToDelete] = useState<number | null>(null);
 
@@ -49,9 +49,14 @@ export const BudgetManagementForm = ({ onSuccess, budgetToEdit }: BudgetManageme
                             categoryName: cb.categoryName,
                             budgetedAmount: cb.budgetedAmount
                         })), 
-                        ...newCategoryBudgets
+                        ...newCategoryBudgets.map(cb => ({
+                            categoryId: cb.categoryId,
+                            categoryName: cb.categoryName,
+                            budgetedAmount: cb.budgetedAmount
+                        }))
                     ]
                 });
+                console.log("Budgets", );
             } else {
                 await addMonthlyBudget({
                     expectedIncome: expectedIncome,
@@ -157,7 +162,7 @@ export const BudgetManagementForm = ({ onSuccess, budgetToEdit }: BudgetManageme
                         step="0.01"
                     />
                 </div>
-                {budgetToEdit &&
+                
                     <div className="custom-scroll-bar" style={{ display: 'flex', flexDirection: 'column', gap: '8px', maxHeight: '250px', overflowY: 'scroll' }}>
                         <h3>Category Budgets</h3>
                         {existingCategoryBudgets.length > 0 && (
@@ -242,7 +247,7 @@ export const BudgetManagementForm = ({ onSuccess, budgetToEdit }: BudgetManageme
                             </div>
                         )}
                     </div>
-                }
+                
                 <div style={{ display: 'flex', justifyContent: 'center' }} >
                     <button className="btn-add" type="button" onClick={addNewCategoryBudget}>
                         +
