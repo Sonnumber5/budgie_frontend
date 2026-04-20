@@ -11,6 +11,7 @@ import { toast } from "react-toastify";
 import { useDateContext } from "../../../context/DateContext";
 import { ConfirmModal } from "../../../components/ConfirmModal";
 import { useDefaultBudgets } from "../../default-budgets/hooks/useDefaultBudgets";
+import { ConfirmButtons } from "../../../components/ConfirmButtons";
 
 interface BudgetManagementFormProps {
     onSuccess: () => void;
@@ -18,7 +19,7 @@ interface BudgetManagementFormProps {
 }
 
 export const BudgetManagementForm = ({ onSuccess, budgetToEdit }: BudgetManagementFormProps) => {
-    const { getDefaultBudget, saveDefaultBudget, isLoading } = useDefaultBudgets();
+    const { getDefaultBudget, saveDefaultBudget, isSaveLoading: isDefaultBudgetSaveLoading, isLoadLoading: isDefaultBudgetLoadLoading } = useDefaultBudgets();
     const { addMonthlyBudget, editMonthlyBudget, removeCategoryBudget } = useBudgetContext();
     const { currentMonth } = useDateContext();
     const [expectedIncome, setExpectedIncome] = useState(0);
@@ -26,6 +27,8 @@ export const BudgetManagementForm = ({ onSuccess, budgetToEdit }: BudgetManageme
     const [newCategoryBudgets, setNewCategoryBudgets] = useState<CategoryBudgetDTO[]>([]);
     const [isConfirmModalOpen, setIsConfirmModalOpen] = useState(false);
     const [categoryBudgetToDelete, setCategoryBudgetToDelete] = useState<number | null>(null);
+    const [ isConfirmGetDefaultOpen, setIsConfirmGetDefaultOpen ] = useState(false);
+    const [ isConfirmSaveDefaultOpen, setIsConfirmSaveDefaultOpen ] = useState(false);
 
     const isEditMode = !!budgetToEdit;
 
@@ -56,7 +59,6 @@ export const BudgetManagementForm = ({ onSuccess, budgetToEdit }: BudgetManageme
                         }))
                     ]
                 });
-                console.log("Budgets", );
             } else {
                 await addMonthlyBudget({
                     expectedIncome: expectedIncome,
@@ -81,6 +83,7 @@ export const BudgetManagementForm = ({ onSuccess, budgetToEdit }: BudgetManageme
 
             setExpectedIncome(result.expectedIncome);
             setNewCategoryBudgets(newDefaultCategoryBudgets);
+            toast.success('Successfully applied default budget');
 
         } catch (err: any) {
             toast.error(err.response?.data?.error || 'Failed to retrieve default budget');
@@ -89,18 +92,24 @@ export const BudgetManagementForm = ({ onSuccess, budgetToEdit }: BudgetManageme
 
     const handleSaveDefaultBudget = async () => {
         try {
-            const existingAsDefaults: DefaultCategoryBudgetDTO[] = existingCategoryBudgets.map((category) => ({
+            const allCategoryBudgets: DefaultCategoryBudgetDTO[] = [
+                ...existingCategoryBudgets.map((category) => ({
                 id: category.id,
-                categoryId: category.categoryId!,
+                categoryId: category.categoryId,
                 categoryName: category.categoryName,
                 budgetedAmount: Number(category.budgetedAmount),
-            }));
+            })), ...newCategoryBudgets.map((category) => ({
+                categoryName: category.categoryName,
+                budgetedAmount: Number(category.budgetedAmount),
+            }))
+        ]
             const newDefaultBudget: DefaultBudgetDTO = {
                 expectedIncome: expectedIncome,
-                defaultCategoryBudgetDTOs: existingAsDefaults
+                defaultCategoryBudgetDTOs: allCategoryBudgets
             }
 
             await saveDefaultBudget(newDefaultBudget);
+            toast.success('Successfully saved default budget');
         } catch (err: any) {
             toast.error(err.response?.data?.error || 'Failed to save default budget');
         }
@@ -254,11 +263,21 @@ export const BudgetManagementForm = ({ onSuccess, budgetToEdit }: BudgetManageme
                     </button>
                 </div>
             </div>
-            <button className="btn-primary" type="submit">
-                {isEditMode ? 'Update Budget' : 'Create Budget'}
-            </button>
-            <button onClick={() => { handleSaveDefaultBudget() }} className="btn-primary" type="button">Save Default Budget</button>
-            <button onClick={() => { handleGetDefaultBudget() }} className="btn-primary" type="button">Default Budget</button>
+            <div className="multiple-form-btns">
+                {!isConfirmGetDefaultOpen && !isConfirmSaveDefaultOpen &&
+                    <div className="multiple-form-btns">
+                        <button className="btn-primary" type="submit">{isEditMode ? 'Update Budget' : 'Create Budget'}</button>
+                        <button onClick={() => { setIsConfirmGetDefaultOpen(true) }} className="btn-secondary" type="button" disabled={isDefaultBudgetLoadLoading}>{isDefaultBudgetLoadLoading ? 'Loading...' : 'Default Budget'}</button>
+                        <button onClick={() => { setIsConfirmSaveDefaultOpen(true) }} className="btn-secondary" type="button" disabled={isDefaultBudgetSaveLoading}>{isDefaultBudgetSaveLoading ? 'Loading...' : 'Save Default Budget'}</button>
+                    </div>
+                }
+                {isConfirmGetDefaultOpen &&
+                    <ConfirmButtons confirmAction={() => {handleGetDefaultBudget()}} cancelAction={() => {setIsConfirmGetDefaultOpen(false)}}/>
+                }
+                {isConfirmSaveDefaultOpen &&
+                    <ConfirmButtons confirmAction={() => {handleSaveDefaultBudget()}} cancelAction={() => {setIsConfirmSaveDefaultOpen(false)}}/>
+                }
+            </div>
         </form>
     )
 }

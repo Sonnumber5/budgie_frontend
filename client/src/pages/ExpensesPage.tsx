@@ -94,7 +94,7 @@ export const ExpensesPage = () => {
             <div className="category-list">
                 {isLoading && <p>Loading...</p>}
                 {categoryBudgets.length < 1 && !isLoading &&
-                    <p>No category budgets have been added to this month's budget. Add your expected income by selecting the "manage budget" button, and then add categories by selecting the "manage budget" button again, or you can add uncategorized expenses.</p>
+                    <p>No category budgets have been added to this month's budget. Add categories by selecting the "manage budget" button, or you can add uncategorized expenses.</p>
                 }
                 {categorizedExpenses.map((expenseGroup) => {
                     return (

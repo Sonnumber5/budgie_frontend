@@ -151,6 +151,10 @@ body {
   transform: rotate(180deg);
 }
 
+.btn-primary:disabled, .btn-secondary:disabled{
+  opacity: 50%;
+}
+
 .btn-primary{
   background-color: var(--color-btn-primary);
   color: black;

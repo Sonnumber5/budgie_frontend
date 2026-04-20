@@ -46,7 +46,14 @@
     color: #000;
 }
 
-.modal-body button[type="submit"] {
+.modal-body button[type="submit"], .modal-body .multiple-form-btns button {
     display: block;
-    margin: var(--spacing-md) auto 0;
+    margin: var(--spacing-md) 0;
+}
+
+.multiple-form-btns{
+    display: flex;
+    gap: var(--spacing-sm);
+    align-items: center;
+    justify-content: center;
 }

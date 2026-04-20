@@ -189,7 +189,7 @@ export interface DefaultCategoryBudget{
 export interface DefaultCategoryBudgetDTO{
     id?: number,
     defaultBudgetId?: number,
-    categoryId: number,
+    categoryId?: number,
     categoryName?: string,
     budgetedAmount: number
 }

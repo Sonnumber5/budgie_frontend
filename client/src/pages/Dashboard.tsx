@@ -114,7 +114,7 @@ export const Dashboard = () => {
                     <div className="monthly-budget custom-scroll-bar">
                         <div className="category-budget-list">
                             { categoryBudgets.length < 1 && !isCategoryBudgetsLoading &&
-                                <p>No category budgets have been added to this month's budget. Add your expected income by selecting the "manage budget" button, and then add categories by selecting the "manage budget" button again, or you can add uncategorized expenses.</p>
+                                <p>No category budgets have been added to this month's budget. Add categories by selecting the "manage budget" button.</p>
                             }
                             { isCategoryBudgetsLoading ? 'Loading...' : 
                                 <>
