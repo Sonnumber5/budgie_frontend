@@ -267,12 +267,9 @@ export const BudgetManagementForm = ({ onSuccess, budgetToEdit }: BudgetManageme
                 {!isConfirmGetDefaultOpen && !isConfirmSaveDefaultOpen &&
                     <div className="multiple-form-btns">
                         <button className="btn-primary" type="submit">{isEditMode ? 'Update Budget' : 'Create Budget'}</button>
-                        <button onClick={() => { setIsConfirmGetDefaultOpen(true) }} className="btn-secondary" type="button" disabled={isDefaultBudgetLoadLoading}>{isDefaultBudgetLoadLoading ? 'Loading...' : 'Default Budget'}</button>
+                        <button onClick={() => { handleGetDefaultBudget() }} className="btn-secondary" type="button" disabled={isDefaultBudgetLoadLoading}>{isDefaultBudgetLoadLoading ? 'Loading...' : 'Default Budget'}</button>
                         <button onClick={() => { setIsConfirmSaveDefaultOpen(true) }} className="btn-secondary" type="button" disabled={isDefaultBudgetSaveLoading}>{isDefaultBudgetSaveLoading ? 'Loading...' : 'Save Default Budget'}</button>
                     </div>
-                }
-                {isConfirmGetDefaultOpen &&
-                    <ConfirmButtons confirmAction={() => {handleGetDefaultBudget()}} cancelAction={() => {setIsConfirmGetDefaultOpen(false)}}/>
                 }
                 {isConfirmSaveDefaultOpen &&
                     <ConfirmButtons confirmAction={() => {handleSaveDefaultBudget()}} cancelAction={() => {setIsConfirmSaveDefaultOpen(false)}}/>
