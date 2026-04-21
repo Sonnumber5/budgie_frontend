@@ -27,7 +27,7 @@ export const BudgetManagementForm = ({ onSuccess, budgetToEdit }: BudgetManageme
     const [newCategoryBudgets, setNewCategoryBudgets] = useState<CategoryBudgetDTO[]>([]);
     const [isConfirmModalOpen, setIsConfirmModalOpen] = useState(false);
     const [categoryBudgetToDelete, setCategoryBudgetToDelete] = useState<number | null>(null);
-    const [ isConfirmGetDefaultOpen, setIsConfirmGetDefaultOpen ] = useState(false);
+    const [ isConfirmGetDefaultOpen ] = useState(false);
     const [ isConfirmSaveDefaultOpen, setIsConfirmSaveDefaultOpen ] = useState(false);
 
     const isEditMode = !!budgetToEdit;
@@ -264,7 +264,7 @@ export const BudgetManagementForm = ({ onSuccess, budgetToEdit }: BudgetManageme
                 </div>
             </div>
             <div className="multiple-form-btns">
-                {!isConfirmGetDefaultOpen && !isConfirmSaveDefaultOpen &&
+                {!isConfirmSaveDefaultOpen &&
                     <div className="multiple-form-btns">
                         <button className="btn-primary" type="submit">{isEditMode ? 'Update Budget' : 'Create Budget'}</button>
                         <button onClick={() => { handleGetDefaultBudget() }} className="btn-secondary" type="button" disabled={isDefaultBudgetLoadLoading}>{isDefaultBudgetLoadLoading ? 'Loading...' : 'Default Budget'}</button>
