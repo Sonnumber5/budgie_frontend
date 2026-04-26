@@ -13,6 +13,8 @@ import { useDateContext } from "../../../context/DateContext";
 import { ConfirmModal } from "../../../components/ConfirmModal";
 import { DropdownMenu } from "../../../components/DropdownMenu";
 import { formatCurrency } from "../../../utils/formatCurrency";
+import { formatMonthDisplay } from "../../../utils/formatDate";
+
 
 interface CategoryBudgetOverviewProps {
     categoryBudget: CategoryBudget,
@@ -35,12 +37,13 @@ export const CategoryBudgetOverview = ({ categoryBudget }: CategoryBudgetOvervie
 
     const progress = Math.min((amountSpent / budgetedAmount) * 100, 100);
 
+
     const handleDelete = async () => {
         try {
             await removeCategoryBudget(categoryBudget.id);
-            toast.success(`Successfully deleted category from ${currentMonth}`);
+            toast.success(`Successfully deleted category from ${formatMonthDisplay(currentMonth)}`);
         } catch (err: any) {
-            toast.error(err.response?.data?.error || `Failed to delete category from ${currentMonth}`);
+            toast.error(err.response?.data?.error || `Failed to delete category from ${formatMonthDisplay(currentMonth)}`);
 
         }
     };

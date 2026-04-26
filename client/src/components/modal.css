@@ -48,7 +48,7 @@
 
 .modal-body button[type="submit"], .modal-body .multiple-form-btns button {
     display: block;
-    margin: var(--spacing-md) 0;
+    margin: var(--spacing-md) auto;
 }
 
 .multiple-form-btns{

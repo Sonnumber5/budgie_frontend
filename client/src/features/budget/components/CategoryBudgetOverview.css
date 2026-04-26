@@ -25,7 +25,7 @@
 }
 
 .monthly-budget{
-    overflow-y: scroll;
+    overflow-y: auto;
 }
 
 .category-budget-overview p:nth-child(1){

@@ -12,6 +12,7 @@ import { useDateContext } from "../../../context/DateContext";
 import { ConfirmModal } from "../../../components/ConfirmModal";
 import { useDefaultBudgets } from "../../default-budgets/hooks/useDefaultBudgets";
 import { ConfirmButtons } from "../../../components/ConfirmButtons";
+import { formatMonthDisplay } from "../../../utils/formatDate";
 
 interface BudgetManagementFormProps {
     onSuccess: () => void;
@@ -27,7 +28,6 @@ export const BudgetManagementForm = ({ onSuccess, budgetToEdit }: BudgetManageme
     const [newCategoryBudgets, setNewCategoryBudgets] = useState<CategoryBudgetDTO[]>([]);
     const [isConfirmModalOpen, setIsConfirmModalOpen] = useState(false);
     const [categoryBudgetToDelete, setCategoryBudgetToDelete] = useState<number | null>(null);
-    const [ isConfirmGetDefaultOpen ] = useState(false);
     const [ isConfirmSaveDefaultOpen, setIsConfirmSaveDefaultOpen ] = useState(false);
 
     const isEditMode = !!budgetToEdit;
@@ -65,10 +65,10 @@ export const BudgetManagementForm = ({ onSuccess, budgetToEdit }: BudgetManageme
                     categoryBudgetDTOs: newCategoryBudgets
                 });
             }
-            toast.success(`Successfully ${isEditMode ? 'updated' : 'created'} budget for ${currentMonth}`);
+            toast.success(`Successfully ${isEditMode ? 'updated' : 'created'} budget for ${formatMonthDisplay(currentMonth)}`);
             onSuccess();
         } catch (err: any) {
-            toast.error(err.response?.data?.error || `Failed to ${isEditMode ? 'update' : 'create'} budget for ${currentMonth}`);
+            toast.error(err.response?.data?.error || `Failed to ${isEditMode ? 'update' : 'create'} budget for ${formatMonthDisplay(currentMonth)}`);
         }
     }
 
