@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { useSavingsFundContext } from "../../../context/SavingsFundContext";
 import type { FundTransaction, FundTransactionDTO } from "../../../types";
-import { createFundTransaction, getAllTransactionsForActiveFunds, getContributionSumForMonth, updateFundTransaction, deleteFundTransaction, createAdjustmentTransaction, createTransferTransaction } from "../api/fund-transactions";
+import { createFundTransaction, getAllTransactionsForActiveFunds, getContributionSumForMonth, updateFundTransaction, deleteFundTransaction, createAdjustmentTransaction, createTransferTransaction, getMonthlyTransactionsForActiveFunds } from "../api/fund-transactions";
 import { useDateContext } from "../../../context/DateContext";
 import { useAuth } from "../../../context/AuthContext";
 
@@ -19,18 +19,6 @@ export const useFundTransactions = () => {
         if (!isAuthenticated){
             setTransactions([]);
             setMonthlyContributionSum(0);
-        }
-        const fetchTransactions = async () => {
-            setIsLoading(true);
-            setError(null);
-            try {
-                const response = await getAllTransactionsForActiveFunds();
-                setTransactions(response.data.activeFundTransactions || []);
-            } catch(error: any) {
-                setError(error.response?.data?.error || error.message || 'Failed to fetch transactions');
-            } finally {
-                setIsLoading(false);
-            }
         }
         fetchTransactions();
     }, [isAuthenticated]);
@@ -50,8 +38,22 @@ export const useFundTransactions = () => {
                 setIsLoading(false);
             }
         }
+        fetchTransactions();
         fetchContributionSumForMonth(currentMonth);
     }, [currentMonth]);
+
+    const fetchTransactions = async () => {
+        setIsLoading(true);
+        setError(null);
+        try {
+            const response = await getMonthlyTransactionsForActiveFunds(currentMonth);
+            setTransactions(response.data.activeFundTransactions || []);
+        } catch(error: any) {
+            setError(error.response?.data?.error || error.message || 'Failed to fetch transactions');
+        } finally {
+            setIsLoading(false);
+        }
+    }
 
     // Creates a new contribution or expenditure transaction and refreshes the parent fund's balance.
     const addFundTransaction = async (data: FundTransactionDTO): Promise<FundTransaction> => {

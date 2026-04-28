@@ -31,6 +31,7 @@ export const SavingsFundPage = () => {
             <Modal isOpen={isTransferModalOpen} onClose={() => {setIsTransferModalOpen(false)}} title="Transfer Funds">
                 <TransferFundForm onSuccess={() => {setIsTransferModalOpen(false)}}/>
             </Modal>
+            <MonthPicker/>
             <div className="fund-page-dashboard">
                 {activeSavingsFunds.length > 0 &&
                     <button className="btn-primary" onClick={() => {setIsTransferModalOpen(true)}}>

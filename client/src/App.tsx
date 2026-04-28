@@ -39,7 +39,7 @@ function App() {
   return (
     <BrowserRouter>
       <AuthProvider>
-        <ToastContainer position="bottom-right" closeOnClick autoClose={1500} />
+        <ToastContainer position="bottom-right" closeOnClick autoClose={2500} />
         <DateProvider>
           <SavingsFundProvider>
             <FundTransactionProvider>

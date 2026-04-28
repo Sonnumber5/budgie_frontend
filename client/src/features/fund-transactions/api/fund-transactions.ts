@@ -21,6 +21,11 @@ export const getAllTransactionsForActiveFunds = () => {
     return api.get(`/savings-funds/transactions`);
 }
 
+// Fetches all transactions across all active funds for the authenticated user based on a given month.
+export const getMonthlyTransactionsForActiveFunds = (month: string) => {
+    return api.get(`/savings-funds/transactions?month=${month}`);
+}
+
 // Fetches the total contribution amount across all funds for the given month.
 export const getContributionSumForMonth = (month: string) => {
     return api.get(`/savings-funds/contributions?month=${month}`);
