@@ -43,13 +43,16 @@ export const useSavingsFunds = () => {
         try {
             const response = await getSavingsFundById(fundId);
             const updatedFund = response.data.savingsFund;
-            setActiveSavingsFunds(prev => {
-                const exists = prev.some(fund => fund.id === fundId);
-                if (!exists) return prev;
-                const originalFund = prev.find(fund => fund.id === fundId);
-                setSavingsTotal(prevTotal => prevTotal - Number(originalFund?.balance ?? 0) + Number(updatedFund.balance ?? 0));
-                return prev.map(fund => fund.id === fundId ? updatedFund : fund);
-            });
+            
+            const originalFund = activeSavingsFunds.find(fund => fund.id === fundId);
+            if (!originalFund) return;
+
+            setSavingsTotal(prev => prev - Number(originalFund.balance) + Number(updatedFund.balance));
+
+            setActiveSavingsFunds(prev => 
+                prev.map(fund => fund.id = fundId ? updatedFund : fund)
+            );
+
         } catch(error: any) {
             if (error.response?.status === 404) return;
             setError(error.response?.data?.error || error.message || 'Failed to retrieve fund');
