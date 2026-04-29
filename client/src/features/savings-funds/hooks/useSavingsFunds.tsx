@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import type { SavingsFund, SavingsFundDTO } from "../../../types/index";
-import { createSavingsFund, getActiveSavingsFunds, getSavingsFundById, getArchivedSavingsFunds, updateSavingsFund, archiveSavingsFundAPI, deleteSavingsFund } from '../api/savings-funds';
+import { createSavingsFund, getActiveSavingsFunds, getSavingsFundById, getArchivedSavingsFunds, updateSavingsFund, archiveSavingsFundAPI, deleteSavingsFund, unarchiveSavingsFundAPI } from '../api/savings-funds';
 import { useAuth } from "../../../context/AuthContext";
 
 // Hook that manages savings fund state and exposes CRUD actions for active and archived funds.
@@ -36,6 +36,7 @@ export const useSavingsFunds = () => {
             }
         }
         fetchActiveSavingsFunds();
+        fetchArchivedSavingsFunds();
     }, [isAuthenticated]);
 
     // Fetches the latest data for a single fund and updates it in local state.
@@ -50,7 +51,7 @@ export const useSavingsFunds = () => {
             setSavingsTotal(prev => prev - Number(originalFund.balance) + Number(updatedFund.balance));
 
             setActiveSavingsFunds(prev => 
-                prev.map(fund => fund.id = fundId ? updatedFund : fund)
+                prev.map(fund => fund.id === fundId ? updatedFund : fund)            
             );
 
         } catch(error: any) {
@@ -113,13 +114,13 @@ export const useSavingsFunds = () => {
         }
     }
 
-    // Permanently deletes a savings fund and removes it from the active list.
+    // Permanently deletes a savings fund and removes it from the archived list.
     const removeSavingsFund = async (id: number): Promise<void> => {
         setIsLoading(true);
         setError(null);
         try {
             await deleteSavingsFund(id);
-            setActiveSavingsFunds(prev => prev.filter(fund => fund.id !== id));
+            setArchivedSavingsFunds(prev => prev.filter(fund => fund.id !== id));
         } catch(error: any) {
             setError(error.response?.data?.error || error.message || 'Unable to delete savings fund');
             throw error;
@@ -133,10 +134,33 @@ export const useSavingsFunds = () => {
         setIsLoading(true);
         setError(null);
         try {
-            await archiveSavingsFundAPI(id);
+            const response = await archiveSavingsFundAPI(id);
+            const newArchivedFund = response.data.savingsFund;
+
             setActiveSavingsFunds(prev => prev.filter(fund => fund.id !== id));
+            setArchivedSavingsFunds(prev => [...prev, newArchivedFund]);
+            setSavingsTotal(prev => prev - Number(newArchivedFund.balance));
         } catch(error: any) {
             setError(error.response?.data?.error || error.message || 'Unable to archive savings fund');
+            throw error;
+        } finally {
+            setIsLoading(false);
+        }
+    }
+
+    // Unarchives a savings fund and removes it from the archived list.
+    const unarchiveSavingsFund = async (id: number): Promise<void> => {
+        setIsLoading(true);
+        setError(null);
+        try {
+            const response = await unarchiveSavingsFundAPI(id);
+            const unarchivedFund = response.data.savingsFund;
+
+            setArchivedSavingsFunds(prev => prev.filter(fund => fund.id !== id));
+            setActiveSavingsFunds(prev => [...prev, unarchivedFund]);
+            setSavingsTotal(prev => prev + Number(unarchivedFund.balance));
+        } catch(error: any) {
+            setError(error.response?.data?.error || error.message || 'Unable to unarchive savings fund');
             throw error;
         } finally {
             setIsLoading(false);
@@ -153,6 +177,7 @@ export const useSavingsFunds = () => {
         editSavingsFund, 
         fetchArchivedSavingsFunds, 
         removeSavingsFund,
+        unarchiveSavingsFund,
         archiveSavingsFund,
         refreshFundInfo
     }

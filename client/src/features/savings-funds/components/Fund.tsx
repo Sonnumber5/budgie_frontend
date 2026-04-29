@@ -11,27 +11,49 @@ import { toast } from "react-toastify";
 import { DropdownMenu } from "../../../components/DropdownMenu";
 import { ConfirmModal } from "../../../components/ConfirmModal";
 import { formatCurrency } from "../../../utils/formatCurrency";
+import React from "react";
 interface SavingsFundProps{
     fund: SavingsFund;
     relatedTransactions: FundTransaction[];
+    archived?: boolean
 }
 
 // Renders a savings fund card with its transactions list, progress bar, and modals for editing, adding transactions, and archiving.
-export const Fund = ({ fund, relatedTransactions }: SavingsFundProps) => {
+export const Fund = ({ fund, relatedTransactions, archived }: SavingsFundProps) => {
     const [ isOpen, setIsOpen ] = useState(false);
     const [ isTransactionModalOpen, setIsTransactionModalOpen ] = useState(false);
     const [ isEditFundModalOpen, setIsEditFundModalOpen ] = useState(false);
     const [ isEditBalanceOpen, setIsEditBalanceOpen ] = useState(false);
     const [ isConfirmModalOpen, setIsConfirmModalOpen ] = useState(false);
-    const { archiveSavingsFund } = useSavingsFundContext();
+    const { archiveSavingsFund, unarchiveSavingsFund, removeSavingsFund } = useSavingsFundContext();
 
     // Archives the fund and shows a success or error toast.
-    const handleRemove = async () => {
+    const handleArchive = async () => {
         try {
             await archiveSavingsFund(fund.id);
             toast.success('Successfully archived savings fund');
         } catch (err: any) {
             toast.error(err.response?.data?.error || 'Failed to archive savings fund');
+        }
+    };
+
+    // Deletes the fund and shows a success or error toast.
+    const handleDelete = async () => {
+        try {
+            await removeSavingsFund(fund.id);
+            toast.success('Successfully deleted savings fund');
+        } catch (err: any) {
+            toast.error(err.response?.data?.error || 'Failed to delete savings fund');
+        }
+    };
+
+    // Archives the fund and shows a success or error toast.
+    const handleUnarchive = async () => {
+        try {
+            await unarchiveSavingsFund(fund.id);
+            toast.success('Successfully unarchived savings fund');
+        } catch (err: any) {
+            toast.error(err.response?.data?.error || 'Failed to unarchive savings fund');
         }
     };
 
@@ -48,7 +70,6 @@ export const Fund = ({ fund, relatedTransactions }: SavingsFundProps) => {
                 <Modal isOpen={isEditBalanceOpen} onClose={() => {setIsEditBalanceOpen(false)}} title={'Adjust Balance'}>
                     <AdjustmentTransactionForm onSuccess={() => {setIsEditBalanceOpen(false)}} fund={fund}/>
                 </Modal>
-                <ConfirmModal isOpen={isConfirmModalOpen} onClose={() => {setIsConfirmModalOpen(false)}} confirmAction={() => {handleRemove()}}/>
             <div className="fund-info dropdown-header">
                 <div className="fund-progress-bar-details">
                     <div className="fund-details">
@@ -63,8 +84,19 @@ export const Fund = ({ fund, relatedTransactions }: SavingsFundProps) => {
                     </div>
                 </div>
                 <div className="fund-btns">
-                    <button className="btn-add" onClick={() => {setIsTransactionModalOpen(true)}}>+</button>
-                    <DropdownMenu onEditBalance={() => {setIsEditBalanceOpen(true)}} onEdit={() => {setIsEditFundModalOpen(true)}} onArchive={() => {setIsConfirmModalOpen(true)}}/>
+                    {!archived &&
+                        <>
+                            <button className="btn-add" onClick={() => {setIsTransactionModalOpen(true)}}>+</button>
+                            <DropdownMenu onEditBalance={() => {setIsEditBalanceOpen(true)}} onEdit={() => {setIsEditFundModalOpen(true)}} onArchive={() => {setIsConfirmModalOpen(true)}}/>
+                            <ConfirmModal isOpen={isConfirmModalOpen} confirmAction={handleArchive} onClose={() => {setIsConfirmModalOpen(false)}}/>
+                        </>
+                    }
+                    {archived &&
+                        <>
+                            <DropdownMenu onUnArchive={() => {handleUnarchive()}} onDelete={() => {setIsConfirmModalOpen(true)}}/>
+                            <ConfirmModal isOpen={isConfirmModalOpen} confirmAction={handleDelete} onClose={() => {setIsConfirmModalOpen(false)}}/>
+                        </>
+                    }
                 </div>
             </div>
             <div className="dropdown-content">
@@ -72,11 +104,10 @@ export const Fund = ({ fund, relatedTransactions }: SavingsFundProps) => {
                     <p>There are no transactions for this fund.</p>
                 }
                 {relatedTransactions.map((transaction) => (
-                    <>                        
-                        <TransactionItem key={transaction.id} transaction={transaction} canDelete={transaction.transactionType !== 'adjustment' && transaction.transactionType !== 'transfer_in' && transaction.transactionType !== 'transfer_out'}/>
+                    <React.Fragment key={transaction.id}>                        
+                        <TransactionItem transaction={transaction} canDelete={transaction.transactionType !== 'adjustment' && transaction.transactionType !== 'transfer_in' && transaction.transactionType !== 'transfer_out'}/>
                         <div className="basic-divider"></div>
-
-                    </>
+                    </React.Fragment>
                 ))}
             </div>
             <button className="dropdown-toggle" onClick={() => {setIsOpen(prev => !prev)}}>

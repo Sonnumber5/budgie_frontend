@@ -14,6 +14,7 @@ interface SavingsFundContextType{
     fetchArchivedSavingsFunds: () => Promise<SavingsFund[]>;
     removeSavingsFund: (id: number) => Promise<void>;
     archiveSavingsFund: (id: number) => Promise<void>;
+    unarchiveSavingsFund: (id: number) => Promise<void>;
     refreshFundInfo: (fundId: number) => Promise<void>;
 }
 

@@ -8,12 +8,12 @@ export const createSavingsFund = (data: SavingsFundDTO) => {
 
 // Fetches all archived savings funds for the authenticated user.
 export const getArchivedSavingsFunds = () => {
-    return api.get('/savings-funds?includeArchived=true');
+    return api.get('/savings-funds?onlyArchived=true');
 }
 
 // Fetches all active (non-archived) savings funds for the authenticated user.
 export const getActiveSavingsFunds = () => {
-    return api.get('/savings-funds?includeArchived=false');
+    return api.get('/savings-funds?onlyArchived=false');
 }
 
 // Fetches a single savings fund by its ID.
@@ -34,4 +34,9 @@ export const deleteSavingsFund = (id: number) => {
 // Sends a PATCH request to archive a savings fund by its ID.
 export const archiveSavingsFundAPI = (id: number) => {
     return api.patch(`/savings-funds/${id}/archive`);
+}
+
+// Sends a PATCH request to unarchive a savings fund by its ID.
+export const unarchiveSavingsFundAPI = (id: number) => {
+    return api.patch(`/savings-funds/${id}/unarchive`);
 }

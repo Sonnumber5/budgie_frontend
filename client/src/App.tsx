@@ -25,6 +25,7 @@ import { FundTransactionProvider } from './context/FundTransactionContext';
 import { AccountBalanceProvider } from './context/AccountBalanceContext';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { ArchivedSavingsFundPage } from './pages/ArchivedSavingsFundPage';
 
 function App() {
   // DefaultRoute redirects the root "/" path based on authentication status.
@@ -70,6 +71,11 @@ function App() {
                           <Route path="/savings-funds" element={
                             <ProtectedRoute>
                                 <SavingsFundPage/>
+                            </ProtectedRoute>
+                          }/>
+                          <Route path='/archived-savings-funds' element={
+                            <ProtectedRoute>
+                              <ArchivedSavingsFundPage/>
                             </ProtectedRoute>
                           }/>
                         </Routes>
