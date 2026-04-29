@@ -16,13 +16,13 @@ export const getAllTransactionsForFund = (fundId: number) => {
     return api.get(`/savings-funds/${fundId}/transactions`);
 }
 
-// Fetches all transactions across all active funds for the authenticated user.
-export const getAllTransactionsForActiveFunds = () => {
+// Fetches all transactions across all funds for the authenticated user.
+export const getAllTransactions = () => {
     return api.get(`/savings-funds/transactions`);
 }
 
-// Fetches all transactions across all active funds for the authenticated user based on a given month.
-export const getMonthlyTransactionsForActiveFunds = (month: string) => {
+// Fetches all transactions across all funds for the authenticated user based on a given month.
+export const getMonthlyTransactions = (month: string) => {
     return api.get(`/savings-funds/transactions?month=${month}`);
 }
 

@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { useSavingsFundContext } from "../../../context/SavingsFundContext";
 import type { FundTransaction, FundTransactionDTO } from "../../../types";
-import { createFundTransaction, getAllTransactionsForActiveFunds, getContributionSumForMonth, updateFundTransaction, deleteFundTransaction, createAdjustmentTransaction, createTransferTransaction, getMonthlyTransactionsForActiveFunds } from "../api/fund-transactions";
+import { createFundTransaction, getAllTransactions, getContributionSumForMonth, updateFundTransaction, deleteFundTransaction, createAdjustmentTransaction, createTransferTransaction, getMonthlyTransactions } from "../api/fund-transactions";
 import { useDateContext } from "../../../context/DateContext";
 import { useAuth } from "../../../context/AuthContext";
 
@@ -19,6 +19,7 @@ export const useFundTransactions = () => {
         if (!isAuthenticated){
             setTransactions([]);
             setMonthlyContributionSum(0);
+            return;
         }
         fetchTransactions();
     }, [isAuthenticated]);
@@ -46,7 +47,7 @@ export const useFundTransactions = () => {
         setIsLoading(true);
         setError(null);
         try {
-            const response = await getMonthlyTransactionsForActiveFunds(currentMonth);
+            const response = await getMonthlyTransactions(currentMonth);
             setTransactions(response.data.activeFundTransactions || []);
         } catch(error: any) {
             setError(error.response?.data?.error || error.message || 'Failed to fetch transactions');
