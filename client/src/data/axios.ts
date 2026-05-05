@@ -5,7 +5,7 @@
 import axios from 'axios';
 
 const api = axios.create({
-    baseURL: import.meta.env.VITE_API_URL || 'https://budgie-backend-232e8daa5655.herokuapp.com/',
+    baseURL: import.meta.env.VITE_API_URL || 'https://budgie-backend-232e8daa5655.herokuapp.com/api',
     withCredentials: true
 });
 
