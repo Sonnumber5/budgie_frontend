@@ -101,7 +101,7 @@ export const Fund = ({ fund, relatedTransactions, archived }: SavingsFundProps) 
             </div>
             <div className="dropdown-content">
                 {relatedTransactions.length < 1 &&
-                    <p>There are no transactions for this fund.</p>
+                    <p>There are no transactions for this month.</p>
                 }
                 {relatedTransactions.map((transaction) => (
                     <React.Fragment key={transaction.id}>                        
