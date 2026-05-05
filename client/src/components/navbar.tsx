@@ -3,7 +3,7 @@
 // appear on the Login or Register pages.
 import { useAuth } from "../context/AuthContext";
 import { DropdownMenu } from "./DropdownMenu";
-import './Navbar.css';
+import './navbar.css';
 import { useLocation, useNavigate } from "react-router-dom";
 
 export const Navbar = () => {
