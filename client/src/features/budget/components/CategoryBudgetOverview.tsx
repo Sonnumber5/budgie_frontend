@@ -70,7 +70,6 @@ export const CategoryBudgetOverview = ({ categoryBudget }: CategoryBudgetOvervie
                 <div className="progress-bar">
                     <div className="progress-fill category-budget-preview" style={{ width: isExpensesLoading ? '0%' : `${progress}%`, backgroundColor: isOverBudget ? '#B6582C' : '#3E6A5F' }}/>
                 </div>
-                <p>{isExpensesLoading ? 'Loading...' : `Remaining: ${formatCurrency(Number(remaining))}`}</p>
 
             </div>
             <div>

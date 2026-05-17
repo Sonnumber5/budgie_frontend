@@ -30,5 +30,5 @@
 
 .income-amount-settings p:nth-child(1){
     color: var(--color-green-primary);
-    font-size: var(--font-size-lg);
+    font-size: var(--font-size-md);
 }

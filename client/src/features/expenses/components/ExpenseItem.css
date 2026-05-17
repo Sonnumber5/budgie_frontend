@@ -36,5 +36,5 @@
 
 .expense-amount-settings p:nth-child(1){
     color: var(--color-red-primary);
-    font-size: var(--font-size-lg);
+    font-size: var(--font-size-md);
 }
