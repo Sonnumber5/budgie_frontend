@@ -19,7 +19,7 @@
 }
 
 .fund-details p:nth-child(1){
-    color: white;
+    color: var(--color-primary);
     font-weight: var(--font-weight-bold);
 }
 

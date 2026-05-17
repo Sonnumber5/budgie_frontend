@@ -75,8 +75,8 @@ export const Fund = ({ fund, relatedTransactions, archived }: SavingsFundProps) 
                     <div className="fund-details">
                         <p>{fund.name}</p>
                         <p>
-                            <span className="text-white">{formatCurrency(Number(fund.balance))}</span>
-                            <span> / {formatCurrency(Number(fund.goal))}</span>
+                            <span>{formatCurrency(Number(fund.balance))}</span>
+                            <span className="text-fraction"> / {formatCurrency(Number(fund.goal))}</span>
                         </p>
                     </div>
                     <div className="progress-bar">
