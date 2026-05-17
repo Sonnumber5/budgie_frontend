@@ -76,13 +76,13 @@ export const ExpensesPage = () => {
                     <div className='expense-menu-progress-bar'>
                         {isLoading ? 'Loading...' : 
                             <p>
-                                <span className="text-white">{formatCurrency(Number(expenseSum))}</span>
+                                <span>{formatCurrency(Number(expenseSum))}</span>
                                 <span>  </span>
-                                <span> / {formatCurrency(Number(totalCategoryBudget))}</span>
+                                <span className="text-fraction"> / {formatCurrency(Number(totalCategoryBudget))}</span>
                             </p>     
                         }
                         <div className='progress-bar'>
-                            <div className='progress-fill expense-dashboard-progress-bar' style={{ width: isLoading ? '0%' : `${progress}%`, backgroundColor: isOverBudget ? '#BD6261' : '#FFE13C' }}></div>
+                            <div className='progress-fill expense-dashboard-progress-bar' style={{ width: isLoading ? '0%' : `${progress}%`, backgroundColor: isOverBudget ? '#B6582C' : '#3E6A5F' }}></div>
                         </div>
                     </div>
                     <div className='expense-dashboard-btns'>

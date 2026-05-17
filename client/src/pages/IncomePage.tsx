@@ -18,7 +18,7 @@ export const IncomePage = () => {
     const [isModalOpen, setIsModalOpen] = useState(false);
 
     return (
-        <div className="page container">
+        <div className="grid-bg container">
             <Modal isOpen={isModalOpen} onClose={() => { setIsModalOpen(false) }} title="Add Income">
                 <IncomeForm onSuccess={() => { setIsModalOpen(false) }} />
             </Modal>

@@ -14,7 +14,10 @@ export const FundPreview = ({ fund }: SavingsFundProps) => {
         <div className="fund-preview">
             <div className="fund-preview-info">
                 <p>{fund.name}</p>
-                <p>{`${formatCurrency(Number(fund.balance))} / ${formatCurrency(Number(fund.goal))}`}</p>
+                <p>
+                    <span>{formatCurrency(Number(fund.balance))}</span>
+                    <span className="text-fraction"> / {formatCurrency(Number(fund.goal))}</span>
+                </p>
             </div>
             <div className="progress-bar">
                 <div className="progress-fill fund-preview" style={{ width: `${progress}%` }}/>

@@ -48,7 +48,9 @@ function App() {
                 <IncomeProvider>
                   <AccountBalanceProvider>
                       <BudgetProvider>
+                      <div className="app-shell">
                       <Navbar/>
+                      <main className="app-main">
                         <Routes>
                         <Route path="/" element={<DefaultRoute/>}/>
                         <Route path="/login" element={<LoginPage/>}/>
@@ -79,6 +81,8 @@ function App() {
                             </ProtectedRoute>
                           }/>
                         </Routes>
+                      </main>
+                      </div>
                       </BudgetProvider>
                   </AccountBalanceProvider>
                 </IncomeProvider>
