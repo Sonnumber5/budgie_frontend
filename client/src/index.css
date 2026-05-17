@@ -32,7 +32,7 @@
   --color-background:       #0E1B19;
   --color-component-group:  #19312D;
   --color-modal:            #1E3933;
-  --color-input-field:      #284E48;
+  --color-input-field:      #D6CFB5;
   --color-secondary:        #284E48;
   --color-secondary-hover:  #345E57;
   --color-text:             #285147;
@@ -491,7 +491,7 @@ body {
    ============================================================ */
 
 .input-field-standard {
-  color: var(--color-icon-muted);
+  color: var(--color-text);
   background-color: var(--color-input-field);
   border: none;
   padding: 0.8em 1.4em;
@@ -509,11 +509,11 @@ body {
 }
 
 .input-field-standard::placeholder {
-  color: var(--color-icon-muted);
+  color: var(--color-primary);
 }
 
 .select-field-standard {
-  color: var(--color-icon-muted);
+  color: var(--color-text);
   background-color: var(--color-input-field);
   border: none;
   padding: 0.8em 1.4em;
@@ -532,7 +532,7 @@ body {
 }
 
 .date-field-standard {
-  color: var(--color-icon-muted);
+  color: var(--color-text);
   background-color: var(--color-input-field);
   border: none;
   padding: 0.75em 1.4em;
@@ -563,7 +563,7 @@ body {
   display: flex;
   flex-direction: column;
   gap: var(--spacing-sm);
-  background-color: var(--color-modal);
+  background-color: var(--light-background);
   padding: var(--padding-lg);
 }
 

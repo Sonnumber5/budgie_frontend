@@ -5,7 +5,9 @@
     left: 0;
     right: 0;
     bottom: 0;
-    background-color: rgba(0, 0, 0, 0.65);
+    background-color: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(7px);
+    -webkit-backdrop-filter: blur(4px);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -29,6 +31,7 @@
 
 .modal-header h2 {
     margin: 0;
+    color: var(--light-background);
 }
 
 .modal-close {
@@ -39,16 +42,18 @@
     border: none;
     font-size: 32px;
     cursor: pointer;
-    color: var(--color-text);
+    color: var(--light-background);
 }
 
 .modal-close:hover {
-    color: white;
+    color: var(--color-border);
 }
 
 .modal-body button[type="submit"], .modal-body .multiple-form-btns button {
     display: block;
     margin: var(--spacing-md) auto;
+    border-color: var(--light-background);
+    color: var(--light-background);
 }
 
 .multiple-form-btns{
