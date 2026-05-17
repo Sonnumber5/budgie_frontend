@@ -54,7 +54,7 @@ export const IncomeForm = ({ onSuccess, incomeToEdit }: IncomeFormProps) => {
     return (
         <form onSubmit={handleSubmit}>
             <div className="form-body-standard">
-                <div className="form-field-group-standard">
+                <div className="form-field-standard">
                     <label>Source</label>
                     <input
                         className="input-field-standard"

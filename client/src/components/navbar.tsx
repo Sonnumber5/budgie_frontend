@@ -4,6 +4,7 @@
 import { useAuth } from "../context/AuthContext";
 import { DropdownMenu } from "./DropdownMenu";
 import './navbar.css';
+import { MonthPicker } from "./DatePicker";
 import { useLocation, useNavigate } from "react-router-dom";
 
 export const Navbar = () => {
@@ -39,6 +40,7 @@ export const Navbar = () => {
                         Funds
                     </button>
                 </div>
+                <MonthPicker/>
                 <div className="auth-buttons">
                     <DropdownMenu onLogout={onLogout} />
                 </div>

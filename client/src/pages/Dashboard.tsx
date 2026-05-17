@@ -73,9 +73,11 @@ export const Dashboard = () => {
                 <AccountBalanceForm onSuccess={() => {setIsAccountBalanceModalOpen(false)}}/>
             </Modal>
             <ConfirmModal isOpen={isConfirmModalOpen} onClose={() => {setIsConfirmModalOpen(false)}} confirmAction={() => {clearAccountBalances()}}/>
-            <div className='month-section'>
-                <MonthPicker/>
-            </div>
+            {
+            //<div className='month-section'>
+                //<MonthPicker/>
+            //</div>
+            }
             <div className='container'>
                 <div className='dashboard-summary'>
                     {/* Left column: income/expense + financial overview */}
