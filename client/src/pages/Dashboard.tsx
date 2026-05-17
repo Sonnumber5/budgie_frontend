@@ -56,7 +56,7 @@ export const Dashboard = () => {
         })();
 
     return (
-        <div className="page container dashboard-page">
+        <div className="grid-bg dashboard-page">
             <Modal isOpen={isBudgetModalOpen} onClose={() => {setIsBudgetModalOpen(false)}} title={`${displayMonth} Budget`}>
                 <BudgetManagementForm budgetToEdit={monthlyBudget ?? null} onSuccess={() => {setIsBudgetModalOpen(false)}}/>
             </Modal>

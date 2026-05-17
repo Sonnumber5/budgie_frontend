@@ -47,12 +47,20 @@
     margin-bottom: var(--spacing-sm);
 }
 
+.budget-section-header,
+.savings-section-header,
+.account-balance-section-header {
+    background-color: var(--color-border);
+    margin: calc(-1 * var(--spacing-md)) calc(-1 * var(--spacing-md)) 0;
+    padding: var(--spacing-sm) var(--spacing-md);
+}
+
 .budget-section-header p,
 .savings-section-header p,
 .account-balance-section-header p {
     font-size: var(--font-size-md);
     font-weight: var(--font-weight-bold);
-    color: white;
+    color: var(--color-text);
 }
 
 .fund-balance-section{
@@ -83,23 +91,19 @@
 }
 
 .standard-container.income-dashboard-summary{
-    background-color: var(--color-green-secondary);
-    border: solid 0.1rem var(--color-green-primary);
+    border: solid 1px var(--color-green-primary);
 }
 
 .standard-container.expense-dashboard-summary{
-    background-color: var(--color-red-secondary);
-    border: solid 0.1rem var(--color-red-primary);
+    border: solid 1px var(--color-red-primary);
 }
 
 .standard-container.remaining-dashboard-summary{
-    background-color: var(--color-blue-secondary);
-    border: solid 0.1rem var(--color-blue-primary);
+    border: solid 1px var(--color-blue-primary);
 }
 
 .standard-container.financial-overview-dashboard-summary{
-    background-color: var(--color-purple-secondary);
-    border: solid 0.1rem var(--color-purple-primary);
+    border: solid 1px var(--color-purple-primary);
 }
 
 .income-dashboard-summary p:nth-child(1) {
@@ -122,11 +126,26 @@
     font-size: var(--font-size-md);
 }
 
-.income-dashboard-summary p:nth-child(2),
-.expense-dashboard-summary p:nth-child(2),
-.remaining-dashboard-summary p:nth-child(2),
-.financial-overview-dashboard-summary p:nth-child(2){
-    color: white;
+.income-dashboard-summary p:nth-child(2) {
+    color: var(--color-green-primary);
+    font-size: var(--font-size-xl);
+    font-weight: var(--font-weight-normal);
+}
+
+.expense-dashboard-summary p:nth-child(2) {
+    color: var(--color-red-primary);
+    font-size: var(--font-size-xl);
+    font-weight: var(--font-weight-normal);
+}
+
+.remaining-dashboard-summary p:nth-child(2) {
+    color: var(--color-blue-primary);
+    font-size: var(--font-size-xl);
+    font-weight: var(--font-weight-normal);
+}
+
+.financial-overview-dashboard-summary p:nth-child(2) {
+    color: var(--color-purple-primary);
     font-size: var(--font-size-xl);
     font-weight: var(--font-weight-normal);
 }
@@ -145,9 +164,9 @@
 }
 
 .btn-arrow-circle{
-    background-color: var(--color-secondary);
-    color: var(--color-text);
-    border: none;
+    background-color: transparent;
+    color: var(--color-primary);
+    border: 1px solid var(--color-primary);
     border-radius: var(--border-radius-full);
     width: 2.5rem;
     height: 2.5rem;
@@ -156,7 +175,6 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    transition: background-color 0.3s ease, color 0.3s ease;
     line-height: 1;
 }
 
@@ -169,8 +187,7 @@
 }
 
 .btn-arrow-circle:hover{
-    cursor: pointer;
-    background-color: var(--color-secondary-hover);
+    background-color: var(--color-primary);
     color: white;
 }
 
