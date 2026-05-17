@@ -62,13 +62,13 @@ export const CategoryBudgetOverview = ({ categoryBudget }: CategoryBudgetOvervie
                     <p>{categoryBudget.categoryName}</p>
                     {isExpensesLoading ? 'Loading...' :
                         <p>
-                            <span className="text-white">{formatCurrency(Number(amountSpent))}</span>
-                            <span> / {formatCurrency(Number(budgetedAmount))}</span>
+                            <span>{formatCurrency(Number(amountSpent))}</span>
+                            <span className="text-fraction"> / {formatCurrency(Number(budgetedAmount))}</span>
                         </p>
                     }
                 </div>
                 <div className="progress-bar">
-                    <div className="progress-fill category-budget-preview" style={{ width: isExpensesLoading ? '0%' : `${progress}%`, backgroundColor: isOverBudget ? '#BD6261' : '#FFE13C' }}/>
+                    <div className="progress-fill category-budget-preview" style={{ width: isExpensesLoading ? '0%' : `${progress}%`, backgroundColor: isOverBudget ? '#B6582C' : '#3E6A5F' }}/>
                 </div>
                 <p>{isExpensesLoading ? 'Loading...' : `Remaining: ${formatCurrency(Number(remaining))}`}</p>
 

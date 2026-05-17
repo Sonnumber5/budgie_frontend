@@ -29,7 +29,7 @@
 }
 
 .category-budget-overview p:nth-child(1){
-    color: white;
+    color: var(--color-primary);
 }
 
 .category-budget-overview p:nth-child(3){
