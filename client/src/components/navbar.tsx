@@ -23,18 +23,19 @@ export const Navbar = () => {
     }
     return (
         <div className="navbar">
+            <div className="navbar-brand">Budgie</div>
             <div className="navbar-content">
                 <div className="nav-buttons">
-                    <button className={pathname === '/dashboard' ? 'btn-primary' : 'btn-inactive-nav'} onClick={() => { navigate('/dashboard') }}>
+                    <button className={pathname === '/dashboard' ? 'nav-active' : 'btn-inactive-nav'} onClick={() => { navigate('/dashboard') }}>
                         Dashboard
                     </button>
-                    <button className={pathname === '/income' ? 'btn-primary' : 'btn-inactive-nav'} onClick={() => { navigate('/income') }}>
+                    <button className={pathname === '/income' ? 'nav-active' : 'btn-inactive-nav'} onClick={() => { navigate('/income') }}>
                         Income
                     </button>
-                    <button className={pathname === '/expenses' ? 'btn-primary' : 'btn-inactive-nav'} onClick={() => { navigate('/expenses') }}>
+                    <button className={pathname === '/expenses' ? 'nav-active' : 'btn-inactive-nav'} onClick={() => { navigate('/expenses') }}>
                         Expenses
                     </button>
-                    <button className={pathname === '/savings-funds' ? 'btn-primary' : 'btn-inactive-nav'} onClick={() => { navigate('/savings-funds') }}>
+                    <button className={pathname === '/savings-funds' ? 'nav-active' : 'btn-inactive-nav'} onClick={() => { navigate('/savings-funds') }}>
                         Funds
                     </button>
                 </div>

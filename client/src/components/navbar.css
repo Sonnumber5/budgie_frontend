@@ -1,43 +1,94 @@
+/* ============================================================
+   NAVBAR — fixed bottom bar on mobile, fixed left sidebar on desktop
+   ============================================================ */
+
+/* Mobile: fixed bottom bar */
 .navbar {
-    position: fixed;
-    display: flex;
-    bottom: 15px;
-    left: 15px;
-    right: 15px;
-    background-color: var(--color-modal);
-    border-radius: var(--border-radius-lg);
-    box-shadow: var(--spacing-sm) var(--spacing-xsm) 20px rgba(0, 0, 0, 0.5);
-    padding: 0 var(--spacing-md);
-    height: 60px;
-    z-index: 1000;
+  position: fixed;
+  bottom: 15px;
+  left: 15px;
+  right: 15px;
+  height: 60px;
+  background-color: var(--color-primary);
+  padding: 0 var(--spacing-md);
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+}
+
+.navbar-brand {
+  display: none;
 }
 
 .navbar-content {
-    position: relative;
-    display: flex;
+  position: relative;
+  display: flex;
+  flex: 1;
+  align-items: center;
+  justify-content: center;
+}
+
+.nav-buttons {
+  display: flex;
+  gap: var(--spacing-xsm);
+}
+
+.nav-buttons button {
+  font-family: inherit;
+  font-size: var(--font-size-sm);
+}
+
+.auth-buttons {
+  position: absolute;
+  right: 0;
+}
+
+/* Desktop: fixed left sidebar */
+@media (min-width: 980px) {
+  .navbar {
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: auto;
+    width: var(--sidebar-width);
+    height: 100vh;
+    flex-direction: column;
+    align-items: stretch;
+    padding: var(--spacing-lg) var(--spacing-md);
+    gap: var(--spacing-lg);
+  }
+
+  .navbar-brand {
+    display: block;
+    font-size: var(--font-size-xl);
+    font-weight: var(--font-weight-bold);
+    color: var(--light-background);
+    padding: var(--spacing-sm) 0;
+    letter-spacing: 0.02em;
+  }
+
+  .navbar-content {
+    flex-direction: column;
+    align-items: stretch;
+    justify-content: space-between;
     flex: 1;
-    align-items: center;
-    justify-content: center;
-}
+    position: relative;
+  }
 
-@media (min-width: 980px) {
-    .navbar {
-        top: 15px;
-    }
-}
-
-.nav-buttons{
-    display: flex;
+  .nav-buttons {
+    flex-direction: column;
     gap: var(--spacing-xsm);
-}
+    width: 100%;
+  }
 
-@media (min-width: 980px) {
-    .nav-buttons {
-        gap: var(--spacing-md);
-    }
-}
+  .nav-buttons button {
+    width: 100%;
+    text-align: left;
+    padding: 0.7em 1em;
+    font-size: var(--font-size-sm);
+  }
 
-.auth-buttons{
-    position: absolute;
-    right: 0;
+  .auth-buttons {
+    position: static;
+  }
 }
