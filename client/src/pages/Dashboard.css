@@ -1,15 +1,9 @@
-.month-section{
-    
-}
 
-.standard-container.income-dashboard-summary:hover,
-.standard-container.expense-dashboard-summary:hover{
-    transform: translatey(-3px);
-    cursor: pointer;
-}
 
 .income-dashboard-summary,
-.expense-dashboard-summary{
+.expense-dashboard-summary,
+.remaining-dashboard-summary,
+.financial-overview-dashboard-summary {
     transition: transform 0.3s ease;
 }
 
@@ -22,45 +16,30 @@
 }
 
 .financial-overview-dashboard-summary p:nth-child(2){
-    
-}
 
-@media (min-width: 980px) {
-    .dashboard-summary {
-        grid-template-columns: 1fr 1fr 1fr 1fr;
-    }
 }
 
 .budget-funds-balance-sections{
-    margin-top: 20px;
+    margin-top: var(--spacing-md);
     width: 100%;
     display: grid;
     grid-template-columns: 1fr;
     gap: var(--spacing-md);
 }
 
-@media (min-width: 980px) {
-    .budget-funds-balance-sections {
-        grid-template-columns: 1fr 1fr;
-        align-items: stretch;
-        margin-bottom: 20px;
-    }
-}
-
+/* Mobile: sections size to content, page scrolls */
 .budget-section{
-    height: 460px;
-    overflow: hidden;
     display: flex;
     flex-direction: column;
 }
 
 .monthly-budget{
-    flex: 1;
-    overflow-y: auto;
-    min-height: 0; /* critical */
+    overflow: visible;
 }
 
-.budget-section-header{
+.budget-section-header,
+.savings-section-header,
+.account-balance-section-header {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
@@ -68,37 +47,33 @@
     margin-bottom: var(--spacing-sm);
 }
 
-.budget-section-header p{
+.budget-section-header p,
+.savings-section-header p,
+.account-balance-section-header p {
     font-size: var(--font-size-md);
-    font-weight: bold;
+    font-weight: var(--font-weight-bold);
     color: white;
 }
 
 .fund-balance-section{
     display: grid;
     gap: var(--spacing-md);
-    grid-template-rows: 1fr 1fr;
-    height: 460px;
 }
 
 .fund-balance-section > .standard-container {
     display: flex;
     flex-direction: column;
-    overflow: hidden;
 }
 
 .fund-section, .account-balance-section {
-    flex: 1;
     display: flex;
     flex-direction: column;
-    overflow-y: auto;
-    min-height: 0;
 }
 
 .category-budget-list{
     display: flex;
     flex-direction: column;
-    gap: 5px;
+    gap: var(--spacing-xsm);
     width: 100%;
     overflow-y: hidden;
 }
@@ -118,8 +93,13 @@
 }
 
 .standard-container.remaining-dashboard-summary{
-    background-color: #162144;
-    border: solid 0.1rem #6590DB;
+    background-color: var(--color-blue-secondary);
+    border: solid 0.1rem var(--color-blue-primary);
+}
+
+.standard-container.financial-overview-dashboard-summary{
+    background-color: var(--color-purple-secondary);
+    border: solid 0.1rem var(--color-purple-primary);
 }
 
 .income-dashboard-summary p:nth-child(1) {
@@ -133,7 +113,12 @@
 }
 
 .remaining-dashboard-summary p:nth-child(1) {
-    color: #6590DB;
+    color: var(--color-blue-primary);
+    font-size: var(--font-size-md);
+}
+
+.financial-overview-dashboard-summary p:nth-child(1) {
+    color: var(--color-purple-primary);
     font-size: var(--font-size-md);
 }
 
@@ -143,7 +128,7 @@
 .financial-overview-dashboard-summary p:nth-child(2){
     color: white;
     font-size: var(--font-size-xl);
-    font-weight: var(--font-weight-regular);
+    font-weight: var(--font-weight-normal);
 }
 
 .income-dashboard-summary p:nth-child(3),
@@ -160,8 +145,8 @@
 }
 
 .btn-arrow-circle{
-    background-color: rgba(255, 255, 255, 0.109);
-    color: var(--color-btn-add-inside);
+    background-color: var(--color-secondary);
+    color: var(--color-text);
     border: none;
     border-radius: var(--border-radius-full);
     width: 2.5rem;
@@ -175,7 +160,8 @@
     line-height: 1;
 }
 
-.btn-arrow-circle.summary {
+.btn-arrow-circle.summary,
+.btn-add.summary {
     position: absolute;
     right: 1rem;
     top: 50%;
@@ -184,22 +170,62 @@
 
 .btn-arrow-circle:hover{
     cursor: pointer;
-    background-color: rgba(255, 255, 255, 0.254);
-    color: #696f82;
-}
-
-.savings-section-header, .account-balance-section-header {
-    padding-bottom: var(--spacing-sm);
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-}
-
-.savings-section-header p, .account-balance-section-header p {
-    font-weight: var(--font-weight-bold);
+    background-color: var(--color-secondary-hover);
+    color: white;
 }
 
 .account-balance-section-btns {
     display: flex;
     gap: var(--spacing-md);
+}
+
+/* Desktop: constrained viewport layout with internal scrolling */
+@media (min-width: 980px) {
+    .dashboard-page {
+        height: 100dvh;
+        display: flex;
+        flex-direction: column;
+        padding-bottom: var(--spacing-lg);
+    }
+
+    .dashboard-summary {
+        grid-template-columns: 1fr 1fr 1fr 1fr;
+    }
+
+    .budget-funds-balance-sections {
+        display: flex;
+        flex: 1;
+        min-height: 0;
+    }
+
+    .budget-section {
+        flex: 1;
+        min-width: 0;
+        overflow: hidden;
+    }
+
+    .monthly-budget {
+        flex: 1;
+        overflow-y: auto;
+        min-height: 0;
+    }
+
+    .fund-balance-section {
+        flex: 1;
+        min-width: 0;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .fund-balance-section > .standard-container {
+        flex: 1;
+        min-height: 0;
+        overflow: hidden;
+    }
+
+    .fund-section, .account-balance-section {
+        flex: 1;
+        overflow-y: auto;
+        min-height: 0;
+    }
 }

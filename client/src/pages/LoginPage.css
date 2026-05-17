@@ -23,7 +23,7 @@
     display: flex;
     flex: 1;
     flex-direction: column;
-    gap: 16px;
+    gap: var(--spacing-md);
 }
 
 .login-form .input-field-standard {

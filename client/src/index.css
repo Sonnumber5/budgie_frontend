@@ -26,13 +26,15 @@
   --color-secondary: #364053;
   --color-secondary-hover: #455269;
   --color-btn-primary: #FFE13C;
-  --color-btn-danger: #8B2925;
-  --color-dropdown-menu: #101628;
-  --color-btn-add-inside: #4E5361;
+  --color-icon-muted: #a8b3c4;
   --color-green-primary: #68BE7A;
   --color-green-secondary: #16282A;
   --color-red-primary: #BD6261;
   --color-red-secondary: #2E1B27;
+  --color-blue-primary: #6590DB;
+  --color-blue-secondary: #162144;
+  --color-purple-primary: #8B83F0;
+  --color-purple-secondary: #1a1735;
   --color-modal: #202939;
   --spacing-xsm: 4px;
   --spacing-sm: 8px;
@@ -113,7 +115,7 @@ body {
 
 .dropdown-content {
   max-height: 0;
-  overflow-y: scroll;
+  overflow-y: auto;
   transition: max-height 0.25s ease-in-out;
   padding-left: var(--spacing-md);
   padding-right: var(--spacing-sm);
@@ -171,9 +173,42 @@ body {
   white-space: nowrap;
 }
 
+.btn-add.summary.expense-dashboard-summary, .btn-add.expense{
+  background-color: var(--color-red-secondary);
+  border: solid 1px var(--color-red-primary);
+  color: var(--color-red-primary);
+}
+
+.btn-add.summary.income-dashboard-summary, .btn-add.income{
+  background-color: var(--color-green-secondary);
+  border: solid 1px var(--color-green-primary);
+  color: var(--color-green-primary);
+}
+
+.btn-add.summary.income-dashboard-summary:hover, .btn-add.income:hover{
+  background-color: var(--color-green-primary);
+  color: white;
+}
+
+.btn-add.summary.expense-dashboard-summary:hover, .btn-add.expense:hover{
+  background-color: var(--color-red-primary);
+  color: white;
+}
+
 .btn-secondary:hover{
   cursor: pointer;
   background-color: var(--color-secondary-hover);
+}
+
+.btn-inactive-nav{
+  background: transparent;
+  border: none;
+  color: white;
+}
+
+.btn-inactive-nav:hover{
+  color: var(--color-secondary-hover);
+  cursor: pointer;
 }
 
 .btn-danger{
@@ -203,7 +238,7 @@ body {
 
 .btn-add {
   background-color: var(--color-btn-secondary);
-  color: var(--color-btn-add-inside);
+  color: var(--color-icon-muted);
   border: none;
   border-radius: var(--border-radius-full);
   width: 2.5rem;
@@ -220,12 +255,12 @@ body {
 .btn-add:hover{
   cursor: pointer;
   background-color: var(--color-secondary-hover);
-  color: #696f82;
+  color: var(--color-text);
 }
 
 .btn-x {
   background: none;
-  color: var(--color-btn-add-inside);
+  color: var(--color-icon-muted);
   border: none;
   border-radius: var(--border-radius-full);
   width: 2.5rem;
@@ -247,7 +282,7 @@ body {
 
 .kebab{
   background-color: transparent;
-  color: var(--color-btn-add-inside);
+  color: var(--color-icon-muted);
   border: none;
   font-size: 1.7rem;
   font-weight: bold;
@@ -293,10 +328,10 @@ body {
 .kebab-menu {
   position: fixed;
   transform: translateX(-100%);
-  background: white;
-  border: 1px solid #e5e7eb;
+  background: var(--color-modal);
+  border: 1px solid var(--color-secondary);
   border-radius: var(--border-radius-md);
-  box-shadow: var(--box-shadow-btns);
+  box-shadow: var(--box-shadow-lg);
   z-index: 9999;
   min-width: 120px;
   overflow: hidden;
@@ -310,12 +345,14 @@ body {
   background: none;
   border: none;
   cursor: pointer;
-  font-size: 0.9rem;
+  font-size: var(--font-size-sm);
+  color: var(--color-text);
   min-height: unset;
 }
 
 .kebab-menu button:hover {
-  background-color: #f3f4f6;
+  background-color: var(--color-secondary-hover);
+  color: white;
 }
 
 .kebab-wrapper {

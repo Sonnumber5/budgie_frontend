@@ -59,7 +59,7 @@ export const CategorizedExpenses = ({ categoryBudget, expenses, totalSpent, rema
                     }
                 </div>
                 <div className="category-btns">
-                    <button className="btn-add" onClick={() => setIsExpenseModalOpen(true)}>+</button>
+                    <button className="btn-add expense" onClick={() => setIsExpenseModalOpen(true)}>+</button>
                     {categoryBudget &&
                         <DropdownMenu onEdit={() => setIsCategoryBudgetModalOpen(true)} onDelete={() => setIsConfirmModalOpen(true)} />
                     }

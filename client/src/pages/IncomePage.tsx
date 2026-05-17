@@ -37,7 +37,7 @@ export const IncomePage = () => {
                     
                    
                 </div>
-                <button className="btn-add" onClick={() => { setIsModalOpen(true) }}>+</button>
+                <button className="btn-add income" onClick={() => { setIsModalOpen(true) }}>+</button>
             </div>
             <div className="standard-container income-content">
             <div className="income-list custom-scroll-bar">

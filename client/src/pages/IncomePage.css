@@ -1,19 +1,16 @@
-.income-content{
-    width: 100%;
-    flex: 1;
-    min-height: 0;
-    height: calc(100dvh - 220px);
-}
-
-.income-list {  
-    display: flex;
-    flex-direction: column;
-    margin-right: var(--spacing-sm);
-}
-
 .income-page-header{
     display: flex;
     justify-content: space-between;
     margin-bottom: var(--spacing-md);
     align-items: center;
+}
+
+.income-content{
+    width: 100%;
+}
+
+.income-list {
+    display: flex;
+    flex-direction: column;
+    margin-right: var(--spacing-sm);
 }

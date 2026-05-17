@@ -21,7 +21,7 @@
 }
 
 .expense-date-vendor p:nth-child(2){
-    font-weight: 100;
+    font-weight: var(--font-weight-light);
 }
 
 .expense-date-vendor p:nth-child(3){

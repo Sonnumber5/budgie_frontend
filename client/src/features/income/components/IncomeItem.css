@@ -16,7 +16,7 @@
 }
 
 .income-date-source p:nth-child(2){
-    font-weight: 100;
+    font-weight: var(--font-weight-light);
 }
 
 .income-date-source p:nth-child(3){

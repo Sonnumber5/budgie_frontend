@@ -87,7 +87,7 @@ export const ExpensesPage = () => {
                     </div>
                     <div className='expense-dashboard-btns'>
                         <button className='btn-secondary' onClick={() => { setIsBudgetModalOpen(true) }}>Manage Budget</button>
-                        <button className='btn-add' onClick={() => { setIsExpenseModalOpen(true) }}>+</button>
+                        <button className='btn-add expense' onClick={() => { setIsExpenseModalOpen(true) }}>+</button>
                     </div>
                 </div>
             </div>

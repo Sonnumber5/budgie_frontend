@@ -11,9 +11,9 @@
     background-color: transparent;
     border: none;
     cursor: pointer;
-    border-radius: 4px;
-    font-size: 18px;
-    color: var(--color-text)
+    border-radius: var(--border-radius-sm);
+    font-size: var(--font-size-lg);
+    color: var(--color-text);
 }
 
 .date-with-arrows{
@@ -32,9 +32,9 @@
 }
 
 .arrow-btns button:hover{
-    color: var(--color-secondary-hover);
+    color: white;
 }
 
 .divider{
-    border-top: solid 1px var(--color-text);
+    border-top: solid 1px var(--color-secondary);
 }
