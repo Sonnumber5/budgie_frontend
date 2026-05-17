@@ -49,11 +49,16 @@
     color: var(--color-border);
 }
 
-.modal-body button[type="submit"], .modal-body .multiple-form-btns button {
+.modal-body button[type="submit"] {
     display: block;
     margin: var(--spacing-md) auto;
     border-color: var(--light-background);
     color: var(--light-background);
+}
+
+.modal-body .multiple-form-btns button {
+    display: block;
+    margin: var(--spacing-md) auto;
 }
 
 .multiple-form-btns{

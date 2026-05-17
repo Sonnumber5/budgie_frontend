@@ -596,16 +596,26 @@ body {
   color: var(--color-text);
 }
 
-.type-btn.green:hover,
-.type-btn.green.active {
+.type-btn.green:hover {
   border-color: var(--color-green-primary);
   color: var(--color-green-primary);
 }
 
-.type-btn.red:hover,
-.type-btn.red.active {
+.type-btn.green.active {
+  background-color: var(--color-green-primary);
+  border-color: var(--color-green-primary);
+  color: white;
+}
+
+.type-btn.red:hover {
   border-color: var(--color-red-primary);
   color: var(--color-red-primary);
+}
+
+.type-btn.red.active {
+  background-color: var(--color-red-primary);
+  border-color: var(--color-red-primary);
+  color: white;
 }
 
 /* ============================================================
