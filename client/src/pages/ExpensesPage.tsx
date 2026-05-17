@@ -48,9 +48,6 @@ export const ExpensesPage = () => {
         (sum, expense) => sum + Number(expense.amount), 0
     );
 
-    const progress = Math.min((expenseSum / totalCategoryBudget) * 100, 100);
-
-    const isOverBudget = expenseSum > totalCategoryBudget;
 
 
     return (
@@ -72,23 +69,9 @@ export const ExpensesPage = () => {
                         </>
                     }
                 </div>
-                <div className='expense-dashboard-progress-bar-btns'>
-                    <div className='expense-menu-progress-bar'>
-                        {isLoading ? 'Loading...' : 
-                            <p>
-                                <span>{formatCurrency(Number(expenseSum))}</span>
-                                <span>  </span>
-                                <span className="text-fraction"> / {formatCurrency(Number(totalCategoryBudget))}</span>
-                            </p>     
-                        }
-                        <div className='progress-bar'>
-                            <div className='progress-fill expense-dashboard-progress-bar' style={{ width: isLoading ? '0%' : `${progress}%`, backgroundColor: isOverBudget ? '#B6582C' : '#3E6A5F' }}></div>
-                        </div>
-                    </div>
-                    <div className='expense-dashboard-btns'>
-                        <button className='btn-secondary' onClick={() => { setIsBudgetModalOpen(true) }}>Manage Budget</button>
-                        <button className='btn-add expense' onClick={() => { setIsExpenseModalOpen(true) }}>+</button>
-                    </div>
+                <div className='expense-dashboard-btns'>
+                    <button className='btn-secondary' onClick={() => { setIsBudgetModalOpen(true) }}>Manage Budget</button>
+                    <button className='btn-add expense' onClick={() => { setIsExpenseModalOpen(true) }}>+</button>
                 </div>
             </div>
             <div className="category-list">

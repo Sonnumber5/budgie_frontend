@@ -42,6 +42,9 @@ export const Dashboard = () => {
     const [isExpenseModalOpen, setIsExpenseModalOpen] = useState(false);
     const [isIncomeModalOpen, setIsIncomeModalOpen] = useState(false);
 
+    const expenseProgress = totalCategoryBudget > 0 ? Math.min((expenseSum / totalCategoryBudget) * 100, 100) : 0;
+    const isExpenseOverBudget = expenseSum > totalCategoryBudget;
+
 
     const navigate = useNavigate();
 
@@ -75,42 +78,62 @@ export const Dashboard = () => {
             </div>
             <div className='container'>
                 <div className='dashboard-summary'>
-                    <div className='standard-container income-dashboard-summary'>
-                        <p>Income (Actual)</p>
-                        {isIncomeLoading ? 'Loading...' : 
-                            <>
-                                <p>{formatCurrency(Number(incomeSum))}</p>
-                                <p>{monthlyBudget ? `Expected: ${formatCurrency(Number(monthlyBudget.expectedIncome))}` : 'Expected:'}</p>
-                            </>
-                        }
-                        <button className='btn-add summary income-dashboard-summary' onClick={() => { setIsIncomeModalOpen(true) }}>+</button>
-
+                    {/* Left column: income/expense + financial overview */}
+                    <div className='dashboard-summary-left'>
+                        <div className='dashboard-income-expense'>
+                            <div className='standard-container income-dashboard-summary'>
+                                <p>Income (Actual)</p>
+                                {isIncomeLoading ? 'Loading...' :
+                                    <>
+                                        <p>{formatCurrency(Number(incomeSum))}</p>
+                                        <p>{monthlyBudget ? `Expected: ${formatCurrency(Number(monthlyBudget.expectedIncome))}` : 'Expected:'}</p>
+                                    </>
+                                }
+                                <button className='btn-add summary income-dashboard-summary' onClick={() => { setIsIncomeModalOpen(true) }}>+</button>
+                            </div>
+                            <div className='standard-container expense-dashboard-summary'>
+                                <p>Expenses (Actual)</p>
+                                {isExpensesLoading ? 'Loading...' :
+                                    <>
+                                        <p>{formatCurrency(Number(expenseSum))}</p>
+                                        <p>{monthlyBudget ? `Budget: ${formatCurrency(Number(totalCategoryBudget))}` : 'Budget:'}</p>
+                                    </>
+                                }
+                                <button className='btn-add summary expense-dashboard-summary' onClick={() => { setIsExpenseModalOpen(true) }}>+</button>
+                            </div>
+                        </div>
+                        <div className='standard-container financial-overview-dashboard-summary'>
+                            <p>Financial Overview</p>
+                            <p>{isIncomeLoading || isExpensesLoading ? 'Loading...' : `${formatCurrency(Number(financialOverview))}`}</p>
+                            <p>(Account Balances sum <span style={{whiteSpace: 'nowrap'}}>- Savings Funds sum</span>)</p>
+                        </div>
                     </div>
-                    <div className='standard-container expense-dashboard-summary'>
-                        <p>Expenses (Actual)</p>
-                        {isExpensesLoading ? 'Loading...' : 
-                            <>
-                                <p>{formatCurrency(Number(expenseSum))}</p>
-                                <p>{monthlyBudget ? `Budget: ${formatCurrency(Number(totalCategoryBudget))}` : 'Budget:'}</p>
-                            </>
-                        }
-                        <button className='btn-add summary expense-dashboard-summary' onClick={() => { setIsExpenseModalOpen(true) }}>+</button>
-                    </div>
+                    {/* Right column: large remaining + progress bar */}
                     <div className='standard-container remaining-dashboard-summary'>
-                    <p>Remaining</p>
-                        {isIncomeLoading || isExpensesLoading ? 'Loading...' : 
-                        <>
-                            <p>{formatCurrency(Number(currentRemaining))}</p>
-                            <p>{`Total: ${formatCurrency(Number(monthlyTotal))}`}</p>
-                            <p>{`Fund Contributions: ${formatCurrency(Number(monthlyContributionSum))}`}</p>
-                        </>                    
-                        }
-
-                    </div>
-                    <div className='standard-container financial-overview-dashboard-summary'>
-                        <p>Financial Overview</p>
-                        <p>{isIncomeLoading || isExpensesLoading ? 'Loading...' : `${formatCurrency(Number(financialOverview))}`}</p>
-                        <p>(Account Balances sum <span style={{whiteSpace: 'nowrap'}}>- Savings Funds sum</span>)</p>
+                        <div className='remaining-main'>
+                            <p>Remaining</p>
+                            {isIncomeLoading || isExpensesLoading ? 'Loading...' :
+                                <>
+                                    <p>{formatCurrency(Number(currentRemaining))}</p>
+                                    <p>{`Total: ${formatCurrency(Number(monthlyTotal))}`}</p>
+                                    <p>{`Fund Contributions: ${formatCurrency(Number(monthlyContributionSum))}`}</p>
+                                </>
+                            }
+                        </div>
+                        <div className='remaining-progress-section'>
+                            {!isExpensesLoading &&
+                                <p>
+                                    <span>{formatCurrency(Number(expenseSum))}</span>
+                                    <span className='text-fraction'> / {formatCurrency(Number(totalCategoryBudget))}</span>
+                                </p>
+                            }
+                            <div className='progress-bar'>
+                                <div className='progress-fill' style={{
+                                    width: isExpensesLoading ? '0%' : `${expenseProgress}%`,
+                                    backgroundColor: isExpenseOverBudget ? '#B6582C' : '#3E6A5F'
+                                }}/>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -118,16 +141,16 @@ export const Dashboard = () => {
                 <div className='standard-container budget-section'>
                     <div className='budget-section-header'>
                         <p>{displayMonth} Budget</p>
-                        { isCategoryBudgetsLoading ? '' : 
+                        {isCategoryBudgetsLoading ? '' :
                             <button className='btn-secondary' onClick={() => {setIsBudgetModalOpen(true)}}>Manage Budget</button>
                         }
                     </div>
                     <div className="monthly-budget custom-scroll-bar">
                         <div className="category-budget-list">
-                            { categoryBudgets.length < 1 && !isCategoryBudgetsLoading &&
+                            {categoryBudgets.length < 1 && !isCategoryBudgetsLoading &&
                                 <p>No category budgets have been added to this month's budget. Add categories by selecting the "manage budget" button.</p>
                             }
-                            { isCategoryBudgetsLoading ? 'Loading...' : 
+                            {isCategoryBudgetsLoading ? 'Loading...' :
                                 <>
                                     {categoryBudgets.map((categoryBudget) => (
                                         <CategoryBudgetOverview key={categoryBudget.id} categoryBudget={categoryBudget}/>
@@ -144,7 +167,7 @@ export const Dashboard = () => {
                             <button onClick={() => {navigate('/savings-funds')}} className='btn-arrow-circle'>{`›`}</button>
                         </div>
                         <div className='fund-section custom-scroll-bar'>
-                            {activeSavingsFunds.length < 1 && !isAccountBalancesLoading &&
+                            {activeSavingsFunds.length < 1 && !isActiveSavingsFundsLoading &&
                                 <p>There are no active savings yet.</p>
                             }
                             {isActiveSavingsFundsLoading ? 'Loading...' :

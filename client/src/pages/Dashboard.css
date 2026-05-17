@@ -10,14 +10,36 @@
 .dashboard-summary {
     width: 100%;
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 1fr;
     gap: var(--spacing-md);
     margin: 0;
 }
 
-.financial-overview-dashboard-summary p:nth-child(2){
-
+.dashboard-summary-left {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-md);
 }
+
+.dashboard-income-expense {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--spacing-md);
+}
+
+.dashboard-account-balances {
+    display: flex;
+    flex-direction: column;
+}
+
+.remaining-main {
+    flex: 1;
+}
+
+.remaining-progress-section {
+    margin-top: var(--spacing-md);
+}
+
 
 .budget-funds-balance-sections{
     margin-top: var(--spacing-md);
@@ -106,6 +128,22 @@
     border: solid 1px var(--color-purple-primary);
 }
 
+.financial-overview-dashboard-summary p:nth-child(1) {
+    color: var(--color-purple-primary);
+    font-size: var(--font-size-md);
+}
+
+.financial-overview-dashboard-summary p:nth-child(2) {
+    color: var(--color-purple-primary);
+    font-size: var(--font-size-xl);
+    font-weight: var(--font-weight-normal);
+}
+
+.financial-overview-dashboard-summary p:nth-child(3) {
+    font-size: var(--font-size-xsm);
+}
+
+
 .income-dashboard-summary p:nth-child(1) {
     color: var(--color-green-primary);
     font-size: var(--font-size-md);
@@ -121,10 +159,6 @@
     font-size: var(--font-size-md);
 }
 
-.financial-overview-dashboard-summary p:nth-child(1) {
-    color: var(--color-purple-primary);
-    font-size: var(--font-size-md);
-}
 
 .income-dashboard-summary p:nth-child(2) {
     color: var(--color-green-primary);
@@ -140,15 +174,10 @@
 
 .remaining-dashboard-summary p:nth-child(2) {
     color: var(--color-blue-primary);
-    font-size: var(--font-size-xl);
+    font-size: 2.5rem;
     font-weight: var(--font-weight-normal);
 }
 
-.financial-overview-dashboard-summary p:nth-child(2) {
-    color: var(--color-purple-primary);
-    font-size: var(--font-size-xl);
-    font-weight: var(--font-weight-normal);
-}
 
 .income-dashboard-summary p:nth-child(3),
 .income-dashboard-summary p:nth-child(4),
@@ -159,9 +188,6 @@
     font-size: var(--font-size-sm);
 }
 
-.financial-overview-dashboard-summary p:nth-child(3) {
-    font-size: var(--font-size-xsm);
-}
 
 .btn-arrow-circle{
     background-color: transparent;
@@ -206,7 +232,16 @@
     }
 
     .dashboard-summary {
-        grid-template-columns: 1fr 1fr 1fr 1fr;
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .dashboard-summary-left {
+        min-height: 0;
+    }
+
+.remaining-dashboard-summary {
+        display: flex;
+        flex-direction: column;
     }
 
     .budget-funds-balance-sections {
