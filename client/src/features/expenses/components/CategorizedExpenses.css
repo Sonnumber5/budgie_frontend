@@ -17,7 +17,7 @@
 
 .category-info p:nth-child(1){
     font-weight: var(--font-weight-bold);
-    color: white;
+    color: var(--color-primary);
 }
 
 .category-info p:nth-child(2){

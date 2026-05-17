@@ -25,7 +25,7 @@
 }
 
 .expense-date-vendor p:nth-child(3){
-    color: white;
+    color: var(--color-primary);
 }
 
 .expense-amount-settings{

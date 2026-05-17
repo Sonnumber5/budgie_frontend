@@ -20,7 +20,7 @@
 }
 
 .income-date-source p:nth-child(3){
-    color: white;
+    color: var(--color-primary);
 }
 
 .income-amount-settings{

@@ -39,11 +39,11 @@
 }
 
 .transaction-type-date-desc.enabled p:nth-child(5){
-    color: white;
+    color: var(--color-primary);
 }
 
 .transaction-type-date-desc.disabled p{
-    color: #ffffff1a;
+    color: rgba(14, 27, 25, 0.2);
 }
 
 .transaction-type-date-desc.disabled p:nth-child(1){
