@@ -48,13 +48,13 @@ export const CategorizedExpenses = ({ categoryBudget, expenses, totalSpent, rema
                     <div className="category-info">
                         <p>{categoryBudget ? categoryBudget.categoryName : "Uncategorized"}</p>
                         <p>
-                            <span className="text-white">{categoryBudget ? `${formatCurrency(Number(totalSpent))}` : `Spent: ${formatCurrency(Number(totalSpent))}`}</span>
-                            <span>{categoryBudget ? ` / ${formatCurrency(Number(categoryBudget.budgetedAmount))}` : ''}</span>
+                            <span>{categoryBudget ? formatCurrency(Number(totalSpent)) : `Spent: ${formatCurrency(Number(totalSpent))}`}</span>
+                            {categoryBudget && <span className="text-fraction"> / {formatCurrency(Number(categoryBudget.budgetedAmount))}</span>}
                         </p>
                     </div>
                     {categoryBudget &&
                         <div className="progress-bar">
-                            <div className="progress-fill category-budget-progress-bar" style={{ width: `${progress}%`, backgroundColor: isOverBudget ? '#BD6261' : '#FFE13C' }}></div>
+                            <div className="progress-fill category-budget-progress-bar" style={{ width: `${progress}%`, backgroundColor: isOverBudget ? '#B6582C' : '#3E6A5F' }}></div>
                         </div>
                     }
                 </div>

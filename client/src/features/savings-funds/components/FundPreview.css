@@ -7,3 +7,13 @@
     width: 100%;
     justify-content: space-between;
 }
+
+.fund-preview-info p:nth-child(1) {
+    color: var(--color-primary);
+    font-weight: var(--font-weight-bold);
+}
+
+.fund-preview-info p:nth-child(2) {
+    font-weight: var(--font-weight-light);
+    font-size: var(--font-size-sm);
+}

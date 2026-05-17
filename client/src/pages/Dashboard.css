@@ -40,6 +40,14 @@
     margin-top: var(--spacing-md);
 }
 
+.progress-bar-label {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: var(--font-size-sm);
+    margin-bottom: var(--spacing-xsm);
+}
+
 
 .budget-funds-balance-sections{
     margin-top: var(--spacing-md);
@@ -130,7 +138,8 @@
 
 .financial-overview-dashboard-summary p:nth-child(1) {
     color: var(--color-purple-primary);
-    font-size: var(--font-size-md);
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-bold);
 }
 
 .financial-overview-dashboard-summary p:nth-child(2) {
@@ -146,17 +155,20 @@
 
 .income-dashboard-summary p:nth-child(1) {
     color: var(--color-green-primary);
-    font-size: var(--font-size-md);
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-bold);
 }
 
 .expense-dashboard-summary p:nth-child(1) {
     color: var(--color-red-primary);
-    font-size: var(--font-size-md);
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-bold);
 }
 
 .remaining-dashboard-summary p:nth-child(1) {
     color: var(--color-blue-primary);
-    font-size: var(--font-size-md);
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-bold);
 }
 
 
@@ -245,13 +257,13 @@
     }
 
     .budget-funds-balance-sections {
-        display: flex;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
         flex: 1;
         min-height: 0;
     }
 
     .budget-section {
-        flex: 1;
         min-width: 0;
         overflow: hidden;
     }
@@ -263,7 +275,6 @@
     }
 
     .fund-balance-section {
-        flex: 1;
         min-width: 0;
         display: flex;
         flex-direction: column;

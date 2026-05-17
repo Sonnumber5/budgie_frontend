@@ -122,10 +122,13 @@ export const Dashboard = () => {
                         </div>
                         <div className='remaining-progress-section'>
                             {!isExpensesLoading &&
-                                <p>
-                                    <span>{formatCurrency(Number(expenseSum))}</span>
-                                    <span className='text-fraction'> / {formatCurrency(Number(totalCategoryBudget))}</span>
-                                </p>
+                                <div className='progress-bar-label'>
+                                    <span>Remaining in Budget</span>
+                                    <span>
+                                        <span>{formatCurrency(Number(expenseSum))}</span>
+                                        <span className='text-fraction'> / {formatCurrency(Number(totalCategoryBudget))}</span>
+                                    </span>
+                                </div>
                             }
                             <div className='progress-bar'>
                                 <div className='progress-fill' style={{
