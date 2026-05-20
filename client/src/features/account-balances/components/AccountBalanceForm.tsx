@@ -52,15 +52,18 @@ export const AccountBalanceForm = ({ onSuccess, accountBalanceToUpdate }: Accoun
                 <div className="form-field-group-standard">
                     <div className="form-field-standard">
                         <label>Balance</label>
-                        <input
-                            className="input-field-standard"
-                            type="number"
-                            value={formData.balance}
-                            onChange={(e) => setFormData({...formData, balance: Number(e.target.value)})}
-                            required
-                            min={0}
-                            step="0.01"
-                        />
+                        <div className="currency-input-wrapper">
+                            <span>$</span>
+                            <input
+                                className="input-field-standard"
+                                type="number"
+                                value={formData.balance === 0 ? '' : formData.balance}
+                                onChange={(e) => setFormData({...formData, balance: Number(e.target.value)})}
+                                required
+                                min={0}
+                                step="0.01"
+                            />
+                        </div>
                     </div>
                     <div className="form-field-standard">
                         <label>Account type</label>
@@ -91,9 +94,11 @@ export const AccountBalanceForm = ({ onSuccess, accountBalanceToUpdate }: Accoun
                     </div>
                 </div>
             </div>
-            <button className="btn-primary" type="submit">
-                {isEditMode ? 'Save' : 'Add'}
-            </button>
+            <div className="multiple-form-btns">
+                <button className="btn-primary-modal" type="submit">
+                    {isEditMode ? 'Save' : 'Add'}
+                </button>
+            </div>
         </form>
     )
 }

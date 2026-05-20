@@ -36,18 +36,23 @@ export const AdjustmentTransactionForm = ({ onSuccess, fund }: AdjustmentTransac
             <div className="form-body-standard">
                 <div className="form-field-standard">
                     <label>Amount</label>
-                    <input
-                        className="input-field-standard"
-                        type="number"
-                        value={formData.amount}
-                        onChange={(e) => setFormData({...formData, amount: Number(e.target.value)})}
-                        required
-                    />
+                    <div className="currency-input-wrapper">
+                        <span>$</span>
+                        <input
+                            className="input-field-standard"
+                            type="number"
+                            value={formData.amount === 0 ? '' : formData.amount}
+                            onChange={(e) => setFormData({...formData, amount: Number(e.target.value)})}
+                            required
+                        />
+                    </div>
                 </div>
             </div>
-            <button className="btn-primary" type="submit">
-                Update balance
-            </button>
+            <div className="multiple-form-btns">
+                <button className="btn-primary-modal" type="submit">
+                    Update balance
+                </button>
+            </div>
         </form>
     )
 }

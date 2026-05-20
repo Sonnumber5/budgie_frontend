@@ -72,13 +72,16 @@ export const FundTransactionForm = ({ onSuccess, transactionToEdit, fundId }: Fu
                 <div className="form-field-group-standard">
                     <div className="form-field-standard">
                         <label>Amount</label>
-                        <input
-                            className="input-field-standard"
-                            type="number"
-                            value={formData.amount}
-                            onChange={(e) => setFormData({...formData, amount: Number(e.target.value)})}
-                            required
-                        />
+                        <div className="currency-input-wrapper">
+                            <span>$</span>
+                            <input
+                                className="input-field-standard"
+                                type="number"
+                                value={formData.amount === 0 ? '' : formData.amount}
+                                onChange={(e) => setFormData({...formData, amount: Number(e.target.value)})}
+                                required
+                            />
+                        </div>
                     </div>
                     <div className="form-field-standard">
                         <label>Transaction Type</label>
@@ -119,12 +122,17 @@ export const FundTransactionForm = ({ onSuccess, transactionToEdit, fundId }: Fu
                     />
                 </div>
             </div>
-            <button className="btn-primary" type="submit">
-                {isEditMode ? 'Update Transaction' : 'Add Transaction'}
-            </button>
-            {formData.transactionType == 'contribution' &&
-                <p>Contributing from {displayMonth} budget</p>
-            }
+            <div className="multiple-form-btns">
+                <button className="btn-primary-modal" type="submit">
+                    {isEditMode ? 'Update Transaction' : 'Add Transaction'}
+                </button>
+            </div>
+            <div className="form-footer-disclaimer">
+                {formData.transactionType == 'contribution' &&
+                    <p>Contributing from {displayMonth} budget</p>
+                }
+            </div>
+
         </form>
     )
 }

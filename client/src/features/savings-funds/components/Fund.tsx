@@ -80,20 +80,20 @@ export const Fund = ({ fund, relatedTransactions, archived }: SavingsFundProps) 
                         </p>
                     </div>
                     <div className="progress-bar">
-                        <div className="progress-fill fund-preview" style={{width: `${progress}%`}}></div>
+                        {progress > 0 && <div className="progress-fill fund-preview" style={{width: `${progress}%`}}></div>}
                     </div>
                 </div>
                 <div className="fund-btns">
                     {!archived &&
                         <>
                             <button className="btn-add" onClick={() => {setIsTransactionModalOpen(true)}}>+</button>
-                            <DropdownMenu onEditBalance={() => {setIsEditBalanceOpen(true)}} onEdit={() => {setIsEditFundModalOpen(true)}} onArchive={() => {setIsConfirmModalOpen(true)}}/>
+                            <DropdownMenu isLightKebab={true} onEditBalance={() => {setIsEditBalanceOpen(true)}} onEdit={() => {setIsEditFundModalOpen(true)}} onArchive={() => {setIsConfirmModalOpen(true)}}/>
                             <ConfirmModal isOpen={isConfirmModalOpen} confirmAction={handleArchive} onClose={() => {setIsConfirmModalOpen(false)}}/>
                         </>
                     }
                     {archived &&
                         <>
-                            <DropdownMenu onUnArchive={() => {handleUnarchive()}} onDelete={() => {setIsConfirmModalOpen(true)}}/>
+                            <DropdownMenu isLightKebab={true} onUnArchive={() => {handleUnarchive()}} onDelete={() => {setIsConfirmModalOpen(true)}}/>
                             <ConfirmModal isOpen={isConfirmModalOpen} confirmAction={handleDelete} onClose={() => {setIsConfirmModalOpen(false)}}/>
                         </>
                     }

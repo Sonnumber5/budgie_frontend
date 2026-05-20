@@ -60,17 +60,22 @@ export const CategoryBudgetForm = ({ onSuccess, categoryBudgetToEdit }: Category
                         onChange={(e) => {setFormData({...formData, categoryName: e.target.value})}}
                         disabled
                     />
-                    <input
-                        className="input-field-standard"
-                        type="number"
-                        value={formData.budgetedAmount}
-                        onChange={(e) => setFormData({...formData, budgetedAmount: Number(e.target.value)})}
-                    />
+                    <div className="currency-input-wrapper">
+                        <span>$</span>
+                        <input
+                            className="input-field-standard"
+                            type="number"
+                            value={formData.budgetedAmount === 0 ? '' : formData.budgetedAmount}
+                            onChange={(e) => setFormData({...formData, budgetedAmount: Number(e.target.value)})}
+                        />
+                    </div>
                 </div>
             </div>
-            <button className="btn-primary" type="submit">
-                Update
-            </button>
+            <div className="multiple-form-btns">
+                <button className="btn-primary-modal" type="submit">
+                    Update
+                </button>
+            </div>
         </form>
     )
 }

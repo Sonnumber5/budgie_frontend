@@ -72,7 +72,7 @@ export const Dashboard = () => {
             <Modal isOpen={isAccountBalanceModalOpen} onClose={() => {setIsAccountBalanceModalOpen(false)}} title="Add account balance">
                 <AccountBalanceForm onSuccess={() => {setIsAccountBalanceModalOpen(false)}}/>
             </Modal>
-            <Modal isOpen={isFinancialOverviewInfoModalOpen} onClose={() => {setIsFinancialOverviewInfoModalOpen(false)}} title=''>
+            <Modal isOpen={isFinancialOverviewInfoModalOpen} onClose={() => {setIsFinancialOverviewInfoModalOpen(false)}} title='About Financial Overview'>
                 <p style={{color: 'white'}}>Financial overview is the sum of assets in account balances, minus the sum of liabilities in account balances, minus the sum of all savings fund balances.</p>
             </Modal>
             <ConfirmModal isOpen={isConfirmModalOpen} onClose={() => {setIsConfirmModalOpen(false)}} confirmAction={() => {clearAccountBalances()}}/>

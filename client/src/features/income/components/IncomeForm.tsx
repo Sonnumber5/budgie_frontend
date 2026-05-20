@@ -67,16 +67,18 @@ export const IncomeForm = ({ onSuccess, incomeToEdit }: IncomeFormProps) => {
                 <div className="form-field-group-standard">
                     <div className="form-field-standard">
                         <label>Amount</label>
-                        <input
-                            className="input-field-standard"
-                            type="number"
-                            prefix="$"
-                            value={formData.amount}
-                            onChange={(e) => setFormData({...formData, amount: Number(e.target.value)})}
-                            required
-                            min={0}
-                            step="0.01"
-                        />
+                        <div className="currency-input-wrapper">
+                            <span>$</span>
+                            <input
+                                className="input-field-standard"
+                                type="number"
+                                value={formData.amount === 0 ? '' : formData.amount}
+                                onChange={(e) => setFormData({...formData, amount: Number(e.target.value)})}
+                                required
+                                min={0}
+                                step="0.01"
+                            />
+                        </div>
                     </div>
                     <div className="form-field-standard">
                         <label>Date</label>
@@ -90,9 +92,11 @@ export const IncomeForm = ({ onSuccess, incomeToEdit }: IncomeFormProps) => {
                     </div>
                 </div>
             </div>
-            <button className="btn-primary" type="submit">
-                {isEditMode ? 'Update Income' : 'Add Income'}
-            </button>
+            <div className="multiple-form-btns">
+                <button className="btn-primary-modal" type="submit">
+                    {isEditMode ? 'Update Income' : 'Add Income'}
+                </button>
+            </div>
         </form>
     )
 }

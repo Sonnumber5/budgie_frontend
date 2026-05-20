@@ -11,10 +11,11 @@ interface DropdownMenuProps {
     onUnArchive?: () => void;
     onLogout?: () => void;
     onViewDescription?: () => void;
+    isLightKebab?: boolean;
 }
 
 // Renders a kebab-menu button that opens a portal-based dropdown with optional action buttons.
-export const DropdownMenu = ({ onEdit, onDelete, onEditBalance, onArchive, onLogout, onViewDescription, onUnArchive }: DropdownMenuProps) => {
+export const DropdownMenu = ({ onEdit, onDelete, onEditBalance, onArchive, onLogout, onViewDescription, onUnArchive, isLightKebab }: DropdownMenuProps) => {
     const [isOpen, setIsOpen] = useState(false);
     const [menuPos, setMenuPos] = useState({ top: 0, left: 0 });
     const { fetchArchivedSavingsFunds } = useSavingsFundContext();
@@ -58,7 +59,7 @@ export const DropdownMenu = ({ onEdit, onDelete, onEditBalance, onArchive, onLog
 
     return (
         <div ref={ref} style={{ position: 'relative' }}>
-            <button ref={btnRef} className='kebab' type="button" onClick={handleOpen}>⋮</button>
+            <button ref={btnRef} className={isLightKebab ? 'kebab-light' : 'kebab'} type="button" onClick={handleOpen}>⋮</button>
             {isOpen && createPortal(
                 <div ref={menuRef} className='kebab-menu' style={{ top: menuPos.top, left: menuPos.left }}>
                     {onEdit && <button type="button" onClick={() => { onEdit(); setIsOpen(false); }}>Edit</button>}

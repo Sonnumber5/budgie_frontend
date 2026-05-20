@@ -13,7 +13,7 @@ export const FundForm = ({ onSuccess, fundToEdit }: FundFormProps) => {
     const { addSavingsFund, editSavingsFund } = useSavingsFundContext();
     const [formData, setFormData] = useState<SavingsFundDTO>({
         name: '',
-        goal: 1,
+        goal: 0,
     });
     const isEditMode = !!fundToEdit;
 
@@ -58,21 +58,26 @@ export const FundForm = ({ onSuccess, fundToEdit }: FundFormProps) => {
                     </div>
                     <div className="form-field-standard">
                         <label>Goal</label>
-                        <input
-                            className="input-field-standard"
-                            type="number"
-                            value={formData.goal}
-                            onChange={(e) => setFormData({...formData, goal: Number(e.target.value)})}
-                            required
-                            min={0}
-                            step="0.01"
-                        />
+                        <div className="currency-input-wrapper">
+                            <span>$</span>
+                            <input
+                                className="input-field-standard"
+                                type="number"
+                                value={formData.goal === 0 ? '' : formData.goal}
+                                onChange={(e) => setFormData({...formData, goal: Number(e.target.value)})}
+                                required
+                                min={0}
+                                step="0.01"
+                            />
+                        </div>
                     </div>
                 </div>
             </div>
-            <button className="btn-primary" type="submit">
-                {isEditMode ? 'Update Fund' : 'Add Fund'}
-            </button>
+            <div className="multiple-form-btns">
+                <button className="btn-primary-modal" type="submit">
+                    {isEditMode ? 'Update Fund' : 'Add Fund'}
+                </button>
+            </div>
         </form>
     )
 }

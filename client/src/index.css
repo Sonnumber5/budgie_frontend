@@ -44,11 +44,11 @@
   --color-btn-secondary:    #3D5E58;
 
   /* Colors — semantic (income / expense / remaining / overview) */
-  --color-green-primary:    #2C81B6;
+  --color-green-primary:    #5A9E8E;
   --color-green-secondary:  #0D2030;
   --color-red-primary:      #B6582C;
   --color-red-secondary:    #2D1509;
-  --color-blue-primary:     #5A9E8E;
+  --color-blue-primary:     #2C81B6;
   --color-blue-secondary:   #122724;
   --color-purple-primary:   #8B7AC8;
   --color-purple-secondary: #1D1A35;
@@ -69,17 +69,11 @@
   --padding-md:  15px;
   --padding-lg:  20px;
 
-  /* Border radius — all square */
-  --border-radius-sm:   0;
-  --border-radius-md:   0;
-  --border-radius-lg:   0;
-  --border-radius-full: 0;
-
-  /* Shadows — none */
-  --box-shadow-btns: none;
-  --box-shadow-sm:   none;
-  --box-shadow-md:   none;
-  --box-shadow-lg:   none;
+  /* Border radius */
+  --border-radius-sm:   8;
+  --border-radius-md:   16;
+  --border-radius-lg:   24;
+  --border-radius-full: 1000;
 
   /* Layout */
   --sidebar-width: 220px;
@@ -447,8 +441,27 @@ body {
   line-height: 1;
 }
 
+.kebab-light {
+  background-color: transparent;
+  color: var(--color-hover-standard);
+  border: none;
+  font-size: 1.7rem;
+  font-weight: bold;
+  width: 1.5rem;
+  height: 2.5rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
+}
+
 .kebab:hover{
   color: var(--color-hover-standard);
+}
+
+.kebab-light:hover{
+  color: var(--light-background);
 }
 
 .disabled-kebab {
@@ -535,6 +548,25 @@ body {
   color: var(--color-primary);
 }
 
+.currency-input-wrapper {
+  display: flex;
+  align-items: center;
+  background-color: var(--color-input-field);
+  width: 100%;
+}
+
+.currency-input-wrapper span {
+  padding-left: 1.4em;
+  color: var(--color-text);
+  white-space: nowrap;
+}
+
+.currency-input-wrapper .input-field-standard {
+  padding-left: 0.4em;
+  width: auto;
+  flex: 1;
+}
+
 .select-field-standard {
   color: var(--color-text);
   background-color: var(--color-input-field);
@@ -602,6 +634,11 @@ body {
 
 .form-field-standard {
   flex: 1;
+}
+
+.form-footer-disclaimer p{
+  text-align: center;
+  color: white;
 }
 
 .type-toggle {

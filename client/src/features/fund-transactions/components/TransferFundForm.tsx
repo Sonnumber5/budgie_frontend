@@ -81,15 +81,18 @@ export const TransferFundForm = ({ onSuccess }: TransferFundFormProps) => {
                 </div>
                 <div className="form-field-standard">
                     <label>Amount</label>
-                    <input
-                        className="input-field-standard"
-                        type="number"
-                        min="0.01"
-                        step="0.01"
-                        value={formData.amount}
-                        onChange={(e) => setFormData({...formData, amount: Number(e.target.value)})}
-                        required
-                    />
+                    <div className="currency-input-wrapper">
+                        <span>$</span>
+                        <input
+                            className="input-field-standard"
+                            type="number"
+                            min="0.01"
+                            step="0.01"
+                            value={formData.amount === 0 ? '' : formData.amount}
+                            onChange={(e) => setFormData({...formData, amount: Number(e.target.value)})}
+                            required
+                        />
+                    </div>
                 </div>
             </div>
             <button className="btn-primary" type="submit">

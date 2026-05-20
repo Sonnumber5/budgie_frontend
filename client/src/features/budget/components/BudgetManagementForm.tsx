@@ -161,15 +161,18 @@ export const BudgetManagementForm = ({ onSuccess, budgetToEdit }: BudgetManageme
             <div className="form-body-standard">
                 <div className="form-field-standard">
                     <label>Expected Income</label>
-                    <input
-                        className="input-field-standard"
-                        type="number"
-                        value={expectedIncome}
-                        onChange={(e) => setExpectedIncome(Number(e.target.value))}
-                        required
-                        min={0}
-                        step="0.01"
-                    />
+                    <div className="currency-input-wrapper">
+                        <span>$</span>
+                        <input
+                            className="input-field-standard"
+                            type="number"
+                            value={expectedIncome === 0 ? '' : expectedIncome}
+                            onChange={(e) => setExpectedIncome(Number(e.target.value))}
+                            required
+                            min={0}
+                            step="0.01"
+                        />
+                    </div>
                 </div>
                 
                     <div className="custom-scroll-bar" style={{ display: 'flex', flexDirection: 'column', gap: '8px', maxHeight: '250px', overflowY: 'scroll' }}>
@@ -190,13 +193,15 @@ export const BudgetManagementForm = ({ onSuccess, budgetToEdit }: BudgetManageme
                                                 />
                                             </div>
                                             <div className="form-field-standard">
-                                                <input
-                                                    className="input-field-standard"
-                                                    type="number"
-                                                    value={cb.budgetedAmount === 0 ? '' : cb.budgetedAmount}
-                                                    onChange={(e) => {handleUpdateExistingCategoryBudgetAmount(cb.id, Number(e.target.value))}}
-                                                    
-                                                />
+                                                <div className="currency-input-wrapper">
+                                                    <span>$</span>
+                                                    <input
+                                                        className="input-field-standard"
+                                                        type="number"
+                                                        value={cb.budgetedAmount === 0 ? '' : cb.budgetedAmount}
+                                                        onChange={(e) => {handleUpdateExistingCategoryBudgetAmount(cb.id, Number(e.target.value))}}
+                                                    />
+                                                </div>
                                             </div>
                                             <button
                                                 className="btn-x"
@@ -234,14 +239,17 @@ export const BudgetManagementForm = ({ onSuccess, budgetToEdit }: BudgetManageme
                                                 </datalist>
                                             </div>
                                             <div className="form-field-standard">
-                                                <input
-                                                    className="input-field-standard"
-                                                    type="number"
-                                                    placeholder="Budget Amount"
-                                                    value={cb.budgetedAmount}
-                                                    onChange={(e) => updateNewCategoryBudget(index, 'budgetedAmount', Number(e.target.value))}
-                                                    required
-                                                />
+                                                <div className="currency-input-wrapper">
+                                                    <span>$</span>
+                                                    <input
+                                                        className="input-field-standard"
+                                                        type="number"
+                                                        placeholder="Amount"
+                                                        value={cb.budgetedAmount === 0 ? '' : cb.budgetedAmount}
+                                                        onChange={(e) => updateNewCategoryBudget(index, 'budgetedAmount', Number(e.target.value))}
+                                                        required
+                                                    />
+                                                </div>
                                             </div>
                                             <button
                                                 className="btn-x"
