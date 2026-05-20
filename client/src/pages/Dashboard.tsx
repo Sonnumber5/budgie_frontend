@@ -3,7 +3,6 @@
 // The budget section shows a BudgetOverview and an Edit button that opens BudgetManagementForm.
 // The balances and categories sections are placeholders for future functionality.
 import './Dashboard.css';
-import { MonthPicker } from '../components/DatePicker';
 import { Modal } from '../components/modal';
 import { BudgetManagementForm } from '../features/budget/components/BudgetManagementForm';
 import { useState } from 'react';

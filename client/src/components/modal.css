@@ -49,12 +49,6 @@
     color: var(--color-border);
 }
 
-.modal-body button[type="submit"] {
-    display: block;
-    margin: var(--spacing-md) auto;
-    border-color: var(--light-background);
-    color: var(--light-background);
-}
 
 .modal-body .multiple-form-btns button {
     display: block;
@@ -67,3 +61,33 @@
     align-items: center;
     justify-content: center;
 }
+
+.btn-primary-modal {
+  border: 1px solid var(--light-background);
+  background: transparent;
+  padding: 0.8em 1.4em;
+  font-family: inherit;
+  cursor: pointer;
+  color: var(--light-background);
+}
+
+.btn-primary-modal:hover {
+    cursor: pointer;
+    background-color: var(--light-background);
+    color: var(--color-border)
+  }
+
+.btn-danger-modal {
+    border: 1px solid var(--color-red-primary);
+    background: transparent;
+    padding: 0.8em 1.4em;
+    font-family: inherit;
+    cursor: pointer;
+    color: var(--color-red-primary);
+  }
+
+  .btn-danger-modal:hover {
+    cursor: pointer;
+    background-color: var(--color-red-primary);
+    color: white;
+  }

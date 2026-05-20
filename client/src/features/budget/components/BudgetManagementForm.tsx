@@ -271,7 +271,7 @@ export const BudgetManagementForm = ({ onSuccess, budgetToEdit }: BudgetManageme
                 </div>
             </div>
             <div className="multiple-form-btns">
-                <button className="btn-primary" type="submit">{isEditMode ? 'Update Budget' : 'Create Budget'}</button>
+                <button className="btn-primary-modal" type="submit">{isEditMode ? 'Update Budget' : 'Create Budget'}</button>
             </div>
         </form>
     )

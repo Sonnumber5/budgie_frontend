@@ -101,9 +101,18 @@
 .fund-balance-section > .standard-container {
     display: flex;
     flex-direction: column;
+    min-width: 0;
 }
 
-.fund-section, .account-balance-section {
+.fund-section {
+    display: flex;
+    margin: calc(var(--spacing-md) * -1);
+    margin-top: 0;
+    min-width: 0;
+    overflow-x: auto;
+}
+
+.account-balance-section {
     display: flex;
     flex-direction: column;
 }
@@ -114,10 +123,6 @@
     gap: var(--spacing-sm);
     width: 100%;
     overflow-y: hidden;
-}
-
-.fund-section{
-    gap: var(--spacing-md);
 }
 
 .standard-container.income-dashboard-summary{
@@ -286,7 +291,12 @@
         overflow: hidden;
     }
 
-    .fund-section, .account-balance-section {
+    .fund-section{
+        flex: 1;
+        min-height: 0;
+    }
+
+    .account-balance-section {
         flex: 1;
         overflow-y: auto;
         min-height: 0;
