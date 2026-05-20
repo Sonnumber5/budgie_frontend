@@ -46,7 +46,7 @@
 }
 
 .modal-close:hover {
-    color: var(--color-border);
+    color: var(--color-hover-standard);
 }
 
 

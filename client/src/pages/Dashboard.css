@@ -153,8 +153,8 @@
     font-weight: var(--font-weight-normal);
 }
 
-.financial-overview-dashboard-summary p:nth-child(3) {
-    font-size: var(--font-size-xsm);
+.financial-overview-dashboard-summary{
+    position: relative;
 }
 
 
@@ -239,6 +239,22 @@
     gap: var(--spacing-md);
 }
 
+.info-btn{
+    position: absolute;
+    right: var(--spacing-sm);
+    top: var(--spacing-sm);
+    background-color: var(--color-border);
+    width: 1.4rem;
+    border-radius: 1000px;
+    aspect-ratio: 1 / 1;
+    border: none;
+}
+
+.info-btn:hover{
+    background-color: var(--color-hover-standard);
+    color: white;
+}
+
 /* Desktop: constrained viewport layout with internal scrolling */
 @media (min-width: 980px) {
     .dashboard-page {
@@ -256,7 +272,7 @@
         min-height: 0;
     }
 
-.remaining-dashboard-summary {
+    .remaining-dashboard-summary {
         display: flex;
         flex-direction: column;
     }
@@ -301,4 +317,5 @@
         overflow-y: auto;
         min-height: 0;
     }
+    
 }

@@ -57,6 +57,7 @@
   --light-background:       #EEE8D5;
   --color-border:           #D6CFB5;
   --color-border-light:     #E8E2CD;
+  --color-hover-standard:   #BAB399;
 
   /* Spacing */
   --spacing-xsm: 4px;
@@ -360,31 +361,48 @@ body {
   line-height: 1;
 }
 
-.btn-add:hover {
+.btn-add-sm {
+  position: absolute;
+  background-color: transparent;
+  color: var(--color-primary);
+  border: 1px solid var(--color-primary);
+  width: 1.5rem;
+  height: 1.5rem;
+  font-size: 1.1rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
+  right: var(--spacing-sm);
+  top: var(--spacing-sm);
+}
+
+.btn-add:hover, .btn-add-sm:hover {
   background-color: var(--color-primary);
   color: white;
   cursor: pointer;
 }
 
-.btn-add.summary.expense-dashboard-summary,
+.btn-add-sm.summary.expense-dashboard-summary,
 .btn-add.expense {
   border: solid 1px var(--color-red-primary);
   color: var(--color-red-primary);
 }
 
-.btn-add.summary.income-dashboard-summary,
+.btn-add-sm.summary.income-dashboard-summary,
 .btn-add.income {
   border: solid 1px var(--color-green-primary);
   color: var(--color-green-primary);
 }
 
-.btn-add.summary.income-dashboard-summary:hover,
+.btn-add-sm.summary.income-dashboard-summary:hover,
 .btn-add.income:hover {
   background-color: var(--color-green-primary);
   color: white;
 }
 
-.btn-add.summary.expense-dashboard-summary:hover,
+.btn-add-sm.summary.expense-dashboard-summary:hover,
 .btn-add.expense:hover {
   background-color: var(--color-red-primary);
   color: white;
@@ -427,6 +445,10 @@ body {
   align-items: center;
   justify-content: center;
   line-height: 1;
+}
+
+.kebab:hover{
+  color: var(--color-hover-standard);
 }
 
 .disabled-kebab {

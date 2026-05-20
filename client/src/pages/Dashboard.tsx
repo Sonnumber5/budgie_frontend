@@ -38,8 +38,9 @@ export const Dashboard = () => {
     const [ isBudgetModalOpen, setIsBudgetModalOpen ] = useState(false);
     const [ isAccountBalanceModalOpen, setIsAccountBalanceModalOpen ] = useState(false);
     const [ isConfirmModalOpen, setIsConfirmModalOpen ] = useState(false);
-    const [isExpenseModalOpen, setIsExpenseModalOpen] = useState(false);
-    const [isIncomeModalOpen, setIsIncomeModalOpen] = useState(false);
+    const [ isExpenseModalOpen, setIsExpenseModalOpen ] = useState(false);
+    const [ isIncomeModalOpen, setIsIncomeModalOpen ] = useState(false);
+    const [ isFinancialOverviewInfoModalOpen, setIsFinancialOverviewInfoModalOpen ] = useState(false);
 
     const expenseProgress = totalCategoryBudget > 0 ? Math.min((expenseSum / totalCategoryBudget) * 100, 100) : 0;
     const isExpenseOverBudget = expenseSum > totalCategoryBudget;
@@ -71,6 +72,9 @@ export const Dashboard = () => {
             <Modal isOpen={isAccountBalanceModalOpen} onClose={() => {setIsAccountBalanceModalOpen(false)}} title="Add account balance">
                 <AccountBalanceForm onSuccess={() => {setIsAccountBalanceModalOpen(false)}}/>
             </Modal>
+            <Modal isOpen={isFinancialOverviewInfoModalOpen} onClose={() => {setIsFinancialOverviewInfoModalOpen(false)}} title=''>
+                <p style={{color: 'white'}}>Financial overview is the sum of assets in account balances, minus the sum of liabilities in account balances, minus the sum of all savings fund balances.</p>
+            </Modal>
             <ConfirmModal isOpen={isConfirmModalOpen} onClose={() => {setIsConfirmModalOpen(false)}} confirmAction={() => {clearAccountBalances()}}/>
             {
             //<div className='month-section'>
@@ -83,30 +87,32 @@ export const Dashboard = () => {
                     <div className='dashboard-summary-left'>
                         <div className='dashboard-income-expense'>
                             <div className='standard-container income-dashboard-summary'>
-                                <p>Income (Actual)</p>
+                                <p>Income</p>
                                 {isIncomeLoading ? 'Loading...' :
                                     <>
                                         <p>{formatCurrency(Number(incomeSum))}</p>
                                         <p>{monthlyBudget ? `Expected: ${formatCurrency(Number(monthlyBudget.expectedIncome))}` : 'Expected:'}</p>
                                     </>
                                 }
-                                <button className='btn-add summary income-dashboard-summary' onClick={() => { setIsIncomeModalOpen(true) }}>+</button>
+                                <button className='btn-add-sm summary income-dashboard-summary' onClick={() => { setIsIncomeModalOpen(true) }}>+</button>
                             </div>
                             <div className='standard-container expense-dashboard-summary'>
-                                <p>Expenses (Actual)</p>
+                                <p>Expenses</p>
                                 {isExpensesLoading ? 'Loading...' :
                                     <>
                                         <p>{formatCurrency(Number(expenseSum))}</p>
                                         <p>{monthlyBudget ? `Budget: ${formatCurrency(Number(totalCategoryBudget))}` : 'Budget:'}</p>
                                     </>
                                 }
-                                <button className='btn-add summary expense-dashboard-summary' onClick={() => { setIsExpenseModalOpen(true) }}>+</button>
+                                <button className='btn-add-sm summary expense-dashboard-summary' onClick={() => { setIsExpenseModalOpen(true) }}>+</button>
                             </div>
                         </div>
                         <div className='standard-container financial-overview-dashboard-summary'>
                             <p>Financial Overview</p>
                             <p>{isIncomeLoading || isExpensesLoading ? 'Loading...' : `${formatCurrency(Number(financialOverview))}`}</p>
-                            <p>(Account Balances sum <span style={{whiteSpace: 'nowrap'}}>- Savings Funds sum</span>)</p>
+                            <button className='info-btn' onClick={() => {setIsFinancialOverviewInfoModalOpen(true)}}>
+                                i
+                            </button>
                         </div>
                     </div>
                     {/* Right column: large remaining + progress bar */}
