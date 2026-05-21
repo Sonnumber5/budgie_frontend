@@ -1,13 +1,9 @@
-/* ============================================================
-   NAVBAR — fixed bottom bar on mobile, fixed left sidebar on desktop
-   ============================================================ */
 
-/* Mobile: fixed bottom bar */
 .navbar {
   position: fixed;
-  bottom: 15px;
-  left: 15px;
-  right: 15px;
+  bottom: 0;
+  right: 0;
+  left: 0;
   height: 60px;
   background-color: var(--color-primary);
   padding: 0 var(--spacing-md);
@@ -30,12 +26,42 @@
 
 .nav-buttons {
   display: flex;
-  gap: var(--spacing-xsm);
+  gap: var(--spacing-md);
+}
+
+.btn-inactive-nav {
+  background: transparent;
+  padding: 0.3rem 0.4rem;
+  min-width: 90px;
+  border: none;
+  color: var(--color-border);
+}
+
+.btn-inactive-nav:hover {
+  background-color: var(--color-secondary-hover);
+  cursor: pointer;
+}
+
+.nav-active {
+  background: var(--light-background);
+  padding: 0.4rem;
+  min-width: 90px;
+  border: none;
+  color: var(--color-primary);
+  font-weight: var(--font-weight-medium);
+}
+
+.nav-active:hover {
+  cursor: pointer;
 }
 
 .nav-buttons button {
   font-family: inherit;
   font-size: var(--font-size-sm);
+}
+
+.nav-btn-icon-lockup{
+  
 }
 
 .auth-buttons {

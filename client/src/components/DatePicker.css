@@ -32,7 +32,7 @@
 }
 
 .arrow-btns button:hover{
-    color: white;
+    color: var(--color-hover-standard);
 }
 
 .divider{

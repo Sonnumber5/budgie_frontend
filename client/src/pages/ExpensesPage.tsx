@@ -58,6 +58,7 @@ export const ExpensesPage = () => {
             <Modal isOpen={isBudgetModalOpen} onClose={() => { setIsBudgetModalOpen(false) }} title="Monthly Budget">
                 <BudgetManagementForm budgetToEdit={monthlyBudget ?? null} onSuccess={() => { setIsBudgetModalOpen(false) }} />
             </Modal>
+            <MonthPicker/>
             <div className="expense-page-menu">
                 <div className='expense-dashboard-summary'>
                     <p>Expenses (Actual)</p>

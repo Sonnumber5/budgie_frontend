@@ -24,6 +24,7 @@ import { formatCurrency } from '../utils/formatCurrency';
 import { ExpenseForm } from '../features/expenses/components/ExpenseForm';
 import { IncomeForm } from '../features/income/components/IncomeForm';
 import { ExpenseIcon, FinancialOverviewIcon, IncomeIcon, RemainingIcon } from '../images/Icons';
+import { MonthPicker } from '../components/DatePicker';
 
 
 
@@ -83,8 +84,8 @@ export const Dashboard = () => {
             //</div>
             }
             <div className='container'>
+            <MonthPicker/>
                 <div className='dashboard-summary'>
-                    {/* Left column: income/expense + financial overview */}
                     <div className='dashboard-summary-left'>
                         <div className='dashboard-income-expense'>
                             <div className='standard-container income-dashboard-summary'>

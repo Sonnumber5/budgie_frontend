@@ -1,16 +1,10 @@
-/* ============================================================
-   RESET
-   ============================================================ */
+
 
 *, *::before, *::after {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
 }
-
-/* ============================================================
-   DESIGN TOKENS
-   ============================================================ */
 
 :root {
   font-family: system-ui, Helvetica, Arial, sans-serif;
@@ -79,10 +73,6 @@
   --sidebar-width: 220px;
 }
 
-/* ============================================================
-   BASE
-   ============================================================ */
-
 body {
   margin: 0;
   min-height: 100vh;
@@ -93,10 +83,6 @@ body {
   background-size: 24px 24px;
   color: var(--color-text);
 }
-
-/* ============================================================
-   APP SHELL
-   ============================================================ */
 
 .app-shell {
   display: flex;
@@ -315,31 +301,6 @@ body {
   background-color: var(--color-red-primary);
   color: white;
   cursor: pointer;
-}
-
-.btn-inactive-nav {
-  background: transparent;
-  border: none;
-  color: rgba(255, 255, 255, 0.7);
-}
-
-.btn-inactive-nav:hover {
-  color: white;
-  cursor: pointer;
-}
-
-/* Active nav link — underline only, no fill */
-.nav-active {
-  background: transparent;
-  border: none;
-  color: white;
-  border-bottom: 2px solid var(--light-background);
-  font-weight: var(--font-weight-medium);
-}
-
-.nav-active:hover {
-  cursor: pointer;
-  color: white;
 }
 
 .btn-add {
