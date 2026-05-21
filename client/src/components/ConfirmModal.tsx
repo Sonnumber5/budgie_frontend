@@ -14,8 +14,8 @@ export const ConfirmModal = ({ isOpen, onClose, confirmAction }: ConfirmModalPro
     return (
         <div className="modal-overlay" onClick={onClose}>
                 <div className='confirm-modal-btns'>
-                    <button className='btn-secondary' onClick={onClose}>Cancel</button>
-                    <button className='btn-danger' onClick={() => {confirmAction(); onClose}}>Confirm</button>
+                    <button className='btn-primary-modal' onClick={onClose}>Cancel</button>
+                    <button className='btn-danger-modal' onClick={() => {confirmAction(); onClose}}>Confirm</button>
                 </div>
         </div>
     )

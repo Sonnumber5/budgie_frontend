@@ -54,7 +54,7 @@ export const CategorizedExpenses = ({ categoryBudget, expenses, totalSpent, rema
                     </div>
                     {categoryBudget &&
                         <div className="progress-bar">
-                            <div className="progress-fill category-budget-progress-bar" style={{ width: `${progress}%`, backgroundColor: isOverBudget ? '#B6582C' : '#3E6A5F' }}></div>
+                            {progress > 0 && <div className="progress-fill category-budget-progress-bar" style={{ width: `${progress}%`, backgroundColor: isOverBudget ? '#B6582C' : '#3E6A5F' }}></div>}
                         </div>
                     }
                 </div>

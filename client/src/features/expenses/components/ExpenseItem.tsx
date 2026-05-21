@@ -37,9 +37,7 @@ export const ExpenseItem = ({ expense }: ExpenseItemProps) => {
                     <ExpenseForm onSuccess={() => { setIsModalOpen(false) }} expenseToEdit={expense} />
                 </Modal>
                 <Modal isOpen={isDescriptionModalOpen} onClose={() => { setIsDescriptionModalOpen(false) }} title="Expense Notes:">
-                    <div className="standard-container">
-                        <p>{expense.description}</p>
-                    </div>
+                        <p style={{color: 'white'}}>{expense.description}</p>
                 </Modal>
                 <ConfirmModal isOpen={isConfirmModalOpen} onClose={() => { setIsConfirmModalOpen(false) }} confirmAction={() => { handleRemoveExpense(expense.id) }} />
                 <div className="expense-date-vendor">

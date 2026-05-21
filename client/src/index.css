@@ -296,6 +296,7 @@ body {
   font-family: inherit;
   cursor: pointer;
   color: var(--color-red-primary);
+  white-space: nowrap;
 }
 
 .btn-primary:disabled,
@@ -563,7 +564,6 @@ body {
 
 .currency-input-wrapper .input-field-standard {
   padding-left: 0.4em;
-  width: auto;
   flex: 1;
 }
 
