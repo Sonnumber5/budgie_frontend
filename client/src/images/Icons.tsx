@@ -46,7 +46,7 @@ export const NavbarExpenseIcon = () => {
         <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path d="M17 19H5C3.93913 19 2.92172 18.5786 2.17157 17.8284C1.42143 17.0783 1 16.0609 1 15V3C1 2.46957 1.21071 1.96086 1.58579 1.58579C1.96086 1.21071 2.46957 1 3 1H13C13.5304 1 14.0391 1.21071 14.4142 1.58579C14.7893 1.96086 15 2.46957 15 3V16C15 17.657 15.343 19 17 19Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
             <path d="M19 8C19 7.46957 18.7893 6.96086 18.4142 6.58579C18.0391 6.21071 17.5304 6 17 6H15V16.5C15 17.88 15.62 19 17 19C18.38 19 19 17.88 19 16.5V8Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-            <path d="M11 9H5M11 5H5M8 13H5" stroke="#B6582C" stroke-width="2" stroke-linecap="round"/>
+            <path d="M11 9H5M11 5H5M8 13H5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
             </svg>
     )
 }

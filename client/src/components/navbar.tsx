@@ -2,7 +2,7 @@
 // The navbar is hidden when the user is not authenticated so it doesn't
 // appear on the Login or Register pages.
 import { useAuth } from "../context/AuthContext";
-import { NavbarIncomeIcon } from "../images/Icons";
+import { NavbarDashboardIcon, NavbarExpenseIcon, NavbarIncomeIcon, NavbarSavingsFundIcon } from "../images/Icons";
 import { DropdownMenu } from "./DropdownMenu";
 import './navbar.css';
 import { useLocation, useNavigate } from "react-router-dom";
@@ -27,27 +27,22 @@ export const Navbar = () => {
             <div className="navbar-brand">Budgie</div>
             <div className="navbar-content">
                 <div className="nav-buttons">
-                    <div className="nav-btn-icon-lockup">
                         <button className={pathname === '/dashboard' ? 'nav-active' : 'btn-inactive-nav'} onClick={() => { navigate('/dashboard') }}>
-                            Dashboard
+                            <NavbarDashboardIcon/>
+                            <p>Dashboard</p>
                         </button>
-                    </div>
-                    <div className="nav-btn-icon-lockup">
-                        <NavbarIncomeIcon/>
                         <button className={pathname === '/income' ? 'nav-active' : 'btn-inactive-nav'} onClick={() => { navigate('/income') }}>
-                            Income
+                            <NavbarIncomeIcon/>
+                            <p>Income</p>
                         </button>
-                    </div>
-                    <div className="nav-btn-icon-lockup">
                         <button className={pathname === '/expenses' ? 'nav-active' : 'btn-inactive-nav'} onClick={() => { navigate('/expenses') }}>
-                            Expenses
+                            <NavbarExpenseIcon/>
+                            <p>Expenses</p>
                         </button>
-                    </div>
-                    <div className="nav-btn-icon-lockup">
                         <button className={pathname === '/savings-funds' ? 'nav-active' : 'btn-inactive-nav'} onClick={() => { navigate('/savings-funds') }}>
-                            Funds
+                            <NavbarSavingsFundIcon/>
+                            <p>Funds</p>
                         </button>
-                    </div>
                 </div>
                 <div className="auth-buttons">
                     <DropdownMenu onLogout={onLogout} />
