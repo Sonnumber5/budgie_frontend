@@ -23,6 +23,7 @@ import { CategoryBudgetOverview } from '../features/budget/components/CategoryBu
 import { formatCurrency } from '../utils/formatCurrency';
 import { ExpenseForm } from '../features/expenses/components/ExpenseForm';
 import { IncomeForm } from '../features/income/components/IncomeForm';
+import { ExpenseIcon, FinancialOverviewIcon, IncomeIcon, RemainingIcon } from '../images/Icons';
 
 
 
@@ -87,7 +88,10 @@ export const Dashboard = () => {
                     <div className='dashboard-summary-left'>
                         <div className='dashboard-income-expense'>
                             <div className='standard-container income-dashboard-summary'>
-                                <p>Income</p>
+                                <div className='summary-header-with-icon'>
+                                    <IncomeIcon/>
+                                    <p>Income</p>
+                                </div>
                                 {isIncomeLoading ? 'Loading...' :
                                     <>
                                         <p>{formatCurrency(Number(incomeSum))}</p>
@@ -97,7 +101,10 @@ export const Dashboard = () => {
                                 <button className='btn-add-sm summary income-dashboard-summary' onClick={() => { setIsIncomeModalOpen(true) }}>+</button>
                             </div>
                             <div className='standard-container expense-dashboard-summary'>
-                                <p>Expenses</p>
+                                <div className='summary-header-with-icon'>
+                                    <ExpenseIcon/>
+                                    <p>Expenses</p>
+                                </div>
                                 {isExpensesLoading ? 'Loading...' :
                                     <>
                                         <p>{formatCurrency(Number(expenseSum))}</p>
@@ -108,7 +115,10 @@ export const Dashboard = () => {
                             </div>
                         </div>
                         <div className='standard-container financial-overview-dashboard-summary'>
-                            <p>Financial Overview</p>
+                            <div className='summary-header-with-icon'>
+                                <FinancialOverviewIcon/>
+                                <p>Financial Overview</p>
+                            </div>
                             <p>{isIncomeLoading || isExpensesLoading ? 'Loading...' : `${formatCurrency(Number(financialOverview))}`}</p>
                             <button className='info-btn' onClick={() => {setIsFinancialOverviewInfoModalOpen(true)}}>
                                 i
@@ -118,7 +128,10 @@ export const Dashboard = () => {
                     {/* Right column: large remaining + progress bar */}
                     <div className='standard-container remaining-dashboard-summary'>
                         <div className='remaining-main'>
-                            <p>Remaining</p>
+                            <div className='summary-header-with-icon'>
+                                <RemainingIcon/>
+                                <p>Monthly Remaining</p>
+                            </div>
                             {isIncomeLoading || isExpensesLoading ? 'Loading...' :
                                 <>
                                     <p>{formatCurrency(Number(currentRemaining))}</p>

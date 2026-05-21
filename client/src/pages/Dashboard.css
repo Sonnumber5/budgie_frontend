@@ -21,6 +21,47 @@
     gap: var(--spacing-md);
 }
 
+.summary-header-with-icon{
+    display: flex;
+    gap: var(--spacing-sm);
+}
+
+.income-dashboard-summary p:nth-child(2){
+    color: var(--color-green-primary);
+}
+
+.expense-dashboard-summary p:nth-child(2){
+    color: var(--color-red-primary);
+}
+
+.financial-overview-dashboard-summary p:nth-child(2){
+    color: var(--color-purple-primary);
+}
+
+.remaining-main p:nth-child(2){
+    color: var(--color-blue-primary);
+}
+
+.summary-header-with-icon p:nth-child(2){
+    font-weight: bold;
+    font-size: var(--font-size-md);
+}
+
+.income-dashboard-summary > p:nth-child(2),
+.expense-dashboard-summary > p:nth-child(2),
+.financial-overview-dashboard-summary > p:nth-child(2),
+.remaining-main > p:nth-child(2){
+    font-size: var(--font-size-xl);
+}
+
+.income-dashboard-summary > p:nth-child(3),
+.expense-dashboard-summary > p:nth-child(3),
+.financial-overview-dashboard-summary > p:nth-child(3),
+.remaining-main > p:nth-child(3),
+.remaining-main > p:nth-child(4){
+    font-size: var(--font-size-sm);
+}
+
 .dashboard-income-expense {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -141,68 +182,8 @@
     border: solid 1px var(--color-purple-primary);
 }
 
-.financial-overview-dashboard-summary p:nth-child(1) {
-    color: var(--color-purple-primary);
-    font-size: var(--font-size-sm);
-    font-weight: var(--font-weight-bold);
-}
-
-.financial-overview-dashboard-summary p:nth-child(2) {
-    color: var(--color-purple-primary);
-    font-size: var(--font-size-xl);
-    font-weight: var(--font-weight-normal);
-}
-
 .financial-overview-dashboard-summary{
     position: relative;
-}
-
-
-.income-dashboard-summary p:nth-child(1) {
-    color: var(--color-green-primary);
-    font-size: var(--font-size-sm);
-    font-weight: var(--font-weight-bold);
-}
-
-.expense-dashboard-summary p:nth-child(1) {
-    color: var(--color-red-primary);
-    font-size: var(--font-size-sm);
-    font-weight: var(--font-weight-bold);
-}
-
-.remaining-dashboard-summary p:nth-child(1) {
-    color: var(--color-blue-primary);
-    font-size: var(--font-size-sm);
-    font-weight: var(--font-weight-bold);
-}
-
-
-.income-dashboard-summary p:nth-child(2) {
-    color: var(--color-green-primary);
-    font-size: var(--font-size-xl);
-    font-weight: var(--font-weight-normal);
-}
-
-.expense-dashboard-summary p:nth-child(2) {
-    color: var(--color-red-primary);
-    font-size: var(--font-size-xl);
-    font-weight: var(--font-weight-normal);
-}
-
-.remaining-dashboard-summary p:nth-child(2) {
-    color: var(--color-blue-primary);
-    font-size: 2.5rem;
-    font-weight: var(--font-weight-normal);
-}
-
-
-.income-dashboard-summary p:nth-child(3),
-.income-dashboard-summary p:nth-child(4),
-.expense-dashboard-summary p:nth-child(3),
-.expense-dashboard-summary p:nth-child(4),
-.remaining-dashboard-summary p:nth-child(3),
-.remaining-dashboard-summary p:nth-child(4) {
-    font-size: var(--font-size-sm);
 }
 
 
