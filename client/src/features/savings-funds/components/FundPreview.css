@@ -1,16 +1,10 @@
 .fund-preview{
+    height: fit-content;
     display: flex;
     flex-direction: column;
     gap: var(--spacing-lg);
     border: 0.5px solid var(--color-border);
     padding: var(--spacing-md);
-    justify-content: space-between;
-}
-    
-.fund-preview-main-content{
-    display: flex;
-    flex-direction: column;
-    width: 100%;
     justify-content: space-between;
 }
 
@@ -20,9 +14,21 @@
     gap: var(--spacing-sm);
 }
 
+.fund-preview-header > p:nth-child(2){
+    font-weight: var(--font-weight-bold);
+}
+
+.fund-preview-main-content{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    justify-content: space-between;
+}
+
 .fund-preview-main-content p:nth-child(1) {
     color: var(--color-primary);
-    font-weight: var(--font-weight-bold);
+    font-weight: var(--font-weight-light);
+    font-size: var(--font-size-sm);
 }
 
 .fund-preview-main-content p:nth-child(2) {

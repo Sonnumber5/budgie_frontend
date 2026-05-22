@@ -597,6 +597,10 @@ body {
   flex: 1;
 }
 
+.input-field-standard::placeholder{
+  opacity: 50%;
+}
+
 .form-footer-disclaimer p{
   text-align: center;
   color: white;

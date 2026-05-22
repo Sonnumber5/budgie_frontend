@@ -137,6 +137,7 @@
 .fund-balance-section{
     display: grid;
     gap: var(--spacing-md);
+    height: fit-content;
 }
 
 .fund-balance-section > .standard-container {
