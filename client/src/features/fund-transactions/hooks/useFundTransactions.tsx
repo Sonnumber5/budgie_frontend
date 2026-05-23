@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { useSavingsFundContext } from "../../../context/SavingsFundContext";
 import type { FundTransaction, FundTransactionDTO } from "../../../types";
-import { createFundTransaction, getAllTransactions, getContributionSumForMonth, updateFundTransaction, deleteFundTransaction, createAdjustmentTransaction, createTransferTransaction, getMonthlyTransactions } from "../api/fund-transactions";
+import { createFundTransaction, getContributionSumForMonth, updateFundTransaction, deleteFundTransaction, createAdjustmentTransaction, createTransferTransaction, getMonthlyTransactions } from "../api/fund-transactions";
 import { useDateContext } from "../../../context/DateContext";
 import { useAuth } from "../../../context/AuthContext";
 
