@@ -2,6 +2,8 @@ import { useEffect, useState } from "react";
 import type { SavingsFundDTO, SavingsFund } from "../../../types";
 import { useSavingsFundContext } from "../../../context/SavingsFundContext";
 import { toast } from 'react-toastify';
+import { FundIconsArray } from "../../../images/FundIcons";
+import { RenderIcon } from "../../../utils/RenderIcon";
 
 interface FundFormProps{
     onSuccess: () => void;
@@ -14,7 +16,9 @@ export const FundForm = ({ onSuccess, fundToEdit }: FundFormProps) => {
     const [formData, setFormData] = useState<SavingsFundDTO>({
         name: '',
         goal: 0,
+        icon: ''
     });
+
     const isEditMode = !!fundToEdit;
 
     useEffect(() => {
@@ -22,6 +26,7 @@ export const FundForm = ({ onSuccess, fundToEdit }: FundFormProps) => {
             setFormData({
                 name: fundToEdit.name,
                 goal: fundToEdit.goal,
+                icon: fundToEdit.icon
             });
         }
     }, [fundToEdit]);
@@ -40,6 +45,27 @@ export const FundForm = ({ onSuccess, fundToEdit }: FundFormProps) => {
         } catch(err: any){
             toast.error(err.response?.data?.error || `Failed to ${isEditMode ? 'update' : 'add'} savings fund`);
         }
+    }
+
+    const selectIcon = () => {
+        return (
+            <div className="form-field-standard">
+                <label>Icon: <RenderIcon icon={formData.icon}/></label>
+                <select
+                    className="select-field-standard"
+                    value={formData.icon || ''}
+                    onChange={(e) => setFormData({...formData, icon: e.target.value})}
+                >
+                    <option value="">Select an icon</option>
+                    {FundIconsArray.map((label) => (
+                        <option key={label} value={label}>
+                            {label}
+                        </option>
+                    ))}
+                    
+                </select>
+            </div>
+        )
     }
 
     return (
@@ -71,6 +97,7 @@ export const FundForm = ({ onSuccess, fundToEdit }: FundFormProps) => {
                             />
                         </div>
                     </div>
+                    {selectIcon()}
                 </div>
             </div>
             <div className="multiple-form-btns">

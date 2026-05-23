@@ -205,6 +205,7 @@ export interface SavingsFund{
     //userId: number,
     name: string,
     goal: number,
+    icon: string,
     balance: number,
     archivedAt: string
 }
@@ -214,6 +215,7 @@ export interface SavingsFundDTO{
     id?: number,
     name: string,
     goal: number,
+    icon: string,
     balance?: number,
     archivedAt?: string
 }

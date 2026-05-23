@@ -23,7 +23,7 @@ import { CategoryBudgetOverview } from '../features/budget/components/CategoryBu
 import { formatCurrency } from '../utils/formatCurrency';
 import { ExpenseForm } from '../features/expenses/components/ExpenseForm';
 import { IncomeForm } from '../features/income/components/IncomeForm';
-import { ExpenseIcon, FinancialOverviewIcon, IncomeIcon, RemainingIcon } from '../images/Icons';
+import { ExpenseIcon, FinancialOverviewIcon, IncomeIcon, RemainingIcon } from '../images/NavbarIcons';
 import { MonthPicker } from '../components/DatePicker';
 
 

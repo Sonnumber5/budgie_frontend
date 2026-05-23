@@ -11,7 +11,9 @@ import { toast } from "react-toastify";
 import { DropdownMenu } from "../../../components/DropdownMenu";
 import { ConfirmModal } from "../../../components/ConfirmModal";
 import { formatCurrency } from "../../../utils/formatCurrency";
+import { RenderIcon } from "../../../utils/RenderIcon";
 import React from "react";
+
 interface SavingsFundProps{
     fund: SavingsFund;
     relatedTransactions: FundTransaction[];
@@ -73,7 +75,7 @@ export const Fund = ({ fund, relatedTransactions, archived }: SavingsFundProps) 
             <div className="fund-info dropdown-header">
                 <div className="fund-progress-bar-details">
                     <div className="fund-details">
-                        <p>{fund.name}</p>
+                        <p>{<RenderIcon icon={fund.icon}/>} {fund.name}</p>
                         <p>
                             <span>{formatCurrency(Number(fund.balance))}</span>
                             <span className="text-fraction"> / {formatCurrency(Number(fund.goal))}</span>

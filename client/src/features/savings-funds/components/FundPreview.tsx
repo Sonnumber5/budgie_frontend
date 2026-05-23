@@ -4,6 +4,7 @@ import { formatCurrency } from "../../../utils/formatCurrency";
 import './FundPreview.css';
 import { Modal } from "../../../components/modal";
 import { FundTransactionForm } from "../../fund-transactions/components/FundTransactionForm";
+import { RenderIcon } from "../../../utils/RenderIcon";
 
 interface SavingsFundProps{
     fund: SavingsFund;
@@ -21,7 +22,7 @@ export const FundPreview = ({ fund }: SavingsFundProps) => {
                     <FundTransactionForm fundId={fund.id} onSuccess={() => {setIsTransactionModalOpen(false)}}/>
                 </Modal>
             <div className="fund-preview-header">
-                <div>ICON</div>
+                <div><RenderIcon icon={fund.icon}/></div>
                 <p>{fund.name}</p>
             </div>
             <div className="fund-preview-main-content">
