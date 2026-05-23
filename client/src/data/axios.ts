@@ -10,7 +10,7 @@ import axios from 'axios';
 // });
 
 const api = axios.create({
-    baseURL: 'https://budgiebackend-production.up.railway.app/',
+    baseURL: 'https://budgiebackend-production.up.railway.app/api',
     withCredentials: true
 });
 
