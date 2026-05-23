@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import type { FundTransaction, FundTransactionDTO } from "../../../types";
 import { useDateContext } from "../../../context/DateContext";
 import { useFundTransactionContext } from "../../../context/FundTransactionContext";
-import type { TransactionType } from "../../../types";
 import { toast } from 'react-toastify';
 
 interface FundTransactionFormProps{

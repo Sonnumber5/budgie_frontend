@@ -4,7 +4,7 @@
 //   newCategoryBudgets: rows added during the current editing session that will be submitted.
 // When budgetToEdit is provided the form operates in edit mode; otherwise it creates a new budget.
 import { useEffect, useState } from "react";
-import type { CategoryBudget, CategoryBudgetDTO, DefaultBudgetDTO, DefaultCategoryBudget, DefaultCategoryBudgetDTO, MonthlyBudget } from "../../../types";
+import type { CategoryBudget, CategoryBudgetDTO, DefaultBudgetDTO, DefaultCategoryBudgetDTO, MonthlyBudget } from "../../../types";
 import { useBudgetContext } from "../../../context/BudgetContext";
 import { standardCategories } from "../../../types/standardCategories";
 import { toast } from "react-toastify";

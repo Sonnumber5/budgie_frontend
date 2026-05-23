@@ -2,7 +2,6 @@
 import { useEffect, useState } from "react";
 import type { AccountBalance, AccountBalanceDTO } from "../../../types";
 import { useAccountBalanceContext } from "../../../context/AccountBalanceContext";
-import type { AccountType } from "../../../types";
 import { toast } from 'react-toastify';
 
 interface AccountBalanceFormProps{

@@ -5,7 +5,7 @@
 import type { CategoryBudget, Expense } from "../../../types";
 import { ExpenseItem } from "./ExpenseItem";
 import './CategorizedExpenses.css';
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { Modal } from "../../../components/modal";
 import { ExpenseForm } from "./ExpenseForm";
 import { CategoryBudgetForm } from "../../budget/components/CategoryBudgetForm";
@@ -21,7 +21,7 @@ interface CategorizedExpensesProps {
     remaining?: number;
 }
 
-export const CategorizedExpenses = ({ categoryBudget, expenses, totalSpent, remaining }: CategorizedExpensesProps) => {
+export const CategorizedExpenses = ({ categoryBudget, expenses, totalSpent }: CategorizedExpensesProps) => {
     const [isOpen, setIsOpen] = useState(false);
     const [isExpenseModalOpen, setIsExpenseModalOpen] = useState(false);
     const [isCategoryBudgetModalOpen, setIsCategoryBudgetModalOpen] = useState(false);

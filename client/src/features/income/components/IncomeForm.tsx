@@ -2,7 +2,7 @@
 // When incomeToEdit is provided the form pre-fills and submits an update;
 // otherwise it creates a new income record.
 import { useEffect, useState } from "react";
-import type { Income, IncomeDTO } from "../../../types";
+import type { Income } from "../../../types";
 import { useIncomeContext } from "../../../context/IncomeContext";
 import { toast } from "react-toastify";
 import { useDateContext } from "../../../context/DateContext";

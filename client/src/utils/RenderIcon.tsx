@@ -1,5 +1,4 @@
 import { FundIconsMap } from "../images/FundIcons";
-import type { SavingsFund } from "../types";
 
 interface RenderIconProps {
     icon: string;
