@@ -43,16 +43,21 @@ export const DropdownMenu = ({ onEdit, onDelete, onEditBalance, onArchive, onLog
     const handleOpen = () => {
         if (btnRef.current) {
             const rect = btnRef.current.getBoundingClientRect();
+            const menuWidth = 100; // approximate menu width
             const menuHeight = 80; // approximate menu height
             const spaceBelow = window.innerHeight - rect.bottom;
+            const spaceRight = window.innerWidth - rect.right;
             
-            if (spaceBelow < menuHeight) {
-                // not enough space below, open upward
-                setMenuPos({ top: rect.top - menuHeight, left: rect.right });
-            } else {
-                // enough space below, open downward
-                setMenuPos({ top: rect.bottom, left: rect.right });
-            }
+            const top = spaceBelow < menuHeight
+            ? rect.top - menuHeight
+            : rect.bottom;
+
+            const left = spaceRight < menuWidth
+            ? rect.left
+            : rect.right + menuWidth
+
+            setMenuPos({top: top, left: left});
+
         }
         setIsOpen(prev => !prev);
     };
