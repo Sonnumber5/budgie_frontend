@@ -15,7 +15,7 @@ import { useSavingsFundContext } from '../context/SavingsFundContext';
 import { AccountBalanceForm } from '../features/account-balances/components/AccountBalanceForm';
 import { AccountBalanceItem } from '../features/account-balances/components/AccountBalanceItem';
 import { FundPreview } from '../features/savings-funds/components/FundPreview';
-import { useDashboard } from '../features/dashboard/hooks/useDashboard';
+import { useDashboard } from '../features/dashboard/hooks/useDashboard.tsx';
 import { useDateContext } from '../context/DateContext';
 import { useNavigate } from 'react-router-dom';
 import { ConfirmModal } from '../components/ConfirmModal';
