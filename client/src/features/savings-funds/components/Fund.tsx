@@ -17,12 +17,13 @@ import React from "react";
 interface SavingsFundProps{
     fund: SavingsFund;
     relatedTransactions: FundTransaction[];
-    archived?: boolean
+    archived?: boolean;
+    isOpen?: boolean;
+    onToggle?: (fundId: number | null) => void;
 }
 
 // Renders a savings fund card with its transactions list, progress bar, and modals for editing, adding transactions, and archiving.
-export const Fund = ({ fund, relatedTransactions, archived }: SavingsFundProps) => {
-    const [ isOpen, setIsOpen ] = useState(false);
+export const Fund = ({ fund, relatedTransactions, archived, isOpen, onToggle }: SavingsFundProps) => {
     const [ isTransactionModalOpen, setIsTransactionModalOpen ] = useState(false);
     const [ isEditFundModalOpen, setIsEditFundModalOpen ] = useState(false);
     const [ isEditBalanceOpen, setIsEditBalanceOpen ] = useState(false);
@@ -112,7 +113,7 @@ export const Fund = ({ fund, relatedTransactions, archived }: SavingsFundProps) 
                     </React.Fragment>
                 ))}
             </div>
-            <button className="dropdown-toggle" onClick={() => {setIsOpen(prev => !prev)}}>
+            <button className="dropdown-toggle" onClick={() => {onToggle && onToggle(fund.id)}}>
                 <span className={`dropdown-toggle-icon ${isOpen ? 'open' : ''}`}>▼</span>
             </button>
 

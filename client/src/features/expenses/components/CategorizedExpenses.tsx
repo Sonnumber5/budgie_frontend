@@ -19,10 +19,11 @@ interface CategorizedExpensesProps {
     expenses: Expense[];
     totalSpent: number;
     remaining?: number;
+    isOpen?: boolean;
+    onToggle?: (categoryId: number | null) => void;
 }
 
-export const CategorizedExpenses = ({ categoryBudget, expenses, totalSpent }: CategorizedExpensesProps) => {
-    const [isOpen, setIsOpen] = useState(false);
+export const CategorizedExpenses = ({ categoryBudget, expenses, totalSpent, isOpen, onToggle }: CategorizedExpensesProps) => {
     const [isExpenseModalOpen, setIsExpenseModalOpen] = useState(false);
     const [isCategoryBudgetModalOpen, setIsCategoryBudgetModalOpen] = useState(false);
     const [isConfirmModalOpen, setIsConfirmModalOpen] = useState(false);
@@ -75,7 +76,7 @@ export const CategorizedExpenses = ({ categoryBudget, expenses, totalSpent }: Ca
                     ))}
                 </div>
             </div>
-            <button className="dropdown-toggle" onClick={() => setIsOpen(prev => !prev)}>
+            <button className="dropdown-toggle" onClick={() => onToggle && onToggle(categoryBudget ? categoryBudget.categoryId : null)}>
                 <span className={`dropdown-toggle-icon ${isOpen ? 'open' : ''}`}>▼</span>
             </button>
         </div>

@@ -19,6 +19,7 @@ export const ExpensesPage = () => {
     const { categoryBudgets, monthlyBudget, totalCategoryBudget } = useBudgetContext();
     const [isExpenseModalOpen, setIsExpenseModalOpen] = useState(false);
     const [isBudgetModalOpen, setIsBudgetModalOpen] = useState(false);
+    const [ openCategoryId, setOpenCategoryId ] = useState<number | null>(null);
 
     // Build one group per category budget, attaching only expenses that belong to that category.
     const categorizedExpenses = categoryBudgets.map(categoryBudget => {
@@ -47,8 +48,6 @@ export const ExpensesPage = () => {
     const totalSpentUncategorized = uncategorizedExpenses.reduce(
         (sum, expense) => sum + Number(expense.amount), 0
     );
-
-
 
     return (
         <div className="page container">
@@ -87,6 +86,8 @@ export const ExpensesPage = () => {
                             expenses={expenseGroup.expenses}
                             totalSpent={expenseGroup.totalSpent}
                             remaining={expenseGroup.remaining}
+                            onToggle={(categoryId) => (categoryId === openCategoryId ? setOpenCategoryId(null) : setOpenCategoryId(categoryId))}
+                            isOpen={openCategoryId === expenseGroup.categoryBudget.categoryId}
                         />
                     )
                 })}

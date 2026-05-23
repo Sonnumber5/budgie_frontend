@@ -14,6 +14,7 @@ export const SavingsFundPage = () => {
     const { transactions } = useFundTransactionContext();
     const [ isAddFundModalOpen, setIsAddFundModalOpen ] = useState(false);
     const [ isTransferModalOpen, setIsTransferModalOpen ] = useState(false);
+    const [ openFundId, setOpenFundId ] = useState<number | null>(null);
 
 
     const sortedFundsWithTransactions = activeSavingsFunds.map(savingsFund => {
@@ -48,7 +49,13 @@ export const SavingsFundPage = () => {
                     <p>There are no active savings yet. Click the add button to create a savings fund.</p>
                 }
                 {sortedFundsWithTransactions.map((fundWithTransactions) => (
-                    <Fund key={fundWithTransactions.savingsFund.id} fund={fundWithTransactions.savingsFund} relatedTransactions={fundWithTransactions.fundTransactions}/>
+                    <Fund 
+                        key={fundWithTransactions.savingsFund.id} 
+                        fund={fundWithTransactions.savingsFund} 
+                        relatedTransactions={fundWithTransactions.fundTransactions} 
+                        onToggle={(fundId) => fundId === openFundId ? setOpenFundId(null) : setOpenFundId(fundWithTransactions.savingsFund.id)} 
+                        isOpen={openFundId === fundWithTransactions.savingsFund.id}
+                    />
                 ))}
             </div>
         </div>
