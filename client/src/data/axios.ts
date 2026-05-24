@@ -4,13 +4,8 @@
 // which is required for the cookie-based auth strategy.
 import axios from 'axios';
 
-// const api = axios.create({
-//     baseURL: import.meta.env.VITE_API_URL || 'http://localhost:3001/api',
-//     withCredentials: true
-// });
-
 const api = axios.create({
-    baseURL: 'https://budgiebackend-production.up.railway.app/api',
+    baseURL: import.meta.env.VITE_API_URL || 'http://localhost:3001/api',
     withCredentials: true
 });
 
