@@ -84,6 +84,13 @@ export const Dashboard = () => {
             //</div>
             }
             <div className='container'>
+            <button
+                onClick={() => {
+                    throw new Error('This is your first error!');
+                }}
+                >
+                Break the world
+            </button>
             <MonthPicker/>
                 <div className='dashboard-summary'>
                     <div className='dashboard-summary-left'>
