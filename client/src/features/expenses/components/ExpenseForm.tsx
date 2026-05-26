@@ -16,7 +16,7 @@ interface ExpenseFormProps{
 }
 
 export const ExpenseForm = ({ onSuccess, expenseToEdit, categoryId }: ExpenseFormProps) => {
-    const { addExpense, editExpense } = useExpenseContext();
+    const { addExpense, editExpense, isLoading } = useExpenseContext();
     const { availableCategories } = useBudgetContext();
     const { currentMonth } = useDateContext();
     const [formData, setFormData] = useState<ExpenseDTO>({
@@ -137,8 +137,10 @@ export const ExpenseForm = ({ onSuccess, expenseToEdit, categoryId }: ExpenseFor
                 </div>
             </div>
             <div className="multiple-form-btns">
-                <button className="btn-primary-modal" type="submit">
-                    {isEditMode ? 'Update Expense' : 'Add Expense'}
+                <button className='btn-primary-modal' type="submit" disabled={isLoading}>
+                    {isLoading 
+                    ? (isEditMode ? 'Updating...' : 'Adding...')
+                    : (isEditMode ? 'Update Expense' : 'Add Expense')}
                 </button>
             </div>
         </form>

@@ -12,7 +12,7 @@ interface FundTransactionFormProps{
 
 // Form for creating or editing a fund transaction; switches between create and edit mode based on whether transactionToEdit is provided.
 export const FundTransactionForm = ({ onSuccess, transactionToEdit, fundId }: FundTransactionFormProps) => {
-    const { addFundTransaction, editFundTransaction } = useFundTransactionContext();
+    const { addFundTransaction, editFundTransaction, isLoading } = useFundTransactionContext();
     const { currentMonth } = useDateContext();
     const [formData, setFormData] = useState<FundTransactionDTO>({
         savingsFundId: fundId,
@@ -122,8 +122,11 @@ export const FundTransactionForm = ({ onSuccess, transactionToEdit, fundId }: Fu
                 </div>
             </div>
             <div className="multiple-form-btns">
-                <button className="btn-primary-modal" type="submit">
-                    {isEditMode ? 'Update Transaction' : 'Add Transaction'}
+                <button className="btn-primary-modal" type="submit" disabled={isLoading}>
+                    {isLoading
+                    ? (isEditMode ? 'Updating...' : 'Adding...')
+                    : (isEditMode ? 'Update Transaction' : 'Add Transaction')
+                    }
                 </button>
             </div>
             <div className="form-footer-disclaimer">

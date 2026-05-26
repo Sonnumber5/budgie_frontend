@@ -12,7 +12,7 @@ interface FundFormProps{
 
 // Form for creating or editing a savings fund; switches between create and edit mode based on whether fundToEdit is provided.
 export const FundForm = ({ onSuccess, fundToEdit }: FundFormProps) => {
-    const { addSavingsFund, editSavingsFund } = useSavingsFundContext();
+    const { addSavingsFund, editSavingsFund, isLoading } = useSavingsFundContext();
     const [formData, setFormData] = useState<SavingsFundDTO>({
         name: '',
         goal: 0,
@@ -101,8 +101,11 @@ export const FundForm = ({ onSuccess, fundToEdit }: FundFormProps) => {
                 </div>
             </div>
             <div className="multiple-form-btns">
-                <button className="btn-primary-modal" type="submit">
-                    {isEditMode ? 'Update Fund' : 'Add Fund'}
+                <button className="btn-primary-modal" type="submit" disabled={isLoading}>
+                    {isLoading
+                    ? (isEditMode ? 'Updating...' : 'Adding...')
+                    : (isEditMode ? 'Update Fund' : 'Add Fund')
+                    }
                 </button>
             </div>
         </form>

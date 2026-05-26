@@ -13,7 +13,7 @@ interface IncomeFormProps{
 }
 
 export const IncomeForm = ({ onSuccess, incomeToEdit }: IncomeFormProps) => {
-    const { addIncome, editIncome } = useIncomeContext();
+    const { addIncome, editIncome, isLoading } = useIncomeContext();
     const { currentMonth } = useDateContext();
     const [formData, setFormData] = useState({
         amount: 0,
@@ -93,8 +93,11 @@ export const IncomeForm = ({ onSuccess, incomeToEdit }: IncomeFormProps) => {
                 </div>
             </div>
             <div className="multiple-form-btns">
-                <button className="btn-primary-modal" type="submit">
-                    {isEditMode ? 'Update Income' : 'Add Income'}
+                <button className="btn-primary-modal" type="submit" disabled={isLoading}>
+                    {isLoading
+                    ? (isEditMode ? 'Updating...' : 'Adding...')
+                    : (isEditMode ? 'Update Income' : 'Add Income')
+                    }
                 </button>
             </div>
         </form>

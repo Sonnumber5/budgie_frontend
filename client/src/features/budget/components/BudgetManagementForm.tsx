@@ -21,7 +21,7 @@ interface BudgetManagementFormProps {
 
 export const BudgetManagementForm = ({ onSuccess, budgetToEdit }: BudgetManagementFormProps) => {
     const { getDefaultBudget, saveDefaultBudget, isSaveLoading: isDefaultBudgetSaveLoading, isLoadLoading: isDefaultBudgetLoadLoading } = useDefaultBudgets();
-    const { addMonthlyBudget, editMonthlyBudget, removeCategoryBudget } = useBudgetContext();
+    const { addMonthlyBudget, editMonthlyBudget, removeCategoryBudget, isLoading: isBudgetLoading } = useBudgetContext();
     const { currentMonth } = useDateContext();
     const [expectedIncome, setExpectedIncome] = useState(0);
     const [existingCategoryBudgets, setExistingCategoryBudgets] = useState<CategoryBudget[]>([]);
@@ -270,7 +270,7 @@ export const BudgetManagementForm = ({ onSuccess, budgetToEdit }: BudgetManageme
                     {!isConfirmSaveDefaultOpen &&
                         <div style={{ display: 'flex', gap: 'var(--spacing-sm)' }}>
                             <button onClick={() => { handleGetDefaultBudget() }} className="btn-secondary" type="button" disabled={isDefaultBudgetLoadLoading}>{isDefaultBudgetLoadLoading ? 'Loading...' : 'Default'}</button>
-                            <button onClick={() => { setIsConfirmSaveDefaultOpen(true) }} className="btn-secondary" type="button" disabled={isDefaultBudgetSaveLoading}>{isDefaultBudgetSaveLoading ? 'Loading...' : 'Save Default'}</button>
+                            <button onClick={() => { setIsConfirmSaveDefaultOpen(true) }} className="btn-secondary" type="button" disabled={isDefaultBudgetSaveLoading}>{isDefaultBudgetSaveLoading ? 'Saving...' : 'Save Default'}</button>
                         </div>
                     }
                     {isConfirmSaveDefaultOpen &&
@@ -279,7 +279,11 @@ export const BudgetManagementForm = ({ onSuccess, budgetToEdit }: BudgetManageme
                 </div>
             </div>
             <div className="multiple-form-btns">
-                <button className="btn-primary-modal" type="submit">{isEditMode ? 'Update Budget' : 'Create Budget'}</button>
+                <button className="btn-primary-modal" type="submit" disabled={isBudgetLoading}>
+                    {isBudgetLoading
+                    ? (isEditMode ? 'Updating...' : 'Creating...')
+                    : (isEditMode ? 'Update Budget' : 'Create Budget')}
+                </button>
             </div>
         </form>
     )

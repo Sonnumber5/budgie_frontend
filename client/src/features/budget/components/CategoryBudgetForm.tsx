@@ -12,7 +12,7 @@ interface CategoryBudgetFormProps{
 
 // Form for editing the budgeted amount for a specific category budget; returns null if no category is selected.
 export const CategoryBudgetForm = ({ onSuccess, categoryBudgetToEdit }: CategoryBudgetFormProps) => {
-    const { editCategoryBudget } = useBudgetContext();
+    const { editCategoryBudget, isLoading } = useBudgetContext();
     const { currentMonth } = useDateContext();
     
     const [formData, setFormData] = useState({
@@ -72,8 +72,8 @@ export const CategoryBudgetForm = ({ onSuccess, categoryBudgetToEdit }: Category
                 </div>
             </div>
             <div className="multiple-form-btns">
-                <button className="btn-primary-modal" type="submit">
-                    Update
+                <button className='btn-primary-modal' type="submit" disabled={isLoading}>
+                    {isLoading ? 'Updating...' : 'Update'}
                 </button>
             </div>
         </form>

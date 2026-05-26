@@ -11,7 +11,7 @@ interface AdjustmentTransactionFormProps{
 
 // Form for setting a savings fund's balance to an exact amount via an adjustment transaction.
 export const AdjustmentTransactionForm = ({ onSuccess, fund }: AdjustmentTransactionFormProps) => {
-    const { addAdjustTransaction } = useFundTransactionContext();
+    const { addAdjustTransaction, isLoading } = useFundTransactionContext();
     const { currentMonth } = useDateContext();
     const [formData, setFormData] = useState({
         savingsFundId: fund.id,
@@ -49,8 +49,8 @@ export const AdjustmentTransactionForm = ({ onSuccess, fund }: AdjustmentTransac
                 </div>
             </div>
             <div className="multiple-form-btns">
-                <button className="btn-primary-modal" type="submit">
-                    Update balance
+                <button className="btn-primary-modal" type="submit" disabled={isLoading}>
+                    {isLoading ? 'Updating...' : 'Update balance'}
                 </button>
             </div>
         </form>

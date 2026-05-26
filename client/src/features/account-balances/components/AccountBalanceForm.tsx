@@ -11,7 +11,7 @@ interface AccountBalanceFormProps{
 
 // Form for creating or editing an account balance; switches between create and edit mode based on whether accountBalanceToUpdate is provided.
 export const AccountBalanceForm = ({ onSuccess, accountBalanceToUpdate }: AccountBalanceFormProps) => {
-    const { addAccountBalance, editAccountBalance } = useAccountBalanceContext();
+    const { addAccountBalance, editAccountBalance, isLoading } = useAccountBalanceContext();
     const [formData, setFormData] = useState<AccountBalanceDTO>({
         accountName: '',
         accountType: '',
@@ -95,7 +95,10 @@ export const AccountBalanceForm = ({ onSuccess, accountBalanceToUpdate }: Accoun
             </div>
             <div className="multiple-form-btns">
                 <button className="btn-primary-modal" type="submit">
-                    {isEditMode ? 'Save' : 'Add'}
+                    {isLoading
+                    ? (isEditMode ? 'Saving...' : 'Adding...')
+                    : (isEditMode ? 'Save' : 'Add')
+                    }
                 </button>
             </div>
         </form>

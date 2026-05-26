@@ -77,6 +77,15 @@
     color: var(--color-hover-standard)
   }
 
+  .btn-primary-modal:disabled{
+    opacity: 60%;
+  }
+
+  .btn-primary-modal:disabled:hover{
+    cursor: default;
+    background: none;
+  }
+
 .btn-danger-modal {
     border: 1px solid var(--color-red-primary);
     background: rgba(0, 0, 0, 0.128);

@@ -10,9 +10,9 @@ interface TransferFundFormProps{
 
 // Form for transferring a specified amount between two active savings funds.
 export const TransferFundForm = ({ onSuccess }: TransferFundFormProps) => {
-    const { addTransferTransaction } = useFundTransactionContext();
+    const { addTransferTransaction,  } = useFundTransactionContext();
     const { currentMonth } = useDateContext();
-    const { activeSavingsFunds } = useSavingsFundContext();
+    const { activeSavingsFunds, isLoading } = useSavingsFundContext();
     const [formData, setFormData] = useState({
         sendingFundId: "" as number | "",
         receivingFundId: "" as number | "",
@@ -95,8 +95,8 @@ export const TransferFundForm = ({ onSuccess }: TransferFundFormProps) => {
                     </div>
                 </div>
             </div>
-            <button className="btn-primary" type="submit">
-                Transfer
+            <button className="btn-primary" type="submit" disabled={isLoading}>
+                {isLoading ? 'Transferring...' : 'Transfer'}
             </button>
         </form>
     )
