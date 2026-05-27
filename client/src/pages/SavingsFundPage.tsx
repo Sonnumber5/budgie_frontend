@@ -36,7 +36,7 @@ export const SavingsFundPage = () => {
             <div className="fund-page-dashboard">
                 {activeSavingsFunds.length > 0 &&
                     <button className="btn-primary" onClick={() => {setIsTransferModalOpen(true)}}>
-                        Transfer funds
+                        Transfer Funds
                     </button>
                 }
                 <button className="btn-add" onClick={() => {setIsAddFundModalOpen(true)}}>
