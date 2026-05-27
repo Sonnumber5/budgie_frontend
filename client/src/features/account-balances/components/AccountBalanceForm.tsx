@@ -94,7 +94,7 @@ export const AccountBalanceForm = ({ onSuccess, accountBalanceToUpdate }: Accoun
                 </div>
             </div>
             <div className="multiple-form-btns">
-                <button className="btn-primary-modal" type="submit">
+                <button className="btn-primary-modal" type="submit" disabled={isLoading}>
                     {isLoading
                     ? (isEditMode ? 'Saving...' : 'Adding...')
                     : (isEditMode ? 'Save' : 'Add')
