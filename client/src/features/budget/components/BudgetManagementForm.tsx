@@ -182,7 +182,7 @@ export const BudgetManagementForm = ({ onSuccess, budgetToEdit }: BudgetManageme
                                 <h4>Existing Budgets</h4>
                                 <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
                                     {existingCategoryBudgets.map((cb) => (
-                                        <div className="form-field-group-standard" key={cb.id}>
+                                        <div className="form-field-group-budget" key={cb.id}>
                                             <div className="form-field-standard">
                                                 <input
                                                     className="input-field-standard"
@@ -221,7 +221,7 @@ export const BudgetManagementForm = ({ onSuccess, budgetToEdit }: BudgetManageme
                                 <h4>New Budgets</h4>
                                 <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
                                     {newCategoryBudgets.map((cb, index) => (
-                                        <div className="form-field-group-standard" key={index}>
+                                        <div className="form-field-group-budget" key={index}>
                                             <div className="form-field-standard">
                                                 <input
                                                     className="input-field-standard"
