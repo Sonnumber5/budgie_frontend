@@ -263,16 +263,25 @@ body {
 
 .btn-primary,
 .btn-secondary {
-  border: 1px solid var(--color-primary);
-  background: transparent;
+  min-width: 2.5rem;
+  min-height: 2.5rem;
   padding: 0.8em 1.4em;
   font-family: inherit;
   cursor: pointer;
-  color: var(--color-primary);
+}
+
+.btn-primary {
+  white-space: nowrap;
+  border: none;
+  background: var(--color-primary);
+  color: var(--light-background);
 }
 
 .btn-secondary {
   white-space: nowrap;
+  border: 1px solid var(--color-primary);
+  background: transparent;
+  color: var(--color-primary);
 }
 
 .btn-danger {
@@ -290,16 +299,22 @@ body {
   opacity: 50%;
 }
 
-.btn-primary:hover,
+.btn-primary:hover {
+  background-color: transparent;
+  border: 1px solid var(--color-primary);
+  color: var(--color-primary);
+  cursor: pointer;
+}
+
 .btn-secondary:hover {
   background-color: var(--color-primary);
-  color: white;
+  color: var(--light-background);
   cursor: pointer;
 }
 
 .btn-danger:hover {
   background-color: var(--color-red-primary);
-  color: white;
+  color: var(--light-background);
   cursor: pointer;
 }
 
@@ -336,7 +351,7 @@ body {
 
 .btn-add:hover, .btn-add-sm:hover {
   background-color: var(--color-primary);
-  color: white;
+  color: var(--light-background);
   cursor: pointer;
 }
 
@@ -355,13 +370,13 @@ body {
 .btn-add-sm.summary.income-dashboard-summary:hover,
 .btn-add.income:hover {
   background-color: var(--color-green-primary);
-  color: white;
+  color: var(--light-background);
 }
 
 .btn-add-sm.summary.expense-dashboard-summary:hover,
 .btn-add.expense:hover {
   background-color: var(--color-red-primary);
-  color: white;
+  color: var(--light-background);
 }
 
 .btn-x {
@@ -380,7 +395,7 @@ body {
 
 .btn-x:hover {
   background-color: var(--color-red-primary);
-  color: white;
+  color: var(--light-background);
   cursor: pointer;
 }
 
@@ -633,7 +648,7 @@ body {
 .type-btn.green.active {
   background-color: var(--color-green-primary);
   border-color: var(--color-green-primary);
-  color: white;
+  color: var(--light-background);
 }
 
 .type-btn.red:hover {
@@ -644,7 +659,7 @@ body {
 .type-btn.red.active {
   background-color: var(--color-red-primary);
   border-color: var(--color-red-primary);
-  color: white;
+  color: var(--light-background);
 }
 
 .confirm-modal-btns {

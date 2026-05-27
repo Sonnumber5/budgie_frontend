@@ -18,7 +18,7 @@ export const FundPreview = ({ fund }: SavingsFundProps) => {
 
     return (
         <div className="fund-preview">
-                <Modal isOpen={isTransactionModalOpen} onClose={() => {setIsTransactionModalOpen(false)}} title="AddTransaction">
+                <Modal isOpen={isTransactionModalOpen} onClose={() => {setIsTransactionModalOpen(false)}} title="Add Transaction">
                     <FundTransactionForm fundId={fund.id} onSuccess={() => {setIsTransactionModalOpen(false)}}/>
                 </Modal>
             <div className="fund-preview-header">
@@ -35,7 +35,7 @@ export const FundPreview = ({ fund }: SavingsFundProps) => {
                 </p>
             </div>
             <div className="fund-preview-btn">
-                <button className="btn-primary" onClick={() => {setIsTransactionModalOpen(true)}}>Add Transaction</button>
+                <button className="btn-secondary" onClick={() => {setIsTransactionModalOpen(true)}}>Add Transaction</button>
             </div>
         </div>
     )

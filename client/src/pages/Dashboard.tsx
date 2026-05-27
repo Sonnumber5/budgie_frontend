@@ -71,7 +71,7 @@ export const Dashboard = () => {
             <Modal isOpen={isExpenseModalOpen} onClose={() => { setIsExpenseModalOpen(false) }} title="Add Expense">
                 <ExpenseForm onSuccess={() => { setIsExpenseModalOpen(false) }} />
             </Modal>
-            <Modal isOpen={isAccountBalanceModalOpen} onClose={() => {setIsAccountBalanceModalOpen(false)}} title="Add account balance">
+            <Modal isOpen={isAccountBalanceModalOpen} onClose={() => {setIsAccountBalanceModalOpen(false)}} title="Add Account Balance">
                 <AccountBalanceForm onSuccess={() => {setIsAccountBalanceModalOpen(false)}}/>
             </Modal>
             <Modal isOpen={isFinancialOverviewInfoModalOpen} onClose={() => {setIsFinancialOverviewInfoModalOpen(false)}} title='About Financial Overview'>
