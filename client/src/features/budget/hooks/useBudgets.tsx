@@ -21,10 +21,11 @@ export const useBudgets = () => {
     const { isAuthenticated } = useAuth();
 
     useEffect(() => {
-        if (isAuthenticated){
+        if (!isAuthenticated){
             setMonthlyBudget(null);
             setCategoryBudgets([]);
             setAvailableCategories([]);
+            return;
         }
         const fetchBudget = async () => {
             setIsLoading(true);

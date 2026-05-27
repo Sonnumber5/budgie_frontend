@@ -3,6 +3,7 @@ import type { AccountBalance, AccountBalanceDTO } from "../../../types";
 import { createAccountBalance, getAccountBalances, resetAccountBalances, updateAccountBalance, deleteAccountBalance } from './../api/account-balances';
 import { useDateContext } from "../../../context/DateContext";
 import { useAuth } from "../../../context/AuthContext";
+import { useNavigate } from "react-router-dom";
 
 // Hook that manages account balance state and exposes CRUD actions plus running asset and liability totals.
 export const useAccountBalances = () => {
@@ -19,6 +20,7 @@ export const useAccountBalances = () => {
             setAccountBalances([]);
             setAssetsTotal(0);
             setLiabilitiesTotal(0);
+            return;
         }
         const fetchAccountBalances = async () => {
             try{

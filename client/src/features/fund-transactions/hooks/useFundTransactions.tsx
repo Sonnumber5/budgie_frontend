@@ -22,26 +22,22 @@ export const useFundTransactions = () => {
             return;
         }
         fetchTransactions();
-    }, [isAuthenticated]);
-
-    useEffect(() => {
-        const fetchContributionSumForMonth = async (month: string): Promise<number> => {
-            setIsLoading(true);
-            setError(null);
-            try{
-                const result = await getContributionSumForMonth(month); 
-                setMonthlyContributionSum(Number(result.data.totalContributions));
-                return Number(result.data.totalContributions);
-            }catch(error: any){
-                setError(error.response?.data?.error || error.message || 'Failed to retrieve contribution sub for the month');
-                throw error;
-            } finally{
-                setIsLoading(false);
-            }
-        }
-        fetchTransactions();
         fetchContributionSumForMonth(currentMonth);
-    }, [currentMonth]);
+    }, [isAuthenticated, currentMonth]);
+
+    const fetchContributionSumForMonth = async (month: string) => {
+        setIsLoading(true);
+        setError(null);
+        try{
+            const result = await getContributionSumForMonth(month); 
+            setMonthlyContributionSum(Number(result.data.totalContributions));
+            return Number(result.data.totalContributions);
+        }catch(error: any){
+            setError(error.response?.data?.error || error.message || 'Failed to retrieve contribution sub for the month');
+        } finally{
+            setIsLoading(false);
+        }
+    }
 
     const fetchTransactions = async () => {
         setIsLoading(true);
