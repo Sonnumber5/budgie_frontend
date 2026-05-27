@@ -6,9 +6,11 @@ import { NavbarDashboardIcon, NavbarExpenseIcon, NavbarIncomeIcon, NavbarSavings
 import { DropdownMenu } from "./DropdownMenu";
 import './navbar.css';
 import { useLocation, useNavigate } from "react-router-dom";
+import { useSavingsFundContext } from "../context/SavingsFundContext";
 
 export const Navbar = () => {
     const { user, isAuthenticated, logout } = useAuth();
+    const { fetchArchivedSavingsFunds } = useSavingsFundContext();
 
     const navigate = useNavigate();
     const { pathname } = useLocation();
@@ -45,7 +47,7 @@ export const Navbar = () => {
                         </button>
                 </div>
                 <div className="auth-buttons">
-                    <DropdownMenu onLogout={onLogout} />
+                    <DropdownMenu onLogout={onLogout} onFetchArchivedSavingsFunds={() => {fetchArchivedSavingsFunds()}} />
                 </div>
             </div>
         </div>
