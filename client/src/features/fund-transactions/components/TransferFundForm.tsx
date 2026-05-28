@@ -95,9 +95,11 @@ export const TransferFundForm = ({ onSuccess }: TransferFundFormProps) => {
                     </div>
                 </div>
             </div>
-            <button className="btn-primary" type="submit" disabled={isLoading}>
-                {isLoading ? 'Transferring...' : 'Transfer'}
-            </button>
+            <div className="multiple-form-btns">
+                <button className="btn-primary-modal" type="submit" disabled={isLoading}>
+                    {isLoading ? 'Transferring...' : 'Transfer'}
+                </button>
+            </div>
         </form>
     )
 }

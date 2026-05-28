@@ -49,7 +49,7 @@ export const useIncome = () => {
             setIncomeList(prev => [...prev, response.data.income]
                 .sort((a, b) => new Date(b.incomeDate).getTime() - new Date(a.incomeDate).getTime())
             );
-            setIncomeSum(prev => prev + data.amount);
+            setIncomeSum(prev => Number(prev) + Number(data.amount));
             return response.data.income;
         } catch(error: any){
             setError(error.response?.data?.error || error.message || 'Failed to create income');
