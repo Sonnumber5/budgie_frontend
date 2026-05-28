@@ -632,6 +632,8 @@ body {
 
 .form-field-standard {
   flex: 1;
+  min-width: 0;
+  overflow: hidden;
 }
 
 .input-field-standard::placeholder{
