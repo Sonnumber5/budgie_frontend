@@ -577,7 +577,9 @@ body {
   outline: none;
   cursor: pointer;
   text-overflow: ellipsis;
+  width: 100%;
   max-width: 100%;
+  box-sizing: border-box;
 }
 
 .date-field-standard:focus {
