@@ -96,6 +96,9 @@ export const ExpensesPage = () => {
                         key="uncategorized"
                         expenses={uncategorizedExpenses}
                         totalSpent={totalSpentUncategorized}
+                        onToggle={(categoryId) => (categoryId === openCategoryId ? setOpenCategoryId(null) : setOpenCategoryId(categoryId))}
+                        isOpen={openCategoryId === -1}
+                        isUncategorized={true}
                     />
                 )}
             </div>

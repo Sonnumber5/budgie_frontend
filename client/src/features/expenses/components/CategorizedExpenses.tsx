@@ -20,10 +20,11 @@ interface CategorizedExpensesProps {
     totalSpent: number;
     remaining?: number;
     isOpen?: boolean;
+    isUncategorized?: boolean;
     onToggle?: (categoryId: number | null) => void;
 }
 
-export const CategorizedExpenses = ({ categoryBudget, expenses, totalSpent, isOpen, onToggle }: CategorizedExpensesProps) => {
+export const CategorizedExpenses = ({ categoryBudget, expenses, totalSpent, isOpen, isUncategorized, onToggle }: CategorizedExpensesProps) => {
     const [isExpenseModalOpen, setIsExpenseModalOpen] = useState(false);
     const [isCategoryBudgetModalOpen, setIsCategoryBudgetModalOpen] = useState(false);
     const [isConfirmModalOpen, setIsConfirmModalOpen] = useState(false);
@@ -76,9 +77,20 @@ export const CategorizedExpenses = ({ categoryBudget, expenses, totalSpent, isOp
                     ))}
                 </div>
             </div>
-            <button className="dropdown-toggle" onClick={() => onToggle && onToggle(categoryBudget ? categoryBudget.categoryId : null)}>
-                <span className={`dropdown-toggle-icon ${isOpen ? 'open' : ''}`}>▼</span>
-            </button>
+            {isUncategorized
+                ? 
+                (
+                    <button className="dropdown-toggle" onClick={() => onToggle && onToggle(-1)}>
+                        <span className={`dropdown-toggle-icon ${isOpen ? 'open' : ''}`}>▼</span>
+                    </button>
+                )
+                : 
+                (
+                    <button className="dropdown-toggle" onClick={() => onToggle && onToggle(categoryBudget ? categoryBudget.categoryId : null)}>
+                        <span className={`dropdown-toggle-icon ${isOpen ? 'open' : ''}`}>▼</span>
+                    </button>
+                )
+            }
         </div>
     );
 }
