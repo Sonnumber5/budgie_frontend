@@ -24,7 +24,6 @@
 }
 
 .fund-details p:nth-child(2){
-    font-weight: var(--font-weight-light);
     font-size: var(--font-size-sm);
 }
 

@@ -63,7 +63,7 @@ export const ExpensesPage = () => {
                     <p>Expenses (Actual)</p>
                     {isLoading ? 'Loading...' :
                         <>
-                            <p>{formatCurrency(Number(expenseSum))}</p>
+                            <p className='section-title'>{formatCurrency(Number(expenseSum))}</p>
                             <p>{monthlyBudget ? `Budget: ${formatCurrency(Number(totalCategoryBudget))}` : 'Budget:'}</p>
                         </>
                     }

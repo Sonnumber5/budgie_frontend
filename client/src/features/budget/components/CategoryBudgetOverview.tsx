@@ -59,7 +59,7 @@ export const CategoryBudgetOverview = ({ categoryBudget }: CategoryBudgetOvervie
             </Modal>
             <div className="category-budget-overview">
                 <div className="category-budget-info">
-                    <p>{categoryBudget.categoryName}</p>
+                    <p className="section-title">{categoryBudget.categoryName}</p>
                     {isExpensesLoading ? 'Loading...' :
                         <p>
                             <span>{formatCurrency(Number(amountSpent))}</span>

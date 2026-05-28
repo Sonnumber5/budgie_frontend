@@ -33,11 +33,6 @@
     font-size: var(--font-size-sm);
 }
 
-.transaction-type-date-desc.enabled p:nth-child(2),
-.transaction-type-date-desc.enabled p:nth-child(4){
-    font-weight: var(--font-weight-light);
-}
-
 .transaction-type-date-desc.enabled p:nth-child(5){
     color: var(--color-primary);
 }
@@ -53,12 +48,6 @@
 .transaction-type-date-desc.disabled p:nth-child(3){
     font-size: var(--font-size-sm);
 }
-
-.transaction-type-date-desc.disabled p:nth-child(2),
-.transaction-type-date-desc.disabled p:nth-child(4){
-    font-weight: var(--font-weight-light);
-}
-
 
 .transaction-amount-settings{
     display: flex;

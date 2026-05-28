@@ -47,7 +47,7 @@ export const CategorizedExpenses = ({ categoryBudget, expenses, totalSpent, isOp
             <div className="dropdown-header dropdown-header-gap">
                 <div className="category-info-progress-bar">
                     <div className="category-info">
-                        <p>{categoryBudget ? categoryBudget.categoryName : "Uncategorized"}</p>
+                        <p className="section-title">{categoryBudget ? categoryBudget.categoryName : "Uncategorized"}</p>
                         <p>
                             <span>{categoryBudget ? formatCurrency(Number(totalSpent)) : `Spent: ${formatCurrency(Number(totalSpent))}`}</span>
                             {categoryBudget && <span className="text-fraction"> / {formatCurrency(Number(categoryBudget.budgetedAmount))}</span>}

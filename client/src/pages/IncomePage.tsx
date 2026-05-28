@@ -30,7 +30,7 @@ export const IncomePage = () => {
                     
                     {isLoading ? 'Loading...' : 
                     <>
-                        <p>{formatCurrency(Number(incomeSum))}</p>
+                        <p className="section-title">{formatCurrency(Number(incomeSum))}</p>
                         <p>{monthlyBudget ? `Expected: ${formatCurrency(Number(monthlyBudget.expectedIncome))}` : 'Expected:'}</p>
                     </>
                     }

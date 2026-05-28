@@ -14,9 +14,6 @@
     align-items: end;
 }
 
-.expense-dashboard-progress-bar-btns p{
-    font-weight: var(--font-weight-light);
-}
 
 .expense-menu-progress-bar{
     display: flex;

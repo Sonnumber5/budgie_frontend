@@ -76,7 +76,7 @@ export const Fund = ({ fund, relatedTransactions, archived, isOpen, onToggle }: 
             <div className="fund-info dropdown-header">
                 <div className="fund-progress-bar-details">
                     <div className="fund-details">
-                        <p>{<RenderIcon icon={fund.icon}/>} {fund.name}</p>
+                        <p className="section-title">{<RenderIcon icon={fund.icon}/>} {fund.name}</p>
                         <p>
                             <span>{formatCurrency(Number(fund.balance))}</span>
                             <span className="text-fraction"> / {formatCurrency(Number(fund.goal))}</span>

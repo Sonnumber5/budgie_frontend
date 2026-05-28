@@ -26,7 +26,7 @@ export const Navbar = () => {
     }
     return (
         <div className="navbar">
-            <div className="navbar-brand">Budgie</div>
+            <div className="navbar-brand section-title">Budgie</div>
             <div className="navbar-content">
                 <div className="nav-buttons">
                         <button className={pathname === '/dashboard' ? 'nav-active' : 'btn-inactive-nav'} onClick={() => { navigate('/dashboard') }}>

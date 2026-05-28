@@ -91,11 +91,11 @@ export const Dashboard = () => {
                             <div className='standard-container income-dashboard-summary'>
                                 <div className='summary-header-with-icon'>
                                     <IncomeIcon/>
-                                    <p>Income</p>
+                                    <p className='section-title'>Income</p>
                                 </div>
-                                {isIncomeLoading ? 'Loading...' :
+                                {isIncomeLoading ? <p className='section-title'>Loading...</p> :
                                     <>
-                                        <p>{formatCurrency(Number(incomeSum))}</p>
+                                        <p className='section-title'>{formatCurrency(Number(incomeSum))}</p>
                                         <p>{monthlyBudget ? `Expected: ${formatCurrency(Number(monthlyBudget.expectedIncome))}` : 'Expected:'}</p>
                                     </>
                                 }
@@ -104,11 +104,11 @@ export const Dashboard = () => {
                             <div className='standard-container expense-dashboard-summary'>
                                 <div className='summary-header-with-icon'>
                                     <ExpenseIcon/>
-                                    <p>Expenses</p>
+                                    <p className='section-title'>Expenses</p>
                                 </div>
-                                {isExpensesLoading ? 'Loading...' :
+                                {isExpensesLoading ? <p className='section-title'>Loading...</p> :
                                     <>
-                                        <p>{formatCurrency(Number(expenseSum))}</p>
+                                        <p className='section-title'>{formatCurrency(Number(expenseSum))}</p>
                                         <p>{monthlyBudget ? `Budget: ${formatCurrency(Number(totalCategoryBudget))}` : 'Budget:'}</p>
                                     </>
                                 }
@@ -118,9 +118,9 @@ export const Dashboard = () => {
                         <div className='standard-container financial-overview-dashboard-summary'>
                             <div className='summary-header-with-icon'>
                                 <FinancialOverviewIcon/>
-                                <p>Financial Overview</p>
+                                <p className='section-title'>Financial Overview</p>
                             </div>
-                            <p>{isIncomeLoading || isExpensesLoading ? 'Loading...' : `${formatCurrency(Number(financialOverview))}`}</p>
+                            <p className='section-title'>{isIncomeLoading || isExpensesLoading ? <p className='section-title'>Loading...</p> : `${formatCurrency(Number(financialOverview))}`}</p>
                             <button className='info-btn' onClick={() => {setIsFinancialOverviewInfoModalOpen(true)}}>
                                 i
                             </button>
@@ -131,11 +131,11 @@ export const Dashboard = () => {
                         <div className='remaining-main'>
                             <div className='summary-header-with-icon'>
                                 <RemainingIcon/>
-                                <p>Monthly Remaining</p>
+                                <p className='section-title'>Monthly Remaining</p>
                             </div>
-                            {isIncomeLoading || isExpensesLoading ? 'Loading...' :
+                            {isIncomeLoading || isExpensesLoading ? <p className='section-title'>Loading...</p> :
                                 <>
-                                    <p>{formatCurrency(Number(currentRemaining))}</p>
+                                    <p className='section-title'>{formatCurrency(Number(currentRemaining))}</p>
                                     <p>{`Total: ${formatCurrency(Number(monthlyTotal))}`}</p>
                                     <p>{`Fund Contributions: ${formatCurrency(Number(monthlyContributionSum))}`}</p>
                                 </>
@@ -144,11 +144,11 @@ export const Dashboard = () => {
                         <div className='remaining-progress-section'>
                             {!isExpensesLoading &&
                                 <div className='progress-bar-label'>
-                                    <span>Remaining in Budget</span>
-                                    <span>
+                                    <span>Spent in Budget</span>
+                                    <p>
                                         <span>{formatCurrency(Number(expenseSum))}</span>
                                         <span className='text-fraction'> / {formatCurrency(Number(totalCategoryBudget))}</span>
-                                    </span>
+                                    </p>
                                 </div>
                             }
                             <div className='progress-bar'>
@@ -164,7 +164,7 @@ export const Dashboard = () => {
             <div className='budget-funds-balance-sections'>
                 <div className='standard-container budget-section'>
                     <div className='budget-section-header'>
-                        <p>{displayMonth} Budget</p>
+                        <p className='section-title'>{displayMonth} Budget</p>
                         {isCategoryBudgetsLoading ? '' :
                             <button className='btn-secondary' onClick={() => {setIsBudgetModalOpen(true)}}>Manage Budget</button>
                         }
@@ -187,7 +187,7 @@ export const Dashboard = () => {
                 <div className='fund-balance-section'>
                     <div className='standard-container'>
                         <div className='savings-section-header'>
-                            <p>Savings Funds</p>
+                            <p className='section-title'>Savings Funds</p>
                             <button onClick={() => {navigate('/savings-funds')}} className='btn-arrow-circle'>{`›`}</button>
                         </div>
                         <div className='fund-section custom-scroll-bar'>
@@ -205,7 +205,7 @@ export const Dashboard = () => {
                     </div>
                     <div className='standard-container'>
                         <div className='account-balance-section-header'>
-                            <p>Account Balances</p>
+                            <p className='section-title'>Account Balances</p>
                             <div className='account-balance-section-btns'>
                                 {isAccountBalancesLoading ? '' :
                                     <>

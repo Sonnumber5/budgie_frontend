@@ -23,13 +23,13 @@ export const FundPreview = ({ fund }: SavingsFundProps) => {
                 </Modal>
             <div className="fund-preview-header">
                 <div><RenderIcon icon={fund.icon}/></div>
-                <p>{fund.name}</p>
+                <p className="section-title">{fund.name}</p>
             </div>
             <div className="fund-preview-main-content">
                 <div className="progress-bar">
                     {progress > 0 && <div className="progress-fill fund-preview" style={{ width: `${progress}%` }}/>}
                 </div>
-                <p>
+                <p className="currency-text">
                     <span>{formatCurrency(Number(fund.balance))}</span>
                     <span className="text-fraction"> / {formatCurrency(Number(fund.goal))}</span>
                 </p>
