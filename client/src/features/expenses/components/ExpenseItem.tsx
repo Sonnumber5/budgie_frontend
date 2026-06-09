@@ -41,7 +41,7 @@ export const ExpenseItem = ({ expense }: ExpenseItemProps) => {
                 </Modal>
                 <ConfirmModal isOpen={isConfirmModalOpen} onClose={() => { setIsConfirmModalOpen(false) }} confirmAction={() => { handleRemoveExpense(expense.id) }} />
                 <div className="expense-date-vendor">
-                    <p>{new Date(expense.expenseDate).toLocaleDateString()}</p>
+                    <p>{new Date(expense.expenseDate).toLocaleDateString('en-US', { timeZone: 'UTC' })}</p>
                     <p>|</p>
                     <p>{expense.vendor}</p>
                 </div>

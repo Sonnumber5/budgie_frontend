@@ -44,7 +44,7 @@ export const TransactionItem = ({ transaction, canDelete }: TransactionItemProps
                     <div className="transaction-type-date-desc enabled">
                         <p>{formattedType}</p>
                         <p>|</p>
-                        <p>{new Date(transaction.transactionDate).toLocaleDateString()}</p>
+                        <p>{new Date(transaction.transactionDate).toLocaleDateString('en-US', { timeZone: 'UTC' })}</p>
                         <p>|</p>
                         <p>{transaction.description}</p>
                     </div>
@@ -59,7 +59,7 @@ export const TransactionItem = ({ transaction, canDelete }: TransactionItemProps
                     <div className="transaction-type-date-desc disabled">
                         <p>{formattedType}</p>
                         <p>|</p>
-                        <p>{new Date(transaction.transactionDate).toLocaleDateString()}</p>
+                        <p>{new Date(transaction.transactionDate).toLocaleDateString('en-US', { timeZone: 'UTC' })}</p>
                         <p>|</p>
                         <p>{transaction.description}</p>
                         
