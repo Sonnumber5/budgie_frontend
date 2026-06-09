@@ -15,7 +15,16 @@
 
 .fund-details{
     display: flex;
+    flex-direction: column;
     justify-content: space-between;
+    align-items: left;
+}
+
+@media (min-width: 768px){
+    .fund-details{
+        flex-direction: row;
+        align-items: center;
+    } 
 }
 
 .fund-details p:nth-child(1){

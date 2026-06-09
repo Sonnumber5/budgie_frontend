@@ -79,6 +79,9 @@ export const LoginPage = () => {
                         </form>
                     </div>
                 </div>
+                <p>Demo credentials:</p>
+                <p>Email: jack@gcu.com</p>
+                <p>Password: Test1234!</p>
             </div>
         </div>
     );
