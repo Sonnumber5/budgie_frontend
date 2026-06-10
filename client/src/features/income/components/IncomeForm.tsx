@@ -27,7 +27,7 @@ export const IncomeForm = ({ onSuccess, incomeToEdit }: IncomeFormProps) => {
     useEffect(() => {
         if (incomeToEdit){
             setFormData({
-                amount: incomeToEdit.amount,
+                amount: Number(incomeToEdit.amount),
                 source: incomeToEdit.source,
                 description: incomeToEdit.description,
                 incomeDate: new Date(incomeToEdit.incomeDate).toISOString().split('T')[0],

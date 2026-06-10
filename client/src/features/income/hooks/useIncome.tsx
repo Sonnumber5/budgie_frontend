@@ -70,7 +70,7 @@ export const useIncome = () => {
             }
             await deleteIncome(id);
             setIncomeList(prev => prev.filter(i => i.id !== id));
-            setIncomeSum(prev => prev - originalIncome.amount);
+            setIncomeSum(prev => prev - Number(originalIncome.amount));
         } catch(error: any){
             setError(error.response?.data?.error || error.message || 'Failed to delete income');
             throw error;
@@ -93,7 +93,7 @@ export const useIncome = () => {
             setIncomeList(prev => prev.map(i => i.id === id ? response.data.income : i)
                 .sort((a, b) => new Date(b.incomeDate).getTime() - new Date(a.incomeDate).getTime())
             );
-            setIncomeSum(prev => (prev - originalIncome.amount) + data.amount);
+            setIncomeSum(prev => (prev - Number(originalIncome.amount)) + Number(data.amount));
             return response.data.income;
         } catch(error: any){
             setError(error.response?.data?.error || error.message || 'Failed to update income');
