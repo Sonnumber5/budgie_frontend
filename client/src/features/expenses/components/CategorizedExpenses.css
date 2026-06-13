@@ -11,7 +11,16 @@
 
 .category-info{
     display: flex;
+    flex-direction: column;
+    align-items: start;
     justify-content: space-between;
+}
+
+@media (min-width: 768px){
+    .category-info{
+        flex-direction: row;
+        align-items: center;
+    } 
 }
 
 

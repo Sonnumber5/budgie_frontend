@@ -161,75 +161,78 @@ export const Dashboard = () => {
                     </div>
                 </div>
             </div>
-            <div className='budget-funds-balance-sections'>
-                <div className='standard-container budget-section'>
-                    <div className='budget-section-header'>
-                        <p className='section-title'>{displayMonth} Budget</p>
-                        {isCategoryBudgetsLoading ? '' :
-                            <button className='btn-secondary' onClick={() => {setIsBudgetModalOpen(true)}}>Manage Budget</button>
-                        }
-                    </div>
-                    <div className="monthly-budget custom-scroll-bar">
-                        <div className="category-budget-list">
-                            {categoryBudgets.length < 1 && !isCategoryBudgetsLoading &&
-                                <p>No category budgets have been added to this month's budget. Add categories by selecting the "manage budget" button.</p>
-                            }
-                            {isCategoryBudgetsLoading ? 'Loading...' :
-                                <>
-                                    {categoryBudgets.map((categoryBudget) => (
-                                        <CategoryBudgetOverview key={categoryBudget.id} categoryBudget={categoryBudget}/>
-                                    ))}
-                                </>
+            <div className='container'>
+                <div className='budget-funds-balance-sections'>
+                    <div className='standard-container budget-section'>
+                        <div className='budget-section-header'>
+                            <p className='section-title'>{displayMonth} Budget</p>
+                            {isCategoryBudgetsLoading ? '' :
+                                <button className='btn-secondary' onClick={() => {setIsBudgetModalOpen(true)}}>Manage Budget</button>
                             }
                         </div>
-                    </div>
-                </div>
-                <div className='fund-balance-section'>
-                    <div className='standard-container'>
-                        <div className='savings-section-header'>
-                            <p className='section-title'>Savings Funds</p>
-                            <button onClick={() => {navigate('/savings-funds')}} className='btn-arrow-circle'>{`›`}</button>
-                        </div>
-                        <div className='fund-section custom-scroll-bar'>
-                            {activeSavingsFunds.length < 1 && !isActiveSavingsFundsLoading &&
-                                <p>There are no active savings yet.</p>
-                            }
-                            {isActiveSavingsFundsLoading ? 'Loading...' :
-                                <>
-                                    {activeSavingsFunds.map(savingsFund => (
-                                        <FundPreview key={savingsFund.id} fund={savingsFund}/>
-                                    ))}
-                                </>
-                            }
-                        </div>
-                    </div>
-                    <div className='standard-container'>
-                        <div className='account-balance-section-header'>
-                            <p className='section-title'>Account Balances</p>
-                            <div className='account-balance-section-btns'>
-                                {isAccountBalancesLoading ? '' :
+                        <div className="monthly-budget custom-scroll-bar">
+                            <div className="category-budget-list">
+                                {categoryBudgets.length < 1 && !isCategoryBudgetsLoading &&
+                                    <p>No category budgets have been added to this month's budget. Add categories by selecting the "manage budget" button.</p>
+                                }
+                                {isCategoryBudgetsLoading ? 'Loading...' :
                                     <>
-                                        <button className="btn-danger" onClick={() => {setIsConfirmModalOpen(true)}}>Clear Balances</button>
-                                        <button className="btn-add" onClick={() => {setIsAccountBalanceModalOpen(true)}}>+</button>
+                                        {categoryBudgets.map((categoryBudget) => (
+                                            <CategoryBudgetOverview key={categoryBudget.id} categoryBudget={categoryBudget}/>
+                                        ))}
                                     </>
                                 }
                             </div>
                         </div>
-                        <div className='account-balance-section custom-scroll-bar'>
-                            {accountBalances.length < 1 && !isAccountBalancesLoading &&
-                                <p>No account balances have been added</p>
-                            }
-                            {isAccountBalancesLoading ? 'Loading...' :
-                                <>
-                                    {accountBalances.map(accountBalance => (
-                                        <AccountBalanceItem key={accountBalance.id} accountBalance={accountBalance} />
-                                    ))}
-                                </>
-                            }
+                    </div>
+                    <div className='fund-balance-section'>
+                        <div className='standard-container'>
+                            <div className='savings-section-header'>
+                                <p className='section-title'>Savings Funds</p>
+                                <button onClick={() => {navigate('/savings-funds')}} className='btn-arrow-circle'>{`›`}</button>
+                            </div>
+                            <div className='fund-section custom-scroll-bar'>
+                                {activeSavingsFunds.length < 1 && !isActiveSavingsFundsLoading &&
+                                    <p>There are no active savings yet.</p>
+                                }
+                                {isActiveSavingsFundsLoading ? 'Loading...' :
+                                    <>
+                                        {activeSavingsFunds.map(savingsFund => (
+                                            <FundPreview key={savingsFund.id} fund={savingsFund}/>
+                                        ))}
+                                    </>
+                                }
+                            </div>
+                        </div>
+                        <div className='standard-container'>
+                            <div className='account-balance-section-header'>
+                                <p className='section-title'>Account Balances</p>
+                                <div className='account-balance-section-btns'>
+                                    {isAccountBalancesLoading ? '' :
+                                        <>
+                                            <button className="btn-danger" onClick={() => {setIsConfirmModalOpen(true)}}>Clear Balances</button>
+                                            <button className="btn-add" onClick={() => {setIsAccountBalanceModalOpen(true)}}>+</button>
+                                        </>
+                                    }
+                                </div>
+                            </div>
+                            <div className='account-balance-section custom-scroll-bar'>
+                                {accountBalances.length < 1 && !isAccountBalancesLoading &&
+                                    <p>No account balances have been added</p>
+                                }
+                                {isAccountBalancesLoading ? 'Loading...' :
+                                    <>
+                                        {accountBalances.map(accountBalance => (
+                                            <AccountBalanceItem key={accountBalance.id} accountBalance={accountBalance} />
+                                        ))}
+                                    </>
+                                }
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
+            
         </div>
     )
 }
