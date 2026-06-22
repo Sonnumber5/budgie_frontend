@@ -71,7 +71,7 @@ budgie_frontend/client/
 ## Prerequisites
 
 - [Node.js](https://nodejs.org/) v18 or higher
-- The [Budgie backend](../../budgie_backend/README.md) running locally
+- The [Budgie backend](https://github.com/Sonnumber5/budgie_backend) running locally
 
 ---
 
